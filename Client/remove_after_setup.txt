@@ -1,0 +1,1 @@
+This is a dummy text which enables "empty folder" to be commited to repository.
