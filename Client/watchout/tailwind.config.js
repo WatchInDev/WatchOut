@@ -4,7 +4,14 @@ module.exports = {
 
   presets: [require('nativewind/preset')],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        light: ['Roboto_300Light', 'sans-serif'],
+        medium: ['Roboto_500Medium', 'sans-serif'],
+        semibold: ['Roboto_600SemiBold', 'sans-serif'],
+        bold: ['Roboto_700Bold', 'sans-serif'],
+      }
+    },
   },
   plugins: [],
 };

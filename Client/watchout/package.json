@@ -2,8 +2,8 @@
   "name": "watchout",
   "version": "1.0.0",
   "scripts": {
-    "android": "expo start --android",
-    "ios": "expo start --ios",
+    "android": "expo run:android",
+    "ios": "expo run:ios",
     "start": "expo start",
     "prebuild": "expo prebuild",
     "lint": "eslint \"**/*.{js,jsx,ts,tsx}\" && prettier -c \"**/*.{js,jsx,ts,tsx,json}\"",
@@ -11,16 +11,29 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@expo-google-fonts/roboto": "^0.4.0",
+    "@expo/metro-runtime": "~5.0.4",
+    "@react-native-vector-icons/evil-icons": "^12.3.0",
+    "@react-native-vector-icons/fontawesome6": "^12.2.0",
+    "@react-native-vector-icons/material-design-icons": "^12.3.0",
+    "@react-navigation/native": "^7.1.16",
+    "@react-navigation/native-stack": "^7.3.23",
+    "@tanstack/react-query": "^5.83.0",
     "expo": "^53.0.20",
+    "expo-asset": "~11.1.7",
+    "expo-font": "~13.3.2",
     "expo-status-bar": "~2.2.3",
     "nativewind": "latest",
     "react": "19.0.0",
+    "react-dom": "19.0.0",
     "react-native": "0.79.5",
+    "react-native-gesture-handler": "~2.24.0",
+    "react-native-paper": "^5.14.5",
     "react-native-reanimated": "~3.17.4",
     "react-native-safe-area-context": "5.4.0",
-    "react-dom": "19.0.0",
+    "react-native-screens": "~4.11.1",
     "react-native-web": "^0.20.0",
-    "@expo/metro-runtime": "~5.0.4"
+    "url-loader": "^4.1.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
