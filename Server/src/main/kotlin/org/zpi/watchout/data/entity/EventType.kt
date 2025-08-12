@@ -14,12 +14,12 @@ class EventType() : AbstractEntity() {
     lateinit var name: String
 
     @Column(nullable = false)
-    lateinit var icon: ByteArray
+    lateinit var icon: String
 
     @Column(nullable = false)
     lateinit var description:String
 
-    constructor(name: String, icon: ByteArray, description:String) : this() {
+    constructor(name: String, icon: String, description:String) : this() {
         this.name = name
         this.icon = icon
         this.description = description
