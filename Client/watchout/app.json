@@ -11,22 +11,6 @@
       "tsconfigPaths": true
     },
     "plugins": [
-      [
-        "expo-font",
-        {
-          "fonts": [
-            "./assets/fonts/MaterialDesignIcons.ttf"
-          ]
-        }
-      ],
-      [
-        "expo-asset",
-        {
-          "assets": [
-            "./assets/fonts/MaterialDesignIcons.ttf"
-          ]
-        }
-      ]
     ],
     "orientation": "portrait",
     "icon": "./assets/icon.png",

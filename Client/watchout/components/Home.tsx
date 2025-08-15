@@ -1,16 +1,31 @@
-import { Link } from '@react-navigation/native';
-import { Text } from 'components/Base/Text';
+import { Dimensions, StyleSheet, View } from 'react-native';
+import MapView, { PROVIDER_GOOGLE} from 'react-native-maps';
 
-export const Home = () => {
-  return (
-    <>
-      <Text className="text-2xl font-bold mb-4">Welcome to WatchOut!</Text>
-      <Text className='font-medium'>
-        This is the home screen of your app. You can start building your features from here.ddd
-      </Text>
-      <Link screen='EventTypes' params={{}}>
-        Go to Event Types
-      </Link>
-    </>
-  );
-}
+const styles = StyleSheet.create({
+ container: {
+   ...StyleSheet.absoluteFillObject,
+   width: Dimensions.get('window').width,
+   height: Dimensions.get('window').height,
+   justifyContent: 'flex-end',
+   alignItems: 'center',
+ },
+ map: {
+   ...StyleSheet.absoluteFillObject,
+ },
+});
+
+export const Home = () => (
+   <View style={styles.container}>
+     <MapView
+       style={styles.map}
+       provider={PROVIDER_GOOGLE}
+       region={{
+         latitude: 37.78825,
+         longitude: -122.4324,
+         latitudeDelta: 0.015,
+         longitudeDelta: 0.0121,
+       }}
+     >
+     </MapView>
+   </View>
+);
