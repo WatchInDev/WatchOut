@@ -28,7 +28,16 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.anonymous.watchout"
+      "package": "com.anonymous.watchout",
+      "config": {
+        "googleMaps": {
+          "apiKey": "YOUR_API_KEY"
+        }
+      },
+      "permissions": [
+        "ACCESS_FINE_LOCATION",
+        "POST_NOTIFICATIONS"
+      ]
     }
   }
 }

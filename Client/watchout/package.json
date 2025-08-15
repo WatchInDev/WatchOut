@@ -14,6 +14,7 @@
     "@expo-google-fonts/roboto": "^0.4.0",
     "@expo/config-plugins": "10.1.2",
     "@expo/metro-runtime": "~5.0.4",
+    "@react-native-community/geolocation": "^3.4.0",
     "@react-native-vector-icons/evil-icons": "^12.3.0",
     "@react-native-vector-icons/fontawesome6": "^12.2.0",
     "@react-native-vector-icons/material-design-icons": "^12.3.0",
