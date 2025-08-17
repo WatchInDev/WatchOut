@@ -1,6 +1,4 @@
-import React, { useEffect } from 'react';
-import { Dimensions, Linking, PermissionsAndroid, Platform, StyleSheet, View } from 'react-native';
-import Geolocation from '@react-native-community/geolocation';
+import { Dimensions, StyleSheet, View } from 'react-native';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import { useLocation } from 'hooks/useLocation';
 
@@ -28,7 +26,7 @@ export const Home = () => {
         showsUserLocation={true}
         followsUserLocation={true}
         showsMyLocationButton={true}
-        initialRegion={{
+        region={{
           latitude: location?.latitude || 0,
           longitude: location?.longitude || 0,
           latitudeDelta: 0.1,

@@ -1,8 +1,5 @@
-import { useQuery } from "@tanstack/react-query";
-import { apiClient } from "utils/apiClient";
+import { apiDefinitions } from "utils/apiDefinition";
 import { EventType } from "utils/types";
+import { useQueryHook } from "utils/useGenericGet";
 
-export const useGetEventTypes = () => useQuery<EventType[], Error>({
-  queryKey: ['eventTypes'],
-  queryFn: async () => apiClient.get<EventType[]>('/event-types').then(res => res.data)
-});
+export const useGetEventTypes = () => useQueryHook<EventType[], Error>(apiDefinitions.eventTypes);
