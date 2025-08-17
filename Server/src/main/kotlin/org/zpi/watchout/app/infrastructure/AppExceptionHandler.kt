@@ -1,0 +1,41 @@
+package org.zpi.watchout.app.infrastructure
+
+import io.github.oshai.kotlinlogging.KotlinLogging
+import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.ControllerAdvice
+import org.springframework.web.bind.annotation.ExceptionHandler
+import org.springframework.web.bind.annotation.RestControllerAdvice
+import org.zpi.watchout.app.infrastructure.exceptions.EntityNotFoundException
+import org.zpi.watchout.service.dto.ExceptionDto
+import java.time.LocalDateTime
+
+private val logger = KotlinLogging.logger {}
+
+@RestControllerAdvice
+class AppExceptionHandler {
+
+    @ExceptionHandler(Exception::class)
+    fun handleException(ex: Exception): ResponseEntity<ExceptionDto> {
+        val exceptionDto = ExceptionDto(
+            timestamp = LocalDateTime.now().toString(),
+            message = ex.message ?: HttpStatus.INTERNAL_SERVER_ERROR.reasonPhrase,
+            status = HttpStatus.INTERNAL_SERVER_ERROR.value()
+        )
+        logger.error(ex) { "An error occurred: ${ex.message}" }
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(exceptionDto)
+    }
+
+    @ExceptionHandler(EntityNotFoundException::class)
+    fun handleEntityNotFoundException(ex: EntityNotFoundException): ResponseEntity<ExceptionDto> {
+        val exceptionDto = ExceptionDto(
+            timestamp = LocalDateTime.now().toString(),
+            message = ex.message ?: HttpStatus.NOT_FOUND.reasonPhrase,
+            status = HttpStatus.NOT_FOUND.value()
+        )
+        logger.warn(ex) { "Entity not found: ${ex.message}" }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exceptionDto)
+    }
+
+
+}
