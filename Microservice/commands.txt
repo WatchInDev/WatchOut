@@ -1,0 +1,19 @@
+# Debug and run
+docker compose down            -- Stops and removes containers defined in docker-compose.yml
+docker compose --env-file .env.prod up --build  -- Forces rebuild of all images before starting containers
+docker compose -f docker-compose.dev.yml --env-file .env.prod up -d --build
+docker compose -f docker-compose.prod.yml --env-file .env.prod up -d --build
+
+
+# Building
+docker build -t avtopetrovich/wo-microservice:1.0 .
+
+# Pushing
+docker push avtopetrovich/wo-microservice:1.0
+
+# Pulling
+docker pull avtopetrovich/wo-microservice:1.0
+
+# SCP
+ssh root@1.1.1.1
+scp docker-compose.prod.yml .env.prod backup.env nginx.conf root@1.1.1.1:~
