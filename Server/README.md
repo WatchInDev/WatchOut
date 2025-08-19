@@ -35,11 +35,13 @@ Once the database is configured, you can start the application.
 
 4. In the **Environment variables** field, click the folder icon to open the variables dialog.
 
-5. Add the following two variables, setting their values to your actual PostgreSQL username and password:
+5. Add the following three variables, setting their values to your actual PostgreSQL username and password and db endpoint url:
 
-    * `APP_DB_USERNAME`
+    * `SPRING_DATASOURCE_USERNAME` 
 
-    * `APP_DB_PASSWORD`
+    * `SPRING_DATASOURCE_PASSWORD`
+
+    * `SPRING_DATASOURCE_URL` (e.g., `jdbc:postgresql://localhost:5432/watchout` for a local database connection).
 
 6. Click **OK** to save the configuration.
 
@@ -51,22 +53,26 @@ This method uses the build tool to run the application directly from your termin
 
 The application connects to the database using environment variables. Before starting the server, you **must** set the database username and password.
 
-* `APP_DB_USERNAME`: Your PostgreSQL database username.
+* `SPRING_DATASOURCE_USERNAME`: Your PostgreSQL database username.
 
-* `APP_DB_PASSWORD`: Your PostgreSQL database password.
+* `SPRING_DATASOURCE_PASSWORD`: Your PostgreSQL database password.
+
+* `SPRING_DATASOURCE_URL`: The JDBC URL for your PostgreSQL database (e.g., `jdbc:postgresql://localhost:5432/watchout`).
 
 Here's how you can set them in a typical terminal environment (like Bash or Zsh):
 
 ```
-export APP_DB_USERNAME="your_username"
-export APP_DB_PASSWORD="your_password"
+export SPRING_DATASOURCE_USERNAME="your_username"
+export SPRING_DATASOURCE_PASSWORD="your_password"
+export SPRING_DATASOURCE_URL="jdbc:postgresql://localhost:5432/watchout"
 ```
 
 If you are on Windows using Command Prompt, use `set` instead of `export`:
 
 ```
-set APP_DB_USERNAME=your_username
-set APP_DB_PASSWORD=your_password
+set SPRING_DATASOURCE_USERNAME=your_username
+set SPRING_DATASOURCE_PASSWORD=your_password
+set SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/watchout
 ```
 
 Navigate to the project's root directory and use the Maven Wrapper (`./mvnw`) to run the Spring Boot application:
