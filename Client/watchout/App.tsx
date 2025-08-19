@@ -14,8 +14,7 @@ import { useFonts } from 'expo-font';
 import { Roboto_300Light, Roboto_400Regular, Roboto_500Medium, Roboto_600SemiBold, Roboto_700Bold } from '@expo-google-fonts/roboto';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-
-const Stack = createNativeStackNavigator();
+import { AppNavigator, CustomDrawer } from 'components/CustomDrawer';
 
 const theme: Partial<MD3Theme> = {
   mode: 'exact',
@@ -46,16 +45,7 @@ export default function App() {
         <SafeAreaProvider>
           <PaperProvider theme={theme}>
             <NavigationContainer>
-              <Stack.Navigator
-                initialRouteName="Home"
-                screenOptions={{
-                  headerShown: true,
-                  header: (props) => <NavigationBar {...props} />
-                }}
-              >
-                <Stack.Screen name="Home" component={Home} />
-                <Stack.Screen name="EventTypes" component={EventTypes} />
-              </Stack.Navigator>
+              <AppNavigator />
               <StatusBar style="light" />
             </NavigationContainer>
           </PaperProvider>
