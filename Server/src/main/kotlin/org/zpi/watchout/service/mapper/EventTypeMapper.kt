@@ -8,6 +8,7 @@ import org.zpi.watchout.service.dto.EventTypeDto
 class EventTypeMapper {
     fun mapToDto(eventType: EventType): EventTypeDto {
         return EventTypeDto(
+            id = eventType.id!!,
             name = eventType.name,
             icon = eventType.icon,
             description = eventType.description
