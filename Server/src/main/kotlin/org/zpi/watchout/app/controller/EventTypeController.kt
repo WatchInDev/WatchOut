@@ -30,7 +30,7 @@ class EventTypeController(
 
     @GetMapping("/{name}")
     @Operation(summary = "Get event type by name")
-    fun getEventTypeByName(@PathVariable name: String) : EventTypeDto {
+    fun getEventTypeByName(@PathVariable("name") name: String) : EventTypeDto {
         logger.info { "Fetching event type with name: $name" }
         return eventTypeService.getEventTypeByName(name)
             .also { logger.info { "Fetched event type: $it" } }
