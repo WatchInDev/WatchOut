@@ -6,6 +6,25 @@ import { Text } from 'components/Base/Text';
 import { Home } from './Home';
 import { EventTypes } from './EventTypes';
 
+const NavDrawer = createDrawerNavigator();
+
+export const AppNavigator = () => {
+  return (
+    <NavDrawer.Navigator
+      initialRouteName='WatchOut'
+      screenOptions={{
+        drawerStyle: {
+          width: 100,
+        }
+      }}
+      drawerContent={(props) => <CustomDrawerContent {...props} />}
+    >
+      <NavDrawer.Screen name="WatchOut" component={Home}/>
+      <NavDrawer.Screen name="EventTypes" component={EventTypes} />
+    </NavDrawer.Navigator>
+  );
+};
+
 const CustomDrawerContent = (props: DrawerContentComponentProps) => {
   return (
     <View className='flex-1'>
@@ -29,25 +48,6 @@ const CustomDrawerContent = (props: DrawerContentComponentProps) => {
         })}
       </DrawerContentScrollView>
     </View>
-  );
-};
-
-const NavDrawer = createDrawerNavigator();
-
-export const AppNavigator = () => {
-  return (
-    <NavDrawer.Navigator
-      initialRouteName='Home'
-      screenOptions={{
-        drawerStyle: {
-          width: 100,
-        }
-      }}
-      drawerContent={(props) => <CustomDrawerContent {...props} />}
-    >
-      <NavDrawer.Screen name="Home" component={Home} />
-      <NavDrawer.Screen name="EventTypes" component={EventTypes} />
-    </NavDrawer.Navigator>
   );
 };
 

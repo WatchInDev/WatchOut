@@ -1,6 +1,9 @@
 import { Dimensions, StyleSheet, View } from 'react-native';
-import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
+import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import { useLocation } from 'hooks/useLocation';
+import { useGetEvents } from 'hooks/useGetEvents';
+import { Event } from 'utils/types';
+import { Icon } from 'react-native-paper';
 
 const styles = StyleSheet.create({
   container: {
@@ -17,6 +20,7 @@ const styles = StyleSheet.create({
 
 export const Home = () => {
   const { location } = useLocation();
+  const { data: events } = useGetEvents();
 
   return (
     <View style={styles.container}>
@@ -32,7 +36,21 @@ export const Home = () => {
           latitudeDelta: 0.1,
           longitudeDelta: 0.05,
         }}
-      />
+      >
+        {events?.map((event: Event) => (
+          <Marker
+            key={event.id}
+            coordinate={{
+              latitude: event.latitude,
+              longitude: event.longitude,
+            }}
+            title={event.name}
+            description={event.description}
+          >
+            <Icon source={event.eventType.icon} size={32} />
+          </Marker>
+        ))}
+      </MapView>
     </View>
   );
 };

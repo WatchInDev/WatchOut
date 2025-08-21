@@ -10,6 +10,11 @@ export const apiDefinitions = {
     endpoint: '/event-types',
     method: 'GET' as const,
   },
+  events: {
+    key: ['events'],
+    endpoint: '/events',
+    method: 'GET' as const,
+  },
   locations: {
     key: ['locations'],
     endpoint: '/locations',
