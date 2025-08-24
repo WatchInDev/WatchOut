@@ -3,7 +3,7 @@ import { createDrawerNavigator, DrawerContentComponentProps, DrawerContentScroll
 import { Drawer } from 'react-native-paper';
 import { View, StyleSheet } from 'react-native';
 import { Text } from 'components/Base/Text';
-import { Home } from './Home';
+import { Map } from './Map';
 import { EventTypes } from './EventTypes';
 
 const NavDrawer = createDrawerNavigator();
@@ -19,8 +19,8 @@ export const AppNavigator = () => {
       }}
       drawerContent={(props) => <CustomDrawerContent {...props} />}
     >
-      <NavDrawer.Screen name="WatchOut" component={Home}/>
-      <NavDrawer.Screen name="EventTypes" component={EventTypes} />
+      <NavDrawer.Screen name="WatchOut" component={Map} options={{ drawerLabel: 'Mapa' }} />
+      <NavDrawer.Screen name="EventTypes" component={EventTypes} options={{ drawerLabel: 'Rodzaje zdarzeń' }} />
     </NavDrawer.Navigator>
   );
 };
@@ -39,7 +39,7 @@ const CustomDrawerContent = (props: DrawerContentComponentProps) => {
             <Drawer.CollapsedItem
               focusedIcon='inbox'
               key={route.key}
-              label={route.name}
+              label={props.descriptors[route.key].options.drawerLabel?.toString() || route.name}
               active={isRouteActive}
               onPress={() => props.navigation.navigate(route.name)}
               style={isRouteActive ? styles.activeDrawerItem : styles.inactiveDrawerItem}
