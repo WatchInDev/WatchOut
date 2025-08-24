@@ -32,15 +32,23 @@ export const Map = () => {
 
   const handleMarkerPress = useCallback((event: Event) => {
     if (mapRef.current) {
-      mapRef.current.animateToRegion({
-        latitude: event.latitude,
-        longitude: event.longitude,
-        latitudeDelta: 0.01,
-        longitudeDelta: 0.01,
-      }, 500);
+      mapRef.current.animateToRegion(
+        {
+          latitude: event.latitude,
+          longitude: event.longitude,
+          latitudeDelta: 0.01,
+          longitudeDelta: 0.01,
+        },
+        500
+      );
     }
     setSelectedEvent(event);
     bottomSheetRef.current?.present();
+  }, []);
+
+  const handleMarkerDeselect = useCallback(() => {
+    setSelectedEvent(null);
+    bottomSheetRef.current?.dismiss();
   }, []);
 
   return (
@@ -58,8 +66,7 @@ export const Map = () => {
           latitudeDelta: 0.1,
           longitudeDelta: 0.05,
         }}
-        moveOnMarkerPress={true}
-      >
+        moveOnMarkerPress={true}>
         {events?.map((event: Event) => (
           <Marker
             key={event.id}
@@ -70,17 +77,12 @@ export const Map = () => {
             title={event.name}
             description={event.description}
             onPress={() => handleMarkerPress(event)}
-          >
+            onDeselect={() => handleMarkerDeselect()}>
             <Icon source={event.eventType.icon} size={32} />
           </Marker>
         ))}
       </MapView>
-      <BottomSheetModal
-        ref={bottomSheetRef}
-        snapPoints={['40%']}
-        index={0}
-        enablePanDownToClose
-      >
+      <BottomSheetModal ref={bottomSheetRef} snapPoints={['40%']} index={0} enablePanDownToClose>
         <BottomSheetView>
           {selectedEvent ? (
             <EventBottomSheet event={selectedEvent} />

@@ -10,7 +10,7 @@ import { useFonts } from 'expo-font';
 import { Roboto_300Light, Roboto_400Regular, Roboto_500Medium, Roboto_600SemiBold, Roboto_700Bold } from '@expo-google-fonts/roboto';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { AppNavigator } from 'components/CustomDrawer';
+import { AppNavigator } from './components/Layout/AppNavigator';
 import { Gesture, GestureHandlerRootView } from 'react-native-gesture-handler';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 
