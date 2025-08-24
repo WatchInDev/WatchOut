@@ -70,6 +70,7 @@ export const Map = () => {
         {events?.map((event: Event) => (
           <Marker
             key={event.id}
+            anchor={{ x: 0.5, y: 0.5 }}
             coordinate={{
               latitude: event.latitude,
               longitude: event.longitude,
