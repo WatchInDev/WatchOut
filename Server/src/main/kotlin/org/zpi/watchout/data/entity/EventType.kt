@@ -14,5 +14,5 @@ class EventType(
     @Column(name = "icon")
     val icon: String,
     @Column(name = "description")
-    val description:String
+    val description: String
 ) : AbstractEntity()
