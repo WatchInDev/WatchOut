@@ -8,20 +8,11 @@ import org.zpi.watchout.data.AbstractEntity
 
 @Entity
 @Table(name = "event_types", schema = "watchout")
-class EventType() : AbstractEntity() {
-
-    @Column(nullable = false)
-    lateinit var name: String
-
-    @Column(nullable = false)
-    lateinit var icon: String
-
-    @Column(nullable = false)
-    lateinit var description:String
-
-    constructor(name: String, icon: String, description:String) : this() {
-        this.name = name
-        this.icon = icon
-        this.description = description
-    }
-}
+class EventType(
+    @Column(name = "name")
+    val name: String,
+    @Column(name = "icon")
+    val icon: String,
+    @Column(name = "description")
+    val description: String
+) : AbstractEntity()
