@@ -17,3 +17,10 @@ docker pull avtopetrovich/wo-microservice:1.0
 # SCP
 ssh root@1.1.1.1
 scp docker-compose.prod.yml .env.prod backup.env nginx.conf root@1.1.1.1:~
+
+
+# FastAPI stuff
+tasklist | findstr python
+
+taskkill /f /im python.exe
+taskkill /f /im uvicorn.exe

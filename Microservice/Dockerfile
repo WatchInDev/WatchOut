@@ -22,5 +22,4 @@ COPY . /app/
 
 EXPOSE 8001
 
-CMD ["sh", "-c", "uv run python manage.py migrate && uv run gunicorn Microservice.wsgi:application --bind 0.0.0.0:8001 --workers 1"]
-
+CMD ["sh", "-c", "uv run gunicorn main:app --bind 0.0.0.0:8001 --workers 3 --worker-class uvicorn.workers.UvicornWorker"]
