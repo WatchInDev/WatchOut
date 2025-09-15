@@ -29,7 +29,7 @@ class EventMapper(val eventTypeMapper: EventTypeMapper, val eventTypeRepository:
         return Event(
             name = eventRequestDto.name,
             description = eventRequestDto.description ?: "",
-            image = eventRequestDto.image,
+            image = eventRequestDto.image ?: ByteArray(0),
             latitude = eventRequestDto.latitude,
             longitude = eventRequestDto.longitude,
             reportedDate = LocalDateTime.now(),

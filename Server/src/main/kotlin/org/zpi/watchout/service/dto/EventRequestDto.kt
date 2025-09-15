@@ -7,17 +7,17 @@ import jakarta.validation.constraints.NotBlank
 import java.time.LocalDateTime
 
 data class EventRequestDto(
-    @NotBlank
+    @field:NotBlank(message = "Name must not be blank")
     val name: String,
     val description : String?,
     val image: ByteArray?,
-    @Max(90)
-    @Min(-90)
+    @field:Max(90, message = "Latitude must be between -90 and 90")
+    @field:Min(-90, message = "Latitude must be between -90 and 90")
     val latitude: Double,
-    @Max(180)
-    @Min(-180)
+    @field:Max(180, message = "Longitude must be between -180 and 180")
+    @Min(-180, message = "Longitude must be between -180 and 180")
     val longitude: Double,
-    @Future
+    @field:Future(message = "End date must be in the future")
     val endDate: LocalDateTime,
     val eventTypeId: Long
 ) {

@@ -3,6 +3,7 @@ package org.zpi.watchout.app.infrastructure
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
@@ -35,6 +36,18 @@ class AppExceptionHandler {
         )
         logger.warn(ex) { "Entity not found: ${ex.message}" }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exceptionDto)
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException::class)
+    fun handleValidationException(ex: MethodArgumentNotValidException): ResponseEntity<ExceptionDto> {
+        val errors = ex.bindingResult.allErrors.joinToString("; ") { it.defaultMessage ?: "Invalid value" }
+        val exceptionDto = ExceptionDto(
+            timestamp = LocalDateTime.now().toString(),
+            message = "Validation failed: $errors",
+            status = HttpStatus.BAD_REQUEST.value()
+        )
+        logger.warn(ex) { "Validation error: $errors" }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exceptionDto)
     }
 
 
