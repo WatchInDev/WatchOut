@@ -6,6 +6,7 @@ import org.zpi.watchout.data.entity.Event
 import org.zpi.watchout.data.repos.EventTypeRepository
 import org.zpi.watchout.service.dto.EventRequestDto
 import org.zpi.watchout.service.dto.EventResponseDto
+import java.time.LocalDateTime
 
 @Component
 class EventMapper(val eventTypeMapper: EventTypeMapper, val eventTypeRepository: EventTypeRepository) {
@@ -27,11 +28,11 @@ class EventMapper(val eventTypeMapper: EventTypeMapper, val eventTypeRepository:
     fun mapToEntity(eventRequestDto: EventRequestDto): Event {
         return Event(
             name = eventRequestDto.name,
-            description = eventRequestDto.description,
+            description = eventRequestDto.description ?: "",
             image = eventRequestDto.image,
             latitude = eventRequestDto.latitude,
             longitude = eventRequestDto.longitude,
-            reportedDate = eventRequestDto.reportedDate,
+            reportedDate = LocalDateTime.now(),
             endDate = eventRequestDto.endDate,
             isActive = true,
             eventType = eventTypeRepository.findById(eventRequestDto.eventTypeId)

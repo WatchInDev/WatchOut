@@ -3,6 +3,7 @@ package org.zpi.watchout.app.controller
 import io.github.oshai.kotlinlogging.KotlinLogging
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
+import jakarta.validation.Valid
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
@@ -40,7 +41,7 @@ class EventController(val eventService: EventService) {
 
     @PostMapping
     @Operation(summary = "Create a new event")
-    fun createEvent(@RequestBody eventRequestDto: EventRequestDto): EventResponseDto {
+    fun createEvent(@RequestBody @Valid eventRequestDto: EventRequestDto): EventResponseDto {
         logger.info { "Creating event with request name: ${eventRequestDto.name}" }
         val createdEvent = eventService.createEvent(eventRequestDto)
         logger.info { "Created event with name and id: ${createdEvent.name}, ${createdEvent.id}" }
