@@ -24,7 +24,7 @@ private val logger = KotlinLogging.logger {}
 class EventController(val eventService: EventService) {
 
     @GetMapping
-    @Operation(summary = "Get all events with applied filter",
+    @Operation(summary = "Get all events by location",
         description = "Get all events within the specified bounding box defined by South-West and North-East coordinates.")
     fun getAllEvents(eventFilterDTO: EventFilterDTO):List<EventResponseDto> {
         logger.info { "Fetching all events" }
@@ -34,8 +34,8 @@ class EventController(val eventService: EventService) {
     }
 
     @GetMapping("/clusters")
-    @Operation(summary = "Get clustered events by location and zoom level",
-        description = "Get clustered events within the specified bounding box defined by South-West and North-East coordinates. Bounding box is Divided into gridCells x gridCells cells, and events within each cell are clustered together.")
+    @Operation(summary = "Get clustered events by location",
+        description = "Get clustered events within the specified bounding box defined by South-West and North-East coordinates. Bounding box is Divided into gridCells x gridCells cells, and events within each cell are clustered together. The response contains the centroid of each cluster along with the count of events in that cluster.")
     fun getClusteredEvents(clusterRequestDto: ClusterRequestDTO): List<ClusterResponseDTO> {
         logger.info { "Fetching clustered events" }
         val clusters = eventService.getClusters(clusterRequestDto)
