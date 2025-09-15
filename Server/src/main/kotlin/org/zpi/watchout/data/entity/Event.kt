@@ -5,6 +5,7 @@ import jakarta.persistence.Entity
 import jakarta.persistence.JoinColumn
 import jakarta.persistence.ManyToOne
 import jakarta.persistence.Table
+import org.springframework.data.geo.Point
 import org.zpi.watchout.data.AbstractEntity
 import java.time.LocalDateTime
 
