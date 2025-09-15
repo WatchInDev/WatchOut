@@ -7,7 +7,7 @@ This document provides a step-by-step guide for setting up and running the Sprin
 Before you begin, make sure you have the following installed on your system:
 
 * **Java Development Kit (JDK) 17 or higher**
-* **PostgreSQL:** This application uses a PostgreSQL database. You'll need to have the server installed and running.
+* **PostgreSQL (POSTGIS):** This application uses a PostgreSQL database with PostGis extension. You'll need to have the server installed and running. You need to install the PostGIS extension on your PostgreSQL database. You can do this using the StackBuilder in windows or by installing the `postgis` package on Linux.
 * **IntelliJ IDEA (optional)** 
 * **Maven (optional)** 
 
