@@ -15,10 +15,10 @@ class EventService(val eventRepository: EventRepository, val eventMapper: EventM
 
     fun getAllEvents(eventFilterDTO: EventFilterDTO): List<EventResponseDto> {
         return eventRepository.findByLocation(
-            eventFilterDTO.southWestLongitude,
-            eventFilterDTO.southWestLatitude,
-            eventFilterDTO.northEastLongitude,
-            eventFilterDTO.northEastLatitude
+            eventFilterDTO.swLng,
+            eventFilterDTO.swLat,
+            eventFilterDTO.neLng,
+            eventFilterDTO.neLat
         ).map { eventMapper.mapToDto(it) }
     }
 
@@ -33,13 +33,13 @@ class EventService(val eventRepository: EventRepository, val eventMapper: EventM
     }
 
     fun getClusters(clusterRequestDto: ClusterRequestDTO): List<ClusterResponseDTO> {
-        val width = clusterRequestDto.northEastLongitude - clusterRequestDto.southWestLongitude
-        val height = clusterRequestDto.northEastLatitude - clusterRequestDto.southWestLatitude
+        val width = clusterRequestDto.neLng - clusterRequestDto.swLng
+        val height = clusterRequestDto.neLat - clusterRequestDto.swLat
 
-        return eventRepository.calculateClusters(clusterRequestDto.southWestLongitude,
-            clusterRequestDto.southWestLatitude,
-            clusterRequestDto.northEastLongitude,
-            clusterRequestDto.northEastLatitude,
+        return eventRepository.calculateClusters(clusterRequestDto.swLng,
+            clusterRequestDto.swLat,
+            clusterRequestDto.neLng,
+            clusterRequestDto.neLat,
             width / clusterRequestDto.gridCells,
             height / clusterRequestDto.gridCells)
     }
