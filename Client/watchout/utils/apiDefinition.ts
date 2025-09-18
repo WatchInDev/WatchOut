@@ -1,28 +1,40 @@
+import { API_URL } from './../config';
 export type ApiDefinition = {
   key: string[];
   endpoint: string;
-  method?: 'GET' | 'POST' | 'PUT' | 'DELETE';
+};
+
+class BaseApi {
+  protected readonly baseUrl: string = API_URL;
+  protected constructor(additionalPath: string) {
+    this.baseUrl = `${this.baseUrl}/${additionalPath}`;
+  }
 }
 
-export const apiDefinitions = {
-  eventTypes: {
-    key: ['eventTypes'],
-    endpoint: '/event-types',
-    method: 'GET' as const,
-  },
-  events: {
-    key: ['events'],
-    endpoint: '/events',
-    method: 'GET' as const,
-  },
-  locations: {
-    key: ['locations'],
-    endpoint: '/locations',
-    method: 'GET' as const,
-  },
-  users: {
-    key: ['users'],
-    endpoint: '/users',
-    method: 'GET' as const,
-  },
-} satisfies Record<string, ApiDefinition>;
+class EventApi extends BaseApi {
+  constructor() {
+    super('events');
+  }
+
+  getClusters({ swLat, swLng, neLat, neLng }: { 
+    swLat: number; 
+    swLng: number; 
+    neLat: number; 
+    neLng: number 
+  }): string {
+    return `${this.baseUrl}/clusters?swLat=${swLat}&swLng=${swLng}&neLat=${neLat}&neLng=${neLng}`;
+  }
+}
+
+class EventTypeApi extends BaseApi {
+  constructor() {
+    super('event-types');
+  }
+
+  getAll = `${this.baseUrl}`;
+}
+
+export const API_ENDPOINTS = {
+  events: new EventApi(),
+  eventTypes: new EventTypeApi(),
+};

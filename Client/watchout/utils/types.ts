@@ -17,3 +17,9 @@ export type Event = {
   eventType: EventType;
   active: boolean;
 };
+
+export type EventCluster = {
+  latitude: number;
+  longitude: number;
+  count: number;
+}

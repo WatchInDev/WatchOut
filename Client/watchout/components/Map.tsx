@@ -1,11 +1,11 @@
-import { Dimensions, StyleSheet, View } from 'react-native';
+import { Dimensions, StyleSheet } from 'react-native';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import { useLocation } from 'hooks/useLocation';
-import { useGetEvents } from 'hooks/useGetEvents';
+import { useGetEvents } from 'hooks/events.hooks';
 import { Event } from 'utils/types';
 import { Text } from 'components/Base/Text';
 import { Icon } from 'react-native-paper';
-import { useRef, useState, useMemo, useCallback } from 'react';
+import { useRef, useState, useCallback } from 'react';
 import { BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet';
 import { EventBottomSheet } from './EventBottomSheet';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
@@ -30,7 +30,12 @@ export const Map = () => {
   const { data: events } = useGetEvents();
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
 
+
   const handleMarkerPress = useCallback((event: Event) => {
+    if (selectedEvent?.id === event.id) {
+      return;
+    }
+
     if (mapRef.current) {
       mapRef.current.animateToRegion(
         {
@@ -44,9 +49,9 @@ export const Map = () => {
     }
     setSelectedEvent(event);
     bottomSheetRef.current?.present();
-  }, []);
+  }, [selectedEvent]);
 
-  const handleMarkerDeselect = useCallback(() => {
+  const handleMapPress = useCallback(() => {
     setSelectedEvent(null);
     bottomSheetRef.current?.dismiss();
   }, []);
@@ -59,6 +64,7 @@ export const Map = () => {
         provider={PROVIDER_GOOGLE}
         showsUserLocation={true}
         followsUserLocation={true}
+        onPress={handleMapPress}
         showsMyLocationButton={true}
         region={{
           latitude: location?.latitude || 0,
@@ -77,8 +83,7 @@ export const Map = () => {
             }}
             title={event.name}
             description={event.description}
-            onPress={() => handleMarkerPress(event)}
-            onDeselect={() => handleMarkerDeselect()}>
+            onPress={() => handleMarkerPress(event)}>
             <Icon source={event.eventType.icon} size={32} />
           </Marker>
         ))}

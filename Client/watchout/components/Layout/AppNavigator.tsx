@@ -15,11 +15,21 @@ export const AppNavigator = () => {
   return (
     <NavDrawer.Navigator
       initialRouteName='WatchOut'
-      screenOptions={{
-        drawerStyle: {
-          width: 100,
-        }
-      }}
+        screenOptions={{
+          drawerStyle: {
+            width: 110,
+          },
+          headerTitleStyle: {
+            fontSize: 18,
+            fontFamily: 'Poppins_600SemiBold',
+            color: '#333',
+          },
+          drawerLabelStyle: {
+            fontFamily: 'Poppins_700Regular',
+            fontSize: 16,
+            color: '#333',
+          }
+        }}
       drawerContent={(props) => <CustomDrawerContent {...props} />}
     >
       {routes.map((route) => (

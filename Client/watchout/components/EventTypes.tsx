@@ -1,8 +1,8 @@
 import { View, ScrollView } from 'react-native';
 import { Text } from 'components/Base/Text';
 import { ActivityIndicator, Card, Icon } from 'react-native-paper';
-import { useGetEventTypes } from 'hooks/useGetEventTypes';
 import { ErrorDisplay } from './Common/ErrorDisplay';
+import { useGetEventTypes } from 'hooks/event-types.hooks';
 
 export const EventTypes = () => {
   const { data: eventTypes = [], isPending, isError } = useGetEventTypes();
@@ -17,7 +17,7 @@ export const EventTypes = () => {
 
   return (
     <>
-      <Text className="py-8 text-center font-semibold text-5xl tracking-normal">
+      <Text style={{ lineHeight: 50 }} className="py-8 text-center font-semibold text-5xl tracking-normal">
         Rodzaje zdarzeń
       </Text>
       {isPending && <ActivityIndicator size="large" className="my-12" />}
@@ -28,8 +28,8 @@ export const EventTypes = () => {
               <View className="m-2 flex flex-row items-center gap-4">
                 <Icon source={event.icon} size={64} />
                 <View className="flex-1">
-                  <Text className="font-bold text-2xl">{event.name}</Text>
-                  <Text className="font-light">{event.description}</Text>
+                  <Text className="font-bold text-xl">{event.name}</Text>
+                  <Text>{event.description}</Text>
                 </View>
               </View>
             </Card>

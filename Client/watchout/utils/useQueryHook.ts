@@ -1,8 +1,7 @@
 import { useQuery, UseQueryResult } from "@tanstack/react-query";
 import { apiClient } from "./apiClient";
-import { ApiDefinition } from "./apiDefinition";
 
-export const useQueryHook = <TData, TError = Error>({ key, endpoint }: ApiDefinition): UseQueryResult<TData, TError> => {
+export const useQueryHook = <TData, TError = Error>(key: string[], endpoint: string): UseQueryResult<TData, TError> => {
   return useQuery<TData, TError>({
     queryKey: key,
     queryFn: async () => {
