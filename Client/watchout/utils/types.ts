@@ -1,3 +1,10 @@
+export type Coordinates = {
+  swLat: number;
+  swLng: number;
+  neLat: number;
+  neLng: number;
+}
+
 export type EventType = {
   id: number;
   name: string;

@@ -27,7 +27,13 @@ export const Map = () => {
   const mapRef = useRef<MapView>(null);
   const bottomSheetRef = useRef<BottomSheetModal>(null);
   const { location } = useLocation();
-  const { data: events } = useGetEvents();
+  const [mapBounds, setMapBounds] = useState({
+    neLat: 0,
+    neLng: 0,
+    swLat: 0,
+    swLng: 0
+  });
+  const { data: events } = useGetEvents(mapBounds);
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
 
 
@@ -72,7 +78,16 @@ export const Map = () => {
           latitudeDelta: 0.1,
           longitudeDelta: 0.05,
         }}
-        moveOnMarkerPress={true}>
+        moveOnMarkerPress={true}
+        onRegionChangeComplete={updateMapBounds => {
+          const { latitude, longitude, latitudeDelta, longitudeDelta } = updateMapBounds;
+          setMapBounds({
+            neLat: latitude + latitudeDelta / 2,
+            neLng: longitude + longitudeDelta / 2,
+            swLat: latitude - latitudeDelta / 2,
+            swLng: longitude - longitudeDelta / 2
+          });
+        }}>
         {events?.map((event: Event) => (
           <Marker
             key={event.id}
