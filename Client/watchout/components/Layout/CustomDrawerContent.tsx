@@ -21,7 +21,7 @@ export const CustomDrawerContent = (props: DrawerContentComponentProps) => {
               active={isRouteActive}
               onPress={() => props.navigation.navigate(route.name)}
               style={isRouteActive ? styles.activeDrawerItem : styles.inactiveDrawerItem}
-            >Guwno</Drawer.CollapsedItem>
+            />
           );
         })}
       </DrawerContentScrollView>
