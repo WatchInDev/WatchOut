@@ -11,7 +11,7 @@
     "web": "expo start --web"
   },
   "dependencies": {
-    "@expo-google-fonts/roboto": "^0.4.0",
+    "@expo-google-fonts/poppins": "^0.4.0",
     "@expo/config-plugins": "10.1.2",
     "@expo/metro-runtime": "~5.0.4",
     "@gorhom/bottom-sheet": "^5.2.3",

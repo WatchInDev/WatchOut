@@ -39,6 +39,7 @@ class EventController(val eventService: EventService) {
         description = "Get clustered events within the specified bounding box defined by South-West and North-East coordinates. Bounding box is Divided into gridCells x gridCells cells, and events within each cell are clustered together. The response contains the centroid of each cluster along with the count of events in that cluster.")
     fun getClusteredEvents(@Valid clusterRequestDto: ClusterRequestDTO): List<ClusterResponseDTO> {
         logger.info { "Fetching clustered events" }
+        logger.info { "Cluster request: SW(${clusterRequestDto.swLat}, ${clusterRequestDto.swLng}), NE(${clusterRequestDto.neLat}, ${clusterRequestDto.neLng}), gridCells: ${clusterRequestDto.gridCells}" }
         val clusters = eventService.getClusters(clusterRequestDto)
         logger.info { "Fetched ${clusters.size} clustered events" }
         return clusters

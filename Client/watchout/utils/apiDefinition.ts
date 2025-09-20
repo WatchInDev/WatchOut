@@ -1,28 +1,23 @@
+import type { Coordinates } from './types';
+
 export type ApiDefinition = {
   key: string[];
   endpoint: string;
-  method?: 'GET' | 'POST' | 'PUT' | 'DELETE';
+};
+
+const queryParams = (params: Record<string, string | number | boolean>) => {
+  const esc = encodeURIComponent;
+  return '?' + Object.keys(params)
+    .map(k => esc(k) + '=' + esc(params[k]))
+    .join('&');
 }
 
-export const apiDefinitions = {
-  eventTypes: {
-    key: ['eventTypes'],
-    endpoint: '/event-types',
-    method: 'GET' as const,
-  },
+export const API_ENDPOINTS = {
   events: {
-    key: ['events'],
-    endpoint: '/events',
-    method: 'GET' as const,
+    get: (coordinates: Coordinates) => `events${queryParams(coordinates)}`,
+    getClusters: (coordinates: Coordinates, gridCells: number) => `events/clusters${queryParams(coordinates)}&gridCells=${gridCells}`,
   },
-  locations: {
-    key: ['locations'],
-    endpoint: '/locations',
-    method: 'GET' as const,
-  },
-  users: {
-    key: ['users'],
-    endpoint: '/users',
-    method: 'GET' as const,
-  },
-} satisfies Record<string, ApiDefinition>;
+  eventTypes: {
+    getAll: 'event-types',
+  }
+};

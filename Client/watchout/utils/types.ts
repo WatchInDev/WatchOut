@@ -1,3 +1,10 @@
+export type Coordinates = {
+  swLat: number;
+  swLng: number;
+  neLat: number;
+  neLng: number;
+}
+
 export type EventType = {
   id: number;
   name: string;
@@ -17,3 +24,9 @@ export type Event = {
   eventType: EventType;
   active: boolean;
 };
+
+export type EventCluster = {
+  latitude: number;
+  longitude: number;
+  count: number;
+}

@@ -35,5 +35,6 @@ const styles = StyleSheet.create({
   },
   inactiveDrawerItem: {
     backgroundColor: 'transparent',
+    fontFamily: 'Poppins_400Regular',
   },
 });
