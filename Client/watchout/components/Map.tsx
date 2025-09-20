@@ -1,7 +1,8 @@
-import { Dimensions, StyleSheet } from 'react-native';
+import { Dimensions, StyleSheet, View } from 'react-native';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import { useLocation } from 'hooks/useLocation';
-import { useGetEvents } from 'hooks/events.hooks';
+import { useGetEvents, useGetEventsClustered } from 'hooks/events.hooks';
+import { Image } from 'react-native';
 import { Event } from 'utils/types';
 import { Text } from 'components/Base/Text';
 import { Icon } from 'react-native-paper';
@@ -33,15 +34,16 @@ export const Map = () => {
     swLat: 0,
     swLng: 0
   });
+  const [isZoomedEnough, setIsZoomedEnough] = useState(false);
+  
   const { data: events } = useGetEvents(mapBounds);
+  const { data: clusters } = useGetEventsClustered(mapBounds, 2);
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
 
-
-  const handleMarkerPress = useCallback((event: Event) => {
+  const handleMarkerPress = (event: Event) => {
     if (selectedEvent?.id === event.id) {
       return;
     }
-
     if (mapRef.current) {
       mapRef.current.animateToRegion(
         {
@@ -55,12 +57,12 @@ export const Map = () => {
     }
     setSelectedEvent(event);
     bottomSheetRef.current?.present();
-  }, [selectedEvent]);
+  };
 
-  const handleMapPress = useCallback(() => {
+  const handleMapPress = () => {
     setSelectedEvent(null);
     bottomSheetRef.current?.dismiss();
-  }, []);
+  };
 
   return (
     <GestureHandlerRootView style={styles.container}>
@@ -87,8 +89,40 @@ export const Map = () => {
             swLat: latitude - latitudeDelta / 2,
             swLng: longitude - longitudeDelta / 2
           });
+          
+          const zoomThreshold = 0.1;
+          setIsZoomedEnough(latitudeDelta <= zoomThreshold);
         }}>
-        {events?.map((event: Event) => (
+        {!isZoomedEnough && clusters?.map((cluster) => (
+          <Marker
+            key={`${cluster.latitude}-${cluster.longitude}`}
+            anchor={{ x: 0.5, y: 0.5 }}
+            coordinate={{
+              latitude: cluster.latitude,
+              longitude: cluster.longitude,
+            }}
+            title={`Cluster of ${cluster.count} events`}
+            description={`There are ${cluster.count} events in this area.`}
+          >
+            <Icon source="circle" size={40} />
+            <View className='text-center justify-center items-center' style={{position: 'absolute', left: 0, top: 0, width: 40, height: 40}}>
+              <Text
+                style={{
+                  color: 'white',
+                  fontWeight: 'bold',
+                  fontSize: 16,
+                  textShadowColor: 'rgba(0, 0, 0, 0.8)',
+                  textShadowOffset: { width: 2, height: 2 },
+                  textShadowRadius: 1,
+                  textAlign: 'center',
+                  textAlignVertical: 'center',
+                  lineHeight: 40,
+                }}
+                >{cluster.count}</Text>
+            </View>
+          </Marker>
+        ))}
+        {isZoomedEnough && events?.map((event: Event) => (
           <Marker
             key={event.id}
             anchor={{ x: 0.5, y: 0.5 }}

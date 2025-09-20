@@ -3,13 +3,13 @@ import "@expo/metro-runtime";
 import { StatusBar } from 'expo-status-bar';
 
 import './global.css';
-import { MD3Theme, PaperProvider, configureFonts } from 'react-native-paper';
+import { PaperProvider } from 'react-native-paper';
 import { Text } from 'components/Base/Text';
 import { NavigationContainer } from '@react-navigation/native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { AppNavigator } from './components/Layout/AppNavigator';
-import { Gesture, GestureHandlerRootView } from 'react-native-gesture-handler';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { useFonts } from '@expo-google-fonts/poppins/useFonts';
 import { Poppins_100Thin } from '@expo-google-fonts/poppins/100Thin';
@@ -30,28 +30,7 @@ import { Poppins_800ExtraBold } from '@expo-google-fonts/poppins/800ExtraBold';
 import { Poppins_800ExtraBold_Italic } from '@expo-google-fonts/poppins/800ExtraBold_Italic';
 import { Poppins_900Black } from '@expo-google-fonts/poppins/900Black';
 import { Poppins_900Black_Italic } from '@expo-google-fonts/poppins/900Black_Italic';
-
-
-const fontConfig = {
-  default: {
-    fontFamily: 'Poppins_400Regular',
-    fontWeight: '400',
-    letterSpacing: 0.25,
-  },
-  labelMedium: {
-    fontFamily: 'Poppins_500Medium',
-    fontWeight: '500',
-    letterSpacing: 0.25,
-    lineHeight: 16,
-    fontSize: 12,
-  }
-};
-
-const theme: Partial<MD3Theme> = {
-  mode: 'exact',
-  dark: false,
-  fonts: configureFonts({ config: fontConfig })
-}
+import { theme } from 'utils/theme';
 
 const queryClient = new QueryClient();
 
