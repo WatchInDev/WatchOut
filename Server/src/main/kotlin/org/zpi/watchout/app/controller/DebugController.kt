@@ -28,4 +28,16 @@ class DebugController(private val debugService: DebugService) {
         debugService.generateSampleEvents(number)
     }
 
+    @GetMapping("/test-comments/{eventId}/{number}")
+    @Operation(summary = "Generate sample comments", description = "Generate a specified number of sample comments for testing purposes for a given event.")
+    fun generateTestComments(@PathVariable("eventId") eventId: Long, @PathVariable("number") number: Int) {
+        debugService.generateSampleComments(number, eventId)
+    }
+
+    @DeleteMapping("/test-comments")
+    @Operation(summary = "Delete all comments")
+    fun clearComments() {
+        debugService.clearAllComments()
+    }
+
 }
