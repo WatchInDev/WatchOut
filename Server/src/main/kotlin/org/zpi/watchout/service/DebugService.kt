@@ -2,16 +2,19 @@ package org.zpi.watchout.service
 
 import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Service
+import org.zpi.watchout.data.entity.Comment
 import org.zpi.watchout.data.entity.Event
 import org.zpi.watchout.data.entity.EventType
+import org.zpi.watchout.data.repos.CommentRepository
 import org.zpi.watchout.data.repos.EventRepository
 import org.zpi.watchout.data.repos.EventTypeRepository
+import org.zpi.watchout.data.repos.UserRepository
 import java.time.LocalDateTime
 import kotlin.random.Random
 
 @Service
 @Profile("local")
-class DebugService(val eventRepository: EventRepository, val eventTypeRepository: EventTypeRepository) {
+class DebugService(val eventRepository: EventRepository, val eventTypeRepository: EventTypeRepository, val commentRepository: CommentRepository, val userRepository: UserRepository) {
 
     private val eventNames = listOf(
         "Wypadek komunikacyjny",
@@ -82,6 +85,25 @@ class DebugService(val eventRepository: EventRepository, val eventTypeRepository
             events.add(event)
         }
         eventRepository.saveAll(events)
+    }
+
+    fun generateSampleComments(number: Int, eventId: Long) {
+        val comments = mutableListOf<Comment>()
+        val event = eventRepository.findById(eventId).orElseThrow( { Exception("Event not found") } )
+        val users = userRepository.findAll()
+        for (i in 1..number) {
+            val comment = Comment(
+                content = "To jest przykładowy komentarz numer $i",
+                author = users.random(),
+                eventId = eventId
+            )
+            comments.add(comment)
+        }
+        commentRepository.saveAll(comments)
+    }
+
+    fun clearAllComments() {
+        commentRepository.deleteAll()
     }
 
 }
