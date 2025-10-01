@@ -2,9 +2,8 @@ package org.zpi.watchout.service
 
 import org.springframework.stereotype.Service
 import org.zpi.watchout.app.infrastructure.exceptions.EntityNotFoundException
-import org.zpi.watchout.data.entity.EventType
 import org.zpi.watchout.data.repos.EventTypeRepository
-import org.zpi.watchout.service.dto.EventTypeDto
+import org.zpi.watchout.service.dto.EventTypeDTO
 import org.zpi.watchout.service.mapper.EventTypeMapper
 
 @Service
@@ -13,14 +12,14 @@ class EventTypeService(
     private val eventTypeMapper: EventTypeMapper
 ) {
 
-    fun getAllEventTypes(): List<EventTypeDto> {
+    fun getAllEventTypes(): List<EventTypeDTO> {
         return eventTypeRepository.findAll()
             .map { eventType ->
                 eventTypeMapper.mapToDto(eventType)
             }
     }
 
-    fun getEventTypeByName(name: String): EventTypeDto {
+    fun getEventTypeByName(name: String): EventTypeDTO {
         return eventTypeRepository.findByName(name)
             ?.let { eventType ->
                 eventTypeMapper.mapToDto(eventType)

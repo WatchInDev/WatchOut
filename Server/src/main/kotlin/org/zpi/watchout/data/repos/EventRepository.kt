@@ -8,7 +8,7 @@ import org.zpi.watchout.data.entity.Event
 import org.zpi.watchout.service.dto.ClusterResponseDTO
 
 @Repository
-interface EventRepository: JpaRepository<Event, Long> {
+interface EventRepository: JpaRepository<Event, Long>, EventRepositoryCriteriaApi {
 
     @Query(
         """
@@ -30,20 +30,5 @@ interface EventRepository: JpaRepository<Event, Long> {
         @Param("gridSizeX") gridSizeX: Double,
         @Param("gridSizeY") gridSizeY: Double
     ): List<ClusterResponseDTO>
-
-
-    @Query(
-        """
-        SELECT * FROM watchout.events e
-        WHERE e.location && ST_MakeEnvelope(:west, :south, :east, :north, 4326)
-        """,
-        nativeQuery = true
-    )
-    fun findByLocation(
-        @Param("west") west: Double,
-        @Param("south") south: Double,
-        @Param("east") east: Double,
-        @Param("north") north: Double
-    ) : List<Event>
 
 }
