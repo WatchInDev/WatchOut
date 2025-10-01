@@ -4,11 +4,10 @@ import io.github.oshai.kotlinlogging.KotlinLogging
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.MethodArgumentNotValidException
-import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
 import org.zpi.watchout.app.infrastructure.exceptions.EntityNotFoundException
-import org.zpi.watchout.service.dto.ExceptionDto
+import org.zpi.watchout.service.dto.ExceptionDTO
 import java.time.LocalDateTime
 
 private val logger = KotlinLogging.logger {}
@@ -17,8 +16,8 @@ private val logger = KotlinLogging.logger {}
 class AppExceptionHandler {
 
     @ExceptionHandler(Exception::class)
-    fun handleException(ex: Exception): ResponseEntity<ExceptionDto> {
-        val exceptionDto = ExceptionDto(
+    fun handleException(ex: Exception): ResponseEntity<ExceptionDTO> {
+        val exceptionDto = ExceptionDTO(
             timestamp = LocalDateTime.now().toString(),
             message = ex.message ?: HttpStatus.INTERNAL_SERVER_ERROR.reasonPhrase,
             status = HttpStatus.INTERNAL_SERVER_ERROR.value()
@@ -28,8 +27,8 @@ class AppExceptionHandler {
     }
 
     @ExceptionHandler(EntityNotFoundException::class)
-    fun handleEntityNotFoundException(ex: EntityNotFoundException): ResponseEntity<ExceptionDto> {
-        val exceptionDto = ExceptionDto(
+    fun handleEntityNotFoundException(ex: EntityNotFoundException): ResponseEntity<ExceptionDTO> {
+        val exceptionDto = ExceptionDTO(
             timestamp = LocalDateTime.now().toString(),
             message = ex.message ?: HttpStatus.NOT_FOUND.reasonPhrase,
             status = HttpStatus.NOT_FOUND.value()
@@ -39,9 +38,9 @@ class AppExceptionHandler {
     }
 
     @ExceptionHandler(MethodArgumentNotValidException::class)
-    fun handleValidationException(ex: MethodArgumentNotValidException): ResponseEntity<ExceptionDto> {
+    fun handleValidationException(ex: MethodArgumentNotValidException): ResponseEntity<ExceptionDTO> {
         val errors = ex.bindingResult.allErrors.joinToString("; ") { it.defaultMessage ?: "Invalid value" }
-        val exceptionDto = ExceptionDto(
+        val exceptionDto = ExceptionDTO(
             timestamp = LocalDateTime.now().toString(),
             message = "Validation failed: $errors",
             status = HttpStatus.BAD_REQUEST.value()

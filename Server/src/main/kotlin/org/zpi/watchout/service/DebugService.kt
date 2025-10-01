@@ -74,13 +74,15 @@ class DebugService(val eventRepository: EventRepository, val eventTypeRepository
             val event = Event(
                 name = randomEventName,
                 description = eventDescriptions[randomEventName] ?: "Brak opisu",
-                latitude = randomLatitude,
-                longitude = randomLongitude,
                 image = ByteArray(0),
                 reportedDate = LocalDateTime.now().minusDays((0..10).random().toLong()),
                 endDate = LocalDateTime.now().plusDays((1..10).random().toLong()),
                 isActive = true,
                 eventType = eventTypes.find { it.name == randomEventName } ?: randomEventType,
+                author = userRepository.findAll().random(),
+                location = org.locationtech.jts.geom.GeometryFactory().createPoint(org.locationtech.jts.geom.Coordinate(randomLongitude, randomLatitude)).also {
+                    it.srid = 4326
+                }
             )
             events.add(event)
         }

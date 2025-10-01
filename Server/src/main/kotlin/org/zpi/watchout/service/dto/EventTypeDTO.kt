@@ -1,6 +1,6 @@
 package org.zpi.watchout.service.dto
 
-data class EventTypeDto(
+data class EventTypeDTO(
     val id: Long,
     val name: String,
     val icon: String,

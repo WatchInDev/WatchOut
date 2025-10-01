@@ -5,7 +5,6 @@ import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 import jakarta.validation.Valid
 import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
@@ -14,8 +13,8 @@ import org.zpi.watchout.service.EventService
 import org.zpi.watchout.service.dto.ClusterRequestDTO
 import org.zpi.watchout.service.dto.ClusterResponseDTO
 import org.zpi.watchout.service.dto.EventFilterDTO
-import org.zpi.watchout.service.dto.EventRequestDto
-import org.zpi.watchout.service.dto.EventResponseDto
+import org.zpi.watchout.service.dto.EventRequestDTO
+import org.zpi.watchout.service.dto.EventResponseDTO
 
 private val logger = KotlinLogging.logger {}
 
@@ -27,7 +26,7 @@ class EventController(val eventService: EventService) {
     @GetMapping
     @Operation(summary = "Get all events by location",
         description = "Get all events within the specified bounding box defined by South-West and North-East coordinates.")
-    fun getAllEvents(@Valid eventFilterDTO: EventFilterDTO):List<EventResponseDto> {
+    fun getAllEvents(@Valid eventFilterDTO: EventFilterDTO):List<EventResponseDTO> {
         logger.info { "Fetching all events" }
         val events = eventService.getAllEvents(eventFilterDTO)
         logger.info { "Fetched ${events.size} events" }
@@ -45,19 +44,9 @@ class EventController(val eventService: EventService) {
         return clusters
     }
 
-
-    @GetMapping("/{id}")
-    @Operation(summary = "Get event by ID")
-    fun getEventById(@PathVariable("id") id: Long): EventResponseDto {
-        logger.info { "Fetching event with id: $id" }
-        val event = eventService.getEventById(id)
-        logger.info { "Fetched event: ${event.id}" }
-        return event
-    }
-
     @PostMapping
     @Operation(summary = "Create a new event")
-    fun createEvent(@RequestBody @Valid eventRequestDto: EventRequestDto): EventResponseDto {
+    fun createEvent(@RequestBody @Valid eventRequestDto: EventRequestDTO): EventResponseDTO {
         logger.info { "Creating event with request name: ${eventRequestDto.name}" }
         val createdEvent = eventService.createEvent(eventRequestDto)
         logger.info { "Created event with name and id: ${createdEvent.name}, ${createdEvent.id}" }

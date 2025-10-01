@@ -7,9 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
-import org.zpi.watchout.data.entity.EventType
 import org.zpi.watchout.service.EventTypeService
-import org.zpi.watchout.service.dto.EventTypeDto
+import org.zpi.watchout.service.dto.EventTypeDTO
 
 private val logger = KotlinLogging.logger {}
 
@@ -22,7 +21,7 @@ class EventTypeController(
 
     @GetMapping
     @Operation(summary = "Get all event types")
-    fun getAllEventTypes() : List<EventTypeDto> {
+    fun getAllEventTypes() : List<EventTypeDTO> {
         logger.info { "Fetching all event types" }
         return eventTypeService.getAllEventTypes()
             .also { logger.info { "Fetched ${it.size} event types" } }
@@ -30,7 +29,7 @@ class EventTypeController(
 
     @GetMapping("/{name}")
     @Operation(summary = "Get event type by name")
-    fun getEventTypeByName(@PathVariable("name") name: String) : EventTypeDto {
+    fun getEventTypeByName(@PathVariable("name") name: String) : EventTypeDTO {
         logger.info { "Fetching event type with name: $name" }
         return eventTypeService.getEventTypeByName(name)
             .also { logger.info { "Fetched event type: $it" } }

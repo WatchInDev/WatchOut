@@ -6,7 +6,7 @@ import jakarta.validation.constraints.Min
 import jakarta.validation.constraints.NotBlank
 import java.time.LocalDateTime
 
-data class EventRequestDto(
+data class EventRequestDTO(
     @field:NotBlank(message = "Name must not be blank")
     val name: String,
     val description : String?,
