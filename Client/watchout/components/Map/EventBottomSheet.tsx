@@ -8,7 +8,7 @@ export const EventBottomSheet = ({ event }: { event: Event }) => {
     <View className="px-6 mb-8">
       <View className='flex flex-row items-center gap-4 mb-4'>
         <Icon source={event.eventType.icon} size={64} />
-        <Text className='text-4xl font-bold'>{event.name}</Text>
+        <Text className='text-4xl font-bold leading-tight text-wrap'>{event.name}</Text>
       </View>
       <Text className='text-sm'>Zgłoszono: {new Date(event.reportedDate).toLocaleString()}</Text>
       <Text className='text-lg'>{event.description}</Text>

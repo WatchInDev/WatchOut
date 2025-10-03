@@ -31,30 +31,35 @@ import { Poppins_800ExtraBold_Italic } from '@expo-google-fonts/poppins/800Extra
 import { Poppins_900Black } from '@expo-google-fonts/poppins/900Black';
 import { Poppins_900Black_Italic } from '@expo-google-fonts/poppins/900Black_Italic';
 import { theme } from 'utils/theme';
+import Geocoding from 'react-native-geocoding';
 
 const queryClient = new QueryClient();
+
+Geocoding.init('', {
+  language: "pl",
+});
 
 export default function App() {
   const [loaded] = useFonts({
     MaterialDesignIcons: require("./assets/fonts/MaterialDesignIcons.ttf"),
-      Poppins_100Thin, 
-      Poppins_100Thin_Italic, 
-      Poppins_200ExtraLight, 
-      Poppins_200ExtraLight_Italic, 
-      Poppins_300Light, 
-      Poppins_300Light_Italic, 
-      Poppins_400Regular, 
-      Poppins_400Regular_Italic, 
-      Poppins_500Medium, 
-      Poppins_500Medium_Italic, 
-      Poppins_600SemiBold, 
-      Poppins_600SemiBold_Italic, 
-      Poppins_700Bold, 
-      Poppins_700Bold_Italic, 
-      Poppins_800ExtraBold, 
-      Poppins_800ExtraBold_Italic, 
-      Poppins_900Black, 
-      Poppins_900Black_Italic
+    Poppins_100Thin,
+    Poppins_100Thin_Italic,
+    Poppins_200ExtraLight,
+    Poppins_200ExtraLight_Italic,
+    Poppins_300Light,
+    Poppins_300Light_Italic,
+    Poppins_400Regular,
+    Poppins_400Regular_Italic,
+    Poppins_500Medium,
+    Poppins_500Medium_Italic,
+    Poppins_600SemiBold,
+    Poppins_600SemiBold_Italic,
+    Poppins_700Bold,
+    Poppins_700Bold_Italic,
+    Poppins_800ExtraBold,
+    Poppins_800ExtraBold_Italic,
+    Poppins_900Black,
+    Poppins_900Black_Italic
   });
 
   if (!loaded) {
@@ -66,18 +71,18 @@ export default function App() {
   return (
     <>
       <GestureHandlerRootView>
-        <BottomSheetModalProvider>
-          <QueryClientProvider client={queryClient}>
-            <SafeAreaProvider>
+        <QueryClientProvider client={queryClient}>
+          <SafeAreaProvider>
+            <BottomSheetModalProvider>
               <PaperProvider theme={theme}>
                 <NavigationContainer>
                   <AppNavigator />
                   <StatusBar style="light" />
                 </NavigationContainer>
               </PaperProvider>
-            </SafeAreaProvider>
-          </QueryClientProvider>
-        </BottomSheetModalProvider>
+            </BottomSheetModalProvider>
+          </SafeAreaProvider>
+        </QueryClientProvider>
       </GestureHandlerRootView>
     </>
   );

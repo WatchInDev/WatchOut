@@ -2,10 +2,10 @@ import { Marker } from 'react-native-maps';
 import { Event } from 'utils/types';
 import { Icon } from 'react-native-paper';
 
-interface EventMarkerProps {
+type EventMarkerProps = {
   event: Event;
   onPress: (event: Event) => void;
-}
+};
 
 export const EventMarker = ({ event, onPress }: EventMarkerProps) => (
   <Marker
@@ -15,8 +15,6 @@ export const EventMarker = ({ event, onPress }: EventMarkerProps) => (
       latitude: event.latitude,
       longitude: event.longitude,
     }}
-    title={event.name}
-    description={event.description}
     onPress={() => onPress(event)}>
     <Icon source={event.eventType.icon} size={32} />
   </Marker>
