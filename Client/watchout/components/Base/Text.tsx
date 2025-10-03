@@ -1,4 +1,4 @@
-import { Platform, Text as ReactNativeText, TextProps } from 'react-native';
+import { Text as ReactNativeText, TextProps } from 'react-native';
 
 const defaultStyles = {
   color: '#4A4459',

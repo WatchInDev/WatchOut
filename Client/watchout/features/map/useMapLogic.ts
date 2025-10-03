@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useGetEvents, useGetEventsClustered } from 'hooks/events.hooks';
+import { useGetEvents, useGetEventsClustered } from 'features/events/events.hooks';
 import MapView, { Region } from 'react-native-maps';
 import { MAP_CLUSTERING_ZOOM_THRESHOLD } from 'utils/constants';
 

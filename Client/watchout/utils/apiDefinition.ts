@@ -1,4 +1,4 @@
-import type { Coordinates } from './types';
+import type { CoordinatesRect } from './types';
 
 export type ApiDefinition = {
   key: string[];
@@ -14,8 +14,9 @@ const queryParams = (params: Record<string, string | number | boolean>) => {
 
 export const API_ENDPOINTS = {
   events: {
-    get: (coordinates: Coordinates) => `events${queryParams(coordinates)}`,
-    getClusters: (coordinates: Coordinates, gridCells: number) => `events/clusters${queryParams(coordinates)}&gridCells=${gridCells}`,
+    get: (coordinates: CoordinatesRect) => `events${queryParams(coordinates)}`,
+    getClusters: (coordinates: CoordinatesRect, gridCells: number) => `events/clusters${queryParams(coordinates)}&gridCells=${gridCells}`,
+    create: 'events',
   },
   eventTypes: {
     getAll: 'event-types',

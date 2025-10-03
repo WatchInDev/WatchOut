@@ -1,16 +1,16 @@
 import { Dimensions, StyleSheet, View } from 'react-native';
 import MapView, { LongPressEvent, Marker, PROVIDER_GOOGLE } from 'react-native-maps';
-import { useLocation } from 'hooks/useLocation';
+import { useLocation } from 'features/map/useLocation';
 import { Event } from 'utils/types';
-import { Text } from 'components/Base/Text';
-import { Icon } from 'react-native-paper';
+import { Button, Icon } from 'react-native-paper';
 import { useRef, useState, useCallback } from 'react';
 import { BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet';
-import { EventBottomSheet } from './EventBottomSheet';
+import { EventBottomSheet } from 'features/events/EventBottomSheet';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { useMapLogic } from 'hooks/useMapLogic';
-import { EventMarker } from './EventMarker';
+import { useMapLogic } from 'features/map/useMapLogic';
 import { ClusterMarker } from './ClusterMarker';
+import { EventMarker } from './EventMarker';
+import { CreateEvent } from '../events/CreateEvent';
 
 const styles = StyleSheet.create({
   container: {
@@ -25,6 +25,8 @@ const styles = StyleSheet.create({
   },
 });
 
+const ZOOM_TO_EVENT_MILLISECONDS = 500;
+
 export const Map = () => {
   const mapRef = useRef<MapView>(null);
   const bottomSheetRef = useRef<BottomSheetModal>(null);
@@ -37,6 +39,8 @@ export const Map = () => {
   const openCreateEventModal = (event: LongPressEvent) => {
     const { coordinate } = event.nativeEvent;
     setNewEventLocation(coordinate);
+    setSelectedEvent(null);
+    bottomSheetRef.current?.present();
   }
 
   const handleMarkerPress = useCallback((event: Event) => {
@@ -51,10 +55,11 @@ export const Map = () => {
           latitudeDelta: 0.01,
           longitudeDelta: 0.01,
         },
-        500
+        ZOOM_TO_EVENT_MILLISECONDS
       );
     }
     setSelectedEvent(event);
+    setNewEventLocation(null);
     bottomSheetRef.current?.present();
   }, [selectedEvent, mapRef]);
 
@@ -74,6 +79,8 @@ export const Map = () => {
         followsUserLocation={true}
         onPress={handleMapPress}
         onLongPress={openCreateEventModal}
+        showsCompass={true}
+        showsScale={true}
         showsMyLocationButton={true}
         onRegionChangeComplete={onRegionChangeComplete}
         region={{
@@ -110,10 +117,15 @@ export const Map = () => {
       </MapView>
       <BottomSheetModal ref={bottomSheetRef} snapPoints={['40%']} index={0} enablePanDownToClose>
         <BottomSheetView>
-          {selectedEvent ? (
+          {selectedEvent && (
             <EventBottomSheet event={selectedEvent} />
-          ) : (
-            <Text>No event selected</Text>
+          )}
+          {newEventLocation && (
+            <CreateEvent location={newEventLocation} onSuccess={() => {
+              bottomSheetRef.current?.dismiss();
+              setNewEventLocation(null);
+            }}
+            />
           )}
         </BottomSheetView>
       </BottomSheetModal>
