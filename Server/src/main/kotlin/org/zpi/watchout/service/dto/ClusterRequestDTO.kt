@@ -16,6 +16,9 @@ data class ClusterRequestDTO(
     @field:Max(180, message = "Longitude must be between -180 and 180")
     @field:Min(-180, message = "Longitude must be between -180 and 180")
     val neLng: Double,
-    @field:Min(1, message = "Grid cells must be at least 1")
-    val gridCells : Int,
+    @field:Min(0, message = "Epsilon must be non-negative")
+    @field:Max(10, message = "Epsilon must be at most 10")
+    val eps: Double,
+    @field:Min(1, message = "Minimum points must be at least 1")
+    val minPoints: Int
 )

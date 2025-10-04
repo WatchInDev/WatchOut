@@ -15,7 +15,8 @@ data class EventResponseDTO(
     val isActive: Boolean,
     val eventType: EventTypeDTO,
     val author: AuthorResponseDTO,
-    val rating: Double
+    val rating: Double,
+    val ratingForCurrentUser: Int
 ) {
     constructor(
         id: Long,
@@ -34,7 +35,8 @@ data class EventResponseDTO(
         authorName: String,
         authorLastname: String,
         authorReputation: Double,
-        rating: Double
+        rating: Double,
+        ratingForCurrentUser: Int
     ) : this(
         id,
         name,
@@ -47,6 +49,7 @@ data class EventResponseDTO(
         isActive,
         EventTypeDTO(eventTypeId, eventTypeName, eventTypeIcon, eventTypeDescription),
         AuthorResponseDTO(authorId, authorName, authorLastname, authorReputation),
-        rating
+        rating,
+        ratingForCurrentUser
     )
 }

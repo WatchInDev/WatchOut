@@ -35,10 +35,19 @@ class EventController(val eventService: EventService) {
 
     @GetMapping("/clusters")
     @Operation(summary = "Get clustered events by location",
-        description = "Get clustered events within the specified bounding box defined by South-West and North-East coordinates. Bounding box is Divided into gridCells x gridCells cells, and events within each cell are clustered together. The response contains the centroid of each cluster along with the count of events in that cluster.")
+        description = "Get clustered events within the specified bounding box defined by South-West and North-East coordinates. The clustering is based on density of events. Controlling parameters are eps (in degrees), and minPoints." +
+                " Here is an explanation: An event is added to a cluster if it is either:\n" +
+                "\n" +
+                "A \"core\" geometry, that is within eps distance of at least minpoints events (including itself); or\n" +
+                "\n" +
+                "A \"border\" geometry, that is within eps distance of a core geometry." +
+                "\n" +
+        " Events that are neither core nor border are considered noise and do not belong to any cluster." +
+                " This method returns the centroid of each cluster along with the number of events in that cluster."+
+                " Note: eps is in degrees, so 0.01 is roughly 1.11 km")
     fun getClusteredEvents(@Valid clusterRequestDto: ClusterRequestDTO): List<ClusterResponseDTO> {
         logger.info { "Fetching clustered events" }
-        logger.info { "Cluster request: SW(${clusterRequestDto.swLat}, ${clusterRequestDto.swLng}), NE(${clusterRequestDto.neLat}, ${clusterRequestDto.neLng}), gridCells: ${clusterRequestDto.gridCells}" }
+        logger.info { "Cluster request: SW(${clusterRequestDto.swLat}, ${clusterRequestDto.swLng}), NE(${clusterRequestDto.neLat}, ${clusterRequestDto.neLng}), eps=${clusterRequestDto.eps}, minPoints=${clusterRequestDto.minPoints}" }
         val clusters = eventService.getClusters(clusterRequestDto)
         logger.info { "Fetched ${clusters.size} clustered events" }
         return clusters

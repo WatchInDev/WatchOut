@@ -26,7 +26,8 @@ class EventMapper(val eventTypeMapper: EventTypeMapper, val eventTypeRepository:
              isActive = event.isActive,
              eventType = eventTypeMapper.mapToDto(event.eventType),
              author = userMapper.mapAuthorUserToDto(event.author),
-             rating = 0.0
+             rating = 0.0,
+             ratingForCurrentUser = 0
          )
      }
 
