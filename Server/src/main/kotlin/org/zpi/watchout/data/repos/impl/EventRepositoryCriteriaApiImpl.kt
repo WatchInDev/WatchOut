@@ -54,6 +54,16 @@ class EventRepositoryCriteriaApiImpl(@PersistenceContext private val entityManag
             0.0
         )
 
+        // TODO: replace with current user id
+        val ratingForCurrentUser = cb.coalesce(
+            cb.sum(
+                cb.selectCase<Int>()
+                    .`when`(cb.equal(userJoin.get<Long>("id"), 6L), ratingJoin.get("rating"))
+                .otherwise(0)
+        ),
+        0
+        )
+
 
         cq.select(
             cb.construct(
@@ -77,7 +87,8 @@ class EventRepositoryCriteriaApiImpl(@PersistenceContext private val entityManag
                 authorJoin.get<String>("lastName"),
                 authorJoin.get<Double>("reputation"),
 
-                weightedRatingExpr
+                weightedRatingExpr,
+                ratingForCurrentUser
             )
         )
         cq.where(cb.isTrue(intersectsFn))

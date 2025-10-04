@@ -28,7 +28,7 @@ class RatingController(private val ratingService: RatingService) {
         @RequestBody @Valid ratingRequestDTO: RatingRequestDTO
     ){
         logger.info { "Rating event with id: $eventId" }
-        ratingService.upsertEventRating(1,eventId, ratingRequestDTO.rating)
+        ratingService.upsertEventRating(6,eventId, ratingRequestDTO.rating)
         logger.info { "Rated event with id: $eventId" }
     }
 
@@ -40,7 +40,7 @@ class RatingController(private val ratingService: RatingService) {
         @RequestBody @Valid ratingRequestDTO: RatingRequestDTO
     ){
         logger.info { "Rating comment with id: $commentId" }
-        ratingService.upsertCommentRating(1,commentId, ratingRequestDTO.rating)
+        ratingService.upsertCommentRating(6,commentId, ratingRequestDTO.rating)
         logger.info { "Rated comment with id: $commentId" }
     }
 
@@ -51,7 +51,7 @@ class RatingController(private val ratingService: RatingService) {
         @PathVariable("eventId") eventId: Long
     ){
         logger.info { "Deleting rating for event with id: $eventId" }
-        ratingService.deleteEventRating(1,eventId)
+        ratingService.deleteEventRating(6,eventId)
         logger.info { "Deleted rating for event with id: $eventId" }
     }
 
@@ -62,7 +62,7 @@ class RatingController(private val ratingService: RatingService) {
         @PathVariable("commentId") commentId: Long
     ){
         logger.info { "Deleting rating for comment with id: $commentId" }
-        ratingService.deleteCommentRating(1,commentId)
+        ratingService.deleteCommentRating(6,commentId)
         logger.info { "Deleted rating for comment with id: $commentId" }
     }
 

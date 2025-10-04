@@ -22,26 +22,20 @@ class EventService(val eventRepository: EventRepository, val eventMapper: EventM
         )
     }
 
-    fun getEventById(id: Long): EventResponseDTO {
-        return eventRepository.findById(id).map { eventMapper.mapToDto(it) }
-            .orElseThrow { EntityNotFoundException("Event with id $id not found") }
-    }
 
     fun createEvent(eventRequestDto: EventRequestDTO): EventResponseDTO {
-        val event = eventMapper.mapToEntity(eventRequestDto, authorId = 1) // TODO: replace with actual user id from auth
+        val event = eventMapper.mapToEntity(eventRequestDto, authorId = 6) // TODO: replace with actual user id from auth
         return eventMapper.mapToDto(eventRepository.save(event))
     }
 
     fun getClusters(clusterRequestDto: ClusterRequestDTO): List<ClusterResponseDTO> {
-        val width = clusterRequestDto.neLng - clusterRequestDto.swLng
-        val height = clusterRequestDto.neLat - clusterRequestDto.swLat
-
         return eventRepository.calculateClusters(clusterRequestDto.swLng,
             clusterRequestDto.swLat,
             clusterRequestDto.neLng,
             clusterRequestDto.neLat,
-            width / clusterRequestDto.gridCells,
-            height / clusterRequestDto.gridCells)
+            clusterRequestDto.eps,
+            clusterRequestDto.minPoints
+        )
     }
 
 }

@@ -18,7 +18,7 @@ class CommentService (private val commentRepository: CommentRepository, private 
         if (!eventRepository.existsById(eventId)) {
             throw EntityNotFoundException("Event with id $eventId does not exist")
         }
-        val comment = commentMapper.mapToEntity(commentRequestDto, authorId = 1, eventId) // TODO: replace with actual user id from auth
+        val comment = commentMapper.mapToEntity(commentRequestDto, authorId = 6, eventId) // TODO: replace with actual user id from auth
         return commentMapper.mapToDto(commentRepository.save(comment))
     }
 

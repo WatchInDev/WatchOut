@@ -12,13 +12,19 @@ interface EventRepository: JpaRepository<Event, Long>, EventRepositoryCriteriaAp
 
     @Query(
         """
-        SELECT
-            ST_X(ST_Centroid(ST_Collect(e.location))) as longitude,
-            ST_Y(ST_Centroid(ST_Collect(e.location))) as latitude,
-            COUNT(e) as count
-        FROM watchout.events e
-        WHERE e.location && ST_MakeEnvelope(:west, :south, :east, :north, 4326)
-        GROUP BY ST_SnapToGrid(e.location, :gridSizeX, :gridSizeY)
+        SELECT 
+            ST_X(ST_Centroid(ST_Collect(location))) AS longitude,
+            ST_Y(ST_Centroid(ST_Collect(location))) AS latitude,
+            COUNT(*) AS count
+        FROM (
+            SELECT 
+                e.location,
+                ST_ClusterDBSCAN(e.location, :eps, :minpoints) OVER () AS cluster_id
+            FROM watchout.events e
+            WHERE e.location && ST_MakeEnvelope(:west, :south, :east, :north, 4326)
+        ) sub
+        WHERE cluster_id IS NOT NULL
+        GROUP BY cluster_id
         """,
         nativeQuery = true
     )
@@ -27,8 +33,8 @@ interface EventRepository: JpaRepository<Event, Long>, EventRepositoryCriteriaAp
         @Param("south") south: Double,
         @Param("east") east: Double,
         @Param("north") north: Double,
-        @Param("gridSizeX") gridSizeX: Double,
-        @Param("gridSizeY") gridSizeY: Double
+        @Param("eps") eps: Double,
+        @Param("minpoints") minpoints: Int
     ): List<ClusterResponseDTO>
 
 }
