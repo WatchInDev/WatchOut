@@ -15,7 +15,7 @@ const queryParams = (params: Record<string, string | number | boolean>) => {
 export const API_ENDPOINTS = {
   events: {
     get: (coordinates: CoordinatesRect) => `events${queryParams(coordinates)}`,
-    getClusters: (coordinates: CoordinatesRect, gridCells: number) => `events/clusters${queryParams(coordinates)}&gridCells=${gridCells}`,
+    getClusters: (coordinates: CoordinatesRect, minPoints: number, eps: number) => `events/clusters${queryParams(coordinates)}&minPoints=${minPoints}&eps=${eps}`,
     create: 'events',
   },
   eventTypes: {

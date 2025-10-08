@@ -8,9 +8,9 @@ export const useGetEvents = (coordinates: CoordinatesRect, isEnabled: boolean) =
   ['events', JSON.stringify(coordinates)], API_ENDPOINTS.events.get(coordinates), isEnabled
 );
 
-export const useGetEventsClustered = (coordinates: CoordinatesRect, gridCells: number, isEnabled: boolean) => useQueryHook<EventCluster[]>(
-  ['events', JSON.stringify(coordinates), 'clustered', gridCells.toString()], 
-  API_ENDPOINTS.events.getClusters(coordinates, gridCells),
+export const useGetEventsClustered = (coordinates: CoordinatesRect, isEnabled: boolean) => useQueryHook<EventCluster[]>(
+  ['events', JSON.stringify(coordinates), 'clustered'], 
+  API_ENDPOINTS.events.getClusters(coordinates, 1, 0.02),
   isEnabled
 );
 

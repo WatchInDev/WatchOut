@@ -13,7 +13,7 @@ export const useMapLogic = (mapRef: React.RefObject<MapView>) => {
   const [isZoomedEnough, setIsZoomedEnough] = useState(false);
 
   const { data: events } = useGetEvents(mapBounds, isZoomedEnough);
-  const { data: clusters } = useGetEventsClustered(mapBounds, 2, !isZoomedEnough);
+  const { data: clusters } = useGetEventsClustered(mapBounds, !isZoomedEnough);
 
   const onRegionChangeComplete = async (updateMapBounds: Region) => {
     const { latitude, longitude, latitudeDelta, longitudeDelta } = updateMapBounds;
