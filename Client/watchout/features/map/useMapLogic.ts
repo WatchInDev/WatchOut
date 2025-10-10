@@ -8,11 +8,11 @@ export const useMapLogic = (mapRef: React.RefObject<MapView>) => {
     neLat: 0,
     neLng: 0,
     swLat: 0,
-    swLng: 0
+    swLng: 0,
   });
   const [isZoomedEnough, setIsZoomedEnough] = useState(false);
 
-  const { data: events } = useGetEvents(mapBounds, isZoomedEnough);
+  const { data: events, refetch } = useGetEvents(mapBounds, isZoomedEnough);
   const { data: clusters } = useGetEventsClustered(mapBounds, !isZoomedEnough);
 
   const onRegionChangeComplete = async (updateMapBounds: Region) => {
@@ -21,12 +21,12 @@ export const useMapLogic = (mapRef: React.RefObject<MapView>) => {
       neLat: latitude + latitudeDelta / 2,
       neLng: longitude + longitudeDelta / 2,
       swLat: latitude - latitudeDelta / 2,
-      swLng: longitude - longitudeDelta / 2
+      swLng: longitude - longitudeDelta / 2,
     });
 
-    const cameraZoom = await mapRef.current?.getCamera().then(camera => camera?.zoom);
+    const cameraZoom = await mapRef.current?.getCamera().then((camera) => camera?.zoom);
     setIsZoomedEnough((cameraZoom || 0) >= MAP_CLUSTERING_ZOOM_THRESHOLD);
   };
 
-  return { events, clusters, isZoomedEnough, onRegionChangeComplete };
+  return { events, clusters, isZoomedEnough, onRegionChangeComplete, refetch };
 };
