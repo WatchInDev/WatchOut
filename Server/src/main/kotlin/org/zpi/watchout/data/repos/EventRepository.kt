@@ -10,31 +10,4 @@ import org.zpi.watchout.service.dto.ClusterResponseDTO
 @Repository
 interface EventRepository: JpaRepository<Event, Long>, EventRepositoryCriteriaApi {
 
-    @Query(
-        """
-        SELECT 
-            ST_X(ST_Centroid(ST_Collect(location))) AS longitude,
-            ST_Y(ST_Centroid(ST_Collect(location))) AS latitude,
-            COUNT(*) AS count
-        FROM (
-            SELECT 
-                e.location,
-                ST_ClusterDBSCAN(e.location, :eps, :minpoints) OVER () AS cluster_id
-            FROM watchout.events e
-            WHERE e.location && ST_MakeEnvelope(:west, :south, :east, :north, 4326)
-        ) sub
-        WHERE cluster_id IS NOT NULL
-        GROUP BY cluster_id
-        """,
-        nativeQuery = true
-    )
-    fun calculateClusters(
-        @Param("west") west: Double,
-        @Param("south") south: Double,
-        @Param("east") east: Double,
-        @Param("north") north: Double,
-        @Param("eps") eps: Double,
-        @Param("minpoints") minpoints: Int
-    ): List<ClusterResponseDTO>
-
 }
