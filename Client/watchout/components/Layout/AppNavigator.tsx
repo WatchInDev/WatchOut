@@ -15,7 +15,6 @@ const routes = [
 export const AppNavigator = () => {
   return (
     <NavDrawer.Navigator
-      initialRouteName='WatchOut'
         screenOptions={{
           drawerStyle: {
             width: 110,
@@ -36,7 +35,7 @@ export const AppNavigator = () => {
       {routes.map((route) => (
         <NavDrawer.Screen
           key={route.name}
-          name={route.name}
+          name={route.label}
           component={route.component}
           options={{ drawerLabel: route.label }}
         />
