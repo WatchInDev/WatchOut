@@ -28,7 +28,7 @@
     "@tanstack/react-query-devtools": "^5.84.2",
     "axios": "^1.11.0",
     "dayjs": "^1.11.18",
-    "expo": "^53.0.20",
+    "expo": "~53.0.20",
     "expo-asset": "~11.1.7",
     "expo-font": "~13.3.2",
     "expo-status-bar": "~2.2.3",
