@@ -11,13 +11,13 @@ import { EventSelectionModal } from './EventSelectionModal';
 type CreateEventProps = {
   location: Coordinates;
   onSuccess: () => void;
-}
+};
 
 type FormData = {
   name: string;
   description: string;
   eventTypeId: number | null;
-}
+};
 
 export const CreateEvent = ({ location, onSuccess }: CreateEventProps) => {
   const [formData, setFormData] = useState<FormData>({
@@ -26,24 +26,30 @@ export const CreateEvent = ({ location, onSuccess }: CreateEventProps) => {
     eventTypeId: null,
   });
 
-  const [selectedEventType, setSelectedEventType] = useState<{ id: number; name: string; icon: string } | null>(null);
-  const handleSetSelectedEventType = (eventType: { id: number; name: string; icon: string } | null) => {
+  const [selectedEventType, setSelectedEventType] = useState<{
+    id: number;
+    name: string;
+    icon: string;
+  } | null>(null);
+  const handleSetSelectedEventType = (
+    eventType: { id: number; name: string; icon: string } | null
+  ) => {
     setSelectedEventType(eventType);
-    setFormData(prev => ({ ...prev, eventTypeId: eventType?.id || null }));
+    setFormData((prev) => ({ ...prev, eventTypeId: eventType?.id || null }));
   };
   const [eventTypeModalVisible, setEventTypeModalVisible] = useState(false);
 
-  const [geocodedAddress, setGeocodedAddress] = useState<string>("Ładowanie lokalizacji...");
+  const [geocodedAddress, setGeocodedAddress] = useState<string>('Ładowanie lokalizacji...');
   useEffect(() => {
     reverseGeocode(location)
-      .then(address => setGeocodedAddress(address))
-      .catch(() => setGeocodedAddress("Nieznana lokalizacja"));
+      .then((address) => setGeocodedAddress(address))
+      .catch(() => setGeocodedAddress('Nieznana lokalizacja'));
   }, [location]);
 
   const createEventMutation = useCreateEvent();
 
   const updateField = (field: keyof typeof formData, value: any) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
+    setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
   const resetForm = useCallback(() => {
@@ -88,10 +94,8 @@ export const CreateEvent = ({ location, onSuccess }: CreateEventProps) => {
   const isLoading = createEventMutation.isPending;
 
   return (
-    <ScrollView
-      contentContainerStyle={{ padding: 16, justifyContent: 'center', gap: 8 }}
-    >
-      <Text className='text-3xl text-center font-semibold mb-4'>Zgłoś nowe zdarzenie!</Text>
+    <ScrollView contentContainerStyle={{ padding: 16, justifyContent: 'center', gap: 8 }}>
+      <Text style={{ fontSize: 24, fontWeight: 'bold', textAlign: 'center', marginBottom: 16 }}>Zgłoś nowe zdarzenie!</Text>
       <TextInput
         label="Tytuł zdarzenia"
         mode="outlined"
@@ -110,7 +114,7 @@ export const CreateEvent = ({ location, onSuccess }: CreateEventProps) => {
         <TextInput
           label="Rodzaj zdarzenia"
           mode="outlined"
-          value={selectedEventType?.name || "Wybierz rodzaj zdarzenia"}
+          value={selectedEventType?.name || 'Wybierz rodzaj zdarzenia'}
           right={<TextInput.Icon icon="menu-down" />}
           left={selectedEventType ? <TextInput.Icon icon={selectedEventType.icon} /> : undefined}
           editable={false}
@@ -124,14 +128,13 @@ export const CreateEvent = ({ location, onSuccess }: CreateEventProps) => {
         setSelectedEventType={handleSetSelectedEventType}
       />
 
-      <Text className='text-lg'>{`Lokalizacja: ${geocodedAddress}`}</Text>
+      <Text style={{ fontSize: 16 }}>{`Lokalizacja: ${geocodedAddress}`}</Text>
       <Button
         mode="contained"
         onPress={handleSubmit}
         loading={isLoading}
         disabled={isLoading}
-        style={{ marginTop: 16 }}
-      >
+        style={{ marginTop: 16 }}>
         {isLoading ? 'Zgłaszanie...' : 'Zgłoś zdarzenie'}
       </Button>
     </ScrollView>

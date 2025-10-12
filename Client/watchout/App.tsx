@@ -31,7 +31,7 @@ import { Poppins_900Black_Italic } from '@expo-google-fonts/poppins/900Black_Ita
 import { theme } from 'utils/theme';
 import Geocoding from 'react-native-geocoding';
 import dayjs from 'dayjs';
-import relativeTime from "dayjs/plugin/relativeTime";
+import relativeTime from 'dayjs/plugin/relativeTime';
 import duration from 'dayjs/plugin/duration';
 import 'dayjs/locale/pl';
 
@@ -47,7 +47,7 @@ Geocoding.init('API_KEY', {
 
 export default function App() {
   const [loaded] = useFonts({
-    MaterialDesignIcons: require("./assets/fonts/MaterialDesignIcons.ttf"),
+    MaterialDesignIcons: require('./assets/fonts/MaterialDesignIcons.ttf'),
     Poppins_100Thin,
     Poppins_100Thin_Italic,
     Poppins_200ExtraLight,
@@ -65,13 +65,15 @@ export default function App() {
     Poppins_800ExtraBold,
     Poppins_800ExtraBold_Italic,
     Poppins_900Black,
-    Poppins_900Black_Italic
+    Poppins_900Black_Italic,
   });
 
   if (!loaded) {
-    return <>
-      <Text>Loading...</Text>
-    </>
+    return (
+      <>
+        <Text>Loading...</Text>
+      </>
+    );
   }
 
   return (
