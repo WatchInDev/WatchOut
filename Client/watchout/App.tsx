@@ -1,5 +1,6 @@
 import '@expo/metro-runtime';
 import { StatusBar } from 'expo-status-bar';
+import { GEOCODING_API_KEY } from '@env';
 
 import { PaperProvider } from 'react-native-paper';
 import { Text } from 'components/Base/Text';
@@ -41,8 +42,8 @@ dayjs.extend(relativeTime);
 dayjs.extend(duration);
 dayjs.locale('pl');
 
-Geocoding.init('API_KEY', {
-  language: "pl",
+Geocoding.init(GEOCODING_API_KEY, {
+  language: 'pl',
 });
 
 export default function App() {

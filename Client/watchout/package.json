@@ -56,6 +56,7 @@
     "eslint-config-expo": "^9.2.0",
     "eslint-config-prettier": "^10.1.2",
     "prettier": "^3.2.5",
+    "react-native-dotenv": "^3.4.11",
     "typescript": "~5.8.3"
   },
   "main": "node_modules/expo/AppEntry.js",
