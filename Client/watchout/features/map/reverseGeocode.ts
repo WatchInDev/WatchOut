@@ -1,5 +1,5 @@
 import Geocoding from 'react-native-geocoding';
-import { Coordinates } from './types';
+import { Coordinates } from 'utils/types';
 
 export const reverseGeocode = async (coordinates: Coordinates): Promise<string> => {
   try {
