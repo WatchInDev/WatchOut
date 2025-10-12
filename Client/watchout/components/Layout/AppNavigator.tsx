@@ -1,8 +1,9 @@
 import React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { Map } from '../Map/Map';
-import { EventTypes } from '../EventTypes';
 import { CustomDrawerContent } from './CustomDrawerContent';
+import { EventTypes } from 'features/event-types/EventTypes';
+import { Map } from 'features/map/Map';
+
 
 const NavDrawer = createDrawerNavigator();
 
@@ -14,7 +15,6 @@ const routes = [
 export const AppNavigator = () => {
   return (
     <NavDrawer.Navigator
-      initialRouteName='WatchOut'
         screenOptions={{
           drawerStyle: {
             width: 110,
@@ -35,7 +35,7 @@ export const AppNavigator = () => {
       {routes.map((route) => (
         <NavDrawer.Screen
           key={route.name}
-          name={route.name}
+          name={route.label}
           component={route.component}
           options={{ drawerLabel: route.label }}
         />

@@ -1,8 +1,7 @@
-import 'react-native-gesture-handler';
-import "@expo/metro-runtime";
+import '@expo/metro-runtime';
 import { StatusBar } from 'expo-status-bar';
+import { GEOCODING_API_KEY } from '@env';
 
-import './global.css';
 import { PaperProvider } from 'react-native-paper';
 import { Text } from 'components/Base/Text';
 import { NavigationContainer } from '@react-navigation/native';
@@ -31,53 +30,68 @@ import { Poppins_800ExtraBold_Italic } from '@expo-google-fonts/poppins/800Extra
 import { Poppins_900Black } from '@expo-google-fonts/poppins/900Black';
 import { Poppins_900Black_Italic } from '@expo-google-fonts/poppins/900Black_Italic';
 import { theme } from 'utils/theme';
+import Geocoding from 'react-native-geocoding';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+import duration from 'dayjs/plugin/duration';
+import 'dayjs/locale/pl';
 
 const queryClient = new QueryClient();
 
+dayjs.extend(relativeTime);
+dayjs.extend(duration);
+dayjs.locale('pl');
+
+Geocoding.init(GEOCODING_API_KEY, {
+  language: 'pl',
+});
+
 export default function App() {
   const [loaded] = useFonts({
-    MaterialDesignIcons: require("./assets/fonts/MaterialDesignIcons.ttf"),
-      Poppins_100Thin, 
-      Poppins_100Thin_Italic, 
-      Poppins_200ExtraLight, 
-      Poppins_200ExtraLight_Italic, 
-      Poppins_300Light, 
-      Poppins_300Light_Italic, 
-      Poppins_400Regular, 
-      Poppins_400Regular_Italic, 
-      Poppins_500Medium, 
-      Poppins_500Medium_Italic, 
-      Poppins_600SemiBold, 
-      Poppins_600SemiBold_Italic, 
-      Poppins_700Bold, 
-      Poppins_700Bold_Italic, 
-      Poppins_800ExtraBold, 
-      Poppins_800ExtraBold_Italic, 
-      Poppins_900Black, 
-      Poppins_900Black_Italic
+    MaterialDesignIcons: require('./assets/fonts/MaterialDesignIcons.ttf'),
+    Poppins_100Thin,
+    Poppins_100Thin_Italic,
+    Poppins_200ExtraLight,
+    Poppins_200ExtraLight_Italic,
+    Poppins_300Light,
+    Poppins_300Light_Italic,
+    Poppins_400Regular,
+    Poppins_400Regular_Italic,
+    Poppins_500Medium,
+    Poppins_500Medium_Italic,
+    Poppins_600SemiBold,
+    Poppins_600SemiBold_Italic,
+    Poppins_700Bold,
+    Poppins_700Bold_Italic,
+    Poppins_800ExtraBold,
+    Poppins_800ExtraBold_Italic,
+    Poppins_900Black,
+    Poppins_900Black_Italic,
   });
 
   if (!loaded) {
-    return <>
-      <Text>Loading...</Text>
-    </>
+    return (
+      <>
+        <Text>Loading...</Text>
+      </>
+    );
   }
 
   return (
     <>
       <GestureHandlerRootView>
-        <BottomSheetModalProvider>
-          <QueryClientProvider client={queryClient}>
-            <SafeAreaProvider>
-              <PaperProvider theme={theme}>
+        <QueryClientProvider client={queryClient}>
+          <SafeAreaProvider>
+            <PaperProvider theme={theme}>
+              <BottomSheetModalProvider>
                 <NavigationContainer>
                   <AppNavigator />
                   <StatusBar style="light" />
                 </NavigationContainer>
-              </PaperProvider>
-            </SafeAreaProvider>
-          </QueryClientProvider>
-        </BottomSheetModalProvider>
+              </BottomSheetModalProvider>
+            </PaperProvider>
+          </SafeAreaProvider>
+        </QueryClientProvider>
       </GestureHandlerRootView>
     </>
   );

@@ -5,9 +5,9 @@ import { Drawer } from 'react-native-paper';
 
 export const CustomDrawerContent = (props: DrawerContentComponentProps) => {
   return (
-    <View className='flex-1'>
-      <View className='p-4 border-b border-gray-200'>
-        <Text className='text-lg font-bold'>Watchout</Text>
+    <View style={styles.container}>
+      <View style={styles.header}>
+      <Text style={styles.headerText}>Watchout</Text>
       </View>
       <DrawerContentScrollView {...props}>
         {props.state.routes.map((route, index) => {
@@ -30,6 +30,21 @@ export const CustomDrawerContent = (props: DrawerContentComponentProps) => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  header: {
+    padding: 20,
+    backgroundColor: '#6200ee',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  headerText: {
+    color: '#fff',
+    fontSize: 24,
+    fontWeight: 'bold',
+    fontFamily: 'Poppins_500Medium',
+  },
   activeDrawerItem: {
     backgroundColor: '#f0f0f0',
   },

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useGetEvents, useGetEventsClustered } from 'hooks/events.hooks';
+import { useGetEvents, useGetEventsClustered } from 'features/events/events.hooks';
 import MapView, { Region } from 'react-native-maps';
 import { MAP_CLUSTERING_ZOOM_THRESHOLD } from 'utils/constants';
 
@@ -8,12 +8,12 @@ export const useMapLogic = (mapRef: React.RefObject<MapView>) => {
     neLat: 0,
     neLng: 0,
     swLat: 0,
-    swLng: 0
+    swLng: 0,
   });
   const [isZoomedEnough, setIsZoomedEnough] = useState(false);
 
-  const { data: events } = useGetEvents(mapBounds, isZoomedEnough);
-  const { data: clusters } = useGetEventsClustered(mapBounds, 2, !isZoomedEnough);
+  const { data: events, refetch } = useGetEvents(mapBounds, isZoomedEnough);
+  const { data: clusters } = useGetEventsClustered(mapBounds, !isZoomedEnough);
 
   const onRegionChangeComplete = async (updateMapBounds: Region) => {
     const { latitude, longitude, latitudeDelta, longitudeDelta } = updateMapBounds;
@@ -21,12 +21,12 @@ export const useMapLogic = (mapRef: React.RefObject<MapView>) => {
       neLat: latitude + latitudeDelta / 2,
       neLng: longitude + longitudeDelta / 2,
       swLat: latitude - latitudeDelta / 2,
-      swLng: longitude - longitudeDelta / 2
+      swLng: longitude - longitudeDelta / 2,
     });
 
-    const cameraZoom = await mapRef.current?.getCamera().then(camera => camera?.zoom);
+    const cameraZoom = await mapRef.current?.getCamera().then((camera) => camera?.zoom);
     setIsZoomedEnough((cameraZoom || 0) >= MAP_CLUSTERING_ZOOM_THRESHOLD);
   };
 
-  return { events, clusters, isZoomedEnough, onRegionChangeComplete };
+  return { events, clusters, isZoomedEnough, onRegionChangeComplete, refetch };
 };
