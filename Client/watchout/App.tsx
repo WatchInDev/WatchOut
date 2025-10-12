@@ -1,8 +1,6 @@
-import 'react-native-gesture-handler';
-import "@expo/metro-runtime";
+import '@expo/metro-runtime';
 import { StatusBar } from 'expo-status-bar';
 
-import './global.css';
 import { PaperProvider } from 'react-native-paper';
 import { Text } from 'components/Base/Text';
 import { NavigationContainer } from '@react-navigation/native';

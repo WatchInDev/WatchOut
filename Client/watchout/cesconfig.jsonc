@@ -4,10 +4,6 @@
   "cesVersion": "2.18.7",
   "projectName": "watchout",
   "packages": [
-    {
-      "name": "nativewind",
-      "type": "styling"
-    }
   ],
   "flags": {
     "noGit": false,

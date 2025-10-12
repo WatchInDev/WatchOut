@@ -17,12 +17,10 @@ export const EventTypes = () => {
 
   return (
     <>
-      <Text style={styles.title}>
-        Rodzaje zdarzeń
-      </Text>
       {isPending && <ActivityIndicator size="large" style={styles.loader} />}
       {eventTypes && (
         <ScrollView style={styles.scrollView}>
+          <Text>Poniżej znajdziesz listę rodzajów zdarzeń, które możesz zgłosić:</Text>
           {eventTypes.map((event, index) => (
             <Card key={index} mode="contained" style={styles.card}>
               <View style={styles.cardContent}>
@@ -41,26 +39,18 @@ export const EventTypes = () => {
 };
 
 const styles = StyleSheet.create({
-  title: {
-    lineHeight: 50,
-    paddingVertical: 32,
-    textAlign: 'center',
-    fontWeight: '600',
-    fontSize: 48,
-    letterSpacing: 0,
-  },
   loader: {
     marginVertical: 48,
   },
   scrollView: {
-    marginBottom: 56,
+    marginVertical: 24,
     paddingHorizontal: 12,
   },
   card: {
     marginBottom: 16,
     flex: 1,
     paddingHorizontal: 16,
-    paddingVertical: 16,
+    paddingVertical: 8,
   },
   cardContent: {
     margin: 8,

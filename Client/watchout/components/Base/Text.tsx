@@ -37,25 +37,21 @@ const convertFontWeightToFontFamily = (fontWeight: string | number | undefined) 
     default:
       return {};
   }
-}
+};
 
-export const Text: React.FC<TextProps> = (props) => {  
-  if (props.className?.includes('font-') || props.style?.fontWeight) {
-    const fontWeightMatch = props.className?.match(/font-([a-z]+)/);
+export const Text: React.FC<TextProps> = (props) => {
+  if (props?.style?.fontWeight !== undefined) {
+    const fontFamilyStyles = convertFontWeightToFontFamily(props.style.fontWeight);
+    const { fontWeight, ...restStyle } = props.style || {};
 
-    if (fontWeightMatch || props.style?.fontWeight) {
-      const resolvedFontWeight = fontWeightMatch ? fontWeightMatch[1] : props.style?.fontWeight;
-      const fontFamilyStyles = convertFontWeightToFontFamily(resolvedFontWeight);
-      const { fontWeight, ...restStyle } = props.style || {};
-
-      const combinedStyles = [defaultStyles, fontFamilyStyles, restStyle];
-      return (
-        <ReactNativeText {...props} className={props.className?.replace(/font-[a-z]+/, '').trim()} style={combinedStyles} />
-      );
-    }
+    const combinedStyles = [defaultStyles, fontFamilyStyles, restStyle];
+    return <ReactNativeText {...props} style={combinedStyles} />;
   }
 
   return (
-    <ReactNativeText {...props} style={[defaultStyles, props.style, { fontFamily: 'Poppins_400Regular' }]} />
+    <ReactNativeText
+      {...props}
+      style={[defaultStyles, props.style, { fontFamily: 'Poppins_400Regular' }]}
+    />
   );
 };
