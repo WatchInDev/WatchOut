@@ -74,7 +74,7 @@ class DebugService(val eventRepository: EventRepository, val eventTypeRepository
             val event = Event(
                 name = randomEventName,
                 description = eventDescriptions[randomEventName] ?: "Brak opisu",
-                image = ByteArray(0),
+                image = "",
                 reportedDate = LocalDateTime.now().minusDays((0..10).random().toLong()),
                 endDate = LocalDateTime.now().plusDays((1..10).random().toLong()),
                 isActive = true,

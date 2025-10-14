@@ -103,7 +103,9 @@ class EventRepositoryCriteriaApiImpl(@PersistenceContext private val entityManag
             authorJoin.get<Double>("reputation")
         )
         val havingPredicates = generatePredicateHaving(filters, cb, eventRoot, weightedRatingExpr)
-        cq.having(*havingPredicates.toTypedArray())
+        if(havingPredicates.isNotEmpty()) {
+            cq.having(*havingPredicates.toTypedArray())
+        }
 
         return entityManager.createQuery(cq).resultList
     }
@@ -130,7 +132,9 @@ class EventRepositoryCriteriaApiImpl(@PersistenceContext private val entityManag
         cq.where(*predicates.toTypedArray())
         cq.groupBy(root.get<Long>("id"))
         val havingPredicates = generatePredicateHaving(filters, cb, root, weightedRatingExpr)
-        cq.having(*havingPredicates.toTypedArray())
+        if(havingPredicates.isNotEmpty()) {
+            cq.having(*havingPredicates.toTypedArray())
+        }
 
         val filteredIds: List<Long> = entityManager.createQuery(cq).resultList
         if (filteredIds.isEmpty()) {

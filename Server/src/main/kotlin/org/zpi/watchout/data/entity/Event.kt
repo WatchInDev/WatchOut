@@ -20,7 +20,7 @@ class Event(
     @Column(name = "description")
     val description : String,
     @Column(name = "image")
-    val image: ByteArray,
+    val image: String,
     @Column(name = "reported_date")
     val reportedDate: LocalDateTime,
     @Column(name = "end_date")

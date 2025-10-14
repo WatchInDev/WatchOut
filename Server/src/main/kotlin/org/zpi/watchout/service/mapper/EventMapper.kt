@@ -7,12 +7,14 @@ import org.zpi.watchout.app.infrastructure.exceptions.EntityNotFoundException
 import org.zpi.watchout.data.entity.Event
 import org.zpi.watchout.data.repos.EventTypeRepository
 import org.zpi.watchout.data.repos.UserRepository
+import org.zpi.watchout.service.azure.blob.AzureBlobService
 import org.zpi.watchout.service.dto.EventRequestDTO
 import org.zpi.watchout.service.dto.EventResponseDTO
 import java.time.LocalDateTime
+import java.util.UUID
 
 @Component
-class EventMapper(val eventTypeMapper: EventTypeMapper, val eventTypeRepository: EventTypeRepository, val userRepository: UserRepository, val userMapper: UserMapper) {
+class EventMapper(val eventTypeMapper: EventTypeMapper, val eventTypeRepository: EventTypeRepository, val userRepository: UserRepository, val userMapper: UserMapper, val azureBlobService: AzureBlobService) {
      fun mapToDto(event: Event): EventResponseDTO {
          return EventResponseDTO(
              id = event.id!!,
@@ -35,7 +37,7 @@ class EventMapper(val eventTypeMapper: EventTypeMapper, val eventTypeRepository:
         return Event(
             name = eventRequestDto.name,
             description = eventRequestDto.description ?: "",
-            image = eventRequestDto.image ?: ByteArray(0),
+            image = eventRequestDto.image?.let { image -> azureBlobService.uploadFile("events/image_${UUID.randomUUID()}.png", image) } ?: "",
             reportedDate = LocalDateTime.now(),
             endDate = eventRequestDto.endDate,
             isActive = true,
