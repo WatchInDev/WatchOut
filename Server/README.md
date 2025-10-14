@@ -35,13 +35,15 @@ Once the database is configured, you can start the application.
 
 4. In the **Environment variables** field, click the folder icon to open the variables dialog.
 
-5. Add the following three variables, setting their values to your actual PostgreSQL username and password and db endpoint url:
+5. Add the following three variables, setting their values to your actual PostgreSQL username and password and db endpoint url, and Azure Storage connection string:
 
     * `SPRING_DATASOURCE_USERNAME` 
 
     * `SPRING_DATASOURCE_PASSWORD`
 
     * `SPRING_DATASOURCE_URL` (e.g., `jdbc:postgresql://localhost:5432/watchout` for a local database connection).
+
+   * `AZURE_STORAGE_CONNECTION_STRING`
 
 6. Click **OK** to save the configuration.
 
@@ -59,12 +61,14 @@ The application connects to the database using environment variables. Before sta
 
 * `SPRING_DATASOURCE_URL`: The JDBC URL for your PostgreSQL database (e.g., `jdbc:postgresql://localhost:5432/watchout`).
 
+* `AZURE_STORAGE_CONNECTION_STRING`: Your Azure Storage connection string.
 Here's how you can set them in a typical terminal environment (like Bash or Zsh):
 
 ```
 export SPRING_DATASOURCE_USERNAME="your_username"
 export SPRING_DATASOURCE_PASSWORD="your_password"
 export SPRING_DATASOURCE_URL="jdbc:postgresql://localhost:5432/watchout"
+export AZURE_STORAGE_CONNECTION_STRING="your_connection_string"
 ```
 
 If you are on Windows using Command Prompt, use `set` instead of `export`:
@@ -73,6 +77,7 @@ If you are on Windows using Command Prompt, use `set` instead of `export`:
 set SPRING_DATASOURCE_USERNAME=your_username
 set SPRING_DATASOURCE_PASSWORD=your_password
 set SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/watchout
+set AZURE_STORAGE_CONNECTION_STRING=your_connection_string
 ```
 
 Navigate to the project's root directory and use the Maven Wrapper (`./mvnw`) to run the Spring Boot application:
