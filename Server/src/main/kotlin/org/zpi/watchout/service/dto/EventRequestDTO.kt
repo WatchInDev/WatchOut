@@ -12,7 +12,7 @@ data class EventRequestDTO(
     val name: String,
     val description : String?,
     @field:Size(max = 5, message = "A maximum of 5 images are allowed")
-    val image: List<ByteArray>?,
+    val images: List<ByteArray>?,
     @field:Max(90, message = "Latitude must be between -90 and 90")
     @field:Min(-90, message = "Latitude must be between -90 and 90")
     val latitude: Double,

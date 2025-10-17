@@ -37,7 +37,7 @@ class EventMapper(val eventTypeMapper: EventTypeMapper, val eventTypeRepository:
         return Event(
             name = eventRequestDto.name,
             description = eventRequestDto.description ?: "",
-            image = eventRequestDto.image?.let { images ->
+            image = eventRequestDto.images?.let { images ->
                 images.joinToString(",") { image ->
                     azureBlobService.uploadFile(
                         "events/image_${UUID.randomUUID()}.png",
