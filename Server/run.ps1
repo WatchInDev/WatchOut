@@ -13,4 +13,7 @@ $env:SCALAR_PATH = "/docs"
 $env:SCALAR_ENABLED = "true"
 $env:SPRINGDOC_SWAGGER_UI_PATH = "/scalar-ui"
 
+$env:AZURE_WATCH_OUT_CONNECTION_STRING = ""
+$env:AZURE_WATCH_OUT_CONTAINER_NAME = "images"
+
 .\mvnw.cmd spring-boot:run

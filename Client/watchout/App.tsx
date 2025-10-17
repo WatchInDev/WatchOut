@@ -35,6 +35,7 @@ import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import duration from 'dayjs/plugin/duration';
 import 'dayjs/locale/pl';
+import { useEffect } from 'react';
 
 const queryClient = new QueryClient();
 
@@ -42,11 +43,14 @@ dayjs.extend(relativeTime);
 dayjs.extend(duration);
 dayjs.locale('pl');
 
-Geocoding.init(GEOCODING_API_KEY, {
-  language: 'pl',
-});
 
 export default function App() {
+  useEffect(() => {
+    Geocoding.init(GEOCODING_API_KEY, {
+      language: 'pl',
+    });
+  }, []);
+
   const [loaded] = useFonts({
     MaterialDesignIcons: require('./assets/fonts/MaterialDesignIcons.ttf'),
     Poppins_100Thin,
@@ -79,9 +83,9 @@ export default function App() {
 
   return (
     <>
-      <GestureHandlerRootView>
-        <QueryClientProvider client={queryClient}>
-          <SafeAreaProvider>
+      <QueryClientProvider client={queryClient}>
+        <SafeAreaProvider>
+          <GestureHandlerRootView>
             <PaperProvider theme={theme}>
               <BottomSheetModalProvider>
                 <NavigationContainer>
@@ -90,9 +94,9 @@ export default function App() {
                 </NavigationContainer>
               </BottomSheetModalProvider>
             </PaperProvider>
-          </SafeAreaProvider>
-        </QueryClientProvider>
-      </GestureHandlerRootView>
+          </GestureHandlerRootView>
+        </SafeAreaProvider>
+      </QueryClientProvider>
     </>
   );
 }

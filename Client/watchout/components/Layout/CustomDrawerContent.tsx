@@ -7,7 +7,7 @@ export const CustomDrawerContent = (props: DrawerContentComponentProps) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-      <Text style={styles.headerText}>Watchout</Text>
+        <Text style={styles.headerText}>Watchout</Text>
       </View>
       <DrawerContentScrollView {...props}>
         {props.state.routes.map((route, index) => {
@@ -15,7 +15,7 @@ export const CustomDrawerContent = (props: DrawerContentComponentProps) => {
 
           return (
             <Drawer.CollapsedItem
-              focusedIcon='inbox'
+              focusedIcon="inbox"
               key={route.key}
               label={props.descriptors[route.key].options.drawerLabel?.toString() || route.name}
               active={isRouteActive}
@@ -34,22 +34,21 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   header: {
-    padding: 20,
-    backgroundColor: '#6200ee',
+    marginTop: 12,
+    textAlign: 'center',
+    alignContent: 'center',
     alignItems: 'center',
-    justifyContent: 'center',
   },
   headerText: {
-    color: '#fff',
-    fontSize: 24,
+    fontSize: 16,
     fontWeight: 'bold',
-    fontFamily: 'Poppins_500Medium',
+    borderBottomWidth: 1,
+    borderBottomColor: '#ddd',
   },
   activeDrawerItem: {
     backgroundColor: '#f0f0f0',
   },
   inactiveDrawerItem: {
     backgroundColor: 'transparent',
-    fontFamily: 'Poppins_400Regular',
   },
 });

@@ -4,17 +4,55 @@ import { API_ENDPOINTS } from 'utils/apiDefinition';
 import { useMutation } from '@tanstack/react-query';
 import { apiClient } from 'utils/apiClient';
 
-export const useGetEvents = (coordinates: CoordinatesRect, isEnabled: boolean) =>
-  useQueryHook<Event[]>(
-    ['events', JSON.stringify(coordinates)],
-    API_ENDPOINTS.events.get(coordinates),
+const roundToInterval = (value: number, interval: number): number => {
+  if (interval <= 0) return value; // Zabezpieczenie przed dzieleniem przez zero
+  
+  return Math.round(value / interval) * interval;
+};
+
+const enlargeCoordinates = (coordinates: CoordinatesRect, margin: number): CoordinatesRect => {
+  return {
+    neLat: coordinates.neLat + margin,
+    neLng: coordinates.neLng + margin,
+    swLat: coordinates.swLat - margin,
+    swLng: coordinates.swLng - margin,
+  };
+};
+
+const roundCoordinates = (coordinates: CoordinatesRect, interval: number): CoordinatesRect => {
+  return {
+    neLat: roundToInterval(coordinates.neLat, interval),
+    neLng: roundToInterval(coordinates.neLng, interval),
+    swLat: roundToInterval(coordinates.swLat, interval),
+    swLng: roundToInterval(coordinates.swLng, interval),
+  };
+};
+
+const stringifyCoordinatesWithInterval = (coordinates: CoordinatesRect, interval: number) => {
+    const { neLat, neLng, swLat, swLng } = roundCoordinates(coordinates, interval);
+    return `${neLat},${neLng},${swLat},${swLng}`;
+};
+
+export const useGetEvents = (coordinates: CoordinatesRect, isEnabled: boolean) => {
+  const enlargedCoordinates = enlargeCoordinates(coordinates, 0.1);
+
+  return useQueryHook<Event[]>(
+    ['events', stringifyCoordinatesWithInterval(enlargedCoordinates, 0.1)],
+    API_ENDPOINTS.events.get(enlargedCoordinates),
     isEnabled
   );
+}
+  
+type GetEventClustersRequest = {
+  coordinates: CoordinatesRect;
+  minPoints: number;
+  eps: number;
+}
 
-export const useGetEventsClustered = (coordinates: CoordinatesRect, isEnabled: boolean) =>
+export const useGetEventsClustered = (request: GetEventClustersRequest, isEnabled: boolean) =>
   useQueryHook<EventCluster[]>(
-    ['events', JSON.stringify(coordinates), 'clustered'],
-    API_ENDPOINTS.events.getClusters(coordinates, 1, 0.02),
+    ['events', request.coordinates.neLat.toFixed(1), request.coordinates.neLng.toFixed(1), 'clustered'],
+    API_ENDPOINTS.events.getClusters(request.coordinates, request.minPoints, request.eps),
     isEnabled
   );
 
