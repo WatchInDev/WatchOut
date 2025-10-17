@@ -33,7 +33,9 @@ class EventController(val eventService: EventService) {
                 "\n" + "distance: Maximum distance (in degrees) to filter events within this distance from the center of the bounding box." +
                 "\n" + "rating: Minimum rating to filter events with at least this rating.")
     fun getAllEvents(@Valid eventGetRequestDTO: EventGetRequestDTO):List<EventResponseDTO> {
-        logger.info { "Fetching all events" }
+        logger.info { "Fetching events. Request: " +
+                "SW(${eventGetRequestDTO.swLat}, ${eventGetRequestDTO.swLng}), NE(${eventGetRequestDTO.neLat}, ${eventGetRequestDTO.neLng}), "
+        }
         val events = eventService.getAllEvents(eventGetRequestDTO)
         logger.info { "Fetched ${events.size} events" }
         return events

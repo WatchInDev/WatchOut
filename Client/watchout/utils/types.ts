@@ -45,3 +45,22 @@ export type EventCluster = {
   longitude: number;
   count: number;
 };
+
+export type Comment = {
+  id: number;
+  content: string;
+  eventId: number;
+  author: {
+    id: number;
+    name: string;
+    lastName: string;
+    reputation: number;
+  };
+  rating: number;
+  createdOn: Date;
+};
+
+export type AddCommentRequest = {
+  eventId: number;
+  content: string;
+};

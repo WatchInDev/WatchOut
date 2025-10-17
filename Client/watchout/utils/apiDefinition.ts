@@ -18,6 +18,10 @@ export const API_ENDPOINTS = {
     getClusters: (coordinates: CoordinatesRect, minPoints: number, eps: number) => `events/clusters${queryParams(coordinates)}&minPoints=${minPoints}&eps=${eps}`,
     create: 'events',
   },
+  comments: {
+    getByEventId: (eventId: number) => `events/${eventId}/comments`,
+    post: (eventId: number) => `events/${eventId}/comments`,
+  },
   eventTypes: {
     getAll: 'event-types',
   }

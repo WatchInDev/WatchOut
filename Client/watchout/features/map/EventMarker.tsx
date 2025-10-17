@@ -1,21 +1,27 @@
-import { Marker } from 'react-native-maps';
+import { MapMarker, Marker } from 'react-native-maps';
 import { Event } from 'utils/types';
 import { Icon } from 'react-native-paper';
+import { useEffect, useRef, useState } from 'react';
 
 type EventMarkerProps = {
   event: Event;
   onPress: (event: Event) => void;
 };
 
-export const EventMarker = ({ event, onPress }: EventMarkerProps) => (
-  <Marker
-    key={event.id}
-    anchor={{ x: 0.5, y: 0.5 }}
-    coordinate={{
-      latitude: event.latitude,
-      longitude: event.longitude,
-    }}
-    onPress={() => onPress(event)}>
-    <Icon source={event.eventType.icon} size={32} />
-  </Marker>
-);
+export const EventMarker = ({ event, onPress }: EventMarkerProps) => {
+  const markerRef = useRef<MapMarker>(null);
+
+  return (
+    <Marker
+      key={event.id}
+      ref={markerRef}
+      anchor={{ x: 0.5, y: 0.5 }}
+      coordinate={{
+        latitude: event.latitude,
+        longitude: event.longitude,
+      }}
+      tracksViewChanges={true}
+      onPress={() => onPress(event)}>
+    </Marker>
+  );
+};

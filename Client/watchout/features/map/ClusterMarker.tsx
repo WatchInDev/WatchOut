@@ -3,6 +3,7 @@ import { EventCluster } from 'utils/types';
 import { Icon } from 'react-native-paper';
 import { StyleSheet, View } from 'react-native';
 import { Text } from 'components/Base/Text';
+import { useState } from 'react';
 
 interface ClusterMarkerProps {
   cluster: EventCluster;
@@ -29,12 +30,13 @@ const styles = StyleSheet.create({
   }
 });
 
-export const ClusterMarker = ({ cluster }: ClusterMarkerProps) => (
-  <Marker
-    anchor={{ x: 0.5, y: 0.5 }}
-    coordinate={{
-      latitude: cluster.latitude,
-      longitude: cluster.longitude,
+export const ClusterMarker = ({ cluster }: ClusterMarkerProps) => {
+  return (
+    <Marker
+      anchor={{ x: 0.5, y: 0.5 }}
+      coordinate={{
+        latitude: cluster.latitude,
+        longitude: cluster.longitude,
     }}
     title={`Cluster of ${cluster.count} events`}
     description={`There are ${cluster.count} events in this area.`}>
@@ -44,3 +46,4 @@ export const ClusterMarker = ({ cluster }: ClusterMarkerProps) => (
     </View>
   </Marker>
 );
+};
