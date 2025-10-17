@@ -1,0 +1,2 @@
+ALTER TABLE watchout.users
+    ADD COLUMN IF NOT EXISTS external_id VARCHAR(100) UNIQUE NOT NULL DEFAULT gen_random_uuid()::VARCHAR;

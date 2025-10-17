@@ -14,8 +14,10 @@ class CommentMapper(private val userRepository: UserRepository, private val user
             id = comment.id!!,
             content = comment.content,
             eventId = comment.eventId,
+            createdAt = comment.createdAt!!,
             author = userMapper.mapAuthorUserToDto(comment.author),
-            rating = 0.0
+            rating = 0.0,
+            ratingForCurrentUser = 0.0
         )
     }
 

@@ -24,7 +24,8 @@ import kotlin.text.get
 @Repository
 class EventRepositoryCriteriaApiImpl(@PersistenceContext private val entityManager: EntityManager) : EventRepositoryCriteriaApi {
     override fun findByLocation(
-       filters: EventGetRequestDTO
+       filters: EventGetRequestDTO,
+       userId: Long
     ): List<EventResponseDTO> {
         val cb = entityManager.criteriaBuilder
         val cq = cb.createQuery(EventResponseDTO::class.java)
@@ -43,11 +44,11 @@ class EventRepositoryCriteriaApiImpl(@PersistenceContext private val entityManag
             0.0
         ).`as`(Double::class.java)
 
-        // TODO: replace with current user id
+
         val ratingForCurrentUser = cb.coalesce(
             cb.sum(
                 cb.selectCase<Int>()
-                    .`when`(cb.equal(userJoin.get<Long>("id"), 6L), ratingJoin.get("rating"))
+                    .`when`(cb.equal(userJoin.get<Long>("id"), userId), ratingJoin.get("rating"))
                 .otherwise(0)
         ),
         0

@@ -24,6 +24,8 @@ class User(
     @Max(100)
     @Column(name="reputation")
     val reputation : Double,
+    @Column(name = "external_id", unique = true)
+    val externalId : String
 ) : AbstractEntity()
 {
 
