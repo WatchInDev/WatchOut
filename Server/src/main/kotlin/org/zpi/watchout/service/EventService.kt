@@ -12,14 +12,15 @@ import org.zpi.watchout.service.mapper.EventMapper
 @Service
 class EventService(val eventRepository: EventRepository, val eventMapper: EventMapper) {
 
-    fun getAllEvents(eventGetRequestDTO: EventGetRequestDTO): List<EventResponseDTO> {
+    fun getAllEvents(eventGetRequestDTO: EventGetRequestDTO, userId:Long): List<EventResponseDTO> {
         return eventRepository.findByLocation(
-            eventGetRequestDTO
+            eventGetRequestDTO,
+            userId,
         )
     }
 
-    fun createEvent(eventRequestDto: EventRequestDTO): EventResponseDTO {
-        val event = eventMapper.mapToEntity(eventRequestDto, authorId = 6) // TODO: replace with actual user id from auth
+    fun createEvent(eventRequestDto: EventRequestDTO, userId: Long): EventResponseDTO {
+        val event = eventMapper.mapToEntity(eventRequestDto, authorId = userId)
         return eventMapper.mapToDto(eventRepository.save(event))
     }
 

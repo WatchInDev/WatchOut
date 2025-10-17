@@ -2,8 +2,10 @@ package org.zpi.watchout.app.controller
 
 import io.github.oshai.kotlinlogging.KotlinLogging
 import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.Parameter
 import io.swagger.v3.oas.annotations.tags.Tag
 import jakarta.validation.Valid
+import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -32,9 +34,9 @@ class EventController(val eventService: EventService) {
                 "\n" + "reportedDateTo: End date to filter events reported before this date." +
                 "\n" + "distance: Maximum distance (in degrees) to filter events within this distance from the center of the bounding box." +
                 "\n" + "rating: Minimum rating to filter events with at least this rating.")
-    fun getAllEvents(@Valid eventGetRequestDTO: EventGetRequestDTO):List<EventResponseDTO> {
+    fun getAllEvents(@Valid eventGetRequestDTO: EventGetRequestDTO, @Parameter(hidden = true) @AuthenticationPrincipal userId : Long):List<EventResponseDTO> {
         logger.info { "Fetching all events" }
-        val events = eventService.getAllEvents(eventGetRequestDTO)
+        val events = eventService.getAllEvents(eventGetRequestDTO, userId)
         logger.info { "Fetched ${events.size} events" }
         return events
     }
@@ -69,9 +71,9 @@ class EventController(val eventService: EventService) {
 
     @PostMapping
     @Operation(summary = "Create a new event")
-    fun createEvent(@RequestBody @Valid eventRequestDto: EventRequestDTO): EventResponseDTO {
+    fun createEvent(@RequestBody @Valid eventRequestDto: EventRequestDTO, @Parameter(hidden = true) @AuthenticationPrincipal userId : Long): EventResponseDTO {
         logger.info { "Creating event with request name: ${eventRequestDto.name}" }
-        val createdEvent = eventService.createEvent(eventRequestDto)
+        val createdEvent = eventService.createEvent(eventRequestDto, userId)
         logger.info { "Created event with name and id: ${createdEvent.name}, ${createdEvent.id}" }
         return createdEvent
     }

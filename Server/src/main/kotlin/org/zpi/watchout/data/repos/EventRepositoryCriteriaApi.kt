@@ -7,7 +7,8 @@ import org.zpi.watchout.service.dto.EventResponseDTO
 
 interface EventRepositoryCriteriaApi {
     fun findByLocation(
-        filters: EventGetRequestDTO
+        filters: EventGetRequestDTO,
+        userId: Long
     ) : List<EventResponseDTO>
 
     fun calculateClusters(
