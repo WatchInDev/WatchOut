@@ -2,7 +2,7 @@ import json
 import re
 import sys
 
-from ..logging_config import setup_loguru
+from Microservice.logging_config import setup_loguru
 
 setup_loguru()
 
@@ -289,11 +289,10 @@ def parse_energa_datetime_interval(interval: str) -> list[tuple[datetime, dateti
 
 def get_energa_planned_shutdowns() -> dict[str, dict[str, dict[str, tuple[datetime, datetime]]]]:
     """
-        oddzial:
-            - region:
-                - gmina:
-                    - ulica i nr. domu : (start_date, end_date)
-                    - ulica i nr. domu : (start_date, end_date)
+        voievodship:
+            - city:
+                - buildings: {}
+                - intervals: {}
     """
     url = "https://energa-operator.pl/uslugi/awarie-i-wylaczenia/wylaczenia-planowane"
 
