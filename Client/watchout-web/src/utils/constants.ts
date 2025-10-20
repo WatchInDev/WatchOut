@@ -1,0 +1,1 @@
+export const MAP_CLUSTERING_ZOOM_THRESHOLD = 13;
