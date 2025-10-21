@@ -2,7 +2,6 @@ import React, { useRef, useState, useCallback, useEffect, use } from "react";
 import { useUserLocation } from "./useLocation";
 import type { Coordinates, CoordinatesRect, Event } from "../../types";
 import { EventBottomSheet } from "../events/EventBottomSheet";
-import { useMapLogic } from "./useMapLogic";
 import { CreateEventBottomSheet } from "../events/CreateEventBottomSheet";
 import {
   Map,
@@ -37,20 +36,11 @@ export const EventMap = () => {
     setNewEventLocation(coordinate);
     setSelectedEvent(null);
   }, []);
-  const handleMapClick = useCallback((e: google.maps.MapMouseEvent) => {
+
+  const handleMapClick = useCallback(() => {
     setSelectedEvent(null);
     setNewEventLocation(null);
   }, []);
-
-  
-
-  useLongPress(
-    () => {
-      console.log('ddddd');
-      
-      setNewEventLocation(coordinate);
-      setSelectedEvent(null);
-    });
 
   const handleMarkerPress = useCallback(
     (event: Event) => {
