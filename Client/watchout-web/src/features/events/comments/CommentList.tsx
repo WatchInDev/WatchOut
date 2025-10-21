@@ -6,7 +6,9 @@ type CommentListProps = {
 };
 
 export const CommentList: React.FC<CommentListProps> = ({ eventId }) => {
-  const { data: comments, isFetching } = useComments(eventId);
+  const { data, isFetching } = useComments(eventId);
+
+  const comments = data?.content ?? [];
 
   if (isFetching) {
     return <div>Ładowanie komentarzy...</div>;
@@ -15,10 +17,10 @@ export const CommentList: React.FC<CommentListProps> = ({ eventId }) => {
   return (
     <div>
       <h2 style={{ fontWeight: 700, fontSize: 24 }}>
-        Komentarze ({comments?.length ?? 0})
+        Komentarze ({data?.totalElements ?? 0})
       </h2>
 
-      {comments?.length === 0 ? (
+      {comments.length === 0 ? (
         <div style={{ textAlign: "center", marginTop: 32 }}>
           <div style={{ fontSize: 64, color: "#bbb" }}>💬</div>
           <div>Jeszcze nikt nie skomentował tego zdarzenia</div>
@@ -32,7 +34,7 @@ export const CommentList: React.FC<CommentListProps> = ({ eventId }) => {
             overflowY: "auto",
           }}
         >
-          {comments?.map((item) => (
+          {comments.map((item) => (
             <div
               key={item.id}
               style={{
@@ -44,7 +46,7 @@ export const CommentList: React.FC<CommentListProps> = ({ eventId }) => {
               }}
             >
               <div style={{ fontWeight: "bold", marginBottom: 4 }}>
-                {item.author.name}
+                {item.author?.name ?? "Anonim"}
               </div>
               <div>{item.content}</div>
               <div style={{ fontSize: 12, color: "#666", marginTop: 8 }}>
