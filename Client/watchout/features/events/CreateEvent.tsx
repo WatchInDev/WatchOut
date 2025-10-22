@@ -48,9 +48,9 @@ export const CreateEvent = ({ location, onSuccess }: CreateEventProps) => {
 
   const createEventMutation = useCreateEvent();
 
-  const updateField = (field: keyof typeof formData, value: any) => {
+  const updateField = useCallback((field: keyof typeof formData, value: any) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
-  };
+  }, []);
 
   const resetForm = useCallback(() => {
     setFormData({ name: '', description: '', eventTypeId: null });
