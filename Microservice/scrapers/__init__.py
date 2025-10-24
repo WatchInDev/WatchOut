@@ -1,1 +1,2 @@
 from .energa import get_energa_planned_shutdowns
+from .tauron import get_tauron_planned_shutdowns
