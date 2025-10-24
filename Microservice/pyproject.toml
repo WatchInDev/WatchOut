@@ -7,8 +7,8 @@ requires-python = ">=3.13"
 dependencies = [
     "beautifulsoup4>=4.13.5",
     "fastapi>=0.116.1",
+    "loguru>=0.7.3",
     "lxml>=6.0.1",
-    "playwright[chromium]>=1.55.0",
     "requests>=2.32.5",
     "uvicorn>=0.35.0",
 ]
