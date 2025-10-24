@@ -617,7 +617,7 @@ def transform_tauron_data(responses_and_voivodeships: list[tuple[dict, str]]) ->
     return transformed_data
 
 
-def get_tauron_planned_shutdowns(from_date: str, to_date: str):
+def get_tauron_planned_shutdowns(from_date: datetime, to_date: datetime):
     """
     voivodeship:
         - city:
@@ -625,6 +625,9 @@ def get_tauron_planned_shutdowns(from_date: str, to_date: str):
                 - buildings: {}
 
     """
+
+    from_date = format_for_tauron(from_date)
+    to_date = format_for_tauron(to_date)
 
     base_url = "https://www.tauron-dystrybucja.pl/waapi/outages/area?"
 
@@ -668,5 +671,5 @@ if __name__ == "__main__":
     # infer_powiat_GAIDs()
     from_date = datetime(year=2025, month=10, day=24, tzinfo=timezone.utc)
     to_date = datetime(year=2025, month=10, day=27, tzinfo=timezone.utc)
-    res = get_tauron_planned_shutdowns(format_for_tauron(from_date), format_for_tauron(to_date))
+    res = get_tauron_planned_shutdowns(from_date, to_date)
     json.dump(res, sys.stdout, ensure_ascii=False, indent=4)
