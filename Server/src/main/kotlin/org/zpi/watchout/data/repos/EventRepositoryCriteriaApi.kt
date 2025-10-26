@@ -11,6 +11,10 @@ interface EventRepositoryCriteriaApi {
         userId: Long
     ) : List<EventResponseDTO>
 
+    fun findByAuthor(
+        userId: Long? = null,
+    ) : List<EventResponseDTO>
+
     fun calculateClusters(
         filters: ClusterRequestDTO,
         eps: Double,

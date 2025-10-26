@@ -40,7 +40,7 @@ class EventRepositoryCriteriaApiImpl(@PersistenceContext private val entityManag
 
 
         val weightedRatingExpr = cb.coalesce(
-            cb.sum(cb.prod(ratingJoin.get<Int>("rating"), userJoin.get<Double>("reputation"))),
+            cb.sum(ratingJoin.get("rating")),
             0.0
         ).`as`(Double::class.java)
 
@@ -107,6 +107,89 @@ class EventRepositoryCriteriaApiImpl(@PersistenceContext private val entityManag
         if(havingPredicates.isNotEmpty()) {
             cq.having(*havingPredicates.toTypedArray())
         }
+
+        return entityManager.createQuery(cq).resultList
+    }
+
+    override fun findByAuthor(userId: Long?): List<EventResponseDTO> {
+        val cb = entityManager.criteriaBuilder
+        val cq = cb.createQuery(EventResponseDTO::class.java)
+
+        val eventRoot = cq.from(Event::class.java)
+
+        val authorJoin = eventRoot.join<Event, User>("author", JoinType.INNER)
+        val eventTypeJoin = eventRoot.join<Event, EventType>("eventType", JoinType.INNER)
+        val ratingJoin = eventRoot.join<Event, EventRating>("ratings", JoinType.LEFT)
+        val userJoin = ratingJoin.join<EventRating, User>("user", JoinType.LEFT)
+
+
+
+        val weightedRatingExpr = cb.coalesce(
+            cb.sum(ratingJoin.get("rating")),
+            0.0
+        ).`as`(Double::class.java)
+
+
+        val ratingForCurrentUser = cb.coalesce(
+            cb.sum(
+                cb.selectCase<Int>()
+                    .`when`(cb.equal(userJoin.get<Long>("id"), userId), ratingJoin.get("rating"))
+                    .otherwise(0)
+            ),
+            0
+        )
+
+
+        cq.select(
+            cb.construct(
+                EventResponseDTO::class.java,
+                eventRoot.get<Long>("id"),
+                eventRoot.get<String>("name"),
+                eventRoot.get<String>("description"),
+                eventRoot.get<ByteArray>("image"),
+                eventRoot.get<Geometry>("location"),
+                eventRoot.get<LocalDateTime>("reportedDate"),
+                eventRoot.get<LocalDateTime>("endDate"),
+                eventRoot.get<Boolean>("isActive"),
+
+                eventTypeJoin.get<Long>("id"),
+                eventTypeJoin.get<String>("name"),
+                eventTypeJoin.get<String>("icon"),
+                eventTypeJoin.get<String>("description"),
+
+                authorJoin.get<Long>("id"),
+                authorJoin.get<String>("name"),
+                authorJoin.get<String>("lastName"),
+                authorJoin.get<Double>("reputation"),
+
+                weightedRatingExpr,
+                ratingForCurrentUser
+            )
+        )
+
+        val predicates = generatePredicateWhereForReputationComputation(cb, eventRoot, userId)
+        if(predicates.isNotEmpty())
+            cq.where(*predicates.toTypedArray())
+        cq.groupBy(
+            eventRoot.get<Long>("id"),
+            eventRoot.get<String>("name"),
+            eventRoot.get<String>("description"),
+            eventRoot.get<ByteArray>("image"),
+            eventRoot.get<Geometry>("location"),
+            eventRoot.get<LocalDateTime>("reportedDate"),
+            eventRoot.get<LocalDateTime>("endDate"),
+            eventRoot.get<Boolean>("isActive"),
+
+            eventTypeJoin.get<Long>("id"),
+            eventTypeJoin.get<String>("name"),
+            eventTypeJoin.get<String>("icon"),
+            eventTypeJoin.get<String>("description"),
+
+            authorJoin.get<Long>("id"),
+            authorJoin.get<String>("name"),
+            authorJoin.get<String>("lastName"),
+            authorJoin.get<Double>("reputation")
+        )
 
         return entityManager.createQuery(cq).resultList
     }
@@ -247,6 +330,7 @@ class EventRepositoryCriteriaApiImpl(@PersistenceContext private val entityManag
     fun generatePredicateWhere(filters: ClusterRequestDTO, cb: CriteriaBuilder, eventRoot:  Root<Event>):  MutableList<Predicate> {
         val predicates = mutableListOf<Predicate>()
 
+
         predicates.add(
             cb.isTrue(
                 cb.function(
@@ -305,6 +389,16 @@ class EventRepositoryCriteriaApiImpl(@PersistenceContext private val entityManag
                 cb.literal(filters.distance)
             )
             predicates.add(cb.isTrue(withinDistance))
+        }
+
+        return predicates
+    }
+
+    fun generatePredicateWhereForReputationComputation(cb: CriteriaBuilder, eventRoot:  Root<Event>, authorIdFilter: Long?):  MutableList<Predicate> {
+        val predicates = mutableListOf<Predicate>()
+
+        authorIdFilter?.let { authorId ->
+            predicates.add(cb.equal(eventRoot.get<User>("author").get<Long>("id"), authorId))
         }
 
         return predicates

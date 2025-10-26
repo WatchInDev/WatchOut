@@ -24,5 +24,5 @@ interface EventRatingRepository : JpaRepository<EventRating, Long> {
     """,
         nativeQuery = true
     )
-    fun upsertRating(@Param("userId") userId: Long,@Param("eventId") eventId: Long, @Param("rating") rating: Int)
+    fun upsertRating(@Param("userId") userId: Long,@Param("eventId") eventId: Long, @Param("rating") rating: Double)
 }
