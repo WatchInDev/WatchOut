@@ -48,4 +48,33 @@ interface CommentRepository : JpaRepository<Comment, Long> {
         @Param("userId") userId: Long,
         pageable: Pageable
     ): Page<CommentResponseDTO>
+
+
+    @Query(
+        value = """
+        SELECT new org.zpi.watchout.service.dto.CommentResponseDTO(
+            c.id,
+            c.content,
+            c.eventId,
+            c.createdAt,
+            new org.zpi.watchout.service.dto.AuthorResponseDTO(
+                uAuthor.id,
+                uAuthor.name,
+                uAuthor.lastName,
+                uAuthor.reputation
+            ),
+            COALESCE(SUM(cr.rating * uRater.reputation), 0.0),
+            0.0
+        )
+        FROM Comment c
+        JOIN c.author uAuthor
+        LEFT JOIN CommentRating cr ON cr.comment = c
+        LEFT JOIN cr.user uRater
+        WHERE (:authorId IS NULL OR uAuthor.id = :authorId)
+        GROUP BY 
+            c.id, c.content, uAuthor.id, c.eventId, c.createdAt,
+            uAuthor.name, uAuthor.lastName, uAuthor.reputation
+    """
+    )
+    fun findByAuthor(@Param("authorId") authorId: Long? = null): List<CommentResponseDTO>
 }

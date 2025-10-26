@@ -10,6 +10,6 @@ import org.zpi.watchout.data.repos.UserRepository
 class UserService (val userRepository: UserRepository) {
 
     fun createUser(externalId: String, name: String, lastName: String, email: String, phone: String){
-        userRepository.save(User(name, lastName, email, phone, 0.0 , externalId))
+        userRepository.save(User(name, lastName, email, phone, 0.25 , externalId))
     }
 }
