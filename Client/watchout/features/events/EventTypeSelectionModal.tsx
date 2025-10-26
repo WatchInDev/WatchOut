@@ -58,10 +58,10 @@ export const EventTypeSelectionModal = ({
 
 const styles = StyleSheet.create({
   modal: {
+    margin: 30,
     backgroundColor: 'white',
-    padding: 16,
-    margin: 12,
     borderRadius: 8,
+    padding: 16,
   },
   title: {
     fontSize: 20,
