@@ -79,7 +79,7 @@ export const CommentList = ({ eventId }: CommentListProps) => {
               <Text style={{ textAlign: 'center' }}>
                 {isFetchingNextPage
                   ? 'Ładowanie...'
-                  : `Wyświetl więcej komentarzy (${comments!.totalElements - currentCommentCount})`}
+                  : `Wyświetl więcej komentarzy (${(comments?.totalElements ?? 0) - currentCommentCount})`}
               </Text>
             </TouchableOpacity>
           )}

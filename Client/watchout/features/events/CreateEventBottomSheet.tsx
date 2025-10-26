@@ -54,7 +54,7 @@ export const CreateEventBottomSheet = ({ location, onSuccess }: CreateEventProps
 
   const createEventMutation = useCreateEvent();
 
-  const updateField = useCallback((field: keyof typeof formData, value: any) => {
+  const updateField = useCallback(<K extends keyof FormData>(field: K, value: FormData[K]) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
   }, []);
 

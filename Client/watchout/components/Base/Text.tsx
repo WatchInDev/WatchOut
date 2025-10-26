@@ -54,7 +54,9 @@ export const Text = ({ variant, style, color, ...rest }: BaseTextProps) => {
   const mergedStyle = {
     ...(variant ? theme.typography[variant] : theme.typography['body1']),
     ...flattenStyle,
-    color: theme.palette.text[color || 'primary'],
+    color: color && Object.prototype.hasOwnProperty.call(theme.palette.text, color)
+      ? theme.palette.text[color as keyof typeof theme.palette.text]
+      : theme.palette.text.primary,
   };
 
   if (mergedStyle && mergedStyle.fontWeight !== undefined) {
