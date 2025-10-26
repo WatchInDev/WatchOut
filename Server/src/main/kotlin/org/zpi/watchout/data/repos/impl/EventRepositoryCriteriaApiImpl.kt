@@ -40,7 +40,7 @@ class EventRepositoryCriteriaApiImpl(@PersistenceContext private val entityManag
 
 
         val weightedRatingExpr = cb.coalesce(
-            cb.sum(ratingJoin.get("rating")),
+            cb.sum(cb.prod(ratingJoin.get<Int>("rating"), userJoin.get<Double>("reputation"))),
             0.0
         ).`as`(Double::class.java)
 
@@ -125,7 +125,7 @@ class EventRepositoryCriteriaApiImpl(@PersistenceContext private val entityManag
 
 
         val weightedRatingExpr = cb.coalesce(
-            cb.sum(ratingJoin.get("rating")),
+            cb.sum(cb.prod(ratingJoin.get<Int>("rating"), userJoin.get<Double>("reputation"))),
             0.0
         ).`as`(Double::class.java)
 
