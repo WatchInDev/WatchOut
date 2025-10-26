@@ -45,10 +45,9 @@ async def send_data_to_event_hub(data_list):
 app = func.FunctionApp()
 
 
-@app.schedule(schedule="0 */5 * * * *",
-              arg_name="myTimer",
-              run_on_startup=True)
-async def main():
+@app.timer_trigger(schedule="0 * * * * *", arg_name="myTimer", run_on_startup=True,
+              use_monitor=False) 
+async def main(myTimer: func.TimerRequest) -> None:
     try:
         tauron = get_tauron_planned_shutdowns(datetime.now(), datetime.now() + timedelta(days=7))
         energa = get_energa_planned_shutdowns()

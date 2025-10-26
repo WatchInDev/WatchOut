@@ -6,6 +6,7 @@ readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
     "azure-eventhub>=5.15.0",
+    "azure-functions>=1.24.0",
     "beautifulsoup4>=4.13.5",
     "fastapi>=0.116.1",
     "loguru>=0.7.3",
