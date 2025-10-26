@@ -1,8 +1,11 @@
 import Modal from 'react-native-modal';
 import { Text } from 'components/Base/Text';
-import { ScrollView, View, StyleSheet } from 'react-native';
+import { ScrollView, View, StyleSheet, TouchableHighlight } from 'react-native';
 import { Button, Card, Icon } from 'react-native-paper';
 import { useGetEventTypes } from 'features/events/event-types.hooks';
+import { CustomSurface } from 'components/Layout/CustomSurface';
+import { theme } from 'utils/theme';
+import { icons } from 'components/Base/icons';
 
 type EventSelectionModalProps = {
   isVisible: boolean;
@@ -22,30 +25,38 @@ export const EventTypeSelectionModal = ({
   return (
     <Modal isVisible={isVisible} onDismiss={() => setIsVisible(false)}>
       <View style={styles.modal}>
-        <Text style={styles.title}>Wybierz rodzaj zdarzenia</Text>
-        <ScrollView contentContainerStyle={styles.scrollContainer}>
+        <Text variant="h4">Wybierz rodzaj zdarzenia</Text>
+        <ScrollView contentContainerStyle={styles.scrollContainer} showsVerticalScrollIndicator={false}>
           {eventTypes?.map((type) => (
-            <Card
+            <TouchableHighlight
               key={type.id}
-              mode="contained"
-              style={
-                eventType?.id === type.id
-                  ? styles.selectedCard
-                  : eventType
-                    ? { opacity: 0.7 }
-                    : undefined
-              }
+              style={{ borderRadius: 8 }}
               onPress={() => {
                 setEventType(type);
                 setIsVisible(false);
               }}>
-              <View style={styles.cardContent}>
-                <Icon source={type.icon} size={48} />
-                <Text style={eventType?.id === type.id ? styles.selectedText : undefined}>
-                  {type.name}
-                </Text>
-              </View>
-            </Card>
+              <CustomSurface
+                key={type.id}
+                style={[
+                  eventType?.id === type.id
+                    ? styles.selectedCard
+                    : eventType
+                      ? { opacity: 0.7 }
+                      : undefined,
+                  { minHeight: 100, alignItems: 'center', justifyContent: 'center' },
+                ]}>
+                <View style={styles.cardContent}>
+                  <Icon source={icons[type.icon as keyof typeof icons]} size={48} />
+                  <Text variant='subtitle1'
+                    style={[
+                      eventType?.id === type.id ? styles.selectedText : undefined,
+                      { flex: 1 },
+                    ]}>
+                    {type.name}
+                  </Text>
+                </View>
+              </CustomSurface>
+            </TouchableHighlight>
           ))}
         </ScrollView>
         <Button mode="outlined" onPress={() => setIsVisible(false)} style={styles.cancelButton}>
@@ -81,9 +92,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   selectedCard: {
-    outlineColor: '#6200ee',
+    outlineColor: theme.palette.primary,
     outlineWidth: 2,
-    backgroundColor: '#e3d7ff',
   },
   selectedText: {
     fontWeight: 'bold',

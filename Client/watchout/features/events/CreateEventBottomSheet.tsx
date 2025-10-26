@@ -1,13 +1,14 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
 import dayjs from 'dayjs';
-import { Alert, StyleSheet, TouchableOpacity } from 'react-native';
-import { TextInput, Button } from 'react-native-paper';
+import { Alert, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { TextInput, Button, Icon } from 'react-native-paper';
 import { Text } from 'components/Base/Text';
 import { useCreateEvent } from 'features/events/events.hooks';
 import { Coordinates, CreateEventRequest } from 'utils/types';
 import { reverseGeocode } from '../map/reverseGeocode';
 import { EventTypeSelectionModal } from './EventTypeSelectionModal';
 import { BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet';
+import { icons } from 'components/Base/icons';
 
 type CreateEventProps = {
   location: Coordinates;
@@ -123,7 +124,7 @@ export const CreateEventBottomSheet = ({ location, onSuccess }: CreateEventProps
             mode="outlined"
             value={selectedEventType?.name || 'Wybierz rodzaj zdarzenia'}
             right={<TextInput.Icon icon="menu-down" />}
-            left={selectedEventType ? <TextInput.Icon icon={selectedEventType.icon} /> : undefined}
+            left={selectedEventType ? <TextInput.Icon icon={icons[selectedEventType.icon as keyof typeof icons]} /> : undefined}
             editable={false}
           />
         </TouchableOpacity>
