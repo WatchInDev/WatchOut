@@ -1,8 +1,5 @@
-import { Text as ReactNativeText, TextProps } from 'react-native';
-
-const defaultStyles = {
-  color: '#4A4459',
-};
+import { Text as ReactNativeText, TextStyle, TextProps } from 'react-native';
+import { theme, TypographyColor, TypographyVariant } from 'utils/theme';
 
 const convertFontWeightToFontFamily = (fontWeight: string | number | undefined) => {
   switch (fontWeight) {
@@ -39,19 +36,34 @@ const convertFontWeightToFontFamily = (fontWeight: string | number | undefined) 
   }
 };
 
-export const Text: React.FC<TextProps> = (props) => {
-  if (props?.style?.fontWeight !== undefined) {
-    const fontFamilyStyles = convertFontWeightToFontFamily(props.style.fontWeight);
-    const { fontWeight, ...restStyle } = props.style || {};
+type BaseTextProps = TextProps & {
+  variant?: TypographyVariant;
+  color?: TypographyColor;
+};
+
+const defaultStyles: TextStyle = {
+  fontFamily: theme.typography.fontFamily,
+  color: theme.palette.text.primary,
+};
+
+export const Text = ({ variant, style, color, ...rest }: BaseTextProps) => {
+  const flattenStyle = Array.isArray(style)
+    ? Object.assign({}, ...style)
+    : (style as TextStyle | undefined) || {};
+
+  const mergedStyle = {
+    ...(variant ? theme.typography[variant] : theme.typography['body1']),
+    ...flattenStyle,
+    color: theme.palette.text[color || 'primary'],
+  };
+
+  if (mergedStyle && mergedStyle.fontWeight !== undefined) {
+    const fontFamilyStyles = convertFontWeightToFontFamily(mergedStyle.fontWeight);
+    const { fontWeight, ...restStyle } = mergedStyle;
 
     const combinedStyles = [defaultStyles, fontFamilyStyles, restStyle];
-    return <ReactNativeText {...props} style={combinedStyles} />;
+    return <ReactNativeText {...rest} style={combinedStyles} />;
   }
 
-  return (
-    <ReactNativeText
-      {...props}
-      style={[defaultStyles, props.style, { fontFamily: 'Poppins_400Regular' }]}
-    />
-  );
+  return <ReactNativeText {...rest} style={[defaultStyles, mergedStyle]} />;
 };
