@@ -1,6 +1,0 @@
-2025-10-26 12:19:44 | WARNING  | __main__:parse_energa_locations:37 - Failed to parse city from locations: Słupia pod Bralinem 74A, 74B, 74G, 74H, 180/12.
-2025-10-26 12:19:44 | WARNING  | __main__:parse_energa_locations:37 - Failed to parse city from locations: Świecie nad Osą .
-2025-10-26 12:19:44 | WARNING  | __main__:parse_energa_locations:37 - Failed to parse city from locations: Świecie nad Osą 90, 104, od 106 do 108, 108A.
-2025-10-26 12:19:44 | WARNING  | __main__:parse_energa_locations:37 - Failed to parse city from locations: Świecie nad Osą 79, 81, 87, 88.
-2025-10-26 12:19:44 | WARNING  | __main__:parse_energa_locations:37 - Failed to parse city from locations: Świecie nad Osą 41, 58, 59.
-2025-10-26 12:19:49 | INFO     | __main__:get_tauron_planned_shutdowns:642 - Province: Dolnośląskie with GAID: 2
