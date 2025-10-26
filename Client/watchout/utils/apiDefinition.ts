@@ -1,15 +1,28 @@
-import type { CoordinatesRect } from './types';
+import type { CoordinatesRect, PaginationRequest } from './types';
 
 export type ApiDefinition = {
   key: string[];
   endpoint: string;
 };
 
-const queryParams = (params: Record<string, string | number | boolean>) => {
+const queryParams = (params: Record<string, any>) => {
   const esc = encodeURIComponent;
   return '?' + Object.keys(params)
     .map(k => esc(k) + '=' + esc(params[k]))
     .join('&');
+}
+
+const paginationToQueryParams = <T>(pagination: PaginationRequest<T>) => {
+  const params: Record<string, any> = {
+    page: pagination.page,
+    size: pagination.size,
+  };
+
+  if (pagination.sort) {
+    params.sort = pagination.sort.map(s => `${String(s.field)},${s.direction}`).join('&');
+  }
+
+  return queryParams(params);
 }
 
 export const API_ENDPOINTS = {
@@ -19,8 +32,8 @@ export const API_ENDPOINTS = {
     create: 'events',
   },
   comments: {
-    getByEventId: (eventId: number) => `events/${eventId}/comments`,
-    create: (eventId: number) => `events/${eventId}/comments`,
+    getByEventId: <T>(eventId: number, pagination: PaginationRequest<T>) => `events/${eventId}/comments` + paginationToQueryParams(pagination),
+    post: (eventId: number) => `events/${eventId}/comments`,
   },
   eventTypes: {
     getAll: 'event-types',

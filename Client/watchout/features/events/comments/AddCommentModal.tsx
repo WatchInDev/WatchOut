@@ -1,8 +1,8 @@
-import Modal from 'react-native-modal';
-import { Button } from 'react-native-paper';
-import React, { useState } from 'react';
-import { StyleSheet, TextInput, View } from 'react-native';
+import { Button, TextInput } from 'react-native-paper';
+import { useState } from 'react';
+import { View } from 'react-native';
 import { useCreateComment } from './useCreateComment';
+import { CustomModal } from 'components/Base/CustomModal';
 
 type AddCommentModalProps = {
   eventId: number;
@@ -33,35 +33,23 @@ export const AddCommentModal = ({
   };
 
   return (
-    <View>
-      <Modal isVisible={isVisible} onBackdropPress={onClose}>
-        <View style={styles.modal}>
+    <>
+      <CustomModal isVisible={isVisible} onBackdropPress={onClose}>
+        <View style={{ gap: 12 }}>
           <TextInput
             placeholder="Dodaj komentarz..."
             value={comment}
+            mode="outlined"
             onChangeText={setComment}
             multiline
-            style={styles.textInput}
+            numberOfLines={4}
+            style={{ minHeight: 100, paddingTop: 8 }}
           />
-          <Button onPress={handleSubmit}>Wyślij</Button>
+          <Button onPress={handleSubmit} mode="contained" disabled={comment.trim() === ''}>
+            Wyślij
+          </Button>
         </View>
-      </Modal>
-    </View>
+      </CustomModal>
+    </>
   );
 };
-
-const styles = StyleSheet.create({
-  modal: {
-    justifyContent: 'center',
-    padding: 16,
-    backgroundColor: '#fff',
-  },
-  textInput: {
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 8,
-    padding: 8,
-    minHeight: 60,
-    backgroundColor: '#fff',
-  },
-});
