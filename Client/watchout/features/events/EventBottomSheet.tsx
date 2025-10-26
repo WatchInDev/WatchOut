@@ -3,10 +3,10 @@ import { StyleSheet, View } from 'react-native';
 import { useEffect, useRef, useState } from 'react';
 import { CommentList } from './comments/CommentList';
 import { Pictures } from './comments/Pictures';
-import { EventDetails } from './comments/EventDetails';
 import BottomSheet, { BottomSheetScrollView } from '@gorhom/bottom-sheet';
 import { Button, Divider } from 'react-native-paper';
-import { AddCommentModal } from './comments/AddCommentModal';
+import { EventDetails } from './EventDetails';
+import { Pictures } from './Pictures'
 
 type EventBottomSheetProps = {
   event: Event;
