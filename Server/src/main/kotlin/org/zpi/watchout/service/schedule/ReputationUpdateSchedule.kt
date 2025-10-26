@@ -11,8 +11,7 @@ private val logger = KotlinLogging.logger {}
 
 @Service
 class ReputationUpdateSchedule(val reputationService: ReputationService,  val userRepository: UserRepository) {
-//    @Scheduled(cron = "\${scheduler.recalculate.reputation.time}")
-    @Scheduled(fixedRate = 86400000) // 24 hours
+        @Scheduled(cron = "\${scheduler.recalculate.reputation.time}")
     fun updateReputations() {
         logger.info { "Recalculating user reputations..." }
         val users = userRepository.findAll()
