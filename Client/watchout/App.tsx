@@ -29,12 +29,13 @@ import { Poppins_800ExtraBold } from '@expo-google-fonts/poppins/800ExtraBold';
 import { Poppins_800ExtraBold_Italic } from '@expo-google-fonts/poppins/800ExtraBold_Italic';
 import { Poppins_900Black } from '@expo-google-fonts/poppins/900Black';
 import { Poppins_900Black_Italic } from '@expo-google-fonts/poppins/900Black_Italic';
-import { theme } from 'utils/theme';
+import { paperTheme } from 'utils/paperTheme';
 import Geocoding from 'react-native-geocoding';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import duration from 'dayjs/plugin/duration';
 import 'dayjs/locale/pl';
+import { useEffect } from 'react';
 
 const queryClient = new QueryClient();
 
@@ -42,11 +43,13 @@ dayjs.extend(relativeTime);
 dayjs.extend(duration);
 dayjs.locale('pl');
 
-Geocoding.init(GEOCODING_API_KEY, {
-  language: 'pl',
-});
-
 export default function App() {
+  useEffect(() => {
+    Geocoding.init(GEOCODING_API_KEY, {
+      language: 'pl',
+    });
+  }, []);
+
   const [loaded] = useFonts({
     MaterialDesignIcons: require('./assets/fonts/MaterialDesignIcons.ttf'),
     Poppins_100Thin,
@@ -79,10 +82,10 @@ export default function App() {
 
   return (
     <>
-      <GestureHandlerRootView>
-        <QueryClientProvider client={queryClient}>
-          <SafeAreaProvider>
-            <PaperProvider theme={theme}>
+      <QueryClientProvider client={queryClient}>
+        <SafeAreaProvider>
+          <GestureHandlerRootView>
+            <PaperProvider theme={paperTheme}>
               <BottomSheetModalProvider>
                 <NavigationContainer>
                   <AppNavigator />
@@ -90,9 +93,9 @@ export default function App() {
                 </NavigationContainer>
               </BottomSheetModalProvider>
             </PaperProvider>
-          </SafeAreaProvider>
-        </QueryClientProvider>
-      </GestureHandlerRootView>
+          </GestureHandlerRootView>
+        </SafeAreaProvider>
+      </QueryClientProvider>
     </>
   );
 }

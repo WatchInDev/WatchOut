@@ -1,31 +1,39 @@
-﻿import { DrawerContentComponentProps, DrawerContentScrollView } from '@react-navigation/drawer';
+﻿import {
+  DrawerContentComponentProps,
+  DrawerContentScrollView,
+  DrawerItem,
+} from '@react-navigation/drawer';
 import { View, StyleSheet } from 'react-native';
 import { Text } from 'components/Base/Text';
-import { Drawer } from 'react-native-paper';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export const CustomDrawerContent = (props: DrawerContentComponentProps) => {
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-      <Text style={styles.headerText}>Watchout</Text>
+        <Text style={styles.headerText}>Watchout</Text>
       </View>
       <DrawerContentScrollView {...props}>
         {props.state.routes.map((route, index) => {
           const isRouteActive = props.state.index === index;
 
+          const icon = props.descriptors[route.key].options.drawerIcon;
           return (
-            <Drawer.CollapsedItem
-              focusedIcon='inbox'
+            <DrawerItem
+              icon={icon}
               key={route.key}
-              label={props.descriptors[route.key].options.drawerLabel?.toString() || route.name}
-              active={isRouteActive}
+              label={() => (
+                <Text>
+                  {props.descriptors[route.key].options.drawerLabel?.toString() || route.name}
+                </Text>
+              )}
               onPress={() => props.navigation.navigate(route.name)}
               style={isRouteActive ? styles.activeDrawerItem : styles.inactiveDrawerItem}
             />
           );
         })}
       </DrawerContentScrollView>
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -34,22 +42,20 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   header: {
-    padding: 20,
-    backgroundColor: '#6200ee',
+    textAlign: 'center',
+    alignContent: 'center',
     alignItems: 'center',
-    justifyContent: 'center',
   },
   headerText: {
-    color: '#fff',
-    fontSize: 24,
+    fontSize: 16,
     fontWeight: 'bold',
-    fontFamily: 'Poppins_500Medium',
+    borderBottomWidth: 1,
+    borderBottomColor: '#ddd',
   },
   activeDrawerItem: {
     backgroundColor: '#f0f0f0',
   },
   inactiveDrawerItem: {
     backgroundColor: 'transparent',
-    fontFamily: 'Poppins_400Regular',
   },
 });

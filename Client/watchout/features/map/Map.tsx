@@ -1,16 +1,14 @@
 import { Dimensions, StyleSheet, View } from 'react-native';
 import MapView, { LongPressEvent, Marker, PROVIDER_GOOGLE } from 'react-native-maps';
-import { useLocation } from 'features/map/useLocation';
-import { Event } from 'utils/types';
-import { Button, Icon } from 'react-native-paper';
-import { useRef, useState, useCallback, useEffect } from 'react';
-import { BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet';
+import { useUserLocation } from 'features/map/useLocation';
+import { Coordinates, Event } from 'utils/types';
+import { Icon } from 'react-native-paper';
+import { useRef, useState, useCallback } from 'react';
 import { EventBottomSheet } from 'features/events/EventBottomSheet';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { useMapLogic } from 'features/map/useMapLogic';
 import { ClusterMarker } from './ClusterMarker';
 import { EventMarker } from './EventMarker';
-import { CreateEvent } from '../events/CreateEvent';
+import { CreateEventBottomSheet } from '../events/CreateEventBottomSheet';
 
 const styles = StyleSheet.create({
   container: {
@@ -29,39 +27,18 @@ const ZOOM_TO_EVENT_MILLISECONDS = 500;
 
 export const Map = () => {
   const mapRef = useRef<MapView>(null);
-  const bottomSheetRef = useRef<BottomSheetModal>(null);
-  const { location } = useLocation();
+  const { location } = useUserLocation();
   const { events, clusters, isZoomedEnough, onRegionChangeComplete, refetch } = useMapLogic(
     mapRef as React.RefObject<MapView>
   );
-  const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
   
-  useEffect(() => {
-    if (location && mapRef.current) {
-      console.log('Centering map to user location:', location);
-      
-      mapRef.current.animateToRegion(
-        {
-          latitude: location.latitude,
-          longitude: location.longitude,
-          latitudeDelta: 0.1,
-          longitudeDelta: 0.05,
-        },
-        1000
-      );
-    }
-  }, []);
-
-  const [newEventLocation, setNewEventLocation] = useState<{
-    latitude: number;
-    longitude: number;
-  } | null>(null);
+  const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
+  const [newEventLocation, setNewEventLocation] = useState<Coordinates | null>(null);
 
   const openCreateEventModal = (event: LongPressEvent) => {
     const { coordinate } = event.nativeEvent;
     setNewEventLocation(coordinate);
     setSelectedEvent(null);
-    bottomSheetRef.current?.present();
   };
 
   const handleMarkerPress = useCallback(
@@ -82,26 +59,26 @@ export const Map = () => {
       }
       setSelectedEvent(event);
       setNewEventLocation(null);
-      bottomSheetRef.current?.present();
     },
     [selectedEvent, mapRef]
   );
 
   const handleMapPress = useCallback(() => {
     setSelectedEvent(null);
-    bottomSheetRef.current?.dismiss();
     setNewEventLocation(null);
   }, []);
 
   return (
-    <GestureHandlerRootView style={styles.container}>
+    <View style={styles.container}>
       <MapView
         ref={mapRef}
         style={styles.map}
         provider={PROVIDER_GOOGLE}
         showsUserLocation={true}
         followsUserLocation={true}
-        onPress={handleMapPress}
+        onPress={(e) => {
+          handleMapPress();
+        }}
         onLongPress={openCreateEventModal}
         showsCompass={true}
         showsScale={true}
@@ -112,15 +89,18 @@ export const Map = () => {
           longitude: location?.longitude || 0,
           latitudeDelta: 0.1,
           longitudeDelta: 0.05,
-        }}
-        moveOnMarkerPress={true}>
+        }}>
         {!isZoomedEnough &&
           clusters?.map((cluster) => (
             <ClusterMarker key={`${cluster.latitude}-${cluster.longitude}`} cluster={cluster} />
           ))}
         {isZoomedEnough &&
           events?.map((event: Event) => (
-            <EventMarker key={event.id} event={event} onPress={handleMarkerPress} />
+            <EventMarker
+              key={event.id}
+              event={event}
+              onPress={handleMarkerPress}
+            />
           ))}
         {newEventLocation && (
           <Marker
@@ -133,21 +113,16 @@ export const Map = () => {
           </Marker>
         )}
       </MapView>
-      <BottomSheetModal ref={bottomSheetRef} snapPoints={['40%']} index={0} enablePanDownToClose>
-        <BottomSheetView>
-          {selectedEvent && <EventBottomSheet event={selectedEvent} />}
-          {newEventLocation && (
-            <CreateEvent
-              location={newEventLocation}
-              onSuccess={() => {
-                bottomSheetRef.current?.dismiss();
-                setNewEventLocation(null);
-                refetch();
-              }}
-            />
-          )}
-        </BottomSheetView>
-      </BottomSheetModal>
-    </GestureHandlerRootView>
+      {selectedEvent && <EventBottomSheet event={selectedEvent} onClose={() => setSelectedEvent(null)} />}
+      {newEventLocation && (
+        <CreateEventBottomSheet
+          location={newEventLocation}
+          onSuccess={() => {
+            setNewEventLocation(null);
+            refetch();
+          }}
+        />
+      )}
+    </View>
   );
 };

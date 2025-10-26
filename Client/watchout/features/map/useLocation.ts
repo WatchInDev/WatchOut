@@ -21,7 +21,7 @@ const isUserLocationGranted = async () => {
   }
 };
 
-export const useLocation = () => {
+export const useUserLocation = () => {
   const [hasPermission, setHasPermission] = useState(false);
   const [location, setLocation] = useState<{ latitude: number; longitude: number } | null>(null);
   const [error, setError] = useState<string | null>(null);

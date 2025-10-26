@@ -1,12 +1,13 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import dayjs from 'dayjs';
-import { ScrollView, StyleSheet, Alert, View, TouchableOpacity } from 'react-native';
+import { Alert, StyleSheet, TouchableOpacity } from 'react-native';
 import { TextInput, Button } from 'react-native-paper';
 import { Text } from 'components/Base/Text';
 import { useCreateEvent } from 'features/events/events.hooks';
 import { Coordinates, CreateEventRequest } from 'utils/types';
 import { reverseGeocode } from '../map/reverseGeocode';
-import { EventSelectionModal } from './EventSelectionModal';
+import { EventTypeSelectionModal } from './EventTypeSelectionModal';
+import { BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet';
 
 type CreateEventProps = {
   location: Coordinates;
@@ -19,7 +20,12 @@ type FormData = {
   eventTypeId: number | null;
 };
 
-export const CreateEvent = ({ location, onSuccess }: CreateEventProps) => {
+export const CreateEventBottomSheet = ({ location, onSuccess }: CreateEventProps) => {
+  const bottomSheetRef = useRef<BottomSheetModal>(null);
+  useEffect(() => {
+    bottomSheetRef.current?.present();
+  }, []);
+
   const [formData, setFormData] = useState<FormData>({
     name: '',
     description: '',
@@ -48,9 +54,9 @@ export const CreateEvent = ({ location, onSuccess }: CreateEventProps) => {
 
   const createEventMutation = useCreateEvent();
 
-  const updateField = (field: keyof typeof formData, value: any) => {
+  const updateField = useCallback(<K extends keyof FormData>(field: K, value: FormData[K]) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
-  };
+  }, []);
 
   const resetForm = useCallback(() => {
     setFormData({ name: '', description: '', eventTypeId: null });
@@ -94,49 +100,68 @@ export const CreateEvent = ({ location, onSuccess }: CreateEventProps) => {
   const isLoading = createEventMutation.isPending;
 
   return (
-    <ScrollView contentContainerStyle={{ padding: 16, justifyContent: 'center', gap: 8 }}>
-      <Text style={{ fontSize: 24, fontWeight: 'bold', textAlign: 'center', marginBottom: 16 }}>Zgłoś nowe zdarzenie!</Text>
-      <TextInput
-        label="Tytuł zdarzenia"
-        mode="outlined"
-        value={formData.name}
-        onChangeText={(value) => updateField('name', value)}
-      />
-      <TextInput
-        label="Opis zdarzenia"
-        mode="outlined"
-        value={formData.description}
-        onChangeText={(value) => updateField('description', value)}
-        multiline
-        numberOfLines={3}
-      />
-      <TouchableOpacity onPress={() => setEventTypeModalVisible(true)}>
+    <BottomSheetModal ref={bottomSheetRef} enableDynamicSizing enablePanDownToClose>
+      <BottomSheetView style={styles.container}>
+        <Text style={styles.title}>Zgłoś nowe zdarzenie!</Text>
         <TextInput
-          label="Rodzaj zdarzenia"
+          label="Tytuł zdarzenia"
           mode="outlined"
-          value={selectedEventType?.name || 'Wybierz rodzaj zdarzenia'}
-          right={<TextInput.Icon icon="menu-down" />}
-          left={selectedEventType ? <TextInput.Icon icon={selectedEventType.icon} /> : undefined}
-          editable={false}
+          value={formData.name}
+          onChangeText={(value) => updateField('name', value)}
         />
-      </TouchableOpacity>
+        <TextInput
+          label="Opis zdarzenia"
+          mode="outlined"
+          value={formData.description}
+          onChangeText={(value) => updateField('description', value)}
+          multiline
+          numberOfLines={3}
+        />
+        <TouchableOpacity onPress={() => setEventTypeModalVisible(true)}>
+          <TextInput
+            label="Rodzaj zdarzenia"
+            mode="outlined"
+            value={selectedEventType?.name || 'Wybierz rodzaj zdarzenia'}
+            right={<TextInput.Icon icon="menu-down" />}
+            left={selectedEventType ? <TextInput.Icon icon={selectedEventType.icon} /> : undefined}
+            editable={false}
+          />
+        </TouchableOpacity>
 
-      <EventSelectionModal
-        isVisible={eventTypeModalVisible}
-        setIsVisible={setEventTypeModalVisible}
-        selectedEventType={selectedEventType}
-        setSelectedEventType={handleSetSelectedEventType}
-      />
+        <EventTypeSelectionModal
+          isVisible={eventTypeModalVisible}
+          setIsVisible={setEventTypeModalVisible}
+          eventType={selectedEventType}
+          setEventType={handleSetSelectedEventType}
+        />
 
-      <Text style={{ fontSize: 16 }}>{`Lokalizacja: ${geocodedAddress}`}</Text>
-      <Button
-        mode="contained"
-        onPress={handleSubmit}
-        loading={isLoading}
-        disabled={isLoading}
-        style={{ marginTop: 16 }}>
-        {isLoading ? 'Zgłaszanie...' : 'Zgłoś zdarzenie'}
-      </Button>
-    </ScrollView>
+        <Text style={{ fontSize: 16 }}>{`Lokalizacja: ${geocodedAddress}`}</Text>
+        <Button
+          mode="contained"
+          onPress={handleSubmit}
+          loading={isLoading}
+          disabled={isLoading}
+          style={{ marginTop: 16 }}>
+          {isLoading ? 'Zgłaszanie...' : 'Zgłoś zdarzenie'}
+        </Button>
+      </BottomSheetView>
+    </BottomSheetModal>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    flexDirection: 'column',
+    paddingHorizontal: 16,
+    paddingBottom: 16,
+    gap: 12,
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: '600',
+    marginBottom: 4,
+    textAlign: 'center',
+  },
+});
