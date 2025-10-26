@@ -19,9 +19,9 @@ class ReputationService(private val userRepository: UserRepository, private val 
     companion object {
         const val MAX_REPUTATION = 1.0
         const val MIN_REPUTATION = 0.0
-        const val MINIMAL_EVENT_REPUTATION = 0.1
-        const val MINIMAL_COMMENT_REPUTATION = 0.05
-        const val MINIMAL_LIKE_REPUTATION = 0.02
+//        const val MINIMAL_EVENT_REPUTATION = 0.1
+//        const val MINIMAL_COMMENT_REPUTATION = 0.05
+//        const val MINIMAL_LIKE_REPUTATION = 0.02
         const val COMMUNITY_TRUST_FACTOR = 0.5
         const val EVENT_IMPACT_FACTOR = 0.3
         const val COMMENT_IMPACT_FACTOR = 0.2
@@ -31,6 +31,7 @@ class ReputationService(private val userRepository: UserRepository, private val 
         const val EVENT_BONUS = 2.0
         const val EVENT_WEIGHT_DECAY = 0.99
         const val COMMENT_WEIGHT_DECAY = 0.98
+        const val DEFAULT_REPUTATION = 0.25
     }
 
     private fun calculateEventParameter(userId: Long, globalAverageAccuracy: Double): Double {
@@ -82,7 +83,7 @@ class ReputationService(private val userRepository: UserRepository, private val 
         val eventParameter = calculateEventParameter(userId, globalEventAccuracy)
         val commentParameter = calculateCommentParameter(userId, globalCommentAccuracy)
 
-        val reputation = 0.25 + (COMMUNITY_TRUST_FACTOR * communityTrust) +
+        val reputation = DEFAULT_REPUTATION + (COMMUNITY_TRUST_FACTOR * communityTrust) +
                 (EVENT_IMPACT_FACTOR * eventParameter) +
                 (COMMENT_IMPACT_FACTOR * commentParameter)
 

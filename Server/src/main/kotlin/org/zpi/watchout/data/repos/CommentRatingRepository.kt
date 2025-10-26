@@ -24,5 +24,5 @@ interface CommentRatingRepository : JpaRepository<CommentRating, Long> {
     """,
         nativeQuery = true
     )
-    fun upsertRating(@Param("userId") userId: Long, @Param("commentId") commentId: Long, @Param("rating") rating: Double)
+    fun upsertRating(@Param("userId") userId: Long, @Param("commentId") commentId: Long, @Param("rating") rating: Int)
 }
