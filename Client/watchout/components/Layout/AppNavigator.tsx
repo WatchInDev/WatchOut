@@ -4,6 +4,7 @@ import { EventTypes } from 'features/event-types/EventTypes';
 import { Map } from 'features/map/Map';
 import { Icon } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { SettingsPage } from 'features/settings/SettingsPage';
 
 const NavDrawer = createDrawerNavigator();
 
@@ -22,7 +23,7 @@ const routes = [
   },
   {
     name: 'Settings',
-    component: Map,
+    component: SettingsPage,
     label: 'Ustawienia',
     icon: 'cog',
   },

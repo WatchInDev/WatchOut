@@ -35,7 +35,6 @@ import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import duration from 'dayjs/plugin/duration';
 import 'dayjs/locale/pl';
-import { useEffect } from 'react';
 
 const queryClient = new QueryClient();
 
@@ -43,13 +42,11 @@ dayjs.extend(relativeTime);
 dayjs.extend(duration);
 dayjs.locale('pl');
 
-export default function App() {
-  useEffect(() => {
-    Geocoding.init(GEOCODING_API_KEY, {
-      language: 'pl',
-    });
-  }, []);
+Geocoding.init(GEOCODING_API_KEY, {
+  language: 'pl',
+});
 
+export default function App() {
   const [loaded] = useFonts({
     MaterialDesignIcons: require('./assets/fonts/MaterialDesignIcons.ttf'),
     Poppins_100Thin,

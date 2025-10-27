@@ -35,6 +35,9 @@ export const API_ENDPOINTS = {
     getByEventId: <T>(eventId: number, pagination: PaginationRequest<T>) => `events/${eventId}/comments` + paginationToQueryParams(pagination),
     post: (eventId: number) => `events/${eventId}/comments`,
   },
+  rating: {
+    event: (eventId: number) => `events/${eventId}/ratings`
+  },
   eventTypes: {
     getAll: 'event-types',
   }
