@@ -1,3 +1,4 @@
 learn
 .venv
 __pycache__
+.python_packages
