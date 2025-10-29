@@ -2,11 +2,7 @@ import json
 import re
 import sys
 
-from Microservice.logging_config import setup_loguru
 
-setup_loguru()
-
-from loguru import logger
 import requests
 from datetime import datetime
 import re
@@ -214,7 +210,7 @@ def transform_shutdown_data(shutdown_list):
             messages.append(message)
 
             if not all([voivodeship, city, message, hours_list]):
-                logger.warning(f"Skipping entry guid {shutdown.get('guid')}: missing essential data.")
+                print(f"Skipping entry guid {shutdown.get('guid')}: missing essential data.")
                 continue
 
             first_hour_slot = hours_list[0]
@@ -222,7 +218,7 @@ def transform_shutdown_data(shutdown_list):
             to_date = first_hour_slot.get('toDate')
 
             if not from_date or not to_date:
-                logger.warning(f"Skipping entry guid {shutdown.get('guid')}: missing time data.")
+                print(f"Skipping entry guid {shutdown.get('guid')}: missing time data.")
                 continue
 
             shutdown_details = {
@@ -242,7 +238,7 @@ def transform_shutdown_data(shutdown_list):
             transformed_data[voivodeship][city].append(shutdown_details)
 
         except Exception as e:
-            logger.exception(f"Error processing shutdown guid {shutdown.get('guid')}: {e}")
+            print(f"Error processing shutdown guid {shutdown.get('guid')}: {e}")
 
     # print(messages)
 
@@ -267,7 +263,7 @@ def get_energa_planned_shutdowns() -> dict[str, dict[str, dict[str, tuple[dateti
         return res
 
     except Exception as e:
-        logger.exception(f'Error trying scraping shutdowns from Energa: {e}')
+        print(f'Error trying scraping shutdowns from Energa: {e}')
         return {}
 
 
