@@ -306,135 +306,196 @@ def infer_powiat_GAIDs():
         json.dump(voivodeship_powiat_GAID_map, file, ensure_ascii=False, indent=4)
 
 
-def parse_locations(line: str) -> tuple[str, list[str]]:
-    def expand_range(match: re.Match) -> str:
-        try:
-            start = int(match.group(1))
-            end = int(match.group(2))
-            if start > end:
-                start, end = end, start
-            return ', '.join(str(i) for i in range(start, end + 1))
-        except ValueError:
-            return match.group(0)
+import re
+from typing import List, Tuple, Dict, Any
 
-    def is_full_name(item: str) -> bool:
-        if not re.search(r'[A-Za-zżźćńółęąśŻŹĆŃÓŁĘĄŚ]', item):
-            return False
-        if re.match(r'[A-Za-zżźćńółęąśŻŹĆŃÓŁĘĄŚ]{2,}', item):
-            return True
-        if re.match(r'\d', item) and re.search(r'[A-Za-zżźćńółęąśŻŹĆŃÓŁĘĄŚ]{2,}', item):
-            return True
-        return False
 
-    def get_base_name(name: str) -> str:
-        last_space_idx = name.rfind(' ')
-        if last_space_idx == -1:
-            return name
-        suffix = name[last_space_idx + 1:]
-        if re.search(r'\d', suffix) or re.fullmatch(r'[IVXLC]+', suffix, re.IGNORECASE):
-            base = name[:last_space_idx].strip()
-            return base if base else name
+def _clean_message(message: str) -> str:
+    """Usuwa znany szum z początku i końca wiadomości."""
+    message = re.sub(r'^(miejscowość|miejscowości)\s+', '', message, flags=re.IGNORECASE)
+    message = message.strip().strip('.')
+
+    noise_patterns = [
+        r'\s*-\s*chwilowe przerwy.*$',
+        r'\s*i działki przyległe\.*$',
+        r'\s*oraz działki przyległe\.*$',
+        r'\s*i przyległe\.*$',
+        r'\s*pozbawione zasilania\.*$',
+        r'\.$'
+    ]
+    for pattern in noise_patterns:
+        message = re.sub(pattern, '', message, flags=re.IGNORECASE | re.DOTALL)
+    return message.strip()
+
+
+def _parse_range(start_s: str, end_s: str, modifier_str: str) -> List[int]:
+    """Przetwarza ciągi znaków na listę numerów na podstawie modyfikatorów."""
+    try:
+        start = int(start_s)
+        end = int(end_s)
+    except ValueError:
+        return []
+
+    if end < start:
+        start, end = end, start
+
+    full_range = list(range(start, end + 1))
+    modifier = modifier_str.lower()
+
+    if 'nieparzyste' in modifier:
+        return [n for n in full_range if n % 2 != 0]
+    if 'parzyste' in modifier:
+        return [n for n in full_range if n % 2 == 0]
+
+    return full_range
+
+
+def _unwrap_single_location_string(loc_str: str) -> List[str]:
+    """Rozwija pojedynczy ciąg lokalizacji (np. "Główna od numeru 5 do 16")."""
+    loc_str = loc_str.strip()
+
+    # 1. Wzór "od...do": "od 121 do 135" LUB "od numeru 5 do 16"
+    #    *** POPRAWKA: Dodano (?:nr |numeru )? ***
+    m_od_do = re.search(r'od (?:nr |numeru )?(\d+) do (\d+)(.*)', loc_str, re.IGNORECASE)
+    if m_od_do:
+        prefix = loc_str[:m_od_do.start()].strip()
+        numbers = _parse_range(m_od_do.group(1), m_od_do.group(2), m_od_do.group(3))
+        return [f"{prefix} {n}".strip() for n in numbers] if prefix else [str(n) for n in numbers]
+
+    # 2. Wzór "n-m": "Kielecka 1-10"
+    m_dash = re.search(r'(\d+)-(\d+)(?![\w/])(.*)', loc_str, re.IGNORECASE)
+    if m_dash:
+        prefix = loc_str[:m_dash.start()].strip()
+        numbers = _parse_range(m_dash.group(1), m_dash.group(2), m_dash.group(3))
+        return [f"{prefix} {n}".strip() for n in numbers] if prefix else [str(n) for n in numbers]
+
+    # 3. Wzór "numery 1, 2, 3": "ul. Świerkowa numery 51, 52, 53 oraz 58"
+    m_numery = re.search(r'(?:numery|nr)\s+([\d\w,\sioraz]+)', loc_str, re.IGNORECASE)
+    if m_numery:
+        prefix = loc_str[:m_numery.start()].strip()
+        num_list_str = re.sub(r'\s+(oraz|i)\s+', ',', m_numery.group(1), flags=re.IGNORECASE)
+        numbers = [n.strip() for n in re.split(r'[\s,]+', num_list_str) if n.strip()]
+        numbers = [n for n in numbers if n.lower() not in ('i', 'oraz')]
+        return [f"{prefix} {n}".strip() for n in numbers]
+
+    return [loc_str]
+
+
+def _clean_final_location(loc: str) -> str:
+    """
+    *** NOWA FUNKCJA ***
+    Agresywnie czyści końcowy ciąg lokalizacji z prefiksów miast,
+    słów "ulica:" i wiodących dwukropków.
+    """
+    # 1. Usuń "Miasto ulice: ", "Miasto ulica: ", "Miasto: "
+    #    (Szuka słów z wielkiej litery na początku, po których jest separator)
+    loc = re.sub(r'^[A-ZĄĆĘŁŃÓŚŹŻ][\w\s-]*? (ulice|ulica|:)\s*', '', loc, flags=re.IGNORECASE)
+
+    # 2. Usuń "ulice: ", "ulica: ", ": " (jeśli są na początku)
+    #    (Nie usuwa "ul.", co jest pożądane)
+    loc = re.sub(r'^(ulice|ulica|:)\s*', '', loc, flags=re.IGNORECASE)
+
+    return loc.strip()
+
+
+def parse_locations(message: str) -> Tuple[str, List[str]]:
+    """
+    Główna funkcja parsująca. Dzieli komunikat na miasto i lokalizacje
+    bez polegania na statycznej liście miast.
+
+    Zwraca: (nazwa_miasta, lista_lokalizacji)
+    """
+
+    if "bez transformatora" in message.lower():
+        return "Nieznane", ["bez transformatora"]
+    if "uzgodniono z odbiorcą" in message.lower():
+        return "Nieznane", ["Uzgodniono z odbiorcą"]
+
+    cleaned_message = _clean_message(message)
+    if not cleaned_message:
+        return "Nieznane", []
+
+    city_name = "Nieznane"
+    location_string = ""
+
+    # 2. Heurystyka podziału
+    separator_regex = r'(\s+(ul(ice|ica|\.)|al\.|os\.|dz\.|od\s|nr\s)|:|\s*,\s*(?=\d|od|dz|ul|al|os))'
+    split_match = re.search(separator_regex, cleaned_message, re.IGNORECASE)
+
+    if split_match:
+        split_index = split_match.start()
+        city_name = cleaned_message[:split_index].strip().strip(' ,:')
+        location_string = cleaned_message[split_index:].strip().strip(' ,:')
+    else:
+        first_comma_index = cleaned_message.find(',')
+        if first_comma_index != -1:
+            last_space_index = cleaned_message.rfind(' ', 0, first_comma_index)
+            if last_space_index != -1:
+                city_name = cleaned_message[:last_space_index].strip()
+                location_string = cleaned_message[last_space_index:].strip()
+            else:
+                city_name = cleaned_message[:first_comma_index].strip()
+                location_string = cleaned_message[first_comma_index + 1:].strip()
         else:
-            return name
+            city_name = cleaned_message
+            location_string = ""
 
-    def clean_city_name(city: str) -> str:
-        # Handle Wrocław Fabryczna, Wrocław Psie Pole, etc.
-        city = re.sub(r'^(Wrocław)\s+(Fabryczna|Psie Pole|Krzyki|Śródmieście)', r'\1', city, flags=re.IGNORECASE)
-        # Handle "Kościerzyna-Wybudowanie" (from first dataset)
-        city = re.sub(r'(-Wybudowanie|-Kolonia)$', '', city, flags=re.IGNORECASE)
-        # Handle "Kościerzyna, Markubowo" (from first dataset)
-        city = re.sub(r'(,\s*[A-Za-zżźćńółęąśŻŹĆŃÓŁĘĄŚ ]+)$', '', city)
-        return city.strip()
+    # 3. Przetwarzanie ciągu lokalizacji
+    if not location_string:
+        return city_name, []
 
-    # --- Main Function ---
+    # Czyść początek ciągu lokalizacji (w pętli, na wypadek wielokrotnych prefiksów)
+    prev_loc_string = None
+    while prev_loc_string != location_string:
+        prev_loc_string = location_string
+        # Usuwa "ulice:", "ulica:", ":" ale zostawia "ul."
+        location_string = re.sub(r'^(ulice|ulica|:)\s*', '', location_string, flags=re.IGNORECASE).strip()
 
-    line = line.strip().strip('.')
-    if line.startswith('2025-') or not line or line == 'bez transformatora' or line == 'Uzgodniono z odbiorcą':
-        return ("", [])
+    # *** POPRAWKA: Dodano (?:i|oraz) do splittera ***
+    items = re.split(r'\s*,\s*|\s+(?:i|oraz)\s+', location_string, flags=re.IGNORECASE)
 
-    # Clean comments and non-location data first
-    clean_line = re.sub(
-        r'(- chwilowe.*|-awaria.*|pozbawione.*|w związku.*|Trwa lokalizacja.*|Uszkodzony.*|Na miejscu.*|i działki przyległe|i wszystkie do niej przyległe|\.$)',
-        '', line, flags=re.IGNORECASE).strip()
-    clean_line = re.sub(r'\b(dz\.|działk[ia]|obręb działek)[\s\w/,-]*', '', clean_line, flags=re.IGNORECASE)
-    clean_line = re.sub(r'\b(numery|numeru|numer|nr)\b', '', clean_line, flags=re.IGNORECASE)
-
-    # --- City Extraction ---
-    extracted_city = ""
-    # Find the very first text block before a keyword, comma, or colon
-    city_match = re.match(r'^([\w\s-]+?)(?=\s*(ulica|ulice|ul\.|\,|:)|$)', clean_line.strip())
-    if city_match:
-        base_name = city_match.group(1).strip()
-        extracted_city = clean_city_name(base_name)
-
-    # --- Building Parsing (Continue from previous logic) ---
-
-    # Standardize keywords on the *already cleaned* line
-    proc_line = re.sub(r'\b(od)\b', 'od', clean_line, flags=re.IGNORECASE)
-    proc_line = re.sub(r'\b(do)\b', 'do', proc_line, flags=re.IGNORECASE)
-    proc_line = re.sub(r'(\sod\s)', ' od ', proc_line)
-    proc_line = re.sub(r'(\sdo\s)', ' do ', proc_line)
-
-    # Expand ranges
-    proc_line = re.sub(r'od (\d+) do (\d+)', expand_range, proc_line, flags=re.IGNORECASE)
-
-    # Standardize separators and keywords
-    proc_line = proc_line.replace(':', ',')
-    proc_line = re.sub(r'\b(miejscowoś[cć]|miejscowości)\b', '', proc_line, flags=re.IGNORECASE)
-    proc_line = re.sub(r'\b(ulic[ea]|ul\.)\b', ' STREETKEYWORD ', proc_line, flags=re.IGNORECASE)
-
-    proc_line = re.sub(r'\s{2,}', ' ', proc_line).strip()
-    proc_line = proc_line.strip(',')
-
-    items = [s.strip() for s in proc_line.split(',') if s.strip()]
-    buildings: list[str] = []
-
-    current_context_name = ""
-    in_street_context = False
+    final_locations_list = []
+    current_street = ""
 
     for item in items:
-        if "STREETKEYWORD" in item:
-            in_street_context = True
-            item = item.replace("STREETKEYWORD", "").strip()
+        item = item.strip().strip('.')
+        if not item:
+            continue
 
-            # This regex checks if the item *after* STREETKEYWORD
-            # is "CityName StreetName" or just "StreetName"
-            # We discard the "CityName" part if it's present, as per rules
-            city_street_match = re.match(r'^[A-ZŻŹĆŃÓŁĘĄŚ][\w\s-]*?\s+([A-ZŻŹĆŃÓŁĘĄŚ\d].*)', item)
+        is_follow_on = re.match(r'^(\d+-\d+(?:[a-zA-Z])?|od\s|nr\s)?\d+[a-zA-Z]*$', item, re.IGNORECASE)
 
-            if city_street_match:
-                street_name = city_street_match.group(1).strip()
-                buildings.append(street_name)
-                current_context_name = get_base_name(street_name)
-            elif item:
-                # Item is just a street name
-                buildings.append(item)
-                current_context_name = get_base_name(item)
-            else:
-                # e.g., "Osiecznica, ulice:, Zacisze..." -> item is empty
-                current_context_name = ""
-
-        elif is_full_name(item):
-            if in_street_context:
-                buildings.append(item)
-                current_context_name = get_base_name(item)
-            else:
-                # Not in street context, so this is a locality.
-                # We *include* the locality name.
-                cleaned_item = clean_city_name(item)
-                buildings.append(cleaned_item)
-                current_context_name = get_base_name(cleaned_item)
-
+        full_loc_str = ""
+        if is_follow_on and current_street:
+            full_loc_str = f"{current_street} {item}"
         else:
-            # Item is just a number or suffix
-            if current_context_name:
-                buildings.append(f"{current_context_name} {item}")
+            full_loc_str = item
+            m_street = re.match(r'^(.*?)(\s+(\d|od|nr|dz\.))', item, re.IGNORECASE)
+            if m_street:
+                current_street = m_street.group(1).strip(': ')
+            else:
+                current_street = item.strip(': ')
 
-    final_buildings = [b.strip() for b in buildings if b.strip()]
+        # Rozwiń element (np. "Główna od numeru 5 do 16")
+        unwrapped_items = _unwrap_single_location_string(full_loc_str)
 
-    final_buildings = list(set(final_buildings))
+        # *** POPRAWKA: Czyść każdy element przed dodaniem ***
+        for unwrapped in unwrapped_items:
+            cleaned_loc = _clean_final_location(unwrapped)
+            if cleaned_loc:  # Dodaj tylko jeśli coś zostało po czyszczeniu
+                final_locations_list.append(cleaned_loc)
 
-    return (extracted_city, final_buildings)
+    # Ostateczne czyszczenie: usuń puste stringi i zduplikowane wpisy
+    final_locations_list = sorted(list(set(filter(None, final_locations_list))))
+
+    if (not city_name or city_name == "Nieznane") and final_locations_list:
+        first_loc = final_locations_list[0]
+        if not any(char.isdigit() for char in first_loc) and not re.search(r'(ul\.|od|dz\.)', first_loc, re.IGNORECASE):
+            city_name = first_loc
+            final_locations_list = final_locations_list[1:]
+        elif not city_name or city_name == "Nieznane":
+            city_name = "Nieznane"
+
+    return city_name, final_locations_list
 
 
 def transform_tauron_data(responses_and_voivodeships: list[tuple[dict, str]]) -> dict:
@@ -497,7 +558,7 @@ def get_tauron_planned_shutdowns(from_date: datetime, to_date: datetime):
 
     responses_and_voivodeships = []
 
-    for voivodeship_dict in voivodeship_powiat_GAID_map:
+    for voivodeship_dict in voivodeship_powiat_GAID_map[:1]:
         voivodeship = list(voivodeship_dict['voivodeship'].keys())[0]
         voivodeship_GAID = list(voivodeship_dict['voivodeship'].values())[0]
 
@@ -520,7 +581,7 @@ def get_tauron_planned_shutdowns(from_date: datetime, to_date: datetime):
             except Exception as e:
                 # logger.exception(f"Exception making request to {request_url}:\n {e}")
                 pass
-            time.sleep(0.5)
+            # time.sleep(0.5)
 
     return transform_tauron_data(responses_and_voivodeships)
 
