@@ -14,7 +14,14 @@ type CommentListProps = {
 export const CommentList = ({ eventId }: CommentListProps) => {
   const { data, isFetching, refetch, fetchNextPage, hasNextPage, isFetchingNextPage } = useComments(
     eventId,
-    { page: 0, size: 5, sort: [{ field: 'createdAt', direction: 'desc' }] }
+    {
+      page: 0,
+      size: 5,
+      sort: [
+        { field: 'createdAt', direction: 'desc' },
+        { field: 'id', direction: 'desc' },
+      ],
+    }
   );
 
   const [isCommentModalOpen, setIsCommentModalOpen] = useState(false);
@@ -62,7 +69,7 @@ export const CommentList = ({ eventId }: CommentListProps) => {
       ) : (
         <>
           {comments?.content.map((item) => (
-            <CustomSurface key={item.id} style={{ padding: 12, marginBottom: 12 }}>
+            <CustomSurface key={'Comments_' + item.id} style={{ padding: 12, marginBottom: 12 }}>
               <Text variant="subtitle1">{item.author.name}</Text>
               <Text variant="body1">{item.content}</Text>
               <Text variant="body2" color="tertiary">

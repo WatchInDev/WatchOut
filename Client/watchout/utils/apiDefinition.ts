@@ -8,7 +8,12 @@ export type ApiDefinition = {
 const queryParams = (params: Record<string, any>) => {
   const esc = encodeURIComponent;
   return '?' + Object.keys(params)
-    .map(k => esc(k) + '=' + esc(params[k]))
+    .map(k => {
+      if (Array.isArray(params[k])) {
+        return params[k].map((val: any) => `${esc(k)}=${esc(val)}`).join('&');
+      }
+      return `${esc(k)}=${esc(params[k])}`;
+    })
     .join('&');
 }
 
@@ -19,7 +24,7 @@ const paginationToQueryParams = <T>(pagination: PaginationRequest<T>) => {
   };
 
   if (pagination.sort) {
-    params.sort = pagination.sort.map(s => `${String(s.field)},${s.direction}`).join('&');
+    params.sort = pagination.sort.map(s => `${s.field.toString()},${s.direction}`);
   }
 
   return queryParams(params);
