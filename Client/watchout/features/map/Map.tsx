@@ -8,7 +8,7 @@ import { EventBottomSheet } from 'features/events/EventBottomSheet';
 import { useMapLogic } from 'features/map/useMapLogic';
 import { ClusterMarker } from './ClusterMarker';
 import { EventMarker } from './EventMarker';
-import { CreateEventBottomSheet } from '../events/CreateEventBottomSheet';
+import { CreateEventBottomSheet } from 'features/events/CreateEventBottomSheet';
 
 const styles = StyleSheet.create({
   container: {
@@ -76,7 +76,7 @@ export const Map = () => {
         provider={PROVIDER_GOOGLE}
         showsUserLocation={true}
         followsUserLocation={true}
-        onPress={(e) => {
+        onPress={() => {
           handleMapPress();
         }}
         onLongPress={openCreateEventModal}

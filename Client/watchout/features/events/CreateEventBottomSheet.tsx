@@ -5,7 +5,7 @@ import { TextInput, Button } from 'react-native-paper';
 import { Text } from 'components/Base/Text';
 import { useCreateEvent } from 'features/events/events.hooks';
 import { Coordinates, CreateEventRequest } from 'utils/types';
-import { reverseGeocode } from '../map/reverseGeocode';
+import { reverseGeocode } from 'features/map/reverseGeocode';
 import { EventTypeSelectionModal } from './EventTypeSelectionModal';
 import { BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet';
 
