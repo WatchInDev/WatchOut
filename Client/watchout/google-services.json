@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "850244426289",
+    "project_id": "watchout-fcf26",
+    "storage_bucket": "watchout-fcf26.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:850244426289:android:10a893671051a4988ad310",
+        "android_client_info": {
+          "package_name": "com.anonymous.watchout"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBWG0Dxe3rhsbYEzMZ-cTKx_nQQwPzEMh8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,11 +1,10 @@
 import { Event } from 'utils/types';
 import { StyleSheet, View } from 'react-native';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { CommentList } from './comments/CommentList';
 import BottomSheet, { BottomSheetScrollView } from '@gorhom/bottom-sheet';
-import { Button, Divider } from 'react-native-paper';
+import { Divider } from 'react-native-paper';
 import { EventDetails } from './EventDetails';
-import { Pictures } from './Pictures'
 
 type EventBottomSheetProps = {
   event: Event;

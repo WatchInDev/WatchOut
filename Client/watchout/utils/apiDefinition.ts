@@ -5,26 +5,6 @@ export type ApiDefinition = {
   endpoint: string;
 };
 
-const queryParams = (params: Record<string, any>) => {
-  const esc = encodeURIComponent;
-  return '?' + Object.keys(params)
-    .map(k => esc(k) + '=' + esc(params[k]))
-    .join('&');
-}
-
-const paginationToQueryParams = <T>(pagination: PaginationRequest<T>) => {
-  const params: Record<string, any> = {
-    page: pagination.page,
-    size: pagination.size,
-  };
-
-  if (pagination.sort) {
-    params.sort = pagination.sort.map(s => `${String(s.field)},${s.direction}`).join('&');
-  }
-
-  return queryParams(params);
-}
-
 export const API_ENDPOINTS = {
   events: {
     get: (coordinates: CoordinatesRect) => `events${queryParams(coordinates)}`,
@@ -37,5 +17,36 @@ export const API_ENDPOINTS = {
   },
   eventTypes: {
     getAll: 'event-types',
+  },
+  notifications: {
+    add: 'fcm-tokens',
+    get: 'fcm-tokens',
   }
 };
+
+// utility functions
+
+const queryParams = (params: Record<string, any>) => {
+  const esc = encodeURIComponent;
+  return '?' + Object.keys(params)
+    .map(k => {
+      if (Array.isArray(params[k])) {
+        return params[k].map((val: any) => `${esc(k)}=${esc(val)}`).join('&');
+      }
+      return `${esc(k)}=${esc(params[k])}`;
+    })
+    .join('&');
+}
+
+const paginationToQueryParams = <T>(pagination: PaginationRequest<T>) => {
+  const params: Record<string, any> = {
+    page: pagination.page,
+    size: pagination.size,
+  };
+
+  if (pagination.sort) {
+    params.sort = pagination.sort.map(s => `${s.field.toString()},${s.direction}`);
+  }
+
+  return queryParams(params);
+}

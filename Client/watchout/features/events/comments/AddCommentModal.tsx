@@ -1,7 +1,7 @@
 import { Button, TextInput } from 'react-native-paper';
 import { useState } from 'react';
 import { View } from 'react-native';
-import { useCreateComment } from './useCreateComment';
+import { useCreateComment } from 'features/events/comments/useCreateComment';
 import { CustomModal } from 'components/Base/CustomModal';
 
 type AddCommentModalProps = {
