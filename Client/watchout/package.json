@@ -30,7 +30,10 @@
     "dayjs": "^1.11.18",
     "expo": "^54.0.0",
     "expo-asset": "~12.0.9",
+    "expo-constants": "~18.0.10",
+    "expo-device": "~8.0.9",
     "expo-font": "~14.0.9",
+    "expo-notifications": "~0.31.4",
     "expo-status-bar": "~3.0.8",
     "react": "19.1.0",
     "react-dom": "19.1.0",
@@ -55,6 +58,7 @@
     "eslint": "^9.25.1",
     "eslint-config-expo": "~10.0.0",
     "eslint-config-prettier": "^10.1.2",
+    "eslint-plugin-import": "^2.32.0",
     "prettier": "^3.2.5",
     "react-native-dotenv": "^3.4.11",
     "typescript": "~5.9.2"

@@ -8,3 +8,10 @@ export const apiClient = axios.create({
     'Content-Type': 'application/json',
   },
 });
+
+apiClient.interceptors.request.use(
+  (config) => {
+    console.log(`[${config.method?.toLocaleUpperCase()}] Request URL:`, config.url);
+    return config;
+  }
+)
