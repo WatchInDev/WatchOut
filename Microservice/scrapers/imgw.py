@@ -6,37 +6,36 @@ import requests
 from datetime import datetime, timezone
 from zoneinfo import ZoneInfo
 
-from Microservice.logging_config import setup_loguru
-
-setup_loguru()
-
-from loguru import logger
 
 utc_zone = timezone.utc
 poland_zone = ZoneInfo("Europe/Warsaw")
 
+import io
 
-def construct_teryt_id_powiat_name_map():
-    df = pd.read_csv('source/TERC.csv',
-                     delimiter=';',
-                     dtype={
-                         'WOJ': str,
-                         'POW': str,
-                         'GMI': str
-                     })
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
-    df['TERYT_ID'] = df['WOJ'] + df['POW']
 
-    df = df[df['GMI'].isna() & df['POW'].notna()]
-
-    powiat_map = df.set_index('TERYT_ID')['NAZWA'].to_dict()
-
-    with open('source/teryt_id_powiat_name_map.json', 'w', encoding='utf-8') as file:
-        json.dump(powiat_map, file, indent=4, ensure_ascii=False)
+# def construct_teryt_id_powiat_name_map():
+#     df = pd.read_csv('source/TERC.csv',
+#                      delimiter=';',
+#                      dtype={
+#                          'WOJ': str,
+#                          'POW': str,
+#                          'GMI': str
+#                      })
+#
+#     df['TERYT_ID'] = df['WOJ'] + df['POW']
+#
+#     df = df[df['GMI'].isna() & df['POW'].notna()]
+#
+#     powiat_map = df.set_index('TERYT_ID')['NAZWA'].to_dict()
+#
+#     with open('source/teryt_id_powiat_name_map.json', 'w', encoding='utf-8') as file:
+#         json.dump(powiat_map, file, indent=4, ensure_ascii=False)
 
 
 def load_teryt_map():
-    return json.load(open('source/teryt_id_powiat_name_map.json', encoding='utf-8'))
+    return json.load(open('Microservice/scrapers/source/teryt_id_powiat_name_map.json', encoding='utf-8'))
 
 
 def fetch_meteorological_warnings():
@@ -46,7 +45,7 @@ def fetch_meteorological_warnings():
 
     try:
         response_json = requests.get(url).json()
-        json.dump(response_json, sys.stdout, indent=4, ensure_ascii=False)
+        # json.dump(response_json, sys.stdout, indent=4, ensure_ascii=False)
 
         for warning in response_json:
             del warning['id']
@@ -69,15 +68,16 @@ def fetch_meteorological_warnings():
                         warning[field] = local_dt.strftime('%Y-%m-%dT%H:%M')
 
                     except ValueError:
-                        logger.exception(f"Could not parse date: {warning[field]}")
+                        # print(f"Could not parse date: {warning[field]}")
                         pass
 
-        print(response_json)
         return response_json
 
     except Exception as e:
-        logger.exception(f"Exception during data scraping or retrieving: {e}")
+        # print(f"Exception during data scraping or retrieving: {e}")
+        raise e
 
 
 if __name__ == "__main__":
-    fetch_meteorological_warnings()
+    res = fetch_meteorological_warnings()
+    json.dump(res, sys.stdout, ensure_ascii=False, indent=4)

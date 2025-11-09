@@ -4,7 +4,7 @@ from collections import defaultdict
 from datetime import datetime, timezone
 import json
 import time
-import re
+import io
 
 import requests
 
@@ -12,6 +12,8 @@ sample_url = """
 https://www.tauron-dystrybucja.pl/waapi/outages/area
 ?provinceGAID=2&districtGAID=1041&fromDate=2025-10-17T15:21:32.682Z&toDate=2025-10-22T15:21:32.682Z&_=1760714469806
 """
+
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
 voivodeship_powiats_map = {
     "Dolnośląskie": [
@@ -247,64 +249,6 @@ voivodeship_powiats_map = {
 }
 
 
-def infer_voivodeship_GAIDs():
-    base_url = "https://www.tauron-dystrybucja.pl/waapi/enum/geo/provinces?partName={province_name}&_=1761054153270"
-
-    voivodeship_GAID_map = {}
-
-    for voivodeship in voivodeship_powiats_map.keys():
-        response = requests.get(base_url.format(province_name=voivodeship))
-
-        response = response.json()
-        print(response)
-        # Each request may result in a bunch of matches, so iterate over all of them not to miss anything
-        for resp_chunk in response:
-            voivodeship_GAID_map[resp_chunk['Name']] = resp_chunk['GAID']
-
-    with open('source/tauron_voivodeship_map.json', 'w', encoding='utf-8') as file:
-        json.dump(voivodeship_GAID_map, file, ensure_ascii=False, indent=4)
-
-
-def infer_powiat_GAIDs():
-    """
-    Infers GAIDs for each powiat and writes a json file with all voievodhsips and their districts along with their GAIDs
-    """
-    base_url = "https://www.tauron-dystrybucja.pl/waapi/enum/geo/districts?partName={district_name}&ownerGAID={voievodhsip_GAID}&_=1761054153270"
-
-    voivodeship_GAID_map = json.load(open('source/tauron_voivodeship_map.json', 'r', encoding='utf-8'))
-    powiat_GAID_map = json.load(open('source/tauron_powiat_map.json', 'r', encoding='utf-8'))
-
-    voivodeship_powiat_GAID_map = []
-
-    for voivodeship, powiats in voivodeship_powiats_map.items():
-        voivodeship_GAID = voivodeship_GAID_map[voivodeship]
-        print(voivodeship_GAID)
-        for powiat in powiats:
-            if powiat.lower() not in powiat_GAID_map.keys():
-                try:
-                    url = base_url.format(district_name=powiat, voievodhsip_GAID=voivodeship_GAID)
-                    response = requests.get(url)
-                except Exception as e:
-                    logger.exception(f"Exception making request to {url}:\n {e}")
-                    continue
-
-                response = response.json()
-                print(response)
-
-                # Each request may result in a bunch of matches, so iterate over all of them not to miss anything
-                for resp_chunk in response:
-                    powiat_GAID_map[resp_chunk['Name'].lower()] = resp_chunk['GAID']
-
-        voivodeship_powiat_GAID_map.append({'voivodeship': {voivodeship: voivodeship_GAID},
-                                            'districts': {name: GAID for name, GAID in powiat_GAID_map.items() if
-                                                          name.lower() in powiats}})
-
-    with open('source/tauron_powiat_map.json', 'w', encoding='utf-8') as file:
-        json.dump(powiat_GAID_map, file, ensure_ascii=False, indent=4)
-
-    with open('source/tauron_voivodeship_powiat_map.json', 'w', encoding='utf-8') as file:
-        json.dump(voivodeship_powiat_GAID_map, file, ensure_ascii=False, indent=4)
-
 
 import re
 from typing import List, Tuple, Dict, Any
@@ -535,7 +479,8 @@ def transform_tauron_data(responses_and_voivodeships: list[tuple[dict, str]]) ->
                 transformed_data[voivodeship][city_name].append(shutdown_details)
 
             except Exception as e:
-                logger.exception(f"Error processing OutageId {item.get('OutageId')}: {e}")
+                # logger.exception(f"Error processing OutageId {item.get('OutageId')}: {e}")
+                pass
 
     return transformed_data
 
@@ -554,7 +499,7 @@ def get_tauron_planned_shutdowns(from_date: datetime, to_date: datetime):
 
     base_url = "https://www.tauron-dystrybucja.pl/waapi/outages/area?"
 
-    voivodeship_powiat_GAID_map = json.load(open('source/tauron_voivodeship_powiat_map.json', 'r', encoding='utf-8'))
+    voivodeship_powiat_GAID_map = json.load(open('Microservice/scrapers/source/tauron_voivodeship_powiat_map.json', 'r', encoding='utf-8'))
 
     responses_and_voivodeships = []
 
@@ -562,10 +507,7 @@ def get_tauron_planned_shutdowns(from_date: datetime, to_date: datetime):
         voivodeship = list(voivodeship_dict['voivodeship'].keys())[0]
         voivodeship_GAID = list(voivodeship_dict['voivodeship'].values())[0]
 
-        logger.info(f"Province: {voivodeship} with GAID: {voivodeship_GAID}")
-
         for district, district_GAID in voivodeship_dict['districts'].items():
-            logger.info(f"\tDistrict: {district} with GAID: {district_GAID}")
             request_url = f"{base_url}&provinceGAID={voivodeship_GAID}&districtGAID={district_GAID}&fromDate={from_date}&toDate={to_date}&_=1760714469806"
             response = requests.get(request_url)
 

@@ -5,8 +5,9 @@ import sys
 
 import requests
 from datetime import datetime
-import re
+import io
 
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
 def parse_locations(line: str) -> list[str]:
     """
@@ -61,9 +62,9 @@ def parse_locations(line: str) -> list[str]:
         e.g., "Kościerzyna, Markubowo" -> "Kościerzyna"
         """
         # Remove text subdivisions like -Wybudowanie, -Kolonia
-        loc = re.sub(r'(-[A-Za-zżźćńółęąśŻŹĆŃÓŁĘĄŚ]+)', '', loc, 1)
+        loc = re.sub(r'(-[A-Za-zżźćńółęąśŻŹĆŃÓŁĘĄŚ]+)', '', loc, count = 1)
         # Remove text subdivisions like , Markubowo
-        loc = re.sub(r'(,[A-Za-zżźćńółęąśŻŹĆŃÓŁĘĄŚ ]+)', '', loc, 1)
+        loc = re.sub(r'(,[A-Za-zżźćńółęąśŻŹĆŃÓŁĘĄŚ ]+)', '', loc, count = 1)
         return loc.strip()
 
     def is_full_name(item: str) -> bool:
@@ -263,8 +264,9 @@ def get_energa_planned_shutdowns() -> dict[str, dict[str, dict[str, tuple[dateti
         return res
 
     except Exception as e:
-        print(f'Error trying scraping shutdowns from Energa: {e}')
-        return {}
+        # print(f'Error trying scraping shutdowns from Energa: {e}')
+        raise e
+
 
 
 if __name__ == '__main__':
