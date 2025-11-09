@@ -73,8 +73,6 @@ class EventRepositoryCriteriaApiImpl(@PersistenceContext private val entityManag
                 eventTypeJoin.get<String>("description"),
 
                 authorJoin.get<Long>("id"),
-                authorJoin.get<String>("name"),
-                authorJoin.get<String>("lastName"),
                 authorJoin.get<Double>("reputation"),
 
                 weightedRatingExpr,
@@ -99,8 +97,6 @@ class EventRepositoryCriteriaApiImpl(@PersistenceContext private val entityManag
             eventTypeJoin.get<String>("description"),
 
             authorJoin.get<Long>("id"),
-            authorJoin.get<String>("name"),
-            authorJoin.get<String>("lastName"),
             authorJoin.get<Double>("reputation")
         )
         val havingPredicates = generatePredicateHaving(filters, cb, eventRoot, weightedRatingExpr)
@@ -158,8 +154,6 @@ class EventRepositoryCriteriaApiImpl(@PersistenceContext private val entityManag
                 eventTypeJoin.get<String>("description"),
 
                 authorJoin.get<Long>("id"),
-                authorJoin.get<String>("name"),
-                authorJoin.get<String>("lastName"),
                 authorJoin.get<Double>("reputation"),
 
                 weightedRatingExpr,
@@ -186,8 +180,6 @@ class EventRepositoryCriteriaApiImpl(@PersistenceContext private val entityManag
             eventTypeJoin.get<String>("description"),
 
             authorJoin.get<Long>("id"),
-            authorJoin.get<String>("name"),
-            authorJoin.get<String>("lastName"),
             authorJoin.get<Double>("reputation")
         )
 

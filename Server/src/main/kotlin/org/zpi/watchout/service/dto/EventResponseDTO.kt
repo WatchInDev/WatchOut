@@ -48,7 +48,7 @@ data class EventResponseDTO(
         endDate,
         isActive,
         EventTypeDTO(eventTypeId, eventTypeName, eventTypeIcon, eventTypeDescription),
-        AuthorResponseDTO(authorId, authorName, authorLastname, authorReputation),
+        AuthorResponseDTO(authorId,  authorReputation),
         rating,
         ratingForCurrentUser
     )
