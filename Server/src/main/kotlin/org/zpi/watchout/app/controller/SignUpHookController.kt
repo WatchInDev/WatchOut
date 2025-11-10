@@ -17,8 +17,7 @@ private val logger = KotlinLogging.logger {}
 @RestController
 @RequestMapping("/entra/signup-hook")
 class SignUpHookController(
-    private val userService: UserService,
-    @Value("\${entra.api.secret}") private val b2cApiSecret: String
+    private val userService: UserService
 ) {
 
     @PostMapping
