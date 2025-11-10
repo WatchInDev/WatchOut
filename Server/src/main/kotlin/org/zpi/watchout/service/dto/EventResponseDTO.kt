@@ -32,8 +32,6 @@ data class EventResponseDTO(
         eventTypeIcon: String,
         eventTypeDescription: String,
         authorId: Long,
-        authorName: String,
-        authorLastname: String,
         authorReputation: Double,
         rating: Double,
         ratingForCurrentUser: Int
