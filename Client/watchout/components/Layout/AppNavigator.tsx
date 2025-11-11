@@ -7,6 +7,11 @@ import { EventTypes } from 'features/event-types/EventTypes';
 import { Map } from 'features/map/Map';
 import LoginScreen from '../../features/auth/LoginScreen';
 import SignUpScreen from '../../features/auth/SignUpScreen';
+import { theme } from 'utils/theme';
+import { Outages } from 'features/outages/Outages';
+import { SettingsNavigator, settingsRoutes } from 'features/settings/SettingsNavigator';
+import { getFocusedRouteNameFromRoute, RouteProp } from '@react-navigation/native';
+import { navigationTheme } from 'components/Base/navigationTheme';
 
 const NavDrawer = createDrawerNavigator();
 
@@ -24,10 +29,20 @@ const routes = [
     icon: 'format-list-bulleted',
   },
   {
+    name: 'Alerts',
+    component: Outages,
+    label: 'Awarie',
+    icon: 'alert-circle-outline',
+  },
+  {
     name: 'Settings',
-    component: Map,
+    component: SettingsNavigator,
     label: 'Ustawienia',
     icon: 'cog',
+    headerShown: (route: RouteProp<any, any>) => {
+      const focusedRoute = getFocusedRouteNameFromRoute(route);
+      return !focusedRoute || focusedRoute === "SettingsMain"
+    },
   },
 ];
 
@@ -51,36 +66,34 @@ export const AppNavigator = () => {
   return (
     <NavDrawer.Navigator
       screenOptions={{
+        ...navigationTheme,
         drawerStyle: {
           maxWidth: 240,
-        },
-        headerTitleStyle: {
-          fontSize: 18,
-          fontFamily: 'Poppins_600SemiBold',
-          color: '#333',
         },
         drawerLabelStyle: {
           fontFamily: 'Poppins_700Regular',
           fontSize: 16,
-          color: '#333',
+          color: theme.palette.text.primary,
         },
       }}
       drawerContent={(props) => (
         <SafeAreaView style={{ flex: 1 }}>
           <CustomDrawerContent {...props} />
         </SafeAreaView>
-      )}
-    >
-      {routes.map((route) => (
+      )}>
+      {routes.map((routeDef) => (
         <NavDrawer.Screen
-          key={route.name}
-          name={route.label}
-          component={route.component}
-          options={{
-            drawerLabel: route.label,
-            drawerIcon: ({ color, size }) => (
-              <Icon source={route.icon} size={24} color={color ?? '#333'} />
-            ),
+          key={routeDef.name}
+          name={routeDef.label}
+          component={routeDef.component}
+          options={({ route }) => {
+            return {
+              drawerLabel: routeDef.label,
+              drawerIcon: () => {
+                return <Icon source={routeDef.icon} size={24} color={theme.palette.text.primary} />;
+              },
+              headerShown: routeDef.headerShown?.(route) ?? true,
+            };
           }}
         />
       ))}

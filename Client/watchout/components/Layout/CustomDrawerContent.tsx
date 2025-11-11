@@ -33,7 +33,7 @@ export const CustomDrawerContent = (props: DrawerContentComponentProps) => {
               icon={icon}
               key={route.key}
               label={() => (
-                <Text>
+                <Text style={isRouteActive ? { fontWeight: 700 } : {}}>
                   {props.descriptors[route.key].options.drawerLabel?.toString() || route.name}
                 </Text>
               )}

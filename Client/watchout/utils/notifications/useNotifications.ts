@@ -49,9 +49,11 @@ async function registerForPushNotificationsAsync(
 }
 
 function handleRegistrationError(errorMessage: string) {
-  console.error('Error occurring notification setup:', errorMessage);
-  alert('Coś poszło nie tak podczas rejestracji do powiadomień push! Spróbuj ponownie później.');
-  throw new Error(errorMessage);
+  console.warn('Error occurring notification setup:', errorMessage);
+  if (!__DEV__) {
+    alert('Coś poszło nie tak podczas rejestracji do powiadomień push! Spróbuj ponownie później.');
+    throw new Error(errorMessage);
+  }
 }
 
 export const useNotifications = () => {

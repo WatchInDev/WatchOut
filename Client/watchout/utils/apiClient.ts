@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosHeaders } from "axios";
 import { API_URL } from "config";
 import { getAuth, getIdToken } from "@react-native-firebase/auth";
 
@@ -21,7 +21,7 @@ apiClient.interceptors.request.use(
       if (currentUser) {
         const idToken = await getIdToken(currentUser);
 
-        const headers = axios.AxiosHeaders.from(config.headers ?? {});
+        const headers = AxiosHeaders.from(config.headers ?? {});
         headers.set("Authorization", `Bearer ${idToken}`);
         config.headers = headers;
       }
@@ -30,6 +30,12 @@ apiClient.interceptors.request.use(
     }
 
     return config;
-  },
-  (error) => Promise.reject(error)
+  }
+)
+
+apiClient.interceptors.response.use(
+  (response) => {
+    console.log(response);
+    return response;
+  }
 );
