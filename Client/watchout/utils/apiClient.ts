@@ -30,6 +30,12 @@ apiClient.interceptors.request.use(
     }
 
     return config;
-  },
-  (error) => Promise.reject(error)
+  }
+)
+
+apiClient.interceptors.response.use(
+  (response) => {
+    console.log(response);
+    return response;
+  }
 );

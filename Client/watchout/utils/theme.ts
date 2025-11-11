@@ -21,7 +21,7 @@ export const theme = {
     h1: {
       fontSize: globalFontSize * 2.5,
       fontWeight: 700,
-      lineHeight: 40,
+      lineHeight: 48,
     },
     h2: {
       fontSize: globalFontSize * 2,

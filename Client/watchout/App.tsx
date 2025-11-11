@@ -4,7 +4,7 @@ import { GEOCODING_API_KEY } from '@env';
 
 import { PaperProvider } from 'react-native-paper';
 import { Text } from 'components/Base/Text';
-import { NavigationContainer } from '@react-navigation/native';
+import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { AppNavigator } from './components/Layout/AppNavigator';
@@ -20,6 +20,9 @@ import duration from 'dayjs/plugin/duration';
 import 'dayjs/locale/pl';
 import { useCustomFonts } from 'utils/useCustomFonts';
 import { useNotifications } from 'utils/notifications/useNotifications';
+import { StrictMode, useEffect } from 'react';
+import { SettingsNavigator } from 'features/settings/SettingsNavigator';
+import { theme } from 'utils/theme';
 
 const queryClient = new QueryClient();
 
@@ -27,12 +30,12 @@ dayjs.extend(relativeTime);
 dayjs.extend(duration);
 dayjs.locale('pl');
 
-Geocoding.init(GEOCODING_API_KEY, {
-  language: 'pl',
-});
-
 export default function App() {
   const { loaded } = useCustomFonts();
+
+  useEffect(() => {
+    Geocoding.init(GEOCODING_API_KEY);
+  }, []);
 
   const NotificationsInitializer = () => {
     useNotifications();
@@ -48,7 +51,7 @@ export default function App() {
   }
 
   return (
-    <>
+    <StrictMode>
       <QueryClientProvider client={queryClient}>
         <NotificationsInitializer />
         <SafeAreaProvider>
@@ -56,7 +59,14 @@ export default function App() {
             <PaperProvider theme={paperTheme}>
               <BottomSheetModalProvider>
                 <AuthProvider>
-                  <NavigationContainer>
+                  <NavigationContainer
+                    theme={{
+                      ...DefaultTheme,
+                      colors: {
+                        ...DefaultTheme.colors,
+                        background: theme.palette.background.default,
+                      },
+                    }}>
                     <AppNavigator />
                     <StatusBar style="light" />
                   </NavigationContainer>
@@ -66,6 +76,6 @@ export default function App() {
           </GestureHandlerRootView>
         </SafeAreaProvider>
       </QueryClientProvider>
-    </>
+    </StrictMode>
   );
 }

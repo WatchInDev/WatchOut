@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { View } from 'react-native';
 import { useCreateComment } from 'features/events/comments/useCreateComment';
 import { CustomModal } from 'components/Base/CustomModal';
+import { CustomTextInput } from 'components/Base/CustomTextInput';
 
 type AddCommentModalProps = {
   eventId: number;
@@ -36,10 +37,9 @@ export const AddCommentModal = ({
     <>
       <CustomModal isVisible={isVisible} onBackdropPress={onClose}>
         <View style={{ gap: 12 }}>
-          <TextInput
+          <CustomTextInput
             placeholder="Dodaj komentarz..."
             value={comment}
-            mode="outlined"
             onChangeText={setComment}
             multiline
             numberOfLines={4}
