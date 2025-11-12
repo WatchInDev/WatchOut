@@ -16,12 +16,12 @@ interface ElectricalOutageRepository: JpaRepository<ElectricalOutage, Long> {
         """
             SELECT 
             location, from_date, to_date, provider
-            FROM wathout.electrical_outages
+            FROM watchout.electrical_outages
             WHERE similarity(region, :region) > 0.4
             AND similarity(voivodeship, :voivodeship) > 0.4
-            AND similarity(location, :location) > 0.7
-            AND toDate > now()
-            AND fromDate < now()
+            AND similarity(location, :location) > 0.8
+            AND to_date > now()
+            AND from_date < now()
         """, nativeQuery = true
     )
     fun findElectricalOutageByFavouritePlace(@Param("voivodeship")voivodeship: String, @Param("location")location: String, @Param("region") region: String): List<ElectricalOutageDTO>

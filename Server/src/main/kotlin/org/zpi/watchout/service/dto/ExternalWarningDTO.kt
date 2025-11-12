@@ -12,6 +12,6 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo
     JsonSubTypes.Type(value = WeatherWarningDTO::class, name = "weather"),
     JsonSubTypes.Type(value = ElectricalOutageDTO::class, name = "electrical_outage")
 )
-class ExternalWarningDTO(var placeName: String = "") {
+open class ExternalWarningDTO(var placeName: String = "") {
 
 }

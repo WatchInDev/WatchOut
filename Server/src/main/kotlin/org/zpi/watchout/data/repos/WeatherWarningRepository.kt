@@ -15,11 +15,11 @@ interface WeatherWarningRepository : JpaRepository<WeatherWarning, Long> {
     @Query(
         """
             SELECT 
-            name, description, from_date, to_date, locality
+            event, description, from_date, to_date, region
             FROM watchout.weather_warnings
             WHERE similarity(region, :locality) > 0.4
-            AND toDate > now()
-            AND fromDate < now()
+            AND to_date > now()
+            AND from_date < now()
         """, nativeQuery = true
     )
     fun findWeatherWarningByUsersFavouritePlace(@Param("locality") locality: String): List<WeatherWarningDTO>

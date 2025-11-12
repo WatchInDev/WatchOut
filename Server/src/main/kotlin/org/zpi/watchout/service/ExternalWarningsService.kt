@@ -12,7 +12,7 @@ class ExternalWarningsService(val userFavouritePlaceRepository: UserFavouritePla
     fun getExternalWarning(userId: Long) : List<ExternalWarningDTO>{
         val favouritePlaces = userFavouritePlaceRepository.findByUserId(userId)
         val warnings = mutableListOf<ExternalWarningDTO>()
-        favouritePlaces.forEach { fav -> {
+        favouritePlaces.forEach { fav ->
             val updatedWarnings = weatherWarningRepository
                 .findWeatherWarningByUsersFavouritePlace(fav.locality)
                 .map { warning -> warning.apply { placeName = fav.placeName } }
@@ -22,7 +22,7 @@ class ExternalWarningsService(val userFavouritePlaceRepository: UserFavouritePla
             val updatedOutages = electricalOutageRepository.findElectricalOutageByFavouritePlace(fav.voivodeship, fav.location, fav.region)
                 .map { outage -> outage.apply { placeName = fav.placeName } }
             warnings.addAll(updatedOutages)
-        }}
+        }
         return warnings
     }
 }

@@ -7,6 +7,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
 import org.zpi.watchout.app.infrastructure.exceptions.EntityNotFoundException
+import org.zpi.watchout.app.infrastructure.exceptions.GoogleGeocodeRequestError
 import org.zpi.watchout.service.dto.ExceptionDTO
 import java.time.LocalDateTime
 
@@ -47,6 +48,17 @@ class AppExceptionHandler {
         )
         logger.warn(ex) { "Validation error: $errors" }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exceptionDto)
+    }
+
+    @ExceptionHandler(GoogleGeocodeRequestError::class)
+    fun handleGoogleGeocodeRequestError(ex: GoogleGeocodeRequestError): ResponseEntity<ExceptionDTO> {
+        val exceptionDto = ExceptionDTO(
+            timestamp = LocalDateTime.now().toString(),
+            message = ex.message ?: HttpStatus.BAD_GATEWAY.reasonPhrase,
+            status = HttpStatus.BAD_GATEWAY.value()
+        )
+        logger.error(ex) { "Google Geocode request error" }
+        return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(exceptionDto)
     }
 
 
