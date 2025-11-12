@@ -8,10 +8,10 @@ import { Map } from 'features/map/Map';
 import LoginScreen from '../../features/auth/LoginScreen';
 import SignUpScreen from '../../features/auth/SignUpScreen';
 import { theme } from 'utils/theme';
-import { Outages } from 'features/outages/Outages';
-import { SettingsNavigator, settingsRoutes } from 'features/settings/SettingsNavigator';
+import { SettingsNavigator } from 'features/settings/SettingsNavigator';
 import { getFocusedRouteNameFromRoute, RouteProp } from '@react-navigation/native';
 import { navigationTheme } from 'components/Base/navigationTheme';
+import { OutagesNavigator } from 'features/outages/OutagesNavigator';
 
 const NavDrawer = createDrawerNavigator();
 
@@ -30,9 +30,13 @@ const routes = [
   },
   {
     name: 'Alerts',
-    component: Outages,
-    label: 'Awarie',
+    component: OutagesNavigator,
+    label: 'Alerty',
     icon: 'alert-circle-outline',
+    headerShown: (route: RouteProp<any, any>) => {
+      const focusedRoute = getFocusedRouteNameFromRoute(route);
+      return !focusedRoute || focusedRoute === 'OutagesMain';
+    }
   },
   {
     name: 'Settings',
@@ -41,7 +45,7 @@ const routes = [
     icon: 'cog',
     headerShown: (route: RouteProp<any, any>) => {
       const focusedRoute = getFocusedRouteNameFromRoute(route);
-      return !focusedRoute || focusedRoute === "SettingsMain"
+      return !focusedRoute || focusedRoute === 'SettingsMain';
     },
   },
 ];

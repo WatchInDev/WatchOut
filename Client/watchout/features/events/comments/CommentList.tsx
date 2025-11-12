@@ -71,7 +71,6 @@ export const CommentList = ({ eventId }: CommentListProps) => {
         <>
           {comments?.content.map((item) => (
             <CustomSurface key={'Comments_' + item.id} style={{ padding: 12, marginBottom: 12 }}>
-              <Text variant="subtitle1">{item.author.name}</Text>
               <Text variant="body1">{item.content}</Text>
               <Text variant="body2" color="tertiary">
                 {new Date(item.createdAt).toLocaleString()} ({dayjs(item.createdAt).fromNow()})

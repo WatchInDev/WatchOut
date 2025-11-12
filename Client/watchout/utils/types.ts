@@ -30,6 +30,18 @@ export type Event = {
   active: boolean;
 };
 
+export type Outage = {
+  type: 'electrical_outage' | 'weather';
+  location?: string;
+  name?: string;
+  description?: string;
+  fromDate: Date;
+  toDate: Date;
+  provider?: string;
+  locality?: string;
+  placeName: string;
+}
+
 export type CreateEventRequest = {
   name: string;
   description: string;
@@ -51,12 +63,6 @@ export type Comment = {
   content: string;
   eventId: number;
   createdAt: Date;
-  author: {
-    id: number;
-    name: string;
-    lastname: string;
-    reputation: number;
-  };
   rating: number;
   ratingForCurrentUser: number;
 };
@@ -64,6 +70,31 @@ export type Comment = {
 export type AddCommentRequest = {
   eventId: number;
   content: string;
+};
+
+export type PinnedLocation = {
+  id: number;
+  placeName: string;
+  latitude: number;
+  longitude: number;
+  location: string;
+  locality: string;
+  region: string;
+  voivodeship: string;
+};
+
+export type AddLocationRequest = {
+  placeName: string;
+  latitude: number;
+  longitude: number;
+  services: {
+    electricity: boolean;
+    water: boolean;
+    gas: boolean;
+    internet: boolean;
+  };
+  radius: number;
+  notificationsEnabled: boolean;
 };
 
 export type PaginationRequest<T> = {

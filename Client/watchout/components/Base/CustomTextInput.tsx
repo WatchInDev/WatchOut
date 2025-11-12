@@ -52,7 +52,7 @@ export const CustomTextInput = ({
   };
 
   return (
-    <Animated.View style={[animatedStyle]}>
+    <Animated.View style={[props.style, animatedStyle]}>
       {label && (
         <Text
           style={{
@@ -86,8 +86,7 @@ export const CustomTextInput = ({
             paddingLeft: startIcon ? 0 : 4,
             paddingRight: endIcon ? 0 : 4,
             backgroundColor: 'transparent',
-          },
-          props.style,
+          }
         ]}
         onFocus={handleFocus}
         onBlur={handleBlur}

@@ -8,7 +8,6 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { Button, TextInput } from 'react-native-paper';
 import { Text } from 'components/Base/Text';
 import { CustomTextInput } from 'components/Base/CustomTextInput';
 import { useCreateEvent } from 'features/events/events.hooks';
@@ -16,6 +15,7 @@ import { Coordinates, CreateEventRequest } from 'utils/types';
 import { reverseGeocode } from 'features/map/reverseGeocode';
 import { EventTypeSelectionModal } from './EventTypeSelectionModal';
 import { BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet';
+import { Button } from 'react-native-paper';
 
 type CreateEventProps = {
   location: Coordinates;
@@ -107,12 +107,10 @@ export const CreateEventBottomSheet = ({ location, onSuccess }: CreateEventProps
   };
 
   const isLoading = createEventMutation.isPending;
-  console.log('Event type: ', selectedEventType?.name);
-  
 
   return (
     <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
-      <BottomSheetModal ref={bottomSheetRef} enableDynamicSizing enablePanDownToClose>
+      <BottomSheetModal ref={bottomSheetRef} enablePanDownToClose>
         <BottomSheetView style={styles.container}>
           <Text variant="h3" style={styles.title}>
             Zgłoś nowe zdarzenie!

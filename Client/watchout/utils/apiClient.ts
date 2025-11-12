@@ -35,7 +35,7 @@ apiClient.interceptors.request.use(
 
 apiClient.interceptors.response.use(
   (response) => {
-    console.log(response);
+    console.log(`[${response.config.method?.toLocaleUpperCase()}] Response URL:`, response.config.url, 'Status:', response.status);
     return response;
   }
 );

@@ -41,12 +41,12 @@ export const theme = {
     h5: {
       fontSize: globalFontSize * 1.25,
       fontWeight: 500,
-      lineHeight: 20,
+      lineHeight: 24,
     },
     h6: {
       fontSize: globalFontSize * 1.125,
       fontWeight: 500,
-      lineHeight: 18,
+      lineHeight: 20,
     },
     body1: {
       fontSize: globalFontSize * 1,
@@ -70,7 +70,7 @@ export const theme = {
       fontSize: globalFontSize * 0.75,
       fontWeight: 400,
       lineHeight: 16,
-    },
+    }
   },
   palette: {
     primary: '#00639A',
