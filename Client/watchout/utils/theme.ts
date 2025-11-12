@@ -41,12 +41,12 @@ export const theme = {
     h5: {
       fontSize: globalFontSize * 1.25,
       fontWeight: 500,
-      lineHeight: 20,
+      lineHeight: 24,
     },
     h6: {
       fontSize: globalFontSize * 1.125,
       fontWeight: 500,
-      lineHeight: 18,
+      lineHeight: 20,
     },
     body1: {
       fontSize: globalFontSize * 1,

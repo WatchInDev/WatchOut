@@ -76,7 +76,9 @@ const PulsatingCircle = ({
         <Text
           color="primaryInverse"
           style={[mapClusterStyles.text, { color: textColor, fontSize: size * 0.4 }]}>
-            {count >= 1000 ? `${(count / 1000).toFixed(1).replace('.0', '')}k` : count}
+          {count >= 1000 
+          ? `${(count / 1000).toFixed(1).replace('.0', '')}k` 
+          : count}
         </Text>
       </View>
     </View>

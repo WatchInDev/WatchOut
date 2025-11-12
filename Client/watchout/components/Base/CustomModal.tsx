@@ -1,6 +1,7 @@
 import { ComponentProps, ReactNode } from 'react';
 import { StyleSheet, View } from 'react-native';
 import Modal from 'react-native-modal';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { theme } from 'utils/theme';
 
 type CustomModalProps = {
@@ -9,9 +10,11 @@ type CustomModalProps = {
 
 export const CustomModal = ({ children, ...modalProps }: CustomModalProps) => {
   return (
-    <Modal {...modalProps}>
-      <View style={styles.modalContent}>{children}</View>
-    </Modal>
+    <SafeAreaView>
+      <Modal {...modalProps}>
+        <View style={styles.modalContent}>{children}</View>
+      </Modal>
+    </SafeAreaView>
   );
 };
 

@@ -14,6 +14,8 @@ import { Settings } from 'features/settings/Settings';
 import { SettingsNavigator, settingsRoutes } from 'features/settings/SettingsNavigator';
 import { getFocusedRouteNameFromRoute, RouteProp } from '@react-navigation/native';
 import { navigationTheme } from 'components/Base/navigationTheme';
+import { View } from 'react-native';
+import { OutagesNavigator } from 'features/outages/OutagesNavigator';
 
 const NavDrawer = createDrawerNavigator();
 
@@ -32,9 +34,13 @@ const routes = [
   },
   {
     name: 'Alerts',
-    component: Outages,
-    label: 'Awarie',
+    component: OutagesNavigator,
+    label: 'Alerty',
     icon: 'alert-circle-outline',
+    headerShown: (route: RouteProp<any, any>) => {
+      const focusedRoute = getFocusedRouteNameFromRoute(route);
+      return !focusedRoute || focusedRoute === 'OutagesMain';
+    }
   },
   {
     name: 'Settings',
@@ -43,7 +49,7 @@ const routes = [
     icon: 'cog',
     headerShown: (route: RouteProp<any, any>) => {
       const focusedRoute = getFocusedRouteNameFromRoute(route);
-      return !focusedRoute || focusedRoute === "SettingsMain"
+      return !focusedRoute || focusedRoute === 'SettingsMain';
     },
   },
 ];

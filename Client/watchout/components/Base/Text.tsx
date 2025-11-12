@@ -36,9 +36,29 @@ const convertFontWeightToFontFamily = (fontWeight: string | number | undefined) 
   }
 };
 
+type Align = 'auto' | 'left' | 'right' | 'center' | 'justify';
+
+const alignToStyle = (align: Align | undefined) => {
+  switch (align) {
+    case 'left':
+      return { textAlign: 'left' as const };
+    case 'right':
+      return { textAlign: 'right' as const };
+    case 'center':
+      return { textAlign: 'center' as const };
+    case 'justify':
+      return { textAlign: 'justify' as const };
+    default:
+      return {};
+  }
+};
+
 type BaseTextProps = TextProps & {
   variant?: TypographyVariant;
   color?: TypographyColor;
+  weight?: 'bold' | 'light';
+  align?: Align;
+  wrap?: boolean;
 };
 
 const defaultStyles: TextStyle = {
@@ -46,26 +66,32 @@ const defaultStyles: TextStyle = {
   color: theme.palette.text.primary,
 };
 
-export const Text = ({ variant, style, color, ...rest }: BaseTextProps) => {
+export const Text = ({ variant, style, color, weight, align, wrap, ...rest }: BaseTextProps) => {
   const flattenStyle = Array.isArray(style)
     ? Object.assign({}, ...style)
     : (style as TextStyle | undefined) || {};
 
+  if (weight) {
+    flattenStyle.fontWeight = weight === 'bold' ? '700' : '300';
+  }
+
   const mergedStyle = {
     ...(variant ? theme.typography[variant] : theme.typography['body1']),
+    color:
+      color && Object.prototype.hasOwnProperty.call(theme.palette.text, color)
+        ? theme.palette.text[color as keyof typeof theme.palette.text]
+        : theme.palette.text.primary,
+    ...(wrap ? { flexWrap: 'wrap', flexShrink: 1 } : {}),
     ...flattenStyle,
-    color: color && Object.prototype.hasOwnProperty.call(theme.palette.text, color)
-      ? theme.palette.text[color as keyof typeof theme.palette.text]
-      : theme.palette.text.primary,
   };
 
   if (mergedStyle && mergedStyle.fontWeight !== undefined) {
     const fontFamilyStyles = convertFontWeightToFontFamily(mergedStyle.fontWeight);
     const { fontWeight, ...restStyle } = mergedStyle;
 
-    const combinedStyles = [defaultStyles, fontFamilyStyles, restStyle];
+    const combinedStyles = [defaultStyles, fontFamilyStyles, restStyle, alignToStyle(align)];
     return <ReactNativeText {...rest} style={combinedStyles} />;
   }
 
-  return <ReactNativeText {...rest} style={[defaultStyles, mergedStyle]} />;
+  return <ReactNativeText {...rest} style={[defaultStyles, mergedStyle, alignToStyle(align)]} />;
 };

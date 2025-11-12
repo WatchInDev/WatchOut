@@ -14,10 +14,15 @@ export const EventDetails = ({ event }: EventDetailsProps) => {
   return (
     <View style={{ gap: 4 }}>
       <View style={styles.header}>
-        <Image source={icons[event.eventType.icon]} style={{ width: 64, height: 64 }} />
-        <Text variant='h2' style={{ flexShrink: 1 }}>{event.name}</Text>
+        <Image
+          source={icons[(event.eventType.icon as keyof typeof icons) || 'alert-circle']}
+          style={{ width: 64, height: 64 }}
+        />
+        <Text variant="h2" style={{ flexShrink: 1 }}>
+          {event.name}
+        </Text>
       </View>
-      <Text variant='body2'>Zgłoszono: {reportedDateText}</Text>
+      <Text variant="body2">Zgłoszono: {reportedDateText}</Text>
       <Text>{event.description}</Text>
     </View>
   );

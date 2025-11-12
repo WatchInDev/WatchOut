@@ -1,10 +1,11 @@
 import Modal from 'react-native-modal';
 import { Text } from 'components/Base/Text';
-import { ScrollView, View, StyleSheet } from 'react-native';
-import { Button, Card, Icon } from 'react-native-paper';
+import { ScrollView, View, StyleSheet, TouchableHighlight } from 'react-native';
+import { Button, Icon } from 'react-native-paper';
 import { useGetEventTypes } from 'features/events/event-types.hooks';
 import { theme } from 'utils/theme';
-import { CustomModal } from 'components/Base/CustomModal';
+import { CustomSurface } from 'components/Layout/CustomSurface';
+import { icons } from 'components/Base/icons';
 
 type EventSelectionModalProps = {
   isVisible: boolean;
@@ -22,41 +23,47 @@ export const EventTypeSelectionModal = ({
   const { data: eventTypes } = useGetEventTypes();
 
   return (
-    <CustomModal isVisible={isVisible} onBackdropPress={() => setIsVisible(false)}>
-      <Text variant="h5" style={{ textAlign: 'center' }}>
-        Wybierz rodzaj zdarzenia
-      </Text>
-      <ScrollView contentContainerStyle={styles.scrollContainer}>
-        {eventTypes?.map((type) => (
-          <Card
-            key={type.id}
-            mode="contained"
-            style={
-              eventType?.id === type.id
-                ? styles.selectedCard
-                : eventType
-                  ? { opacity: 0.7 }
-                  : undefined
-            }
-            onPress={() => {
-              setEventType(type);
-              setIsVisible(false);
-            }}>
-            <View style={styles.cardContent}>
-              <Icon source={type.icon} size={48} color={eventType?.id === type.id ? theme.palette.background.default : undefined} />
-              <Text
-                color={eventType?.id === type.id ? 'primaryInverse' : undefined}
-                style={eventType?.id === type.id ? styles.selectedText : undefined}>
-                {type.name}
-              </Text>
-            </View>
-          </Card>
-        ))}
-      </ScrollView>
-      <Button mode="outlined" onPress={() => setIsVisible(false)} style={styles.cancelButton}>
-        Anuluj
-      </Button>
-    </CustomModal>
+    <Modal isVisible={isVisible} onBackdropPress={() => setIsVisible(false)}>
+      <View style={styles.modal}>
+        <Text variant="h4" align='center'>Wybierz rodzaj zdarzenia</Text>
+        <ScrollView style={{ paddingTop: 8}} contentContainerStyle={styles.scrollContainer} showsVerticalScrollIndicator={false}>
+          {eventTypes?.map((type) => (
+            <TouchableHighlight
+              key={type.id}
+              style={{ borderRadius: 8 }}
+              onPress={() => {
+                setEventType(type);
+                setIsVisible(false);
+              }}>
+              <CustomSurface
+                key={type.id}
+                style={[
+                  eventType?.id === type.id
+                    ? styles.selectedCard
+                    : eventType
+                      ? { opacity: 0.7 }
+                      : undefined,
+                  { minHeight: 100, alignItems: 'center', justifyContent: 'center' },
+                ]}>
+                <View style={styles.cardContent}>
+                  <Icon source={icons[type.icon as keyof typeof icons]} size={48} />
+                  <Text variant='subtitle2'
+                    style={[
+                      eventType?.id === type.id ? styles.selectedText : undefined,
+                      { flex: 1 },
+                    ]}>
+                    {type.name}
+                  </Text>
+                </View>
+              </CustomSurface>
+            </TouchableHighlight>
+          ))}
+        </ScrollView>
+        <Button mode="outlined" onPress={() => setIsVisible(false)} style={styles.cancelButton}>
+          Anuluj
+        </Button>
+      </View>
+    </Modal>
   );
 };
 
@@ -66,12 +73,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 8,
     padding: 16,
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: '600',
-    marginBottom: 4,
-    textAlign: 'center',
   },
   scrollContainer: {
     flexDirection: 'column',
@@ -85,8 +86,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   selectedCard: {
-    outlineColor: theme.palette.primary,
-    outlineWidth: 2,
     backgroundColor: theme.palette.primary,
   },
   selectedText: {

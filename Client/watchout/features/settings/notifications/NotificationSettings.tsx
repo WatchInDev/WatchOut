@@ -1,5 +1,6 @@
 import { CustomSwitch } from 'components/Base/CustomSwitch';
 import { Text } from 'components/Base/Text';
+import { PageWrapper } from 'components/Common/PageWrapper';
 import { useState } from 'react';
 import { View } from 'react-native';
 
@@ -50,40 +51,42 @@ export const NotificationSettings = () => {
   };
 
   return (
-    <View style={{ gap: 40, padding: 16, flex: 1 }}>
-      <Text variant="h3">Wyświetlanie powiadomień</Text>
+    <PageWrapper>
+      <View style={{ gap: 40, flex: 1 }}>
+        <Text variant="h3">Wyświetlanie powiadomień</Text>
 
-      {CATEGORY_GROUPS.map((group) => {
-        const sectionOptions = Object.entries(OPTIONS)
-          .filter(([_, value]) => value.category === group.category)
-          .map(([key, value]) => ({
-            key,
-            label: value.label,
-          }));
+        {CATEGORY_GROUPS.map((group) => {
+          const sectionOptions = Object.entries(OPTIONS)
+            .filter(([_, value]) => value.category === group.category)
+            .map(([key, value]) => ({
+              key,
+              label: value.label,
+            }));
 
-        return (
-          <View key={group.category} style={{ gap: 16 }}>
-            <Text variant="h4">{group.title}</Text>
-            <View style={{ gap: 12 }}>
-              {sectionOptions.map((option) => (
-                <View
-                  key={option.key}
-                  style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>
-                  <Text variant="body1" style={{ flex: 1 }}>
-                    {option.label}
-                  </Text>
-                  <CustomSwitch
-                    value={settings[option.key as keyof NotificationForm]}
-                    onValueChange={(value) =>
-                      handleChange(option.key as keyof NotificationForm, value)
-                    }
-                  />
-                </View>
-              ))}
+          return (
+            <View key={group.category} style={{ gap: 16 }}>
+              <Text variant="h4">{group.title}</Text>
+              <View style={{ gap: 12 }}>
+                {sectionOptions.map((option) => (
+                  <View
+                    key={option.key}
+                    style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>
+                    <Text variant="body1" style={{ flex: 1 }}>
+                      {option.label}
+                    </Text>
+                    <CustomSwitch
+                      value={settings[option.key as keyof NotificationForm]}
+                      onValueChange={(value) =>
+                        handleChange(option.key as keyof NotificationForm, value)
+                      }
+                    />
+                  </View>
+                ))}
+              </View>
             </View>
-          </View>
-        );
-      })}
-    </View>
+          );
+        })}
+      </View>
+    </PageWrapper>
   );
 };

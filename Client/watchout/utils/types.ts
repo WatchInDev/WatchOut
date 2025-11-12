@@ -51,12 +51,6 @@ export type Comment = {
   content: string;
   eventId: number;
   createdAt: Date;
-  author: {
-    id: number;
-    name: string;
-    lastname: string;
-    reputation: number;
-  };
   rating: number;
   ratingForCurrentUser: number;
 };

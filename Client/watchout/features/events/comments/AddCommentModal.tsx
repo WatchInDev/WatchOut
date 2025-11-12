@@ -19,7 +19,7 @@ export const AddCommentModal = ({
   onSubmit,
 }: AddCommentModalProps) => {
   const [comment, setComment] = useState('');
-  const { mutate } = useCreateComment();
+  const { mutate, isPending } = useCreateComment();
 
   const handleSubmit = () => {
     mutate(
@@ -45,7 +45,11 @@ export const AddCommentModal = ({
             numberOfLines={4}
             style={{ minHeight: 100, paddingTop: 8 }}
           />
-          <Button onPress={handleSubmit} mode="contained" disabled={comment.trim() === ''}>
+          <Button
+            onPress={handleSubmit}
+            mode="contained"
+            loading={isPending}
+            disabled={comment.trim() === ''}>
             Wyślij
           </Button>
         </View>

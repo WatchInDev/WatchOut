@@ -7,7 +7,6 @@ import { Text } from 'components/Base/Text';
 import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { AppNavigator } from './components/Layout/AppNavigator';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { AuthProvider } from 'features/auth/authContext';
@@ -18,11 +17,12 @@ import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import duration from 'dayjs/plugin/duration';
 import 'dayjs/locale/pl';
-import { useCustomFonts } from 'utils/useCustomFonts';
 import { useNotifications } from 'utils/notifications/useNotifications';
 import { StrictMode, useEffect } from 'react';
-import { SettingsNavigator } from 'features/settings/SettingsNavigator';
+import { useCustomFonts } from 'utils/useCustomFonts';
 import { theme } from 'utils/theme';
+import { AppNavigator } from 'components/Layout/AppNavigator';
+import { View } from 'react-native';
 
 const queryClient = new QueryClient();
 
@@ -51,7 +51,8 @@ export default function App() {
   }
 
   return (
-    <StrictMode>
+    <>
+      <StatusBar style="dark" />
       <QueryClientProvider client={queryClient}>
         <NotificationsInitializer />
         <SafeAreaProvider>
@@ -68,7 +69,6 @@ export default function App() {
                       },
                     }}>
                     <AppNavigator />
-                    <StatusBar style="light" />
                   </NavigationContainer>
                 </AuthProvider>
               </BottomSheetModalProvider>
@@ -76,6 +76,6 @@ export default function App() {
           </GestureHandlerRootView>
         </SafeAreaProvider>
       </QueryClientProvider>
-    </StrictMode>
+    </>
   );
 }
