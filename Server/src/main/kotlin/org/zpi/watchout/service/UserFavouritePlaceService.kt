@@ -4,17 +4,22 @@ import jakarta.persistence.Id
 import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.GeometryFactory
 import org.springframework.stereotype.Service
+import org.zpi.watchout.app.infrastructure.exceptions.IncorrectLocationException
 import org.zpi.watchout.data.entity.UserFavouritePlace
 import org.zpi.watchout.data.repos.UserFavouritePlaceRepository
+import org.zpi.watchout.service.dto.FavouritePlaceDTO
 import org.zpi.watchout.service.dto.FavouritePlaceRequestDTO
 import org.zpi.watchout.service.dto.GeocodeResponseDTO
 import org.zpi.watchout.service.web.GoogleGeocodeClient
 
 @Service
 class UserFavouritePlaceService(val userFavouritePlaceRepository: UserFavouritePlaceRepository, val googleGeocodeClient: GoogleGeocodeClient) {
-    fun addFavouritePlace(userId: Long, favouritePlaceRequestDTO: FavouritePlaceRequestDTO){
+    fun addFavouritePlace(userId: Long, favouritePlaceRequestDTO: FavouritePlaceRequestDTO) : FavouritePlaceDTO{
         val response = googleGeocodeClient.getAddressFromCoordinates(favouritePlaceRequestDTO.latitude, favouritePlaceRequestDTO.longitude)
         val components = extractRelevantComponents(response)
+        if(components["route"] == null && components["street_number"] == null){
+            throw IncorrectLocationException("Provided coordinates do not correspond to a valid street address.")
+        }
         val favouritePlace = UserFavouritePlace(
                     userId = userId,
                     placeName = favouritePlaceRequestDTO.placeName,
@@ -25,11 +30,14 @@ class UserFavouritePlaceService(val userFavouritePlaceRepository: UserFavouriteP
                     point = GeometryFactory().createPoint((Coordinate(favouritePlaceRequestDTO.longitude, favouritePlaceRequestDTO.latitude))).also{
                         it.srid = 4326
                     })
-        userFavouritePlaceRepository.save(favouritePlace)
+        val result=userFavouritePlaceRepository.save(favouritePlace)
+        return FavouritePlaceDTO(result)
     }
 
-    fun getFavouritePlaces(userId: Long): List<UserFavouritePlace>{
-        return userFavouritePlaceRepository.findByUserId(userId)
+    fun getFavouritePlaces(userId: Long): List<FavouritePlaceDTO>{
+        return userFavouritePlaceRepository.findByUserId(userId).map {
+            FavouritePlaceDTO(it)
+        }
     }
 
     fun removeFavouritePlace(placeId: Long, userId: Long){
@@ -46,7 +54,7 @@ class UserFavouritePlaceService(val userFavouritePlaceRepository: UserFavouriteP
         "administrative_area_level_1"
     )
 
-    fun extractRelevantComponents(geoResponse: GeocodeResponseDTO): Map<String, String> {
+    private fun extractRelevantComponents(geoResponse: GeocodeResponseDTO): Map<String, String> {
         val result = geoResponse.results.firstOrNull() ?: return emptyMap()
 
         return result.address_components

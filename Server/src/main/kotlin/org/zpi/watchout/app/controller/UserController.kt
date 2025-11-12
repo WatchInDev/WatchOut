@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import org.zpi.watchout.data.entity.UserFavouritePlace
 import org.zpi.watchout.service.UserFavouritePlaceService
+import org.zpi.watchout.service.dto.FavouritePlaceDTO
 import org.zpi.watchout.service.dto.FavouritePlaceRequestDTO
 
 private val logger = KotlinLogging.logger {}
@@ -22,14 +23,15 @@ private val logger = KotlinLogging.logger {}
 class UserController (val userFavouritePlaceService: UserFavouritePlaceService) {
 
     @PostMapping
-    fun addFavouritePlace(@Parameter(hidden = true) @AuthenticationPrincipal userId: Long, @RequestBody place: FavouritePlaceRequestDTO) {
+    fun addFavouritePlace(@Parameter(hidden = true) @AuthenticationPrincipal userId: Long, @RequestBody place: FavouritePlaceRequestDTO):FavouritePlaceDTO {
         logger .info { "Adding favourite place for with cooordinates: (${place.latitude}, ${place.longitude}) for user with id: $userId" }
-        userFavouritePlaceService.addFavouritePlace(userId, place)
+        val result = userFavouritePlaceService.addFavouritePlace(userId, place)
         logger .info { "Added favourite place for with cooordinates: (${place.latitude}, ${place.longitude}) for user with id: $userId" }
+        return result
     }
 
     @GetMapping
-    fun getFavouritePlaces(@Parameter(hidden = true) @AuthenticationPrincipal userId: Long): List<UserFavouritePlace> {
+    fun getFavouritePlaces(@Parameter(hidden = true) @AuthenticationPrincipal userId: Long): List<FavouritePlaceDTO> {
         return userFavouritePlaceService.getFavouritePlaces(userId)
     }
 

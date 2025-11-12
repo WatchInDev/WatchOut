@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
 import org.zpi.watchout.app.infrastructure.exceptions.EntityNotFoundException
 import org.zpi.watchout.app.infrastructure.exceptions.GoogleGeocodeRequestError
+import org.zpi.watchout.app.infrastructure.exceptions.IncorrectLocationException
 import org.zpi.watchout.service.dto.ExceptionDTO
 import java.time.LocalDateTime
 
@@ -59,6 +60,17 @@ class AppExceptionHandler {
         )
         logger.error(ex) { "Google Geocode request error" }
         return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(exceptionDto)
+    }
+
+    @ExceptionHandler(IncorrectLocationException::class)
+    fun handleIncorrectLocationException(ex: IncorrectLocationException): ResponseEntity<ExceptionDTO> {
+        val exceptionDto = ExceptionDTO(
+            timestamp = LocalDateTime.now().toString(),
+            message = ex.message ?: HttpStatus.BAD_REQUEST.reasonPhrase,
+            status = HttpStatus.BAD_REQUEST.value()
+        )
+        logger.warn(ex) { "Incorrect location error: ${ex.message}" }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exceptionDto)
     }
 
 
