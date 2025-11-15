@@ -10,6 +10,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { AppNavigator } from './components/Layout/AppNavigator';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
+import { AuthProvider } from 'features/auth/authContext';
 
 import { paperTheme } from 'utils/paperTheme';
 import Geocoding from 'react-native-geocoding';
@@ -51,13 +52,15 @@ export default function App() {
       <QueryClientProvider client={queryClient}>
         <NotificationsInitializer />
         <SafeAreaProvider>
-          <GestureHandlerRootView>
+          <GestureHandlerRootView style={{ flex: 1 }}>
             <PaperProvider theme={paperTheme}>
               <BottomSheetModalProvider>
-                <NavigationContainer>
-                  <AppNavigator />
-                  <StatusBar style="light" />
-                </NavigationContainer>
+                <AuthProvider>
+                  <NavigationContainer>
+                    <AppNavigator />
+                    <StatusBar style="light" />
+                  </NavigationContainer>
+                </AuthProvider>
               </BottomSheetModalProvider>
             </PaperProvider>
           </GestureHandlerRootView>
