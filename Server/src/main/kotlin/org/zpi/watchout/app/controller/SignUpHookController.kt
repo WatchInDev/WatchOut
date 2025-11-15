@@ -11,37 +11,24 @@ import org.springframework.web.bind.annotation.RestController
 import org.zpi.watchout.service.UserService
 import org.springframework.security.oauth2.jwt.Jwt
 import org.springframework.security.core.annotation.AuthenticationPrincipal
+import org.zpi.watchout.service.dto.UserCreateRequestDTO
 
 private val logger = KotlinLogging.logger {}
 
 @RestController
-@RequestMapping("/entra/signup-hook")
+@RequestMapping("/api/v1/users/create")
 class SignUpHookController(
     private val userService: UserService
 ) {
 
     @PostMapping
-    fun handleSignUp(@AuthenticationPrincipal jwt: Jwt): ResponseEntity<Void> {
-
-        val externalId = jwt.subject
-        val email = (jwt.claims["emails"] as? List<*>)?.firstOrNull() as? String
-            ?: return ResponseEntity.badRequest().build()
-        val displayName = jwt.claims["name"] as? String
-            ?: return ResponseEntity.badRequest().build()
-
-
-        if (externalId.isNullOrBlank() || email.isNullOrBlank()) {
-            logger.warn { "Missing required fields in signup" }
-            return ResponseEntity.badRequest().build()
-        }
-
+    fun handleSignUp(@RequestBody userCreateRequestDTO: UserCreateRequestDTO) {
+        logger.info { "Received sign-up hook for user with external ID: ${userCreateRequestDTO.firebaseUid} and email: ${userCreateRequestDTO.email}" }
         userService.createUser(
-            externalId = externalId,
-            name = displayName,
-            email = email
+            externalId = userCreateRequestDTO.firebaseUid,
+            name = userCreateRequestDTO.displayName,
+            email = userCreateRequestDTO.email
         )
-
-        logger.info { "User created with external ID: $externalId, email: $email" }
-        return ResponseEntity.ok().build()
+        logger.info { "User created with external ID: ${userCreateRequestDTO.firebaseUid} and email: ${userCreateRequestDTO.email}" }
     }
 }
