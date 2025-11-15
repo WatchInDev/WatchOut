@@ -7,7 +7,7 @@ import { CustomDrawerContent } from './CustomDrawerContent';
 import { EventTypes } from 'features/event-types/EventTypes';
 import { Map } from 'features/map/Map';
 import LoginScreen from '../../features/auth/LoginScreen';
-import SignupScreen from '../../features/auth/SignUpScreen';
+import SignUpScreen from '../../features/auth/SignUpScreen';
 
 const NavDrawer = createDrawerNavigator();
 
@@ -44,7 +44,7 @@ export const AppNavigator = () => {
         drawerContent={(props) => <SafeAreaView style={{ flex: 1 }} />}
       >
         <NavDrawer.Screen name="Login" component={LoginScreen} />
-        <NavDrawer.Screen name="Signup" component={SignupScreen} />
+        <NavDrawer.Screen name="SignUp" component={SignUpScreen} />
       </NavDrawer.Navigator>
     );
   }
