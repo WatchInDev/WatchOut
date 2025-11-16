@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
@@ -32,12 +33,17 @@ class UserController (val userFavouritePlaceService: UserFavouritePlaceService) 
 
     @GetMapping
     fun getFavouritePlaces(@Parameter(hidden = true) @AuthenticationPrincipal userId: Long): List<FavouritePlaceDTO> {
-        return userFavouritePlaceService.getFavouritePlaces(userId)
+        logger.info { "Getting favourite places for user with id: $userId" }
+        val result =  userFavouritePlaceService.getFavouritePlaces(userId)
+        logger.info { "Got ${result.size} favourite places for user with id: $userId" }
+        return result
     }
 
-    @DeleteMapping
-    fun removeFavouritePlace(@Parameter(hidden = true) @AuthenticationPrincipal userId: Long,  placeId: Long) {
-        userFavouritePlaceService.removeFavouritePlace(userId, placeId)
+    @DeleteMapping("/{placeId}")
+    fun removeFavouritePlace(@Parameter(hidden = true) @AuthenticationPrincipal userId: Long, @PathVariable("placeId")  placeId: Long) {
+        logger.info { "Removing favourite place with id: $placeId for user with id: $userId" }
+        userFavouritePlaceService.removeFavouritePlace(placeId, userId)
+        logger.info { "Removed favourite place with id: $placeId for user with id: $userId" }
     }
 
 }

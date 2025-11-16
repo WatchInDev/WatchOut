@@ -43,7 +43,7 @@ class UserFavouritePlaceService(val userFavouritePlaceRepository: UserFavouriteP
     fun removeFavouritePlace(placeId: Long, userId: Long){
         userFavouritePlaceRepository.findByUserId(userId).firstOrNull { it.id == placeId }?.let {
             userFavouritePlaceRepository.delete(it)
-        }
+        } ?: throw IncorrectLocationException("Favourite place with id $placeId not found for user with id $userId")
     }
 
     val desiredTypes = setOf(
