@@ -15,6 +15,7 @@
     "@expo/config-plugins": "~54.0.1",
     "@expo/metro-runtime": "~6.1.2",
     "@gorhom/bottom-sheet": "^5.2.3",
+    "@react-native-async-storage/async-storage": "^1.24.0",
     "@react-native-community/datetimepicker": "8.4.4",
     "@react-native-community/geolocation": "^3.4.0",
     "@react-native-vector-icons/evil-icons": "^12.3.0",
