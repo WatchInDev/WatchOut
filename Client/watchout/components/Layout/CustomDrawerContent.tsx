@@ -3,11 +3,25 @@
   DrawerContentScrollView,
   DrawerItem,
 } from '@react-navigation/drawer';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Button } from 'react-native';
 import { Text } from 'components/Base/Text';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useAuth } from 'features/auth/authContext';
 
 export const CustomDrawerContent = (props: DrawerContentComponentProps) => {
+  const { logout } = useAuth();
+  
+  const handleLogout = async () => {
+    await logout();
+
+    props.navigation.closeDrawer();
+
+    props.navigation.reset({
+      index: 0,
+      routes: [{ name: "Login" }],
+    });
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
@@ -33,6 +47,9 @@ export const CustomDrawerContent = (props: DrawerContentComponentProps) => {
           );
         })}
       </DrawerContentScrollView>
+      <View style={styles.logoutContainer}>
+        <Button title="Wyloguj" onPress={handleLogout} color="#d9534f" />
+      </View>
     </SafeAreaView>
   );
 };
@@ -56,6 +73,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#f0f0f0',
   },
   inactiveDrawerItem: {
+    backgroundColor: 'transparent',
+  },
+  logoutContainer: {
+    padding: 12,
+    borderTopWidth: 1,
+    borderTopColor: '#eee',
     backgroundColor: 'transparent',
   },
 });
