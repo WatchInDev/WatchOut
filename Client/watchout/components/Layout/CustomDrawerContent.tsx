@@ -16,10 +16,6 @@ export const CustomDrawerContent = (props: DrawerContentComponentProps) => {
 
     props.navigation.closeDrawer();
 
-    props.navigation.reset({
-      index: 0,
-      routes: [{ name: "Login" }],
-    });
   };
 
   return (
