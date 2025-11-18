@@ -1,4 +1,3 @@
-import React from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { Icon } from 'react-native-paper';

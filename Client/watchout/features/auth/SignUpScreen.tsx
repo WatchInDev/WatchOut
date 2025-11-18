@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { View, TextInput, Button, Alert, StyleSheet } from "react-native";
-import { signUpEmailAndSync } from "./auth";
+import { signUpEmail } from "./auth";
 
 export default function SignupScreen() {
   const [email, setEmail] = useState("");
@@ -9,7 +9,7 @@ export default function SignupScreen() {
 
   const handleSignup = async () => {
     try {
-      await signUpEmailAndSync(email, password, displayName);
+      await signUpEmail(email, password, displayName);
       Alert.alert("Sukces", "Konto zostało utworzone");
     } catch (err: any) {
       Alert.alert("Rejestracja nie powiodła się", err.message || "Błąd");
