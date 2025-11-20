@@ -136,3 +136,17 @@ export type Page<T> = {
   };
   empty: boolean;
 };
+
+export type EventFilters = {
+  hoursSinceReport: number;
+  eventTypesIds: number[];
+};
+
+export type GetEventsRequest = {
+  coordinates: CoordinatesRect;
+  eventTypeIds?: number[];
+  reportedDateFrom?: Date;
+  reportedDateTo?: Date;
+  distance?: number;
+  rating?: number;
+};
