@@ -24,10 +24,9 @@ export const OutageLocations = () => {
   const { showSnackbar } = useSnackbar();
 
   const handleLocationDelete = async (locationId: number) => {
-    showSnackbar('Usuwanie lokalizacji...', { label: 'OK', onPress: () => {} });
-    return;
     const apiResponse = await deleteLocationAsync(locationId);
     if (apiResponse.status === 200) {
+      showSnackbar({ message: 'Lokalizacja została usunięta.', type: 'info', label: 'OK', onPress: () => {} });
       setLocationToDelete(null);
     } else {
       alert('Wystąpił błąd podczas usuwania lokalizacji. Spróbuj ponownie później.');

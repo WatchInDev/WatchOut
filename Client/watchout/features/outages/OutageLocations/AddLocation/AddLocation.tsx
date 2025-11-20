@@ -19,6 +19,7 @@ import { useQueryClient } from '@tanstack/react-query';
 
 const MIN_RADIUS = 0;
 const MAX_RADIUS = 50;
+
 export const AddLocation = () => {
   const navigation = useNavigation();
   const queryClient = useQueryClient();
@@ -89,6 +90,7 @@ export const AddLocation = () => {
     <PageWrapper>
       <SafeAreaView edges={['left', 'right', 'bottom']}>
         <ScrollView contentContainerStyle={{ gap: 16 }} keyboardShouldPersistTaps="handled" nestedScrollEnabled={true}>
+
           <CustomSurface style={styles.locationSurface}>
             <Text variant="h2">Nazwa lokalizacji</Text>
             <Text color="secondary">
@@ -101,6 +103,7 @@ export const AddLocation = () => {
               onChangeText={(text) => setLocation((prev) => ({ ...prev, placeName: text }))}
             />
           </CustomSurface>
+          
           <CustomSurface style={styles.locationSurface}>
             <Text variant="h2">Adres</Text>
             <Text color="secondary">
@@ -108,6 +111,7 @@ export const AddLocation = () => {
             </Text>
             <LocationTextInput onPlaceSelect={handlePlaceSelect} />
           </CustomSurface>
+          
           <CustomSurface style={styles.locationSurface}>
             <Text variant="h2">Usługi</Text>
             <Text color="secondary">
@@ -121,6 +125,7 @@ export const AddLocation = () => {
               <OutageSelect service="internet" label="Sieć" iconName="wifi" />
             </Row>
           </CustomSurface>
+
           <CustomSurface style={styles.locationSurface}>
             <Text variant="h2">Zasięg</Text>
             <Row>
@@ -144,6 +149,7 @@ export const AddLocation = () => {
               <Text weight="bold">Obecny zasięg:</Text> {location.radius} km
             </Text>
           </CustomSurface>
+
           <CustomSurface style={styles.locationSurface}>
             <Text variant="h2">Powiadomienia</Text>
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>
@@ -158,9 +164,11 @@ export const AddLocation = () => {
               />
             </View>
           </CustomSurface>
+          
           <Button mode="contained" onPress={handleSubmit} loading={isPending} disabled={isPending}>
             Zatwierdź lokalizację
           </Button>
+
         </ScrollView>
       </SafeAreaView>
     </PageWrapper>

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { View, TextInput, Button, Alert, StyleSheet } from "react-native";
 import { signUpEmail } from "./auth";
 
-export default function SignupScreen() {
+export const SignUpScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [displayName, setDisplayName] = useState("");

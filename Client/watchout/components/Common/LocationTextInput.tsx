@@ -1,4 +1,4 @@
-import GooglePlacesTextInput, { Place } from 'react-native-google-places-textinput';
+import GooglePlacesTextInput, { GooglePlacesTextInputStyles } from 'react-native-google-places-textinput';
 import { GOOGLE_API_KEY } from '@env';
 import { Coordinates } from 'utils/types';
 import { useState } from 'react';
@@ -32,7 +32,7 @@ export const LocationTextInput = ({ onPlaceSelect }: LocationTextInputProps) => 
   );
 };
 
-const styles = {
+const styles: GooglePlacesTextInputStyles = {
   container: {
     width: '100%',
     marginVertical: 4,
@@ -73,10 +73,5 @@ const styles = {
   },
   placeholder: {
     color: '#9E9E9E',
-  },
-  clearButtonText: {
-    color: '#FFFFFF',
-    fontSize: 22,
-    fontWeight: '400',
   },
 };
