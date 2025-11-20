@@ -11,12 +11,7 @@ type CustomTextInputProps = React.ComponentProps<typeof RNTextInput> & {
   endIcon?: string;
 };
 
-export const CustomTextInput = ({
-  label,
-  startIcon,
-  endIcon,
-  ...props
-}: CustomTextInputProps) => {
+export const CustomTextInput = ({ label, startIcon, endIcon, ...props }: CustomTextInputProps) => {
   const inputRef = useRef<RNTextInput>(null);
   const focusProgress = useSharedValue(0);
   const [isFocused, setIsFocused] = useState(false);
@@ -24,12 +19,11 @@ export const CustomTextInput = ({
 
   const animatedStyle = useAnimatedStyle(() => {
     return {
-      outlineWidth: focusProgress.value === 1 ? 2 : 1,
-      outlineColor: focusProgress.value === 1 ? theme.palette.primary : theme.palette.text.secondary,
+      outlineWidth: focusProgress.value === 1 ? 1.5 : 1,
+      outlineColor: focusProgress.value === 1 ? theme.palette.primary : theme.palette.text.tertiary,
       borderRadius: 6,
       paddingHorizontal: 8,
       flexDirection: 'row',
-      alignItems: 'center',
       backgroundColor: theme.palette.background.default,
     };
   });
@@ -52,7 +46,7 @@ export const CustomTextInput = ({
   };
 
   return (
-    <Animated.View style={[props.style, animatedStyle]}>
+    <Animated.View style={[animatedStyle, props.style]}>
       {label && (
         <Text
           style={{
@@ -80,13 +74,12 @@ export const CustomTextInput = ({
             fontFamily: theme.typography.fontFamily,
             lineHeight: 24,
             color: theme.palette.text.primary,
-            flex: 1,
             paddingTop: 12,
             paddingBottom: 8,
             paddingLeft: startIcon ? 0 : 4,
             paddingRight: endIcon ? 0 : 4,
             backgroundColor: 'transparent',
-          }
+          },
         ]}
         onFocus={handleFocus}
         onBlur={handleBlur}

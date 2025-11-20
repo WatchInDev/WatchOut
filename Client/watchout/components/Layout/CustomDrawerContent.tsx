@@ -3,19 +3,20 @@
   DrawerContentScrollView,
   DrawerItem,
 } from '@react-navigation/drawer';
-import { View, StyleSheet, Button } from 'react-native';
+import { View, StyleSheet } from 'react-native';
+import { Button } from 'react-native-paper';
 import { Text } from 'components/Base/Text';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useAuth } from 'features/auth/authContext';
+import { theme } from 'utils/theme';
 
 export const CustomDrawerContent = (props: DrawerContentComponentProps) => {
   const { logout } = useAuth();
-  
+
   const handleLogout = async () => {
     await logout();
 
     props.navigation.closeDrawer();
-
   };
 
   return (
@@ -44,7 +45,14 @@ export const CustomDrawerContent = (props: DrawerContentComponentProps) => {
         })}
       </DrawerContentScrollView>
       <View style={styles.logoutContainer}>
-        <Button title="Wyloguj" onPress={handleLogout} color="#d9534f" />
+        <Button
+          mode="outlined"
+          style={{ borderColor: theme.palette.error }}
+          onPress={handleLogout}
+          textColor={theme.palette.error}
+          icon="logout">
+          Wyloguj
+        </Button>
       </View>
     </SafeAreaView>
   );
