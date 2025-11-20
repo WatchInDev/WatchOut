@@ -2,10 +2,11 @@ import { TouchableOpacity, View } from 'react-native';
 import { useComments } from './useComments';
 import { Text } from 'components/Base/Text';
 import { CustomSurface } from 'components/Layout/CustomSurface';
-import { Button, Icon } from 'react-native-paper';
+import { ActivityIndicator, Button, Icon } from 'react-native-paper';
 import { AddCommentModal } from './AddCommentModal';
 import { useState, useMemo } from 'react';
 import dayjs from 'dayjs';
+import { theme } from 'utils/theme';
 
 type CommentListProps = {
   eventId: number;
@@ -41,7 +42,7 @@ export const CommentList = ({ eventId }: CommentListProps) => {
   };
 
   if (isFetching && !isFetchingNextPage) {
-    return <Text>Ładowanie komentarzy...</Text>;
+    return <ActivityIndicator color={theme.palette.primary} />;
   }
 
   const currentCommentCount = comments?.content.length || 0;
@@ -70,7 +71,6 @@ export const CommentList = ({ eventId }: CommentListProps) => {
         <>
           {comments?.content.map((item) => (
             <CustomSurface key={'Comments_' + item.id} style={{ padding: 12, marginBottom: 12 }}>
-              <Text variant="subtitle1">{item.author.name}</Text>
               <Text variant="body1">{item.content}</Text>
               <Text variant="body2" color="tertiary">
                 {new Date(item.createdAt).toLocaleString()} ({dayjs(item.createdAt).fromNow()})

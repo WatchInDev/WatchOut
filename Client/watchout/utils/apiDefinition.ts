@@ -15,8 +15,19 @@ export const API_ENDPOINTS = {
     getByEventId: <T>(eventId: number, pagination: PaginationRequest<T>) => `events/${eventId}/comments` + paginationToQueryParams(pagination),
     post: (eventId: number) => `events/${eventId}/comments`,
   },
+  rating: {
+    event: (eventId: number) => `events/${eventId}/ratings`
+  },
   eventTypes: {
     getAll: 'event-types',
+  },
+  locations: {
+    getAll: 'users/favourite-places',
+    add: 'users/favourite-places',
+    delete: (placeId: string) => `users/favourite-places/${placeId}`,
+  },
+  externalWarnings: {
+    get: 'external-warnings',
   },
   notifications: {
     add: 'fcm-tokens',

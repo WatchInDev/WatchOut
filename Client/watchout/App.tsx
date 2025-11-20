@@ -4,10 +4,9 @@ import { GEOCODING_API_KEY } from '@env';
 
 import { PaperProvider } from 'react-native-paper';
 import { Text } from 'components/Base/Text';
-import { NavigationContainer } from '@react-navigation/native';
+import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { AppNavigator } from './components/Layout/AppNavigator';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { AuthProvider } from 'features/auth/authContext';
@@ -18,8 +17,13 @@ import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import duration from 'dayjs/plugin/duration';
 import 'dayjs/locale/pl';
-import { useCustomFonts } from 'utils/useCustomFonts';
 import { useNotifications } from 'utils/notifications/useNotifications';
+import { useEffect } from 'react';
+import { useCustomFonts } from 'utils/useCustomFonts';
+import { theme } from 'utils/theme';
+import { AppNavigator } from 'components/Layout/AppNavigator';
+import { DevToolsBubble } from 'react-native-react-query-devtools';
+import { SnackbarProvider } from 'utils/useSnackbar';
 
 const queryClient = new QueryClient();
 
@@ -27,12 +31,12 @@ dayjs.extend(relativeTime);
 dayjs.extend(duration);
 dayjs.locale('pl');
 
-Geocoding.init(GEOCODING_API_KEY, {
-  language: 'pl',
-});
-
 export default function App() {
   const { loaded } = useCustomFonts();
+
+  useEffect(() => {
+    Geocoding.init(GEOCODING_API_KEY);
+  }, []);
 
   const NotificationsInitializer = () => {
     useNotifications();
@@ -49,22 +53,32 @@ export default function App() {
 
   return (
     <>
+      <StatusBar style="dark" />
       <QueryClientProvider client={queryClient}>
         <NotificationsInitializer />
         <SafeAreaProvider>
           <GestureHandlerRootView style={{ flex: 1 }}>
             <PaperProvider theme={paperTheme}>
-              <BottomSheetModalProvider>
-                <AuthProvider>
-                  <NavigationContainer>
-                    <AppNavigator />
-                    <StatusBar style="light" />
-                  </NavigationContainer>
-                </AuthProvider>
-              </BottomSheetModalProvider>
+              <SnackbarProvider>
+                <BottomSheetModalProvider>
+                  <AuthProvider>
+                    <NavigationContainer
+                      theme={{
+                        ...DefaultTheme,
+                        colors: {
+                          ...DefaultTheme.colors,
+                          background: theme.palette.background.default,
+                        },
+                      }}>
+                      <AppNavigator />
+                    </NavigationContainer>
+                  </AuthProvider>
+                </BottomSheetModalProvider>
+              </SnackbarProvider>
             </PaperProvider>
           </GestureHandlerRootView>
         </SafeAreaProvider>
+        <DevToolsBubble queryClient={queryClient} />
       </QueryClientProvider>
     </>
   );
