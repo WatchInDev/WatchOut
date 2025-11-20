@@ -8,12 +8,12 @@ import {
   Modal,
 } from 'react-native';
 import { signInWithEmail, resetPassword } from './auth';
-import { GoogleSignInButton } from './GoogleSignInButton';
+import { GoogleSignInButton } from 'features/auth/GoogleSignInButton';
 import { useNavigation } from '@react-navigation/native';
 import { CustomTextInput } from 'components/Base/CustomTextInput';
 import { Button, Icon } from 'react-native-paper';
 
-export default function LoginScreen() {
+export const LoginScreen = () => {
   const navigation = useNavigation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
