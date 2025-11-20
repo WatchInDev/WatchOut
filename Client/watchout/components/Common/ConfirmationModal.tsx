@@ -2,6 +2,7 @@ import { CustomModal } from 'components/Base/CustomModal';
 import { Row } from 'components/Base/Row';
 import { Text } from 'components/Base/Text';
 import React from 'react';
+import { Modal } from 'react-native';
 import { Button } from 'react-native-paper';
 import { theme } from 'utils/theme';
 
@@ -15,7 +16,7 @@ type ConfirmationModalProps = {
 
 export const ConfirmationModal = ({ isVisible, message, onConfirm, onCancel, isLoading }: ConfirmationModalProps) => {
   return (
-    <CustomModal isVisible={isVisible} onBackdropPress={onCancel}>
+    <CustomModal visible={isVisible} onRequestClose={onCancel}>
       <Text variant="h3" style={{ marginBottom: 8 }}>Potwierdzenie</Text>
       <Text variant="body1" style={{ marginBottom: 16 }}>
         {message}

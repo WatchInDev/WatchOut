@@ -35,20 +35,20 @@ export const AddCommentModal = ({
 
   return (
     <>
-      <CustomModal isVisible={isVisible} onBackdropPress={onClose}>
-        <View style={{ gap: 12 }}>
+      <CustomModal visible={isVisible} onRequestClose={onClose}>
+        <View style={{ gap: 12, width: 300 }}>
           <CustomTextInput
             placeholder="Dodaj komentarz..."
             value={comment}
             onChangeText={setComment}
             multiline
             numberOfLines={4}
-            style={{ minHeight: 100, paddingTop: 8 }}
           />
           <Button
             onPress={handleSubmit}
             mode="contained"
             loading={isPending}
+            icon="send"
             disabled={comment.trim() === ''}>
             Wyślij
           </Button>

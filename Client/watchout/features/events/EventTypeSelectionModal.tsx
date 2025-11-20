@@ -6,6 +6,7 @@ import { useGetEventTypes } from 'features/events/event-types.hooks';
 import { theme } from 'utils/theme';
 import { CustomSurface } from 'components/Layout/CustomSurface';
 import { icons } from 'components/Base/icons';
+import { CustomModal } from 'components/Base/CustomModal';
 
 type EventSelectionModalProps = {
   isVisible: boolean;
@@ -23,57 +24,58 @@ export const EventTypeSelectionModal = ({
   const { data: eventTypes } = useGetEventTypes();
 
   return (
-    <Modal isVisible={isVisible} onBackdropPress={() => setIsVisible(false)}>
-      <View style={styles.modal}>
-        <Text variant="h4" align='center'>Wybierz rodzaj zdarzenia</Text>
-        <ScrollView style={{ paddingTop: 8}} contentContainerStyle={styles.scrollContainer} showsVerticalScrollIndicator={false}>
-          {eventTypes?.map((type) => (
-            <TouchableHighlight
+    <CustomModal visible={isVisible} onRequestClose={() => setIsVisible(false)}>
+      <Text variant="h4" align="center">
+        Wybierz rodzaj zdarzenia
+      </Text>
+      
+      <ScrollView
+        style={{ paddingTop: 8 }}
+        contentContainerStyle={styles.scrollContainer}
+        showsVerticalScrollIndicator={false}>
+        {eventTypes?.map((type) => (
+          <TouchableHighlight
+            key={type.id}
+            style={{ borderRadius: 8 }}
+            onPress={() => {
+              setEventType(type);
+              setIsVisible(false);
+            }}>
+            <CustomSurface
               key={type.id}
-              style={{ borderRadius: 8 }}
-              onPress={() => {
-                setEventType(type);
-                setIsVisible(false);
-              }}>
-              <CustomSurface
-                key={type.id}
-                style={[
-                  eventType?.id === type.id
-                    ? styles.selectedCard
-                    : eventType
-                      ? { opacity: 0.7 }
-                      : undefined,
-                  { minHeight: 100, alignItems: 'center', justifyContent: 'center' },
-                ]}>
-                <View style={styles.cardContent}>
-                  <Icon source={icons[type.icon as keyof typeof icons]} size={48} />
-                  <Text variant='subtitle2'
-                    style={[
-                      eventType?.id === type.id ? styles.selectedText : undefined,
-                      { flex: 1 },
-                    ]}>
-                    {type.name}
-                  </Text>
-                </View>
-              </CustomSurface>
-            </TouchableHighlight>
-          ))}
-        </ScrollView>
-        <Button mode="outlined" onPress={() => setIsVisible(false)} style={styles.cancelButton}>
-          Anuluj
-        </Button>
-      </View>
-    </Modal>
+              style={[
+                eventType?.id === type.id
+                  ? styles.selectedCard
+                  : eventType
+                    ? { opacity: 0.7 }
+                    : undefined,
+                { minHeight: 100, alignItems: 'center', justifyContent: 'center' },
+              ]}>
+              <View style={styles.cardContent}>
+                <Icon source={icons[type.icon as keyof typeof icons]} size={48} />
+                <Text
+                  variant="subtitle2"
+                  style={[
+                    eventType?.id === type.id ? styles.selectedText : undefined,
+                    { flex: 1 },
+                  ]}>
+                  {type.name}
+                </Text>
+              </View>
+            </CustomSurface>
+          </TouchableHighlight>
+        ))}
+      </ScrollView>
+
+      <Button mode="outlined" onPress={() => setIsVisible(false)} style={styles.cancelButton}>
+        Anuluj
+      </Button>
+
+    </CustomModal>
   );
 };
 
 const styles = StyleSheet.create({
-  modal: {
-    margin: 30,
-    backgroundColor: 'white',
-    borderRadius: 8,
-    padding: 16,
-  },
   scrollContainer: {
     flexDirection: 'column',
     gap: 8,

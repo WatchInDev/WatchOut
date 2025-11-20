@@ -74,9 +74,4 @@ const styles: GooglePlacesTextInputStyles = {
   placeholder: {
     color: '#9E9E9E',
   },
-  clearButtonText: {
-    color: '#FFFFFF',
-    fontSize: 22,
-    fontWeight: '400',
-  },
 };
