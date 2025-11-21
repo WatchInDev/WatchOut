@@ -11,14 +11,14 @@ on:
   workflow_dispatch:
 
 env:
-  AZURE_FUNCTIONAPP_PACKAGE_PATH: 'Microservice' 
-  PYTHON_VERSION: '3.13'
+  AZURE_FUNCTIONAPP_PACKAGE_PATH: 'Microservice' # set this to the path to your web app project, defaults to the repository root
+  PYTHON_VERSION: '3.13' # set this to the python version to use (supports 3.6, 3.7, 3.8)
 
 jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: read #This is required for actions/checkout
 
     steps:
       - name: Checkout repository
@@ -29,19 +29,29 @@ jobs:
         with:
           python-version: ${{ env.PYTHON_VERSION }}
 
-      # 1. Install dependencies into the special .python_packages folder
-      # This makes the app self-contained so Azure doesn't need to build it.
-      - name: Install dependencies
+      - name: Create and start virtual environment
         working-directory: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
         run: |
-          pip install --target="./.python_packages/lib/site-packages" -r requirements.txt
+          python -m venv venv
+          source venv/bin/activate
 
-      # 2. Upload the folder (now containing code + dependencies)
+      - name: Install dependencies
+        working-directory: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
+        run: pip install -r requirements.txt
+
+      # Optional: Add step to run tests here
+
+      - name: Zip artifact for deployment
+        working-directory: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
+        run: zip release.zip ./* -r
+
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: python-app
-          path: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
+          path: |
+            release.zip
+            !venv/
 
   deploy:
     runs-on: ubuntu-latest
@@ -52,13 +62,17 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: python-app
-          path: . 
 
+      - name: Unzip artifact for deployment
+        run: |
+          unzip release.zip
+          rm release.zip
+        
       - name: 'Deploy to Azure Functions'
         uses: Azure/functions-action@v1
         id: deploy-to-function
         with:
           app-name: 'watchoutMicroservice'
           slot-name: 'Production'
-          package: '.' 
+          package: .
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_CEC693097F424AC3AB3F824CD8E91B13 }}
