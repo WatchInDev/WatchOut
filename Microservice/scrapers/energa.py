@@ -2,7 +2,7 @@ import json
 import re
 import sys
 
-from Microservice.logging_config import setup_loguru
+from logging_config import setup_loguru
 
 setup_loguru()
 

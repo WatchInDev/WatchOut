@@ -9,7 +9,7 @@ import re
 import requests
 from loguru import logger
 
-from Microservice.logging_config import setup_loguru
+from logging_config import setup_loguru
 
 setup_loguru()
 

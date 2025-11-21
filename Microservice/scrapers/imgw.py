@@ -6,7 +6,7 @@ import requests
 from datetime import datetime, timezone
 from zoneinfo import ZoneInfo
 
-from Microservice.logging_config import setup_loguru
+from logging_config import setup_loguru
 
 setup_loguru()
 
@@ -46,7 +46,7 @@ def fetch_meteorological_warnings():
 
     try:
         response_json = requests.get(url).json()
-        json.dump(response_json, sys.stdout, indent=4, ensure_ascii=False)
+        # json.dump(response_json, sys.stdout, indent=4, ensure_ascii=False)
 
         for warning in response_json:
             del warning['id']
@@ -70,9 +70,8 @@ def fetch_meteorological_warnings():
 
                     except ValueError:
                         logger.exception(f"Could not parse date: {warning[field]}")
-                        pass
 
-        print(response_json)
+        # print(response_json)
         return response_json
 
     except Exception as e:
@@ -80,4 +79,5 @@ def fetch_meteorological_warnings():
 
 
 if __name__ == "__main__":
-    fetch_meteorological_warnings()
+    res = fetch_meteorological_warnings()
+    print(res)
