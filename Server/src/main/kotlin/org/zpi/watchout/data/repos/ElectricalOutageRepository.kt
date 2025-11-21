@@ -7,6 +7,7 @@ import org.springframework.data.repository.query.Param
 import org.springframework.stereotype.Repository
 import org.springframework.transaction.annotation.Transactional
 import org.zpi.watchout.data.entity.ElectricalOutage
+import org.zpi.watchout.data.repos.impl.ElectricalOutageJdbcRepositoryInterface
 import org.zpi.watchout.service.dto.ElectricalOutageDTO
 
 @Repository

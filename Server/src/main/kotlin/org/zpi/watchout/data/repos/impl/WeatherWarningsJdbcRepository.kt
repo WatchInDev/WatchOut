@@ -7,14 +7,14 @@ import java.sql.Timestamp
 @Repository
 class WeatherWarningsJdbcRepository(
     private val jdbcTemplate: JdbcTemplate
-) {
+) : WeatherWarningJdbcRepositoryInterface {
     private val insertSql = """
         INSERT INTO watchout.weather_warnings(region, event, description, from_date, to_date)
         VALUES (?, ?, ?, ?, ?)
         ON CONFLICT (region, event, description, from_date, to_date) DO NOTHING
     """.trimIndent()
 
-    fun batchSave(warnings: List<WeatherWarning>) {
+    override fun batchSave(warnings: List<WeatherWarning>) {
         jdbcTemplate.batchUpdate(
             insertSql,
             warnings.map { warning ->

@@ -9,22 +9,18 @@ import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Service
 import org.zpi.watchout.data.entity.ElectricalOutage
 import org.zpi.watchout.data.entity.WeatherWarning
-import org.zpi.watchout.data.repos.ElectricalOutageRepository
-import org.zpi.watchout.data.repos.WeatherWarningRepository
-import org.zpi.watchout.data.repos.impl.ElectricalOutagesJdbcRepository
+import org.zpi.watchout.data.repos.impl.ElectricalOutagesJdbcRepositoryInterface
 import org.zpi.watchout.data.repos.impl.WeatherWarningsJdbcRepository
 import org.zpi.watchout.service.dto.OutageRecord
 import org.zpi.watchout.service.dto.OutagesResponse
 import org.zpi.watchout.service.dto.WeatherDTO
 import java.io.BufferedReader
-import java.io.File
 import java.io.InputStreamReader
-import kotlin.math.log
 
 private val logger = KotlinLogging.logger {}
 
 @Service
-class ExternalDataGetSchedule(private val weatherWarningRepository: WeatherWarningsJdbcRepository, private val electricalOutageRepository: ElectricalOutagesJdbcRepository) {
+class ExternalDataGetSchedule(private val weatherWarningRepository: WeatherWarningsJdbcRepository, private val electricalOutageRepository: ElectricalOutagesJdbcRepositoryInterface) {
     @Scheduled(cron = "\${scheduler.get.external.data.time}")
     fun getElectraElectricalOutageExternalData() {
         logger.info { "Fetching electra electrical outage external data..." }
