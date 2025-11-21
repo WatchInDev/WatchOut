@@ -8,22 +8,26 @@ import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import org.zpi.watchout.data.entity.UserFavouritePlace
 import org.zpi.watchout.service.UserFavouritePlaceService
+import org.zpi.watchout.service.UserService
+import org.zpi.watchout.service.dto.EditFavouritePlacePreferenceDTO
 import org.zpi.watchout.service.dto.FavouritePlaceDTO
 import org.zpi.watchout.service.dto.FavouritePlaceRequestDTO
+import org.zpi.watchout.service.dto.GlobalPreferencesDTO
 
 private val logger = KotlinLogging.logger {}
 
 @RestController
-@RequestMapping("/api/v1/users/favourite-places")
+@RequestMapping("/api/v1/users")
 @Tag(name = "User Favourite Places", description = "Management of user's favourite places")
-class UserController (val userFavouritePlaceService: UserFavouritePlaceService) {
+class UserController (val userFavouritePlaceService: UserFavouritePlaceService, val userService: UserService) {
 
-    @PostMapping
+    @PostMapping("/favourite-places")
     fun addFavouritePlace(@Parameter(hidden = true) @AuthenticationPrincipal userId: Long, @RequestBody place: FavouritePlaceRequestDTO):FavouritePlaceDTO {
         logger .info { "Adding favourite place for with cooordinates: (${place.latitude}, ${place.longitude}) for user with id: $userId" }
         val result = userFavouritePlaceService.addFavouritePlace(userId, place)
@@ -31,7 +35,7 @@ class UserController (val userFavouritePlaceService: UserFavouritePlaceService) 
         return result
     }
 
-    @GetMapping
+    @GetMapping("/favourite-places")
     fun getFavouritePlaces(@Parameter(hidden = true) @AuthenticationPrincipal userId: Long): List<FavouritePlaceDTO> {
         logger.info { "Getting favourite places for user with id: $userId" }
         val result =  userFavouritePlaceService.getFavouritePlaces(userId)
@@ -39,11 +43,36 @@ class UserController (val userFavouritePlaceService: UserFavouritePlaceService) 
         return result
     }
 
-    @DeleteMapping("/{placeId}")
+    @DeleteMapping("/favourite-places/{placeId}")
     fun removeFavouritePlace(@Parameter(hidden = true) @AuthenticationPrincipal userId: Long, @PathVariable("placeId")  placeId: Long) {
         logger.info { "Removing favourite place with id: $placeId for user with id: $userId" }
         userFavouritePlaceService.removeFavouritePlace(placeId, userId)
         logger.info { "Removed favourite place with id: $placeId for user with id: $userId" }
     }
+
+    @PutMapping("/favourite-places/{placeId}/preferences")
+    fun editFavouritePlacePreference(@Parameter(hidden = true) @AuthenticationPrincipal userId: Long, @PathVariable("placeId") placeId: Long, @RequestBody editFavouritePlacePreferenceDTO: EditFavouritePlacePreferenceDTO) {
+        logger.info { "Editing favourite place preference with id: $placeId for user with id: $userId" }
+        userFavouritePlaceService.editFavouritePlacePreference(userId,placeId, editFavouritePlacePreferenceDTO)
+        logger.info { "Edited favourite place preference with id: $placeId for user with id: $userId" }
+    }
+
+    @PutMapping("/preferences")
+    fun editGlobalUserPreferences(@Parameter(hidden = true) @AuthenticationPrincipal userId: Long, @RequestBody globalPreferencesDTO: GlobalPreferencesDTO) {
+        logger.info { "Editing global preferences for user with id: $userId" }
+        userService.editPreferences(userId, globalPreferencesDTO)
+        logger.info { "Edited global preferences for user with id: $userId" }
+
+    }
+
+    @GetMapping("/preferences")
+    fun getGlobalUserPreferences(@Parameter(hidden = true) @AuthenticationPrincipal userId: Long): GlobalPreferencesDTO {
+        logger.info { "Getting global preferences for user with id: $userId" }
+        val result = userService.getUserGlobalPreferences(userId)
+        logger.info { "Got global preferences for user with id: $userId" }
+        return result
+    }
+
+
 
 }

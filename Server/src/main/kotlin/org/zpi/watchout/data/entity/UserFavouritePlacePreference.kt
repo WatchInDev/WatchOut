@@ -10,17 +10,19 @@ import org.zpi.watchout.data.AbstractEntity
 
 @Entity
 @Table(name = "user_favourite_place_references", schema = "watchout")
-class UserFavouritePlaceReference(
+class UserFavouritePlacePreference(
     @Column(name = "user_favourite_place_id", unique = true)
     val userFavouritePlaceId: Long,
     @OneToMany(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
-    val eventTypes: List<EventType>,
+    var eventTypes: List<EventType>,
     @Column("radius")
-    val radius: Double,
-    @Column("external_warnings_types")
-    val externalWarningsTypes: List<String>,
+    var radius: Double,
+    @Column(name = "weather")
+    var weather : Boolean,
+    @Column(name = "electricity")
+    var electricity : Boolean,
     @Column("notification_enabled")
-    val notificationEnabled: Boolean
+    var notificationEnabled: Boolean
 ):
 AbstractEntity() {
 }

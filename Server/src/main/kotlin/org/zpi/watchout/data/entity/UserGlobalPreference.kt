@@ -11,10 +11,10 @@ class UserGlobalPreference(
     @Column(name = "place_name", unique = true)
     val userId: Long,
     @Column(name = "notify_on_comment")
-    val notifyOnComment: Boolean = true,
+    var notifyOnComment: Boolean = true,
     @Column(name = "notify_on_event")
-    val notifyOnEvent: Boolean = true,
+    var notifyOnEvent: Boolean = true,
     @Column(name = "notify_on_external_warning")
-    val notifyOnExternalWarning: Boolean = true
+    var notifyOnExternalWarning: Boolean = true
 ) : AbstractEntity() {
 }
