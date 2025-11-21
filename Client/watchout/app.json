@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "watchout",
-    "slug": "watchout",
+    "name": "WatchOut",
+    "slug": "watch-out",
     "version": "1.0.0",
     "web": {
       "favicon": "./assets/favicon.png",
@@ -10,8 +10,7 @@
     "experiments": {
       "tsconfigPaths": true
     },
-    "plugins": [
-    ],
+    "plugins": [],
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -29,6 +28,7 @@
         "backgroundColor": "#ffffff"
       },
       "package": "com.anonymous.watchout",
+      "googleServicesFile": "./google-services.json",
       "config": {
         "googleMaps": {
           "apiKey": "YOUR_API_KEY"
@@ -38,6 +38,12 @@
         "ACCESS_FINE_LOCATION",
         "POST_NOTIFICATIONS"
       ]
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "19c3ac5d-7180-4a6c-a760-250e3e6a2a9c"
+      }
+    },
+    "owner": "watch-in-dev"
   }
 }

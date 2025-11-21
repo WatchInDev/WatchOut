@@ -9,8 +9,6 @@ class UserMapper {
     fun mapAuthorUserToDto(user: User): AuthorResponseDTO{
         return AuthorResponseDTO(
             id = user.id!!,
-            name = user.name,
-            lastname = user.lastName,
             reputation = user.reputation
         )
     }

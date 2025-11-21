@@ -1,0 +1,204 @@
+2025-10-26 16:02:58 | WARNING  | __main__:parse_energa_locations:38 - Failed to parse city from locations: Słupia pod Bralinem 74A, 74B, 74G, 74H, 180/12.
+2025-10-26 16:02:58 | WARNING  | __main__:parse_energa_locations:38 - Failed to parse city from locations: Świecie nad Osą .
+2025-10-26 16:02:58 | WARNING  | __main__:parse_energa_locations:38 - Failed to parse city from locations: Świecie nad Osą 90, 104, od 106 do 108, 108A.
+2025-10-26 16:02:58 | WARNING  | __main__:parse_energa_locations:38 - Failed to parse city from locations: Świecie nad Osą 79, 81, 87, 88.
+2025-10-26 16:02:58 | WARNING  | __main__:parse_energa_locations:38 - Failed to parse city from locations: Świecie nad Osą 41, 58, 59.
+2025-10-26 16:03:40 | WARNING  | __main__:parse_energa_locations:38 - Failed to parse city from locations: Słupia pod Bralinem 74A, 74B, 74G, 74H, 180/12.
+2025-10-26 16:03:40 | WARNING  | __main__:parse_energa_locations:38 - Failed to parse city from locations: Świecie nad Osą .
+2025-10-26 16:03:40 | WARNING  | __main__:parse_energa_locations:38 - Failed to parse city from locations: Świecie nad Osą 90, 104, od 106 do 108, 108A.
+2025-10-26 16:03:40 | WARNING  | __main__:parse_energa_locations:38 - Failed to parse city from locations: Świecie nad Osą 79, 81, 87, 88.
+2025-10-26 16:03:40 | WARNING  | __main__:parse_energa_locations:38 - Failed to parse city from locations: Świecie nad Osą 41, 58, 59.
+2025-10-26 16:04:01 | WARNING  | __main__:parse_energa_locations:38 - Failed to parse city from locations: Słupia pod Bralinem 74A, 74B, 74G, 74H, 180/12.
+2025-10-26 16:04:01 | WARNING  | __main__:parse_energa_locations:38 - Failed to parse city from locations: Świecie nad Osą .
+2025-10-26 16:04:01 | WARNING  | __main__:parse_energa_locations:38 - Failed to parse city from locations: Świecie nad Osą 90, 104, od 106 do 108, 108A.
+2025-10-26 16:04:01 | WARNING  | __main__:parse_energa_locations:38 - Failed to parse city from locations: Świecie nad Osą 79, 81, 87, 88.
+2025-10-26 16:04:01 | WARNING  | __main__:parse_energa_locations:38 - Failed to parse city from locations: Świecie nad Osą 41, 58, 59.
+2025-10-26 16:11:18 | WARNING  | __main__:parse_energa_locations:38 - Failed to parse city from locations: Słupia pod Bralinem 74A, 74B, 74G, 74H, 180/12.
+2025-10-26 16:11:18 | WARNING  | __main__:parse_energa_locations:38 - Failed to parse city from locations: Świecie nad Osą .
+2025-10-26 16:11:18 | WARNING  | __main__:parse_energa_locations:38 - Failed to parse city from locations: Świecie nad Osą 90, 104, od 106 do 108, 108A.
+2025-10-26 16:11:18 | WARNING  | __main__:parse_energa_locations:38 - Failed to parse city from locations: Świecie nad Osą 79, 81, 87, 88.
+2025-10-26 16:11:18 | WARNING  | __main__:parse_energa_locations:38 - Failed to parse city from locations: Świecie nad Osą 41, 58, 59.
+2025-10-26 16:17:33 | WARNING  | __main__:parse_tauron_locations:377 - Failed to parse city from locations: ROKITKI, BIAŁA, ZAMIENICE, STARY ŁOM, JAROSZÓWKA, CZERNIKOWICE
+2025-10-26 16:17:33 | WARNING  | __main__:parse_tauron_locations:377 - Failed to parse city from locations: Włodowice ulica: Osiedle Słoneczne
+2025-10-26 16:17:33 | WARNING  | __main__:parse_tauron_locations:377 - Failed to parse city from locations: Kudowa-Zdrój ulica: Zdrojowa, Kudowa-Zdrój Ulice: Mickiewicza, Słowackiego, Zdrojowa, Kudowa-Zdrój ulica: Moniuszki, Kudowa-Zdrój, Aleja Jana Pawła II, Zdrojowa, Kudowa-Zdrój, Pogodna, Kudowa-Zdrój, Chrobrego, Kościuszki, Moniuszki, Kudowa-Zdrój, Dębowa, Pogodna, Kudowa-Zdrój ulica: Boczna, Kudowa-Zdrój ulica: Tkacka, Kudowa-Zdrój, Mickiewicza, Słowackiego, Szkolna, Zdrojowa, Kudowa-Zdrój ulica: Słone, Kudowa-Zdrój, Chrobrego, Pogodna, Kościuszki, Zdrojowa, Kudowa-Zdrój ulica: Jakubowice, Pasterka, Kudowa-Zdrój ulica: 1 Maja, Kudowa-Zdrój, Norwida, Zdrojowa, Kudowa-Zdrój ulica: Norwida, Kudowa-Zdrój, Fabryczna, Gagarina, Obrońców Pokoju, Ogrodowa, Kudowa-Zdrój ulica: Kościuszki, Kudowa-Zdrój ulica: 1 Maja, Kudowa-Zdrój ulica: Pstrążna, Kudowa-Zdrój ulica: Pogodna, Kudowa-Zdrój ulica: Kościuszki, Kudowa-Zdrój ulica: Bukowina, Karłów, Kudowa-Zdrój ulica: Jakubowice, Łężyce, Kudowa-Zdrój ulica: Jakubowice, Ratno Górne, Karłów, Kudowa-Zdrój Błędne Skały, Kudowa-Zdrój, Chrobrego, Kościuszki, Karłów, Kudowa-Zdrój ulica: Pogodna, Kudowa-Zdrój, Liliowa, Szafirkowa, Wrzosowa, Kudowa-Zdrój ulica: Zdrojowa
+bez transformatora
+2025-10-26 16:17:33 | WARNING  | __main__:parse_tauron_locations:377 - Failed to parse city from locations: Radków ulica: Kolonia Leśna, Radków ulica: Grunwaldzka, Radków, Jagiellońska, Piastowska, Piłsudskiego, Słoneczna, Radków, Kościuszki, Piastowska, Radków ulica: Jagiellońska, Radków, Jagiellońska, Leśna, Piękna, Radków, Grunwaldzka, Kolonia Leśna, Radków ulica: Jagiellońska, Ścinawka Średnia, Leśna, Mickiewicza, Obrońców Westerplatte, Wojska Polskiego, Ratno Dolne, Radków ulica: Grunwaldzka, Radków, Górska, Grunwaldzka, Ogrodowa, Piastowska, Piłsudskiego, Szpitalna, Ratno Dolne, Ratno Dolne, Radków, Kolejowa, Leśna, Tłumaczów, Ścinawka Średnia, Mickiewicza, Piłsudskiego, Radków, Cmentarna, Kościelna, Kościuszki, Krótka, Ogrodowa, Rynek, Wąska, Tłumaczów, Gajów, Radków ulica: Piastowska
+2025-10-26 16:17:33 | WARNING  | __main__:parse_tauron_locations:377 - Failed to parse city from locations: Radków ulica: Kolonia Leśna, Radków ulica: Grunwaldzka, Radków, Jagiellońska, Piastowska, Piłsudskiego, Słoneczna, Radków, Kościuszki, Piastowska, Radków ulica: Jagiellońska, Radków, Jagiellońska, Leśna, Piękna, Radków, Grunwaldzka, Kolonia Leśna, Radków ulica: Jagiellońska, Radków ulica: Grunwaldzka, Radków, Górska, Grunwaldzka, Ogrodowa, Piastowska, Piłsudskiego, Szpitalna, Radków, Kolejowa, Leśna, Tłumaczów, Radków, Cmentarna, Kościelna, Kościuszki, Krótka, Ogrodowa, Rynek, Wąska, Tłumaczów, Gajów, Radków ulica: Piastowska
+2025-10-26 16:17:33 | WARNING  | __main__:parse_tauron_locations:377 - Failed to parse city from locations: Radków ulica: Kolonia Leśna, Radków ulica: Grunwaldzka, Radków, Jagiellońska, Piastowska, Piłsudskiego, Słoneczna, Radków, Kościuszki, Piastowska, Radków ulica: Jagiellońska, Radków, Jagiellońska, Leśna, Piękna, Radków, Grunwaldzka, Kolonia Leśna, Radków ulica: Jagiellońska, Ścinawka Średnia, Leśna, Mickiewicza, Obrońców Westerplatte, Wojska Polskiego, Ratno Dolne, Radków ulica: Grunwaldzka, Radków, Górska, Grunwaldzka, Ogrodowa, Piastowska, Piłsudskiego, Szpitalna, Ratno Dolne, Ratno Dolne, Radków, Kolejowa, Leśna, Tłumaczów, Ścinawka Średnia, Mickiewicza, Piłsudskiego, Radków, Cmentarna, Kościelna, Kościuszki, Krótka, Ogrodowa, Rynek, Wąska, Tłumaczów, Gajów, Radków ulica: Piastowska
+2025-10-26 16:17:33 | WARNING  | __main__:parse_tauron_locations:377 - Failed to parse city from locations: Kudowa-Zdrój ulica: Zdrojowa, Kudowa-Zdrój Ulice: Mickiewicza, Słowackiego, Zdrojowa, Kudowa-Zdrój, Chrobrego, Moniuszki, Kościuszki, Kudowa-Zdrój ulica: Moniuszki, Kudowa-Zdrój, Aleja Jana Pawła II, Zdrojowa, Kudowa-Zdrój, Pogodna, Kudowa-Zdrój, Chrobrego, Kościuszki, Moniuszki, Kudowa-Zdrój, Dębowa, Pogodna, Kudowa-Zdrój ulica: Boczna, Kudowa-Zdrój ulica: Tkacka, Kudowa-Zdrój, Mickiewicza, Słowackiego, Szkolna, Zdrojowa, Kudowa-Zdrój ulica: Słone, Kudowa-Zdrój, Główna, Zdrojowa, Kudowa-Zdrój, Chrobrego, Pogodna, Kościuszki, Zdrojowa, Kudowa-Zdrój ulica: 1 Maja, Kudowa-Zdrój, Norwida, Zdrojowa, Kudowa-Zdrój, Boczna, Główna, Kudowa-Zdrój ulica: Norwida, Kudowa-Zdrój, Fabryczna, Gagarina, Obrońców Pokoju, Ogrodowa, Kudowa-Zdrój ulica: 1 Maja, Kudowa-Zdrój ulica: Pogodna, Kudowa-Zdrój ulica: Pogodna, Kudowa-Zdrój, Liliowa, Szafirkowa, Wrzosowa, Kudowa-Zdrój ulica: Zdrojowa
+bez transformatora
+2025-10-26 16:17:33 | WARNING  | __main__:parse_tauron_locations:377 - Failed to parse city from locations: Uzgodniono z odbiorcą
+2025-10-26 16:17:33 | WARNING  | __main__:parse_tauron_locations:377 - Failed to parse city from locations: JAROSZÓWKA, ZAMIENICE
+2025-10-26 16:17:33 | WARNING  | __main__:parse_tauron_locations:377 - Failed to parse city from locations: ROKITKI, BIAŁA, ZAMIENICE, STARY ŁOM, JAROSZÓWKA, CZERNIKOWICE
+2025-10-26 16:17:33 | WARNING  | __main__:parse_tauron_locations:377 - Failed to parse city from locations: ROKITKI, CZERNIKOWICE, BIAŁA, BISKUPIN, MICHAŁÓW, ZAMIENICE
+2025-10-26 16:17:33 | WARNING  | __main__:parse_tauron_locations:377 - Failed to parse city from locations: Zimna Woda działki budowlane nr 74/24 i 25
+2025-10-26 16:17:33 | WARNING  | __main__:parse_tauron_locations:377 - Failed to parse city from locations: Stanowice: od numeru 84 do numeru 88 oraz obręb działek numer 289/7, 291/4
+2025-10-26 16:17:33 | WARNING  | __main__:parse_tauron_locations:377 - Failed to parse city from locations: ROKITKI, CZERNIKOWICE, BIAŁA, BISKUPIN, MICHAŁÓW, ZAMIENICE
+2025-10-26 16:17:33 | WARNING  | __main__:parse_tauron_locations:377 - Failed to parse city from locations: miejscowość Janowo
+2025-10-26 16:17:33 | WARNING  | __main__:parse_tauron_locations:377 - Failed to parse city from locations: Ciechów: Suszarnia, obręb działek numer 512/2, Krótka 6A
+2025-10-26 16:17:33 | WARNING  | __main__:parse_tauron_locations:377 - Failed to parse city from locations: Środa Śląska:, Sikorskiego od numeru 29 do 31, działka 70/48
+2025-10-26 16:17:33 | WARNING  | __main__:parse_tauron_locations:377 - Failed to parse city from locations: Krępice: Spacerowa i wszystkie do niej przyległe
+2025-10-26 16:17:33 | WARNING  | __main__:parse_tauron_locations:377 - Failed to parse city from locations: Żurawiniec:, Spacerowa i wszystkie do niej przyległe
+2025-10-26 16:17:33 | WARNING  | __main__:parse_tauron_locations:377 - Failed to parse city from locations: Karwiany:, Wiosenna od numeru 57 do 103
+2025-10-26 16:17:33 | WARNING  | __main__:parse_tauron_locations:377 - Failed to parse city from locations: Szukalice: od numeru 1 do numeru 68, Storczykowa 1, 3, 4
+2025-10-26 16:17:33 | WARNING  | __main__:parse_tauron_locations:377 - Failed to parse city from locations: Kudowa-Zdrój ulica: Zdrojowa, Kudowa-Zdrój Ulice: Mickiewicza, Słowackiego, Zdrojowa, Kudowa-Zdrój ulica: Moniuszki, Kudowa-Zdrój, Aleja Jana Pawła II, Zdrojowa, Kudowa-Zdrój, Pogodna, Kudowa-Zdrój, Chrobrego, Kościuszki, Moniuszki, Kudowa-Zdrój, Dębowa, Pogodna, Kudowa-Zdrój ulica: Boczna, Kudowa-Zdrój ulica: Tkacka, Kudowa-Zdrój, Mickiewicza, Słowackiego, Szkolna, Zdrojowa, Kudowa-Zdrój ulica: Słone, Kudowa-Zdrój, Chrobrego, Pogodna, Kościuszki, Zdrojowa, Kudowa-Zdrój ulica: Jakubowice, Pasterka, Kudowa-Zdrój ulica: 1 Maja, Kudowa-Zdrój, Norwida, Zdrojowa, Kudowa-Zdrój ulica: Norwida, Kudowa-Zdrój, Fabryczna, Gagarina, Obrońców Pokoju, Ogrodowa, Kudowa-Zdrój ulica: Kościuszki, Kudowa-Zdrój ulica: 1 Maja, Kudowa-Zdrój ulica: Pstrążna, Kudowa-Zdrój ulica: Pogodna, Kudowa-Zdrój ulica: Kościuszki, Kudowa-Zdrój ulica: Bukowina, Karłów, Kudowa-Zdrój ulica: Jakubowice, Łężyce, Kudowa-Zdrój ulica: Jakubowice, Ratno Górne, Karłów, Kudowa-Zdrój Błędne Skały, Kudowa-Zdrój, Chrobrego, Kościuszki, Karłów, Kudowa-Zdrój ulica: Pogodna, Kudowa-Zdrój, Liliowa, Szafirkowa, Wrzosowa, Kudowa-Zdrój ulica: Zdrojowa
+bez transformatora
+2025-10-26 16:17:33 | WARNING  | __main__:parse_tauron_locations:377 - Failed to parse city from locations: Bratowice:, Piastowska, Stacja Uzdatniania Wody, działki 99/1, 1/5
+2025-10-26 16:17:33 | WARNING  | __main__:parse_tauron_locations:377 - Failed to parse city from locations: Suchy Dwór:, Parkowa od numeru 1 do 12, Główna od numeru 5 do 16, Gruszkowa, Majowa od numeru 1 do 4
+2025-10-26 16:17:33 | WARNING  | __main__:parse_tauron_locations:377 - Failed to parse city from locations: OLSZANICA
+2025-10-26 16:17:33 | WARNING  | __main__:parse_tauron_locations:377 - Failed to parse city from locations: Stacja paliw  Statoil WBW15111
+2025-10-26 16:17:33 | WARNING  | __main__:parse_tauron_locations:377 - Failed to parse city from locations: Wrocław Fabryczna: Kielecka 1-5, 2-14 i 29-39, Przemyska 23-25 i 72-86, Grybowska 1-3 nieparzyste, Wielkopolska 8, Kosmonautów 318-320 i 328 parzyste
+2025-10-26 16:17:33 | WARNING  | __main__:parse_tauron_locations:377 - Failed to parse city from locations: Wrocław Psie Pole: Poprzeczna 37a-47a i 40-68
+2025-10-26 16:17:33 | WARNING  | __main__:parse_tauron_locations:377 - Failed to parse city from locations: Wrocław Fabryczna: Hallera 36-38 parzyste
+2025-10-26 16:17:33 | WARNING  | __main__:parse_tauron_locations:377 - Failed to parse city from locations: Wrocław Krzyki: Pretficza 24-28 parzyste, Gajowicka 128-130 parzyste
+2025-10-26 16:17:33 | WARNING  | __main__:parse_tauron_locations:377 - Failed to parse city from locations: Wrocław Fabryczna: Chachaja 15-21 nieparzyste
+2025-10-26 16:17:33 | WARNING  | __main__:parse_tauron_locations:377 - Failed to parse city from locations: Wrocław Psie Pole: Kętrzyńska 37-39 nieparzyste, Giżycka 76, Rycerska 9-19 nieparzyste
+2025-10-26 16:17:33 | WARNING  | __main__:parse_tauron_locations:377 - Failed to parse city from locations: Wrocław Śródmieście: Jaracza 33
+2025-10-26 17:27:33 | WARNING  | __main__:parse_energa_locations:38 - Failed to parse city from locations: Słupia pod Bralinem 74A, 74B, 74G, 74H, 180/12.
+2025-10-26 17:27:33 | WARNING  | __main__:parse_energa_locations:38 - Failed to parse city from locations: Świecie nad Osą .
+2025-10-26 17:27:33 | WARNING  | __main__:parse_energa_locations:38 - Failed to parse city from locations: Świecie nad Osą 90, 104, od 106 do 108, 108A.
+2025-10-26 17:27:33 | WARNING  | __main__:parse_energa_locations:38 - Failed to parse city from locations: Świecie nad Osą 79, 81, 87, 88.
+2025-10-26 17:27:33 | WARNING  | __main__:parse_energa_locations:38 - Failed to parse city from locations: Świecie nad Osą 41, 58, 59.
+2025-10-26 17:33:22 | WARNING  | __main__:parse_energa_locations:38 - Failed to parse city from locations: Słupia pod Bralinem 74A, 74B, 74G, 74H, 180/12.
+2025-10-26 17:33:22 | WARNING  | __main__:parse_energa_locations:38 - Failed to parse city from locations: Świecie nad Osą .
+2025-10-26 17:33:22 | WARNING  | __main__:parse_energa_locations:38 - Failed to parse city from locations: Świecie nad Osą 90, 104, od 106 do 108, 108A.
+2025-10-26 17:33:22 | WARNING  | __main__:parse_energa_locations:38 - Failed to parse city from locations: Świecie nad Osą 79, 81, 87, 88.
+2025-10-26 17:33:22 | WARNING  | __main__:parse_energa_locations:38 - Failed to parse city from locations: Świecie nad Osą 41, 58, 59.
+2025-10-26 17:50:56 | WARNING  | __main__:parse_tauron_locations:377 - Failed to parse city from locations: ROKITKI, BIAŁA, ZAMIENICE, STARY ŁOM, JAROSZÓWKA, CZERNIKOWICE
+2025-10-26 17:50:56 | WARNING  | __main__:parse_tauron_locations:377 - Failed to parse city from locations: Włodowice ulica: Osiedle Słoneczne
+2025-10-26 17:50:56 | WARNING  | __main__:parse_tauron_locations:377 - Failed to parse city from locations: Kudowa-Zdrój ulica: Zdrojowa, Kudowa-Zdrój Ulice: Mickiewicza, Słowackiego, Zdrojowa, Kudowa-Zdrój ulica: Moniuszki, Kudowa-Zdrój, Aleja Jana Pawła II, Zdrojowa, Kudowa-Zdrój, Pogodna, Kudowa-Zdrój, Chrobrego, Kościuszki, Moniuszki, Kudowa-Zdrój, Dębowa, Pogodna, Kudowa-Zdrój ulica: Boczna, Kudowa-Zdrój ulica: Tkacka, Kudowa-Zdrój, Mickiewicza, Słowackiego, Szkolna, Zdrojowa, Kudowa-Zdrój ulica: Słone, Kudowa-Zdrój, Chrobrego, Pogodna, Kościuszki, Zdrojowa, Kudowa-Zdrój ulica: Jakubowice, Pasterka, Kudowa-Zdrój ulica: 1 Maja, Kudowa-Zdrój, Norwida, Zdrojowa, Kudowa-Zdrój ulica: Norwida, Kudowa-Zdrój, Fabryczna, Gagarina, Obrońców Pokoju, Ogrodowa, Kudowa-Zdrój ulica: Kościuszki, Kudowa-Zdrój ulica: 1 Maja, Kudowa-Zdrój ulica: Pstrążna, Kudowa-Zdrój ulica: Pogodna, Kudowa-Zdrój ulica: Kościuszki, Kudowa-Zdrój ulica: Bukowina, Karłów, Kudowa-Zdrój ulica: Jakubowice, Łężyce, Kudowa-Zdrój ulica: Jakubowice, Ratno Górne, Karłów, Kudowa-Zdrój Błędne Skały, Kudowa-Zdrój, Chrobrego, Kościuszki, Karłów, Kudowa-Zdrój ulica: Pogodna, Kudowa-Zdrój, Liliowa, Szafirkowa, Wrzosowa, Kudowa-Zdrój ulica: Zdrojowa
+bez transformatora
+2025-10-26 17:50:56 | WARNING  | __main__:parse_tauron_locations:377 - Failed to parse city from locations: Radków ulica: Kolonia Leśna, Radków ulica: Grunwaldzka, Radków, Jagiellońska, Piastowska, Piłsudskiego, Słoneczna, Radków, Kościuszki, Piastowska, Radków ulica: Jagiellońska, Radków, Jagiellońska, Leśna, Piękna, Radków, Grunwaldzka, Kolonia Leśna, Radków ulica: Jagiellońska, Ścinawka Średnia, Leśna, Mickiewicza, Obrońców Westerplatte, Wojska Polskiego, Ratno Dolne, Radków ulica: Grunwaldzka, Radków, Górska, Grunwaldzka, Ogrodowa, Piastowska, Piłsudskiego, Szpitalna, Ratno Dolne, Ratno Dolne, Radków, Kolejowa, Leśna, Tłumaczów, Ścinawka Średnia, Mickiewicza, Piłsudskiego, Radków, Cmentarna, Kościelna, Kościuszki, Krótka, Ogrodowa, Rynek, Wąska, Tłumaczów, Gajów, Radków ulica: Piastowska
+2025-10-26 17:50:56 | WARNING  | __main__:parse_tauron_locations:377 - Failed to parse city from locations: Radków ulica: Kolonia Leśna, Radków ulica: Grunwaldzka, Radków, Jagiellońska, Piastowska, Piłsudskiego, Słoneczna, Radków, Kościuszki, Piastowska, Radków ulica: Jagiellońska, Radków, Jagiellońska, Leśna, Piękna, Radków, Grunwaldzka, Kolonia Leśna, Radków ulica: Jagiellońska, Radków ulica: Grunwaldzka, Radków, Górska, Grunwaldzka, Ogrodowa, Piastowska, Piłsudskiego, Szpitalna, Radków, Kolejowa, Leśna, Tłumaczów, Radków, Cmentarna, Kościelna, Kościuszki, Krótka, Ogrodowa, Rynek, Wąska, Tłumaczów, Gajów, Radków ulica: Piastowska
+2025-10-26 17:50:56 | WARNING  | __main__:parse_tauron_locations:377 - Failed to parse city from locations: Kudowa-Zdrój ulica: 1 Maja, Okrzei
+2025-10-26 17:50:56 | WARNING  | __main__:parse_tauron_locations:377 - Failed to parse city from locations: Uzgodniono z odbiorcą
+2025-10-26 17:50:56 | WARNING  | __main__:parse_tauron_locations:377 - Failed to parse city from locations: ROKITKI, BIAŁA, ZAMIENICE, STARY ŁOM, JAROSZÓWKA, CZERNIKOWICE
+2025-10-26 17:50:56 | WARNING  | __main__:parse_tauron_locations:377 - Failed to parse city from locations: Zimna Woda działki budowlane nr 74/24 i 25
+2025-10-26 17:50:56 | WARNING  | __main__:parse_tauron_locations:377 - Failed to parse city from locations: Szklary Górne - wyłączony obw. VI w związku z kolizją drogową. Uszkodzony sł. 9. Na miejscu trwają czynności prowadzone przez Policję
+2025-10-26 17:50:56 | WARNING  | __main__:parse_tauron_locations:377 - Failed to parse city from locations: Stanowice: od numeru 84 do numeru 88 oraz obręb działek numer 289/7, 291/4
+2025-10-26 17:50:56 | WARNING  | __main__:parse_tauron_locations:377 - Failed to parse city from locations: miejscowość Janowo
+2025-10-26 17:50:56 | WARNING  | __main__:parse_tauron_locations:377 - Failed to parse city from locations: Ciechów: Suszarnia, obręb działek numer 512/2, Krótka 6A
+2025-10-26 17:50:56 | WARNING  | __main__:parse_tauron_locations:377 - Failed to parse city from locations: Środa Śląska:, Sikorskiego od numeru 29 do 31, działka 70/48
+2025-10-26 17:50:56 | WARNING  | __main__:parse_tauron_locations:377 - Failed to parse city from locations: Krępice: Spacerowa i wszystkie do niej przyległe
+2025-10-26 17:50:56 | WARNING  | __main__:parse_tauron_locations:377 - Failed to parse city from locations: Żurawiniec:, Spacerowa i wszystkie do niej przyległe
+2025-10-26 17:50:56 | WARNING  | __main__:parse_tauron_locations:377 - Failed to parse city from locations: Karwiany:, Wiosenna od numeru 57 do 103
+2025-10-26 17:50:56 | WARNING  | __main__:parse_tauron_locations:377 - Failed to parse city from locations: Szukalice: od numeru 1 do numeru 68, Storczykowa 1, 3, 4
+2025-10-26 17:50:56 | WARNING  | __main__:parse_tauron_locations:377 - Failed to parse city from locations: Kudowa-Zdrój ulica: Zdrojowa, Kudowa-Zdrój Ulice: Mickiewicza, Słowackiego, Zdrojowa, Kudowa-Zdrój ulica: Moniuszki, Kudowa-Zdrój, Aleja Jana Pawła II, Zdrojowa, Kudowa-Zdrój, Pogodna, Kudowa-Zdrój, Chrobrego, Kościuszki, Moniuszki, Kudowa-Zdrój, Dębowa, Pogodna, Kudowa-Zdrój ulica: Boczna, Kudowa-Zdrój ulica: Tkacka, Kudowa-Zdrój, Mickiewicza, Słowackiego, Szkolna, Zdrojowa, Kudowa-Zdrój ulica: Słone, Kudowa-Zdrój, Chrobrego, Pogodna, Kościuszki, Zdrojowa, Kudowa-Zdrój ulica: Jakubowice, Pasterka, Kudowa-Zdrój ulica: 1 Maja, Kudowa-Zdrój, Norwida, Zdrojowa, Kudowa-Zdrój ulica: Norwida, Kudowa-Zdrój, Fabryczna, Gagarina, Obrońców Pokoju, Ogrodowa, Kudowa-Zdrój ulica: Kościuszki, Kudowa-Zdrój ulica: 1 Maja, Kudowa-Zdrój ulica: Pstrążna, Kudowa-Zdrój ulica: Pogodna, Kudowa-Zdrój ulica: Kościuszki, Kudowa-Zdrój ulica: Bukowina, Karłów, Kudowa-Zdrój ulica: Jakubowice, Łężyce, Kudowa-Zdrój ulica: Jakubowice, Ratno Górne, Karłów, Kudowa-Zdrój Błędne Skały, Kudowa-Zdrój, Chrobrego, Kościuszki, Karłów, Kudowa-Zdrój ulica: Pogodna, Kudowa-Zdrój, Liliowa, Szafirkowa, Wrzosowa, Kudowa-Zdrój ulica: Zdrojowa
+bez transformatora
+2025-10-26 17:50:56 | WARNING  | __main__:parse_tauron_locations:377 - Failed to parse city from locations: Bratowice:, Piastowska, Stacja Uzdatniania Wody, działki 99/1, 1/5
+2025-10-26 17:50:56 | WARNING  | __main__:parse_tauron_locations:377 - Failed to parse city from locations: Suchy Dwór:, Parkowa od numeru 1 do 12, Główna od numeru 5 do 16, Gruszkowa, Majowa od numeru 1 do 4
+2025-10-26 17:50:56 | WARNING  | __main__:parse_tauron_locations:377 - Failed to parse city from locations: Stacja paliw  Statoil WBW15111
+2025-10-26 17:50:56 | WARNING  | __main__:parse_tauron_locations:377 - Failed to parse city from locations: Wrocław Fabryczna: Kielecka 1-5, 2-14 i 29-39, Przemyska 23-25 i 72-86, Grybowska 1-3 nieparzyste, Wielkopolska 8, Kosmonautów 318-320 i 328 parzyste
+2025-10-26 17:50:56 | WARNING  | __main__:parse_tauron_locations:377 - Failed to parse city from locations: Wrocław Psie Pole: Poprzeczna 37a-47a i 40-68
+2025-10-26 17:50:56 | WARNING  | __main__:parse_tauron_locations:377 - Failed to parse city from locations: Wrocław Fabryczna: Hallera 36-38 parzyste
+2025-10-26 17:50:56 | WARNING  | __main__:parse_tauron_locations:377 - Failed to parse city from locations: Wrocław Krzyki: Pretficza 24-28 parzyste, Gajowicka 128-130 parzyste
+2025-10-26 17:50:56 | WARNING  | __main__:parse_tauron_locations:377 - Failed to parse city from locations: Wrocław Fabryczna: Chachaja 15-21 nieparzyste
+2025-10-26 17:50:56 | WARNING  | __main__:parse_tauron_locations:377 - Failed to parse city from locations: Wrocław Psie Pole: Kętrzyńska 37-39 nieparzyste, Giżycka 76, Rycerska 9-19 nieparzyste
+2025-10-26 17:50:56 | WARNING  | __main__:parse_tauron_locations:377 - Failed to parse city from locations: Wrocław Śródmieście: Jaracza 33
+2025-10-26 17:57:25 | ERROR    | __main__:transform_tauron_data:456 - Error processing OutageId eea61c35-8b48-4a0e-97ed-94b93eec3f64: ''
+2025-10-26 17:57:25 | ERROR    | __main__:transform_tauron_data:456 - Error processing OutageId f1c36866-50b2-4417-8228-87bdcfaff460: ''
+2025-10-26 17:57:25 | ERROR    | __main__:transform_tauron_data:456 - Error processing OutageId 5b7f4540-96e2-4042-84ad-6179790e31ff: ''
+2025-10-26 17:57:25 | ERROR    | __main__:transform_tauron_data:456 - Error processing OutageId db7f4781-b47e-42c2-9d33-b8a0d534659b: ''
+2025-10-26 17:57:25 | ERROR    | __main__:transform_tauron_data:456 - Error processing OutageId 789e2c19-1457-41fc-809f-cf79c294c862: ''
+2025-10-26 17:57:33 | ERROR    | __main__:transform_tauron_data:456 - Error processing OutageId eea61c35-8b48-4a0e-97ed-94b93eec3f64: ''
+2025-10-26 17:57:33 | ERROR    | __main__:transform_tauron_data:456 - Error processing OutageId f1c36866-50b2-4417-8228-87bdcfaff460: ''
+2025-10-26 17:57:33 | ERROR    | __main__:transform_tauron_data:456 - Error processing OutageId 5b7f4540-96e2-4042-84ad-6179790e31ff: ''
+2025-10-26 17:57:33 | ERROR    | __main__:transform_tauron_data:456 - Error processing OutageId db7f4781-b47e-42c2-9d33-b8a0d534659b: ''
+2025-10-26 17:57:33 | ERROR    | __main__:transform_tauron_data:456 - Error processing OutageId 789e2c19-1457-41fc-809f-cf79c294c862: ''
+2025-10-26 18:08:04 | INFO     | __main__:get_tauron_planned_shutdowns:509 - Province: Dolnośląskie with GAID: 2
+2025-10-26 18:08:04 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: bolesławiecki with GAID: 1034
+2025-10-26 18:08:05 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: dzierżoniowski with GAID: 1019
+2025-10-26 18:08:05 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: głogowski with GAID: 1020
+2025-10-26 18:08:06 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: górowski with GAID: 1021
+2025-10-26 18:08:07 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: jaworski with GAID: 1022
+2025-10-26 18:08:07 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: kamiennogórski with GAID: 1024
+2025-10-26 18:08:08 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: kłodzki with GAID: 1025
+2025-10-26 18:08:09 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: legnicki with GAID: 1026
+2025-10-26 18:08:09 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: lubański with GAID: 1027
+2025-10-26 18:08:10 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: lubiński with GAID: 1028
+2025-10-26 18:08:11 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: lwówecki with GAID: 1029
+2025-10-26 18:08:11 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: milicki with GAID: 1030
+2025-10-26 18:08:12 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: oleśnicki with GAID: 1031
+2025-10-26 18:08:13 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: oławski with GAID: 1032
+2025-10-26 18:08:14 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: polkowicki with GAID: 1033
+2025-10-26 18:08:14 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: strzeliński with GAID: 1035
+2025-10-26 18:08:15 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: średzki with GAID: 1036
+2025-10-26 18:08:16 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: świdnicki with GAID: 1037
+2025-10-26 18:08:16 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: trzebnicki with GAID: 1038
+2025-10-26 18:08:17 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: wałbrzyski with GAID: 1039
+2025-10-26 18:08:18 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: wołowski with GAID: 1040
+2025-10-26 18:08:18 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: wrocławski with GAID: 1041
+2025-10-26 18:08:20 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: ząbkowicki with GAID: 1042
+2025-10-26 18:08:20 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: zgorzelecki with GAID: 1043
+2025-10-26 18:08:21 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: złotoryjski with GAID: 1044
+2025-10-26 18:08:22 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: jelenia góra with GAID: 1045
+2025-10-26 18:08:22 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: legnica with GAID: 1046
+2025-10-26 18:08:23 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: wałbrzych with GAID: 1398
+2025-10-26 18:08:24 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: wrocław with GAID: 1047
+2025-10-26 18:08:39 | INFO     | __main__:get_tauron_planned_shutdowns:509 - Province: Dolnośląskie with GAID: 2
+2025-10-26 18:08:39 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: bolesławiecki with GAID: 1034
+2025-10-26 18:08:40 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: dzierżoniowski with GAID: 1019
+2025-10-26 18:08:41 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: głogowski with GAID: 1020
+2025-10-26 18:08:41 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: górowski with GAID: 1021
+2025-10-26 18:08:43 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: jaworski with GAID: 1022
+2025-10-26 18:08:43 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: kamiennogórski with GAID: 1024
+2025-10-26 18:08:44 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: kłodzki with GAID: 1025
+2025-10-26 18:08:45 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: legnicki with GAID: 1026
+2025-10-26 18:08:46 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: lubański with GAID: 1027
+2025-10-26 18:08:46 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: lubiński with GAID: 1028
+2025-10-26 18:08:47 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: lwówecki with GAID: 1029
+2025-10-26 18:08:48 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: milicki with GAID: 1030
+2025-10-26 18:08:48 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: oleśnicki with GAID: 1031
+2025-10-26 18:08:49 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: oławski with GAID: 1032
+2025-10-26 18:08:49 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: polkowicki with GAID: 1033
+2025-10-26 18:08:50 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: strzeliński with GAID: 1035
+2025-10-26 18:08:51 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: średzki with GAID: 1036
+2025-10-26 18:08:51 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: świdnicki with GAID: 1037
+2025-10-26 18:08:52 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: trzebnicki with GAID: 1038
+2025-10-26 18:08:53 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: wałbrzyski with GAID: 1039
+2025-10-26 18:08:53 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: wołowski with GAID: 1040
+2025-10-26 18:08:54 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: wrocławski with GAID: 1041
+2025-10-26 18:08:55 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: ząbkowicki with GAID: 1042
+2025-10-26 18:08:55 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: zgorzelecki with GAID: 1043
+2025-10-26 18:08:56 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: złotoryjski with GAID: 1044
+2025-10-26 18:08:57 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: jelenia góra with GAID: 1045
+2025-10-26 18:08:57 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: legnica with GAID: 1046
+2025-10-26 18:08:58 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: wałbrzych with GAID: 1398
+2025-10-26 18:08:59 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: wrocław with GAID: 1047
+2025-10-26 18:09:00 | INFO     | __main__:get_tauron_planned_shutdowns:509 - Province: Lubuskie with GAID: 8
+2025-10-26 18:09:00 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: gorzowski with GAID: 1095
+2025-10-26 18:09:01 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: krośnieński with GAID: 1096
+2025-10-26 18:09:01 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: międzyrzecki with GAID: 1097
+2025-10-26 18:09:02 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: nowosolski with GAID: 1098
+2025-10-26 18:09:03 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: słubicki with GAID: 1099
+2025-10-26 18:09:04 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: strzelecko-drezdenecki with GAID: 1100
+2025-10-26 18:09:05 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: świebodziński with GAID: 1102
+2025-10-26 18:09:06 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: wschowski with GAID: 1106
+2025-10-26 18:09:07 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: zielonogórski with GAID: 1103
+2025-10-26 18:09:08 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: żagański with GAID: 1104
+2025-10-26 18:09:09 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: żarski with GAID: 1105
+2025-10-26 18:09:10 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: gorzów wielkopolski with GAID: 1107
+2025-10-26 18:09:11 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: zielona góra with GAID: 1108
+2025-10-26 18:09:11 | INFO     | __main__:get_tauron_planned_shutdowns:509 - Province: Łódzkie with GAID: 10
+2025-10-26 18:09:11 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: bełchatowski with GAID: 1109
+2025-10-26 18:09:12 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: brzeziński with GAID: 928
+2025-10-26 18:09:13 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: kutnowski with GAID: 1110
+2025-10-26 18:09:13 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: łaski with GAID: 1111
+2025-10-26 18:09:14 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: łęczycki with GAID: 1112
+2025-10-26 18:09:15 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: łowicki with GAID: 1113
+2025-10-26 18:09:16 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: łódzki wschodni with GAID: 913
+2025-10-26 18:09:17 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: opoczyński with GAID: 914
+2025-10-26 18:09:17 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: pabianicki with GAID: 915
+2025-10-26 18:09:18 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: pajęczański with GAID: 916
+2025-10-26 18:09:19 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: piotrkowski with GAID: 917
+2025-10-26 18:09:19 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: poddębicki with GAID: 918
+2025-10-26 18:09:20 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: radomszczański with GAID: 919
+2025-10-26 18:09:21 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: rawski with GAID: 920
+2025-10-26 18:09:21 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: sieradzki with GAID: 921
+2025-10-26 18:09:22 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: skierniewicki with GAID: 922
+2025-10-26 18:09:22 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: tomaszowski with GAID: 923
+2025-10-26 18:09:23 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: wieluński with GAID: 924
+2025-10-26 18:09:24 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: wieruszowski with GAID: 925
+2025-10-26 18:09:25 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: zduńskowolski with GAID: 926
+2025-10-26 18:09:25 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: zgierski with GAID: 927
+2025-10-26 18:09:26 | INFO     | __main__:get_tauron_planned_shutdowns:512 - 	District: łódź with GAID: 929

@@ -4,13 +4,15 @@ import jakarta.validation.constraints.Future
 import jakarta.validation.constraints.Max
 import jakarta.validation.constraints.Min
 import jakarta.validation.constraints.NotBlank
+import jakarta.validation.constraints.Size
 import java.time.LocalDateTime
 
 data class EventRequestDTO(
     @field:NotBlank(message = "Name must not be blank")
     val name: String,
     val description : String?,
-    val image: ByteArray?,
+    @field:Size(max = 5, message = "A maximum of 5 images are allowed")
+    val images: List<ByteArray>?,
     @field:Max(90, message = "Latitude must be between -90 and 90")
     @field:Min(-90, message = "Latitude must be between -90 and 90")
     val latitude: Double,

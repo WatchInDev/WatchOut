@@ -24,7 +24,7 @@ class SecurityConfiguration(
         private val WHITE_LIST_URL = arrayOf(
             "/api/v1/auth/**",
             "/swagger-ui/**",
-            "/v3/api-docs/**"
+            "/v3/api-docs/**",
         )
     }
 

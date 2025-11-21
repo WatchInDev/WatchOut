@@ -1,0 +1,145 @@
+2025-10-10 17:15:02 | ERROR    | __main__:<module\>:83 - AAA
+2025-10-10 17:24:09 | ERROR    | __main__:get_energa_planned_shutdowns:116 - Error trying scraping shutdowns from Energa
+2025-10-10 17:25:06 | ERROR    | __main__:get_energa_planned_shutdowns:116 - Error trying scraping shutdowns from Energa: too many values to unpack (expected 2)
+2025-10-10 17:25:50 | ERROR    | __main__:get_energa_planned_shutdowns:116 - Error trying scraping shutdowns from Energa: too many values to unpack (expected 2)
+2025-10-10 17:28:22 | ERROR    | __main__:parse_energa_interval:60 - Failed to parse interval 13.10.2025 09:00–11:0009:00–15:0013:00–15:00
+2025-10-10 17:28:22 | ERROR    | __main__:parse_energa_interval:60 - Failed to parse interval 13.10.2025 08:00–09:0008:00–12:0011:00–12:00
+2025-10-10 17:28:22 | ERROR    | __main__:parse_energa_interval:60 - Failed to parse interval 17.10.2025 08:00–14:0008:00–09:3012:30–14:00
+2025-10-10 17:28:22 | ERROR    | __main__:parse_energa_interval:60 - Failed to parse interval 13.10.2025 06:00–09:0007:15–16:0015:00–17:00
+2025-10-10 17:28:22 | ERROR    | __main__:parse_energa_interval:60 - Failed to parse interval 17.10.2025 08:00–10:0009:00–13:0012:00–14:00
+2025-10-10 17:28:27 | ERROR    | __main__:parse_energa_interval:60 - Failed to parse interval 13.10.2025 09:00–11:0009:00–15:0013:00–15:00
+2025-10-10 17:28:27 | ERROR    | __main__:parse_energa_interval:60 - Failed to parse interval 13.10.2025 08:00–09:0008:00–12:0011:00–12:00
+2025-10-10 17:28:27 | ERROR    | __main__:parse_energa_interval:60 - Failed to parse interval 17.10.2025 08:00–14:0008:00–09:3012:30–14:00
+2025-10-10 17:28:27 | ERROR    | __main__:parse_energa_interval:60 - Failed to parse interval 13.10.2025 06:00–09:0007:15–16:0015:00–17:00
+2025-10-10 17:28:27 | ERROR    | __main__:parse_energa_interval:60 - Failed to parse interval 17.10.2025 08:00–10:0009:00–13:0012:00–14:00
+2025-10-10 17:31:49 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '14.10.2025 08:00–09:3015.10.2025 12:30–14:00'
+2025-10-10 17:34:49 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '14.10.2025 08:30–10:0016:00–17:30'
+2025-10-10 17:34:49 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '16.10.2025 08:00–09:3015:00–16:30'
+2025-10-10 17:34:50 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '14.10.2025 08:30–10:0016:00–17:30'
+2025-10-10 17:34:50 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '23.10.2025 08:30–10:0015:00–16:30'
+2025-10-10 17:34:50 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '13.10.2025 08:30–10:0015:30–17:00'
+2025-10-10 17:34:50 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '14.10.2025 08:30–10:0016:00–17:30'
+2025-10-10 17:34:50 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '13.10.2025 08:30–10:0015:30–17:00'
+2025-10-10 17:34:50 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '13.10.2025 08:30–10:0015:30–17:00'
+2025-10-10 17:34:50 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '21.10.2025 07:30–09:0015:00–16:30'
+2025-10-10 17:34:50 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '17.10.2025 08:00–09:0013:00–14:00'
+2025-10-10 17:34:50 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '13.10.2025 09:00–10:0014:00–15:00'
+2025-10-10 17:34:50 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '13.10.2025 09:00–10:0014:00–15:00'
+2025-10-10 17:34:50 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '14.10.2025 08:00–09:3015.10.2025 12:30–14:00'
+2025-10-10 17:34:50 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '13.10.2025 09:00–11:0013:00–15:00'
+2025-10-10 17:34:50 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '13.10.2025 09:00–11:0009:00–15:0013:00–15:00'
+2025-10-10 17:34:50 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '13.10.2025 08:00–09:0008:00–12:0011:00–12:00'
+2025-10-10 17:34:50 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '17.10.2025 08:00–14:0008:00–09:3012:30–14:00'
+2025-10-10 17:34:50 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '13.10.2025 06:00–09:0015:00–17:00'
+2025-10-10 17:34:50 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '13.10.2025 06:00–09:0007:15–16:0015:00–17:00'
+2025-10-10 17:34:50 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '17.10.2025 08:00–10:0009:00–13:0012:00–14:00'
+2025-10-10 17:34:50 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '13.10.2025 08:30–11:0011:00–13:30'
+2025-10-10 17:35:26 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '14.10.2025 08:30–10:0016:00–17:30'
+2025-10-10 17:35:26 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '16.10.2025 08:00–09:3015:00–16:30'
+2025-10-10 17:35:26 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '14.10.2025 08:30–10:0016:00–17:30'
+2025-10-10 17:35:26 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '23.10.2025 08:30–10:0015:00–16:30'
+2025-10-10 17:35:26 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '13.10.2025 08:30–10:0015:30–17:00'
+2025-10-10 17:35:26 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '14.10.2025 08:30–10:0016:00–17:30'
+2025-10-10 17:35:26 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '13.10.2025 08:30–10:0015:30–17:00'
+2025-10-10 17:35:26 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '13.10.2025 08:30–10:0015:30–17:00'
+2025-10-10 17:35:26 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '21.10.2025 07:30–09:0015:00–16:30'
+2025-10-10 17:35:26 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '17.10.2025 08:00–09:0013:00–14:00'
+2025-10-10 17:35:26 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '13.10.2025 09:00–10:0014:00–15:00'
+2025-10-10 17:35:26 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '13.10.2025 09:00–10:0014:00–15:00'
+2025-10-10 17:35:26 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '14.10.2025 08:00–09:3015.10.2025 12:30–14:00'
+2025-10-10 17:35:26 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '13.10.2025 09:00–11:0013:00–15:00'
+2025-10-10 17:35:26 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '13.10.2025 09:00–11:0009:00–15:0013:00–15:00'
+2025-10-10 17:35:26 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '13.10.2025 08:00–09:0008:00–12:0011:00–12:00'
+2025-10-10 17:35:26 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '17.10.2025 08:00–14:0008:00–09:3012:30–14:00'
+2025-10-10 17:35:26 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '13.10.2025 06:00–09:0015:00–17:00'
+2025-10-10 17:35:26 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '13.10.2025 06:00–09:0007:15–16:0015:00–17:00'
+2025-10-10 17:35:26 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '17.10.2025 08:00–10:0009:00–13:0012:00–14:00'
+2025-10-10 17:35:26 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '13.10.2025 08:30–11:0011:00–13:30'
+2025-10-10 17:35:32 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '14.10.2025 08:00–09:3015.10.2025 12:30–14:00'
+2025-10-10 17:37:37 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '14.10.2025 08:00–09:3015.10.2025 12:30–14:00'
+2025-10-10 17:37:47 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '14.10.2025 08:30–10:0016:00–17:30'
+2025-10-10 17:37:47 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '16.10.2025 08:00–09:3015:00–16:30'
+2025-10-10 17:37:47 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '14.10.2025 08:30–10:0016:00–17:30'
+2025-10-10 17:37:47 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '23.10.2025 08:30–10:0015:00–16:30'
+2025-10-10 17:37:47 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '13.10.2025 08:30–10:0015:30–17:00'
+2025-10-10 17:37:47 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '14.10.2025 08:30–10:0016:00–17:30'
+2025-10-10 17:37:47 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '13.10.2025 08:30–10:0015:30–17:00'
+2025-10-10 17:37:47 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '13.10.2025 08:30–10:0015:30–17:00'
+2025-10-10 17:37:47 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '21.10.2025 07:30–09:0015:00–16:30'
+2025-10-10 17:37:47 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '17.10.2025 08:00–09:0013:00–14:00'
+2025-10-10 17:37:47 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '13.10.2025 09:00–10:0014:00–15:00'
+2025-10-10 17:37:47 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '13.10.2025 09:00–10:0014:00–15:00'
+2025-10-10 17:37:47 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '14.10.2025 08:00–09:3015.10.2025 12:30–14:00'
+2025-10-10 17:37:47 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '13.10.2025 09:00–11:0013:00–15:00'
+2025-10-10 17:37:47 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '13.10.2025 09:00–11:0009:00–15:0013:00–15:00'
+2025-10-10 17:37:47 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '13.10.2025 08:00–09:0008:00–12:0011:00–12:00'
+2025-10-10 17:37:47 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '17.10.2025 08:00–14:0008:00–09:3012:30–14:00'
+2025-10-10 17:37:47 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '13.10.2025 06:00–09:0015:00–17:00'
+2025-10-10 17:37:47 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '13.10.2025 06:00–09:0007:15–16:0015:00–17:00'
+2025-10-10 17:37:47 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '17.10.2025 08:00–10:0009:00–13:0012:00–14:00'
+2025-10-10 17:37:47 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '13.10.2025 08:30–11:0011:00–13:30'
+2025-10-10 17:38:42 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '14.10.2025 08:30–10:0016:00–17:30'
+2025-10-10 17:38:42 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '16.10.2025 08:00–09:3015:00–16:30'
+2025-10-10 17:38:42 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '14.10.2025 08:30–10:0016:00–17:30'
+2025-10-10 17:38:42 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '23.10.2025 08:30–10:0015:00–16:30'
+2025-10-10 17:38:42 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '13.10.2025 08:30–10:0015:30–17:00'
+2025-10-10 17:38:42 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '14.10.2025 08:30–10:0016:00–17:30'
+2025-10-10 17:38:42 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '13.10.2025 08:30–10:0015:30–17:00'
+2025-10-10 17:38:42 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '13.10.2025 08:30–10:0015:30–17:00'
+2025-10-10 17:38:42 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '21.10.2025 07:30–09:0015:00–16:30'
+2025-10-10 17:38:42 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '17.10.2025 08:00–09:0013:00–14:00'
+2025-10-10 17:38:42 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '13.10.2025 09:00–10:0014:00–15:00'
+2025-10-10 17:38:42 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '13.10.2025 09:00–10:0014:00–15:00'
+2025-10-10 17:38:42 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '14.10.2025 08:00–09:3015.10.2025 12:30–14:00'
+2025-10-10 17:38:42 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '13.10.2025 09:00–11:0013:00–15:00'
+2025-10-10 17:38:42 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '13.10.2025 09:00–11:0009:00–15:0013:00–15:00'
+2025-10-10 17:38:42 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '13.10.2025 08:00–09:0008:00–12:0011:00–12:00'
+2025-10-10 17:38:42 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '17.10.2025 08:00–14:0008:00–09:3012:30–14:00'
+2025-10-10 17:38:42 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '13.10.2025 06:00–09:0015:00–17:00'
+2025-10-10 17:38:42 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '13.10.2025 06:00–09:0007:15–16:0015:00–17:00'
+2025-10-10 17:38:42 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '17.10.2025 08:00–10:0009:00–13:0012:00–14:00'
+2025-10-10 17:38:42 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '13.10.2025 08:30–11:0011:00–13:30'
+2025-10-10 17:39:41 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '14.10.2025 08:30–10:0016:00–17:30'
+(type=<class 'ValueError'>, value=ValueError('too many values to unpack (expected 2)'), traceback=<traceback object at 0x00000181640BB040>)
+2025-10-10 17:39:41 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '16.10.2025 08:00–09:3015:00–16:30'
+(type=<class 'ValueError'>, value=ValueError('too many values to unpack (expected 2)'), traceback=<traceback object at 0x0000018163C9E200>)
+2025-10-10 17:39:41 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '14.10.2025 08:30–10:0016:00–17:30'
+(type=<class 'ValueError'>, value=ValueError('too many values to unpack (expected 2)'), traceback=<traceback object at 0x00000181639B0940>)
+2025-10-10 17:39:41 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '23.10.2025 08:30–10:0015:00–16:30'
+(type=<class 'ValueError'>, value=ValueError('too many values to unpack (expected 2)'), traceback=<traceback object at 0x00000181640DAD00>)
+2025-10-10 17:39:41 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '13.10.2025 08:30–10:0015:30–17:00'
+(type=<class 'ValueError'>, value=ValueError('too many values to unpack (expected 2)'), traceback=<traceback object at 0x00000181640DBA40>)
+2025-10-10 17:39:41 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '14.10.2025 08:30–10:0016:00–17:30'
+(type=<class 'ValueError'>, value=ValueError('too many values to unpack (expected 2)'), traceback=<traceback object at 0x00000181640BB280>)
+2025-10-10 17:39:41 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '13.10.2025 08:30–10:0015:30–17:00'
+(type=<class 'ValueError'>, value=ValueError('too many values to unpack (expected 2)'), traceback=<traceback object at 0x0000018162ABC040>)
+2025-10-10 17:39:41 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '13.10.2025 08:30–10:0015:30–17:00'
+(type=<class 'ValueError'>, value=ValueError('too many values to unpack (expected 2)'), traceback=<traceback object at 0x00000181640DD6C0>)
+2025-10-10 17:39:41 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '21.10.2025 07:30–09:0015:00–16:30'
+(type=<class 'ValueError'>, value=ValueError('too many values to unpack (expected 2)'), traceback=<traceback object at 0x000001816387F300>)
+2025-10-10 17:39:41 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '17.10.2025 08:00–09:0013:00–14:00'
+(type=<class 'ValueError'>, value=ValueError('too many values to unpack (expected 2)'), traceback=<traceback object at 0x00000181640DF800>)
+2025-10-10 17:39:41 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '13.10.2025 09:00–10:0014:00–15:00'
+(type=<class 'ValueError'>, value=ValueError('too many values to unpack (expected 2)'), traceback=<traceback object at 0x00000181640D95C0>)
+2025-10-10 17:39:41 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '13.10.2025 09:00–10:0014:00–15:00'
+(type=<class 'ValueError'>, value=ValueError('too many values to unpack (expected 2)'), traceback=<traceback object at 0x00000181640DE340>)
+2025-10-10 17:39:41 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '14.10.2025 08:00–09:3015.10.2025 12:30–14:00'
+(type=<class 'ValueError'>, value=ValueError("invalid literal for int() with base 10: '3015.10.2025 12'"), traceback=<traceback object at 0x00000181640DA680>)
+2025-10-10 17:39:41 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '13.10.2025 09:00–11:0013:00–15:00'
+(type=<class 'ValueError'>, value=ValueError('too many values to unpack (expected 2)'), traceback=<traceback object at 0x00000181640BB280>)
+2025-10-10 17:39:41 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '13.10.2025 09:00–11:0009:00–15:0013:00–15:00'
+(type=<class 'ValueError'>, value=ValueError('too many values to unpack (expected 2)'), traceback=<traceback object at 0x00000181640DCE40>)
+2025-10-10 17:39:41 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '13.10.2025 08:00–09:0008:00–12:0011:00–12:00'
+(type=<class 'ValueError'>, value=ValueError('too many values to unpack (expected 2)'), traceback=<traceback object at 0x00000181640BB900>)
+2025-10-10 17:39:41 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '17.10.2025 08:00–14:0008:00–09:3012:30–14:00'
+(type=<class 'ValueError'>, value=ValueError('too many values to unpack (expected 2)'), traceback=<traceback object at 0x00000181640E5940>)
+2025-10-10 17:39:41 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '13.10.2025 06:00–09:0015:00–17:00'
+(type=<class 'ValueError'>, value=ValueError('too many values to unpack (expected 2)'), traceback=<traceback object at 0x00000181640EF380>)
+2025-10-10 17:39:41 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '13.10.2025 06:00–09:0007:15–16:0015:00–17:00'
+(type=<class 'ValueError'>, value=ValueError('too many values to unpack (expected 2)'), traceback=<traceback object at 0x0000018163A54580>)
+2025-10-10 17:39:41 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '17.10.2025 08:00–10:0009:00–13:0012:00–14:00'
+(type=<class 'ValueError'>, value=ValueError('too many values to unpack (expected 2)'), traceback=<traceback object at 0x00000181640D8680>)
+2025-10-10 17:39:41 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '13.10.2025 08:30–11:0011:00–13:30'
+(type=<class 'ValueError'>, value=ValueError('too many values to unpack (expected 2)'), traceback=<traceback object at 0x00000181640BB280>)
+2025-10-10 17:40:24 | ERROR    | __main__:parse_energa_interval:74 - Failed to parse interval '14.10.2025 08:00–09:3015.10.2025 12:30–14:00'
+2025-10-10 17:48:02 | ERROR    | __main__:parse_energa_datetime_interval:152 - Failed to parse interval '14.10.2025 08:00–09:3015.10.2025 12:30–14:00'

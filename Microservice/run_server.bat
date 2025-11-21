@@ -1,6 +1,0 @@
-@echo off
-echo Killing Python processes...
-taskkill /f /im python.exe
-
-echo Starting server...
-uvicorn main:app

@@ -22,7 +22,7 @@ class EventMapper(val eventTypeMapper: EventTypeMapper, val eventTypeRepository:
              description = event.description,
              latitude = event.location.y,
              longitude = event.location.x,
-             image = event.image,
+             images = event.image.split(","),
              reportedDate = event.reportedDate,
              endDate = event.endDate,
              isActive = event.isActive,
@@ -37,7 +37,14 @@ class EventMapper(val eventTypeMapper: EventTypeMapper, val eventTypeRepository:
         return Event(
             name = eventRequestDto.name,
             description = eventRequestDto.description ?: "",
-            image = eventRequestDto.image?.let { image -> azureBlobService.uploadFile("events/image_${UUID.randomUUID()}.png", image) } ?: "",
+            image = eventRequestDto.images?.let { images ->
+                images.joinToString(",") { image ->
+                    azureBlobService.uploadFile(
+                        "events/image_${UUID.randomUUID()}.png",
+                        image
+                    )
+                }
+            }?: "",
             reportedDate = LocalDateTime.now(),
             endDate = eventRequestDto.endDate,
             isActive = true,
