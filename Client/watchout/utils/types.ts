@@ -1,9 +1,14 @@
 export type Coordinates = {
+  latitude: number;
+  longitude: number;
+};
+
+export type CoordinatesRect = {
   swLat: number;
   swLng: number;
   neLat: number;
   neLng: number;
-}
+};
 
 export type EventType = {
   id: number;
@@ -25,8 +30,109 @@ export type Event = {
   active: boolean;
 };
 
+export type Outage = {
+  type: 'electrical_outage' | 'weather';
+  location?: string;
+  name?: string;
+  description?: string;
+  fromDate: Date;
+  toDate: Date;
+  provider?: string;
+  locality?: string;
+  placeName: string;
+}
+
+export type CreateEventRequest = {
+  name: string;
+  description: string;
+  image: string | null;
+  latitude: number;
+  longitude: number;
+  endDate: Date | string;
+  eventTypeId: number;
+};
+
 export type EventCluster = {
   latitude: number;
   longitude: number;
   count: number;
-}
+};
+
+export type Comment = {
+  id: number;
+  content: string;
+  eventId: number;
+  createdAt: Date;
+  rating: number;
+  ratingForCurrentUser: number;
+};
+
+export type AddCommentRequest = {
+  eventId: number;
+  content: string;
+};
+
+export type PinnedLocation = {
+  id: number;
+  placeName: string;
+  latitude: number;
+  longitude: number;
+  location: string;
+  locality: string;
+  region: string;
+  voivodeship: string;
+};
+
+export type AddLocationRequest = {
+  placeName: string;
+  latitude: number;
+  longitude: number;
+  services: {
+    electricity: boolean;
+    water: boolean;
+    gas: boolean;
+    internet: boolean;
+  };
+  radius: number;
+  notificationsEnabled: boolean;
+};
+
+export type PaginationRequest<T> = {
+  page: number;
+  size: number;
+  sort?: SortCriteria<T>[];
+};
+
+export type SortCriteria<T> = {
+  field: keyof T;
+  direction: 'asc' | 'desc';
+};
+
+export type Page<T> = {
+  totalPages: number;
+  totalElements: number;
+  first: boolean;
+  last: boolean;
+  size: number;
+  content: T[];
+  number: number;
+  sort: {
+    empty: boolean;
+    sorted: boolean;
+    unsorted: boolean;
+  };
+  numberOfElements: number;
+  pageable: {
+    offset: number;
+    sort: {
+      empty: boolean;
+      sorted: boolean;
+      unsorted: boolean;
+    };
+    paged: boolean;
+    pageSize: number;
+    pageNumber: number;
+    unpaged: boolean;
+  };
+  empty: boolean;
+};

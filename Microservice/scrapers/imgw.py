@@ -15,28 +15,32 @@ from loguru import logger
 utc_zone = timezone.utc
 poland_zone = ZoneInfo("Europe/Warsaw")
 
+import io
 
-def construct_teryt_id_powiat_name_map():
-    df = pd.read_csv('source/TERC.csv',
-                     delimiter=';',
-                     dtype={
-                         'WOJ': str,
-                         'POW': str,
-                         'GMI': str
-                     })
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
-    df['TERYT_ID'] = df['WOJ'] + df['POW']
 
-    df = df[df['GMI'].isna() & df['POW'].notna()]
-
-    powiat_map = df.set_index('TERYT_ID')['NAZWA'].to_dict()
-
-    with open('source/teryt_id_powiat_name_map.json', 'w', encoding='utf-8') as file:
-        json.dump(powiat_map, file, indent=4, ensure_ascii=False)
+# def construct_teryt_id_powiat_name_map():
+#     df = pd.read_csv('source/TERC.csv',
+#                      delimiter=';',
+#                      dtype={
+#                          'WOJ': str,
+#                          'POW': str,
+#                          'GMI': str
+#                      })
+#
+#     df['TERYT_ID'] = df['WOJ'] + df['POW']
+#
+#     df = df[df['GMI'].isna() & df['POW'].notna()]
+#
+#     powiat_map = df.set_index('TERYT_ID')['NAZWA'].to_dict()
+#
+#     with open('source/teryt_id_powiat_name_map.json', 'w', encoding='utf-8') as file:
+#         json.dump(powiat_map, file, indent=4, ensure_ascii=False)
 
 
 def load_teryt_map():
-    return json.load(open('source/teryt_id_powiat_name_map.json', encoding='utf-8'))
+    return json.load(open('Microservice/scrapers/source/teryt_id_powiat_name_map.json', encoding='utf-8'))
 
 
 def fetch_meteorological_warnings():
@@ -75,9 +79,10 @@ def fetch_meteorological_warnings():
         return response_json
 
     except Exception as e:
-        logger.exception(f"Exception during data scraping or retrieving: {e}")
+        # print(f"Exception during data scraping or retrieving: {e}")
+        raise e
 
 
 if __name__ == "__main__":
     res = fetch_meteorological_warnings()
-    print(res)
+    json.dump(res, sys.stdout, ensure_ascii=False, indent=4)

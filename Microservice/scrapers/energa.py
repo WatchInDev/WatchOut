@@ -4,13 +4,11 @@ import sys
 
 from logging_config import setup_loguru
 
-setup_loguru()
-
-from loguru import logger
 import requests
 from datetime import datetime
-import re
+import io
 
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
 def parse_locations(line: str) -> list[str]:
     """
@@ -65,9 +63,9 @@ def parse_locations(line: str) -> list[str]:
         e.g., "Kościerzyna, Markubowo" -> "Kościerzyna"
         """
         # Remove text subdivisions like -Wybudowanie, -Kolonia
-        loc = re.sub(r'(-[A-Za-zżźćńółęąśŻŹĆŃÓŁĘĄŚ]+)', '', loc, 1)
+        loc = re.sub(r'(-[A-Za-zżźćńółęąśŻŹĆŃÓŁĘĄŚ]+)', '', loc, count = 1)
         # Remove text subdivisions like , Markubowo
-        loc = re.sub(r'(,[A-Za-zżźćńółęąśŻŹĆŃÓŁĘĄŚ ]+)', '', loc, 1)
+        loc = re.sub(r'(,[A-Za-zżźćńółęąśŻŹĆŃÓŁĘĄŚ ]+)', '', loc, count = 1)
         return loc.strip()
 
     def is_full_name(item: str) -> bool:
@@ -214,7 +212,7 @@ def transform_shutdown_data(shutdown_list):
             messages.append(message)
 
             if not all([voivodeship, city, message, hours_list]):
-                logger.warning(f"Skipping entry guid {shutdown.get('guid')}: missing essential data.")
+                print(f"Skipping entry guid {shutdown.get('guid')}: missing essential data.")
                 continue
 
             first_hour_slot = hours_list[0]
@@ -222,7 +220,7 @@ def transform_shutdown_data(shutdown_list):
             to_date = first_hour_slot.get('toDate')
 
             if not from_date or not to_date:
-                logger.warning(f"Skipping entry guid {shutdown.get('guid')}: missing time data.")
+                print(f"Skipping entry guid {shutdown.get('guid')}: missing time data.")
                 continue
 
             shutdown_details = {
@@ -242,7 +240,7 @@ def transform_shutdown_data(shutdown_list):
             transformed_data[voivodeship][city].append(shutdown_details)
 
         except Exception as e:
-            logger.exception(f"Error processing shutdown guid {shutdown.get('guid')}: {e}")
+            print(f"Error processing shutdown guid {shutdown.get('guid')}: {e}")
 
     # print(messages)
 
@@ -267,8 +265,9 @@ def get_energa_planned_shutdowns() -> dict[str, dict[str, dict[str, tuple[dateti
         return res
 
     except Exception as e:
-        logger.exception(f'Error trying scraping shutdowns from Energa: {e}')
-        return {}
+        # print(f'Error trying scraping shutdowns from Energa: {e}')
+        raise e
+
 
 
 if __name__ == '__main__':

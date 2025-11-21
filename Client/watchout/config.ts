@@ -1,1 +1,1 @@
-export const API_URL = 'http://192.168.0.32:8080/api/v1';
+export const API_URL = 'https://watchoutapi-h2c2bxesd6fzc2he.polandcentral-01.azurewebsites.net/api/v1';

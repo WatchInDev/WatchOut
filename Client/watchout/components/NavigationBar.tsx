@@ -8,7 +8,7 @@ export const NavigationBar = ({ route, options }: any) => {
   return (
     <Appbar.Header>
       <Appbar.BackAction onPress={() => route?.navigation?.goBack()} />
-      <Appbar.Content title={<Text>{title}</Text>} />
+      <Appbar.Content title={<Text variant="h6">{title}</Text>} />
       <Appbar.Action icon="magnify" onPress={() => { }} />
       <Appbar.Action icon="dots-vertical" onPress={() => { }} />
     </Appbar.Header>

@@ -1,43 +1,104 @@
-import React from 'react';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { Map } from '../Map/Map';
-import { EventTypes } from '../EventTypes';
+import { Icon } from 'react-native-paper';
+import { useAuth } from 'features/auth/authContext'; 
 import { CustomDrawerContent } from './CustomDrawerContent';
+import { EventTypes } from 'features/event-types/EventTypes';
+import { Map } from 'features/map/Map';
+import { LoginScreen } from 'features/auth/LoginScreen';
+import { SignUpScreen } from 'features/auth/SignUpScreen';
+import { theme } from 'utils/theme';
+import { SettingsNavigator } from 'features/settings/SettingsNavigator';
+import { getFocusedRouteNameFromRoute, RouteProp } from '@react-navigation/native';
+import { navigationTheme } from 'components/Base/navigationTheme';
+import { OutagesNavigator } from 'features/outages/OutagesNavigator';
 
 const NavDrawer = createDrawerNavigator();
 
 const routes = [
-  { name: 'WatchOut', component: Map, label: 'Mapa' },
-  { name: 'EventTypes', component: EventTypes, label: 'Rodzaje zdarzeń' },
-]
+  {
+    name: 'WatchOut',
+    component: Map,
+    label: 'Mapa',
+    icon: 'map',
+  },
+  {
+    name: 'EventTypes',
+    component: EventTypes,
+    label: 'Rodzaje zdarzeń',
+    icon: 'format-list-bulleted',
+  },
+  {
+    name: 'Alerts',
+    component: OutagesNavigator,
+    label: 'Alerty',
+    icon: 'alert-circle-outline',
+    headerShown: (route: RouteProp<any, any>) => {
+      const focusedRoute = getFocusedRouteNameFromRoute(route);
+      return !focusedRoute || focusedRoute === 'OutagesMain';
+    }
+  },
+  {
+    name: 'Settings',
+    component: SettingsNavigator,
+    label: 'Ustawienia',
+    icon: 'cog',
+    headerShown: (route: RouteProp<any, any>) => {
+      const focusedRoute = getFocusedRouteNameFromRoute(route);
+      return !focusedRoute || focusedRoute === 'SettingsMain';
+    },
+  },
+];
 
 export const AppNavigator = () => {
+  const { user, loading } = useAuth();
+
+  if (loading) return null; 
+
+  if (!user) {
+    return (
+      <NavDrawer.Navigator
+        screenOptions={{ headerShown: false }}
+        drawerContent={(props) => <SafeAreaView style={{ flex: 1 }} />}
+      >
+        <NavDrawer.Screen name="Login" component={LoginScreen} />
+        <NavDrawer.Screen name="SignUp" component={SignUpScreen} />
+      </NavDrawer.Navigator>
+    );
+  }
+
   return (
     <NavDrawer.Navigator
-      initialRouteName='WatchOut'
-        screenOptions={{
-          drawerStyle: {
-            width: 110,
-          },
-          headerTitleStyle: {
-            fontSize: 18,
-            fontFamily: 'Poppins_600SemiBold',
-            color: '#333',
-          },
-          drawerLabelStyle: {
-            fontFamily: 'Poppins_700Regular',
-            fontSize: 16,
-            color: '#333',
-          }
-        }}
-      drawerContent={(props) => <CustomDrawerContent {...props} />}
-    >
-      {routes.map((route) => (
+      screenOptions={{
+        ...navigationTheme,
+        drawerStyle: {
+          maxWidth: 240,
+        },
+        drawerLabelStyle: {
+          fontFamily: 'Poppins_700Regular',
+          fontSize: 16,
+          color: theme.palette.text.primary,
+        },
+      }}
+      drawerContent={(props) => (
+        <SafeAreaView style={{ flex: 1 }}>
+          <CustomDrawerContent {...props} />
+        </SafeAreaView>
+      )}>
+      {routes.map((routeDef) => (
         <NavDrawer.Screen
-          key={route.name}
-          name={route.name}
-          component={route.component}
-          options={{ drawerLabel: route.label }}
+          key={routeDef.name}
+          name={routeDef.label}
+          component={routeDef.component}
+          options={({ route }) => {
+            return {
+              drawerLabel: routeDef.label,
+              drawerIcon: () => {
+                return <Icon source={routeDef.icon} size={24} color={theme.palette.text.primary} />;
+              },
+              headerShown: routeDef.headerShown?.(route) ?? true,
+            };
+          }}
         />
       ))}
     </NavDrawer.Navigator>

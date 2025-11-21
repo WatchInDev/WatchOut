@@ -13,17 +13,15 @@ import org.zpi.watchout.data.AbstractEntity
 class User(
     @Column(name = "name")
     val name : String,
-    @Column(name = "last_name")
-    val lastName : String,
     @Email
     @Column(name = "email", unique = true)
     val email : String,
-    @Column(name = "phone_number", unique = true)
-    val phoneNumber : String,
-    @Min(-100)
-    @Max(100)
+    @Min(0)
+    @Max(1)
     @Column(name="reputation")
-    val reputation : Double,
+    var reputation : Double,
+    @Column(name = "external_id", unique = true)
+    val externalId : String
 ) : AbstractEntity()
 {
 
