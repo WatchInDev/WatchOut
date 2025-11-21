@@ -7,6 +7,11 @@ import time
 import io
 
 import requests
+from loguru import logger
+
+from logging_config import setup_loguru
+
+setup_loguru()
 
 sample_url = """
 https://www.tauron-dystrybucja.pl/waapi/outages/area
