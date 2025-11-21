@@ -11,7 +11,7 @@ import org.zpi.watchout.service.dto.CommentResponseDTO
 import org.zpi.watchout.service.mapper.CommentMapper
 
 @Service
-class CommentService (private val commentRepository: CommentRepository, private val commentMapper: CommentMapper, private val eventRepository: EventRepository) {
+class CommentService (private val commentRepository: CommentRepository, private val commentMapper: CommentMapper, private val eventRepository: EventRepository, private val geoService: GeoService) {
     fun getCommentsByEventId(eventId: Long, userId: Long, pageable: Pageable): Page<CommentResponseDTO> {
         return commentRepository.findByEventId(eventId, userId, pageable)
     }

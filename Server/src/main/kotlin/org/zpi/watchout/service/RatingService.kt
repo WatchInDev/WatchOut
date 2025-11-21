@@ -6,13 +6,14 @@ import org.zpi.watchout.data.repos.CommentRatingRepository
 import org.zpi.watchout.data.repos.EventRatingRepository
 
 @Service
-class RatingService (private val commentRatingRepository: CommentRatingRepository, private val eventRatingRepository: EventRatingRepository) {
+class RatingService (private val commentRatingRepository: CommentRatingRepository, private val eventRatingRepository: EventRatingRepository, private val geoService: GeoService) {
 
     fun upsertCommentRating(userId: Long, commentId: Long, ratingValue: Int) {
         commentRatingRepository.upsertRating(userId, commentId, ratingValue)
     }
 
-    fun upsertEventRating(userId: Long, eventId: Long, ratingValue: Int) {
+    fun upsertEventRating(userId: Long, eventId: Long, ratingValue: Int, userLat: Double, userLng: Double, maxDistance: Double) {
+        geoService.isUserWithinDistance(eventId, userLat, userLng, maxDistance)
         eventRatingRepository.upsertRating(userId, eventId, ratingValue)
     }
 
