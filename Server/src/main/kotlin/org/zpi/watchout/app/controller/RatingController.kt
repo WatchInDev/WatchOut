@@ -31,7 +31,7 @@ class RatingController(private val ratingService: RatingService) {
         @Parameter(hidden = true) @AuthenticationPrincipal userId : Long
     ){
         logger.info { "Rating event with id: $eventId" }
-        ratingService.upsertEventRating(userId,eventId, ratingRequestDTO.rating)
+        ratingService.upsertEventRating(userId, eventId, ratingRequestDTO.rating)
         logger.info { "Rated event with id: $eventId" }
     }
 

@@ -20,8 +20,11 @@ class CommentService (private val commentRepository: CommentRepository, private 
         if (!eventRepository.existsById(eventId)) {
             throw EntityNotFoundException("Event with id $eventId does not exist")
         }
+
+        if (!geoService.isUserWithinDistance(eventId, commentRequestDto.latitude, commentRequestDto.longitude)) {
+            throw IllegalArgumentException("User is not within the allowed distance to comment on this event")
+        }
         val comment = commentMapper.mapToEntity(commentRequestDto, authorId = userId, eventId)
         return commentMapper.mapToDto(commentRepository.save(comment))
     }
-
 }
