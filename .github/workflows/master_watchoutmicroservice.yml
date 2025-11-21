@@ -49,13 +49,6 @@ jobs:
         with:
           name: python-app
 
-      - name: Login to Azure
-        uses: azure/login@v2
-        with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_1DD8808ACCED40B1A00570B1FCB7D763 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_FAF342EA3E894F3FAF6CC63D6B7735A3 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_CFB2112E5AF54FB88CF86F7BE16B138F }}
-
       # - name: Unzip artifact for deployment
       #   run: |
       #     unzip release.zip
