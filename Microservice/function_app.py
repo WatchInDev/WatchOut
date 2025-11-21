@@ -39,16 +39,16 @@ def send_data_to_server(myTimer: func.TimerRequest) -> None:
     if myTimer.past_due:
         logger.info('The timer is past due!')
 
-    url = os.getenv("URL", '')
-    token = os.getenv("SERVER_AUTH_TOKEN", '')
+    url = os.getenv("SERVER_ENDPOINT", '')
+    token = os.getenv("SERVER_AUTH_TOKEN", '123')
     electricity = electricity_outages_fetching()
     imgw = meteorological_warnings_fetching()
 
     payload = {'electricity': electricity, 'weather': imgw}
 
     try:
-        requests.post(url, json=payload, headers={'Authorization': f'Bearer {token}'})
-        response.raise_for_status()
+        resp = requests.post(url, json=payload, headers={'Authorization': f'Bearer {token}'})
+        resp.raise_for_status()
         logger.info('Data sent successfully')
     except Exception as e:
         logger.exception(f"Exception during data sending to server: {e}")
