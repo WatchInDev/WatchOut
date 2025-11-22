@@ -6,16 +6,16 @@ import org.zpi.watchout.data.entity.ElectricalOutage
 import java.sql.Timestamp
 
 @Repository
-class ElectricalOutagesJdbcRepository(
+class ElectricalOutagesJdbcRepositoryInterface(
     private val jdbcTemplate: JdbcTemplate
-) {
+): ElectricalOutageJdbcRepositoryInterface {
     private val insertSql = """
         INSERT INTO watchout.electrical_outages(region, voivodeship, provider, from_date, to_date, location)
         VALUES (?, ?, ?, ?, ?, ?)
         ON CONFLICT (region, voivodeship, provider, from_date, to_date, location) DO NOTHING
     """.trimIndent()
 
-    fun batchSave(outages: List<ElectricalOutage>) {
+    override fun batchSave(outages: List<ElectricalOutage>) {
         jdbcTemplate.batchUpdate(
             insertSql,
             outages.map { outage ->
