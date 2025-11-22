@@ -71,6 +71,7 @@ export const CustomTextInput = ({ label, startIcon, endIcon, ...props }: CustomT
         {...props}
         style={[
           {
+            flex: 1,
             fontFamily: theme.typography.fontFamily,
             lineHeight: 24,
             color: theme.palette.text.primary,
