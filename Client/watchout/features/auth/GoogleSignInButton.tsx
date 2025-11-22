@@ -1,8 +1,8 @@
-import { Button, Icon } from 'react-native-paper';
+import { Icon } from 'react-native-paper';
+import { TouchableOpacity, StyleSheet } from 'react-native';
 import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
 import { signInWithGoogleIdToken } from './auth';
 import { WEB_CLIENT_ID } from '@env';
-import { theme } from 'utils/theme';
 
 GoogleSignin.configure({
   webClientId: WEB_CLIENT_ID,
@@ -33,13 +33,28 @@ export const GoogleSignInButton = () => {
       }
     }
   };
-
   return (
-    <Button
-      mode="contained"
-      onPress={signIn}
-      icon={({ size }) => <Icon source="google" size={size} color={theme.palette.text.primaryInverse} />}>
-      Zaloguj się przez Google
-    </Button>
+    <TouchableOpacity style={styles.button} onPress={signIn}>
+      <Icon source={require('../../assets/icons/google-logo.png')} size={28} />
+    </TouchableOpacity>
   );
 };
+
+const styles = StyleSheet.create({
+  button: {
+    width: 55,
+    height: 55,
+    borderRadius: 30,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+
+    elevation: 4,
+
+    shadowColor: '#000',
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    shadowOffset: { width: 0, height: 2 },
+  },
+});
+

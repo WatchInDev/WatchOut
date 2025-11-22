@@ -54,6 +54,7 @@ export const LoginScreen = () => {
             size={250}
           />
         </View>
+
         <View style={{ gap: 16 }}>
           <CustomTextInput
             placeholder="Email"
@@ -71,22 +72,33 @@ export const LoginScreen = () => {
           />
         </View>
 
-        <Button mode='contained' onPress={handleLogin} style={{ marginTop: 20 }} >
-          Zaloguj się
-        </Button>
-
-
-        <View style={{ marginVertical: 10 }}>
-          <GoogleSignInButton />
-        </View>
-        {/* Reset password link */}
-        <TouchableOpacity onPress={() => setResetVisible(true)}>
+        <TouchableOpacity
+          onPress={() => setResetVisible(true)}
+          style={{ alignSelf: 'flex-end' }}
+        >
           <Text style={styles.forgotText}>Zapomniałeś hasła?</Text>
         </TouchableOpacity>
+
+        <Button mode='contained' onPress={handleLogin} style={{ marginTop: 20 }}>
+          Zaloguj się
+        </Button>
 
         <TouchableOpacity onPress={() => navigation.navigate('SignUp' as never)}>
           <Text style={styles.registerText}>Nie masz konta? Zarejestruj się</Text>
         </TouchableOpacity>
+
+        <View style={{ marginTop: 80 }}>
+          
+          <View style={styles.dividerRow}>
+            <View style={styles.divider} />
+            <Text style={styles.socialText}>Lub zaloguj się kontem</Text>
+            <View style={styles.divider} />
+          </View>
+
+          <View style={styles.socialButtonsWrapper}>
+            <GoogleSignInButton />
+          </View>
+        </View>
       </View>
 
       <Modal visible={resetVisible} transparent animationType="fade">
@@ -118,22 +130,26 @@ export const LoginScreen = () => {
 
 const styles = StyleSheet.create({
   container: { flex: 1, justifyContent: 'center', padding: 16 },
+
   registerText: {
     marginTop: 20,
     textAlign: 'center',
     color: '#007bff',
   },
+
   forgotText: {
     marginTop: 12,
-    textAlign: 'center',
+    textAlign: 'right',
     color: '#007bff',
   },
+
   modalOverlay: {
     flex: 1,
     backgroundColor: 'rgba(0,0,0,0.45)',
     justifyContent: 'center',
     alignItems: 'center',
   },
+
   modalBox: {
     width: '85%',
     backgroundColor: 'white',
@@ -141,10 +157,36 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     elevation: 5,
   },
+
   modalTitle: {
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 12,
     textAlign: 'center',
+  },
+
+
+  socialText: {
+    color: '#606060',
+    fontSize: 16,
+  },
+
+  socialButtonsWrapper: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginTop: 10,
+  },
+
+  dividerRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+
+  divider: {
+    flex: 1,
+    height: 1,
+    backgroundColor: '#606060',
+    marginHorizontal: 10,
   },
 });
