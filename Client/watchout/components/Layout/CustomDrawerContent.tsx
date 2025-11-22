@@ -9,6 +9,8 @@ import { Text } from 'components/Base/Text';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useAuth } from 'features/auth/authContext';
 import { theme } from 'utils/theme';
+import * as Clipboard from 'expo-clipboard';
+import { getAuth, getIdToken } from '@react-native-firebase/auth';
 
 export const CustomDrawerContent = (props: DrawerContentComponentProps) => {
   const { logout } = useAuth();
@@ -52,6 +54,16 @@ export const CustomDrawerContent = (props: DrawerContentComponentProps) => {
           textColor={theme.palette.error}
           icon="logout">
           Wyloguj
+        </Button>
+        <View style={{ marginVertical: 4 }} />
+        <Button
+          mode="outlined"
+          onPress={async () => {
+            const auth = getAuth();
+            const idToken = await getIdToken(auth.currentUser!);
+            Clipboard.setStringAsync(idToken);
+          }}>
+          Kopiuj token API
         </Button>
       </View>
     </SafeAreaView>

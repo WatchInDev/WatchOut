@@ -2,7 +2,7 @@ import { PageWrapper } from 'components/Common/PageWrapper';
 import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Text } from 'components/Base/Text';
 import { useNavigation } from '@react-navigation/native';
-import { OutageButton } from 'features/outages/OutageButton';
+import { IconWithTitle } from 'components/Common/IconWithTitle';
 import { Row } from 'components/Base/Row';
 import { useState } from 'react';
 import { AddLocationRequest, Coordinates } from 'utils/types';
@@ -16,6 +16,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { LocationTextInput } from 'components/Common/LocationTextInput';
 import { CustomSurface } from 'components/Layout/CustomSurface';
 import { useQueryClient } from '@tanstack/react-query';
+import { CustomSlider } from 'components/Base/CustomSlider';
 
 const MIN_RADIUS = 0;
 const MAX_RADIUS = 50;
@@ -67,7 +68,7 @@ export const AddLocation = () => {
   }) => {
     return (
       <TouchableOpacity onPress={() => toggleService(service)}>
-        <OutageButton
+        <IconWithTitle
           iconName={iconName}
           label={label}
           iconSize={50}
@@ -133,17 +134,12 @@ export const AddLocation = () => {
               <View style={{ flex: 1 }} />
               <Text>{MAX_RADIUS} km</Text>
             </Row>
-            <Slider
+            <CustomSlider
               value={location.radius}
-              onValueChange={([value]) => setLocation((prev) => ({ ...prev, radius: value }))}
+              onValueChange={(value) => setLocation((prev) => ({ ...prev, radius: value }))}
+              min={MIN_RADIUS}
+              max={MAX_RADIUS}
               step={1}
-              trackStyle={{ height: 16, borderRadius: 7.5 }}
-              thumbStyle={{ width: 32, height: 32, borderRadius: 16 }}
-              thumbTintColor={theme.palette.text.primary}
-              minimumTrackTintColor={theme.palette.primary}
-              maximumTrackTintColor={theme.palette.tertiary}
-              minimumValue={MIN_RADIUS}
-              maximumValue={MAX_RADIUS}
             />
             <Text>
               <Text weight="bold">Obecny zasięg:</Text> {location.radius} km
