@@ -28,8 +28,6 @@ export const OutageLocations = () => {
       showSnackbar({
         message: 'Lokalizacja została usunięta.',
         type: 'info',
-        label: 'OK',
-        onPress: () => {},
       });
       setLocationToDelete(null);
     } else {
