@@ -1,9 +1,9 @@
-import { Dimensions, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Dimensions, StyleSheet, View } from 'react-native';
 import MapView, { LongPressEvent, Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import { useUserLocation } from 'features/map/useLocation';
 import { Coordinates, Event, EventFilters } from 'utils/types';
 import { Icon } from 'react-native-paper';
-import { useRef, useState, useCallback, SetStateAction } from 'react';
+import { useRef, useState, useCallback, useEffect } from 'react';
 import { EventBottomSheet } from 'features/events/EventBottomSheet';
 import { useMapLogic } from 'features/map/useMapLogic';
 import { ClusterMarker } from './ClusterMarker';
@@ -11,9 +11,7 @@ import { EventMarker } from './EventMarker';
 import { CreateEventBottomSheet } from 'features/events/CreateEventBottomSheet';
 import { FilterButton } from './filters/FilterButton';
 import { Filters } from './filters/Filters';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useEffect } from 'react';
-import { FILTERS_STORAGE_KEY } from 'utils/constants';
+import { useLoadFilters } from './useLoadFilters';
 
 const styles = StyleSheet.create({
   container: {
@@ -36,19 +34,9 @@ export const Map = () => {
   const { location } = useUserLocation();
   const [filters, setFilters] = useState<EventFilters>({ hoursSinceReport: 2, eventTypesIds: [] });
 
-  useEffect(() => {
-    const loadFilters = async () => {
-      try {
-        const storedFilters = await AsyncStorage.getItem(FILTERS_STORAGE_KEY);
-        if (storedFilters) {
-          setFilters(JSON.parse(storedFilters));
-        }
-      } catch (e) {
-        console.error('Failed to load filters from storage', e);
-      }
-    };
-    loadFilters();
-  }, []);
+  useLoadFilters((storedFilters) => {
+    if (storedFilters) setFilters(JSON.parse(storedFilters));
+  });
 
   const { events, clusters, isZoomedEnough, onRegionChangeComplete, refetch } = useMapLogic(
     mapRef as React.RefObject<MapView>,
