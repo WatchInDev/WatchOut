@@ -3,6 +3,7 @@ import { useGetEvents, useGetEventsClustered } from 'features/events/events.hook
 import MapView, { Region } from 'react-native-maps';
 import { MAP_CLUSTERING_ZOOM_THRESHOLD } from 'utils/constants';
 import { EventFilters } from 'utils/types';
+import { hoursToMilliseconds } from 'utils/helpers';
 
 export const useMapLogic = (mapRef: React.RefObject<MapView>, eventFilter: EventFilters) => {
   const [mapBounds, setMapBounds] = useState({
@@ -19,20 +20,21 @@ export const useMapLogic = (mapRef: React.RefObject<MapView>, eventFilter: Event
     setInitializationDate(new Date());
   }, []);
 
-  const { data: events, refetch } = useGetEvents(
-    {
-      coordinates: mapBounds,
-      eventTypeIds: eventFilter.eventTypesIds,
-      reportedDateFrom: new Date(initializationDate.getTime() - eventFilter.hoursSinceReport * 60 * 60 * 1000),
-    },
-    isZoomedEnough
-  );
+  const filterPayload = {
+    coordinates: mapBounds,
+    eventTypeIds: eventFilter.eventTypesIds,
+    reportedDateFrom: new Date(
+      initializationDate.getTime() - hoursToMilliseconds(eventFilter.hoursSinceReport)
+    ),
+  };
+
+  const { data: events, refetch } = useGetEvents(filterPayload, isZoomedEnough);
 
   const eps = Math.max(0.01, 0.1 / Math.pow(2, zoomLevel - 8));
 
   const { data: clusters } = useGetEventsClustered(
     {
-      coordinates: mapBounds,
+      baseRequest: filterPayload,
       minPoints: 1,
       eps,
     },

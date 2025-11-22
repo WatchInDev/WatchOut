@@ -150,3 +150,10 @@ export type GetEventsRequest = {
   distance?: number;
   rating?: number;
 };
+
+export type GetEventClusteredRequest = {
+  coordinates: CoordinatesRect;
+  eventTypeIds?: number[];
+  reportedDateFrom?: Date;
+  reportedDateTo?: Date;
+}

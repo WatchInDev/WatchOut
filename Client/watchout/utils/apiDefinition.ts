@@ -1,4 +1,4 @@
-import type { CoordinatesRect, GetEventsRequest, PaginationRequest } from './types';
+import type { GetEventsRequest, PaginationRequest } from './types';
 
 export type ApiDefinition = {
   key: string[];
@@ -7,9 +7,9 @@ export type ApiDefinition = {
 
 export const API_ENDPOINTS = {
   events: {
-    get: (coordinates: GetEventsRequest) => `events${queryParams(coordinates)}`,
-    getClusters: (coordinates: CoordinatesRect, minPoints: number, eps: number) =>
-      `events/clusters${queryParams(coordinates)}&minPoints=${minPoints}&eps=${eps}`,
+    get: (request: GetEventsRequest) => `events${queryParams(request)}`,
+    getClusters: (request: GetEventsRequest, minPoints: number, eps: number) =>
+      `events/clusters${queryParams(request)}&minPoints=${minPoints}&eps=${eps}`,
     create: 'events',
   },
   comments: {

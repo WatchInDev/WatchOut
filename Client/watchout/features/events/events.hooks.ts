@@ -56,20 +56,15 @@ export const useGetEvents = (request: GetEventsRequest, isEnabled: boolean) => {
 };
 
 type GetEventClustersRequest = {
-  coordinates: CoordinatesRect;
+  baseRequest: GetEventsRequest;
   minPoints: number;
   eps: number;
 };
 
 export const useGetEventsClustered = (request: GetEventClustersRequest, isEnabled: boolean) =>
   useQueryHook<EventCluster[]>(
-    [
-      'events',
-      request.coordinates.neLat.toFixed(1),
-      request.coordinates.neLng.toFixed(1),
-      'clustered',
-    ],
-    API_ENDPOINTS.events.getClusters(request.coordinates, request.minPoints, request.eps),
+    ['events', 'clustered', JSON.stringify(request)],
+    API_ENDPOINTS.events.getClusters(request.baseRequest, request.minPoints, request.eps),
     isEnabled
   );
 
