@@ -29,6 +29,7 @@ export const IconWithTitle = ({
           backgroundColor: isActive ? theme.palette.primary : theme.palette.tertiary,
           aspectRatio: 1,
           padding: 8,
+          opacity: isActive ? 1 : 0.4,
           borderRadius: 8,
           justifyContent: 'center',
           alignItems: 'center',

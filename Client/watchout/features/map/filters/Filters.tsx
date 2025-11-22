@@ -27,24 +27,8 @@ export const Filters = ({ isVisible, onClose, filters, setFilters }: FiltersProp
 
   const [localFilters, setLocalFilters] = useState<EventFilters>(filters);
 
-  useEffect(() => {
-    const loadFilters = async () => {
-      try {
-        const storedFilters = await AsyncStorage.getItem(FILTERS_STORAGE_KEY);
-        if (storedFilters) {
-          setFilters(JSON.parse(storedFilters));
-        }
-      } catch (error) {
-        console.error('Failed to load filters from storage:', error);
-      }
-    };
-
-    loadFilters();
-  }, [setFilters]);
-
   const handleApplyFilters = async () => {
     try {
-      console.log('Saving filters preference to storage');
       await AsyncStorage.setItem(FILTERS_STORAGE_KEY, JSON.stringify(localFilters));
       setFilters(localFilters);
       showSnackbar({ message: 'Filtry zostały zastosowane', type: 'success' });

@@ -12,6 +12,9 @@ import { CreateEventBottomSheet } from 'features/events/CreateEventBottomSheet';
 import { FilterButton } from './filters/FilterButton';
 import { Filters } from './filters/Filters';
 import { useLoadFilters } from './useLoadFilters';
+import { DEFAULT_REPORT_HOURS_FILTER, FILTERS_STORAGE_KEY } from 'utils/constants';
+import { useGetEventTypes } from 'features/events/event-types.hooks';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const styles = StyleSheet.create({
   container: {
@@ -33,10 +36,22 @@ export const Map = () => {
   const mapRef = useRef<MapView>(null);
   const { location } = useUserLocation();
   const [filters, setFilters] = useState<EventFilters>({ hoursSinceReport: 2, eventTypesIds: [] });
+  const { data: eventTypes } = useGetEventTypes();
+  
+  useEffect(() => {
+    const loadFilters = async () => {
+      try {
+        const storedFilters = await AsyncStorage.getItem(FILTERS_STORAGE_KEY);
+        if (storedFilters) {
+          setFilters(JSON.parse(storedFilters));
+        }
+      } catch (e) {
+        console.error('Failed to load filters from storage', e);
+      }
+    };
 
-  useLoadFilters((storedFilters) => {
-    if (storedFilters) setFilters(JSON.parse(storedFilters));
-  });
+    loadFilters();
+  }, []);
 
   const { events, clusters, isZoomedEnough, onRegionChangeComplete, refetch } = useMapLogic(
     mapRef as React.RefObject<MapView>,
@@ -133,7 +148,7 @@ export const Map = () => {
       ) : (
         <FilterButton
           onClick={() => setFiltersVisible((prev) => !prev)}
-          active={true}
+          isDirty={filters.eventTypesIds.length < (eventTypes?.length ?? 0) || filters.hoursSinceReport !== DEFAULT_REPORT_HOURS_FILTER}
           label="Filter Events"
         />
       )}

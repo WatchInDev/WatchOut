@@ -4,18 +4,24 @@ import { theme } from 'utils/theme';
 
 interface FilterButtonProps {
   onClick: () => void;
-  active?: boolean;
+  isDirty: boolean;
   label?: string;
 }
 
-export const FilterButton = ({ onClick, active = true, label }: FilterButtonProps) => {
+export const FilterButton = ({ onClick, isDirty, label }: FilterButtonProps) => {
   return (
     <TouchableOpacity
       onPress={onClick}
       accessibilityLabel={label}
-      style={[styles.button, active ? styles.active : styles.inactive]}>
+      style={[styles.button]}>
+      {isDirty && (
+        <View style={styles.badge}>
+          <Icon source="cog" size={20} color={theme.palette.text.primaryInverse} />
+        </View>
+      )}
+
       <View style={styles.iconContainer}>
-        <Icon source="filter-variant" size={28} color={active ? '#fff' : theme.palette.primary} />
+        <Icon source="filter-variant" size={28} color={theme.palette.text.primaryInverse} />
       </View>
     </TouchableOpacity>
   );
@@ -31,18 +37,23 @@ const styles = StyleSheet.create({
     borderRadius: 32,
     justifyContent: 'center',
     alignItems: 'center',
-    elevation: 5,
-  },
-  active: {
     backgroundColor: theme.palette.primary,
-  },
-  inactive: {
-    backgroundColor: theme.palette.text.primaryInverse,
-    borderWidth: 1,
-    borderColor: theme.palette.primary,
   },
   iconContainer: {
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  badge: {
+    position: 'absolute',
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: theme.palette.text.primaryInverse,
+    top: 8,
+    right: 8,
+    width: 24,
+    height: 24,
+    borderRadius: 24,
+    backgroundColor: theme.palette.primary,
+    zIndex: 10,
   },
 });
