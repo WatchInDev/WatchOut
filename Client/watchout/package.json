@@ -70,6 +70,7 @@
     "eslint-plugin-import": "^2.32.0",
     "prettier": "^3.2.5",
     "react-native-dotenv": "^3.4.11",
+    "reactotron-react-native": "^5.1.18",
     "typescript": "~5.9.2"
   },
   "main": "node_modules/expo/AppEntry.js",
