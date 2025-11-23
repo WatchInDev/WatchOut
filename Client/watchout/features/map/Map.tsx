@@ -11,7 +11,6 @@ import { EventMarker } from './EventMarker';
 import { CreateEventBottomSheet } from 'features/events/create/CreateEventBottomSheet';
 import { FilterButton } from './filters/FilterButton';
 import { Filters } from './filters/Filters';
-import { useLoadFilters } from './useLoadFilters';
 import { DEFAULT_REPORT_HOURS_FILTER, FILTERS_STORAGE_KEY } from 'utils/constants';
 import { useGetEventTypes } from 'features/events/event-types.hooks';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -37,7 +36,7 @@ export const Map = () => {
   const { location } = useUserLocation();
   const [filters, setFilters] = useState<EventFilters>({ hoursSinceReport: 2, eventTypesIds: [] });
   const { data: eventTypes } = useGetEventTypes();
-  
+
   useEffect(() => {
     const loadFilters = async () => {
       try {
@@ -148,7 +147,10 @@ export const Map = () => {
       ) : (
         <FilterButton
           onClick={() => setFiltersVisible((prev) => !prev)}
-          isDirty={filters.eventTypesIds.length < (eventTypes?.length ?? 0) || filters.hoursSinceReport !== DEFAULT_REPORT_HOURS_FILTER}
+          isDirty={
+            filters.eventTypesIds.length < (eventTypes?.length ?? 0) ||
+            filters.hoursSinceReport !== DEFAULT_REPORT_HOURS_FILTER
+          }
           label="Filter Events"
         />
       )}
@@ -159,6 +161,7 @@ export const Map = () => {
       {newEventLocation && (
         <CreateEventBottomSheet
           location={newEventLocation}
+          onClose={() => setNewEventLocation(null)}
           onSuccess={() => {
             setNewEventLocation(null);
             refetch();

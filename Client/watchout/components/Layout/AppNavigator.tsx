@@ -1,7 +1,7 @@
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { Icon } from 'react-native-paper';
-import { useAuth } from 'features/auth/authContext'; 
+import { useAuth } from 'features/auth/authContext';
 import { CustomDrawerContent } from './CustomDrawerContent';
 import { EventTypes } from 'features/event-types/EventTypes';
 import { Map } from 'features/map/Map';
@@ -12,6 +12,7 @@ import { SettingsNavigator } from 'features/settings/SettingsNavigator';
 import { getFocusedRouteNameFromRoute, RouteProp } from '@react-navigation/native';
 import { navigationTheme } from 'components/Base/navigationTheme';
 import { OutagesNavigator } from 'features/outages/OutagesNavigator';
+import { useBottomSheetModal } from '@gorhom/bottom-sheet';
 
 const NavDrawer = createDrawerNavigator();
 
@@ -36,7 +37,7 @@ const routes = [
     headerShown: (route: RouteProp<any, any>) => {
       const focusedRoute = getFocusedRouteNameFromRoute(route);
       return !focusedRoute || focusedRoute === 'OutagesMain';
-    }
+    },
   },
   {
     name: 'Settings',
@@ -52,15 +53,15 @@ const routes = [
 
 export const AppNavigator = () => {
   const { user, loading } = useAuth();
+  const { dismissAll } = useBottomSheetModal();
 
-  if (loading) return null; 
+  if (loading) return null;
 
   if (!user) {
     return (
       <NavDrawer.Navigator
         screenOptions={{ headerShown: false }}
-        drawerContent={(props) => <SafeAreaView style={{ flex: 1 }} />}
-      >
+        drawerContent={(props) => <SafeAreaView style={{ flex: 1 }} />}>
         <NavDrawer.Screen name="Login" component={LoginScreen} />
         <NavDrawer.Screen name="SignUp" component={SignUpScreen} />
       </NavDrawer.Navigator>
@@ -69,6 +70,9 @@ export const AppNavigator = () => {
 
   return (
     <NavDrawer.Navigator
+      screenListeners={{
+        state: () => { dismissAll(); },
+      }}
       screenOptions={{
         ...navigationTheme,
         drawerStyle: {
