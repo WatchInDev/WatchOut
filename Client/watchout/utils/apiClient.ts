@@ -12,8 +12,6 @@ export const apiClient = axios.create({
 
 apiClient.interceptors.request.use(
   async (config) => {
-    console.log(`[${config.method?.toUpperCase()}] Request URL:`, config.url);
-
     try {
       const auth = getAuth();
       const currentUser = auth.currentUser;
@@ -35,7 +33,6 @@ apiClient.interceptors.request.use(
 
 apiClient.interceptors.response.use(
   (response) => {
-    console.log(`[${response.config.method?.toLocaleUpperCase()}] Response URL:`, response.config.url, 'Status:', response.status);
     return response;
   }
 );

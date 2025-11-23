@@ -21,7 +21,7 @@ export type Event = {
   id: number;
   name: string;
   description: string;
-  image: string;
+  images: string[];
   latitude: number;
   longitude: number;
   reportedDate: string;
@@ -45,7 +45,7 @@ export type Outage = {
 export type CreateEventRequest = {
   name: string;
   description: string;
-  image: string | null;
+  images: string[]; // base64 encoded images
   latitude: number;
   longitude: number;
   endDate: Date | string;
