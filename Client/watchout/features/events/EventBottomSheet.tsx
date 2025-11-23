@@ -46,6 +46,7 @@ export const EventBottomSheet = ({ event, onClose }: EventBottomSheetProps) => {
           <EventDetails event={event} />
           <Divider style={{ marginTop: 16 }} />
         </View>
+
         <View style={{ gap: 8 }}>
           <Text variant="body2" color="secondary" style={{ textAlign: 'center' }}>
             Czy potwierdzasz, że zdarzenie nadal ma miejsce?
@@ -65,6 +66,7 @@ export const EventBottomSheet = ({ event, onClose }: EventBottomSheetProps) => {
             </Button>
           </View>
         </View>
+
         <View>
           <CommentList eventId={event.id} />
         </View>

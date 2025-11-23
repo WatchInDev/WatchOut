@@ -1,43 +1,13 @@
 import { useQueryHook } from 'utils/useQueryHook';
 import {
-  CoordinatesRect,
-  CreateEventRequest,
   Event,
   EventCluster,
   GetEventsRequest,
 } from 'utils/types';
 import { API_ENDPOINTS } from 'utils/apiDefinition';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { apiClient } from 'utils/apiClient';
-
-const roundToInterval = (value: number, interval: number): number => {
-  if (interval <= 0) return value;
-
-  return Math.round(value / interval) * interval;
-};
-
-const enlargeCoordinates = (coordinates: CoordinatesRect, margin: number): CoordinatesRect => {
-  return {
-    neLat: coordinates.neLat + margin,
-    neLng: coordinates.neLng + margin,
-    swLat: coordinates.swLat - margin,
-    swLng: coordinates.swLng - margin,
-  };
-};
-
-const roundCoordinates = (coordinates: CoordinatesRect, interval: number): CoordinatesRect => {
-  return {
-    neLat: roundToInterval(coordinates.neLat, interval),
-    neLng: roundToInterval(coordinates.neLng, interval),
-    swLat: roundToInterval(coordinates.swLat, interval),
-    swLng: roundToInterval(coordinates.swLng, interval),
-  };
-};
-
-const stringifyCoordinatesWithInterval = (coordinates: CoordinatesRect, interval: number) => {
-  const { neLat, neLng, swLat, swLng } = roundCoordinates(coordinates, interval);
-  return `${neLat},${neLng},${swLat},${swLng}`;
-};
+import { enlargeCoordinates, stringifyCoordinatesWithInterval } from 'utils/helpers';
 
 export const useGetEvents = (request: GetEventsRequest, isEnabled: boolean) => {
   const enlargedCoordinates = enlargeCoordinates(request.coordinates, 0.1);
@@ -67,11 +37,3 @@ export const useGetEventsClustered = (request: GetEventClustersRequest, isEnable
     API_ENDPOINTS.events.getClusters(request.baseRequest, request.minPoints, request.eps),
     isEnabled
   );
-
-export const useCreateEvent = () =>
-  useMutation({
-    mutationKey: ['createEvent'],
-    mutationFn: async (request: CreateEventRequest) => {
-      return apiClient.post<Event>(API_ENDPOINTS.events.create, request).then((res) => res.data);
-    },
-  });

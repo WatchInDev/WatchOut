@@ -8,7 +8,7 @@ import { EventBottomSheet } from 'features/events/EventBottomSheet';
 import { useMapLogic } from 'features/map/useMapLogic';
 import { ClusterMarker } from './ClusterMarker';
 import { EventMarker } from './EventMarker';
-import { CreateEventBottomSheet } from 'features/events/CreateEventBottomSheet';
+import { CreateEventBottomSheet } from 'features/events/create/CreateEventBottomSheet';
 import { FilterButton } from './filters/FilterButton';
 import { Filters } from './filters/Filters';
 import { useLoadFilters } from './useLoadFilters';
