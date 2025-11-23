@@ -2,6 +2,7 @@ import json
 import re
 import sys
 
+from logging_config import setup_loguru
 
 import requests
 from datetime import datetime

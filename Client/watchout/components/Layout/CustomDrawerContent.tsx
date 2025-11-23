@@ -3,23 +3,22 @@
   DrawerContentScrollView,
   DrawerItem,
 } from '@react-navigation/drawer';
-import { View, StyleSheet, Button } from 'react-native';
+import { View, StyleSheet } from 'react-native';
+import { Button } from 'react-native-paper';
 import { Text } from 'components/Base/Text';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useAuth } from 'features/auth/authContext';
+import { theme } from 'utils/theme';
+import * as Clipboard from 'expo-clipboard';
+import { getAuth, getIdToken } from '@react-native-firebase/auth';
 
 export const CustomDrawerContent = (props: DrawerContentComponentProps) => {
   const { logout } = useAuth();
-  
+
   const handleLogout = async () => {
     await logout();
 
     props.navigation.closeDrawer();
-
-    props.navigation.reset({
-      index: 0,
-      routes: [{ name: "Login" }],
-    });
   };
 
   return (
@@ -37,7 +36,7 @@ export const CustomDrawerContent = (props: DrawerContentComponentProps) => {
               icon={icon}
               key={route.key}
               label={() => (
-                <Text>
+                <Text style={isRouteActive ? { fontWeight: 700 } : {}}>
                   {props.descriptors[route.key].options.drawerLabel?.toString() || route.name}
                 </Text>
               )}
@@ -48,7 +47,24 @@ export const CustomDrawerContent = (props: DrawerContentComponentProps) => {
         })}
       </DrawerContentScrollView>
       <View style={styles.logoutContainer}>
-        <Button title="Wyloguj" onPress={handleLogout} color="#d9534f" />
+        <Button
+          mode="outlined"
+          style={{ borderColor: theme.palette.error }}
+          onPress={handleLogout}
+          textColor={theme.palette.error}
+          icon="logout">
+          Wyloguj
+        </Button>
+        <View style={{ marginVertical: 4 }} />
+        <Button
+          mode="outlined"
+          onPress={async () => {
+            const auth = getAuth();
+            const idToken = await getIdToken(auth.currentUser!);
+            Clipboard.setStringAsync(idToken);
+          }}>
+          Kopiuj token API
+        </Button>
       </View>
     </SafeAreaView>
   );

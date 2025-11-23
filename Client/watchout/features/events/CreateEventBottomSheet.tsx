@@ -1,13 +1,21 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
 import dayjs from 'dayjs';
-import { Alert, StyleSheet, TouchableOpacity } from 'react-native';
-import { TextInput, Button } from 'react-native-paper';
+import {
+  Alert,
+  KeyboardAvoidingView,
+  Platform,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import { Text } from 'components/Base/Text';
+import { CustomTextInput } from 'components/Base/CustomTextInput';
 import { useCreateEvent } from 'features/events/events.hooks';
 import { Coordinates, CreateEventRequest } from 'utils/types';
 import { reverseGeocode } from 'features/map/reverseGeocode';
 import { EventTypeSelectionModal } from './EventTypeSelectionModal';
 import { BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet';
+import { Button } from 'react-native-paper';
 
 type CreateEventProps = {
   location: Coordinates;
@@ -37,6 +45,7 @@ export const CreateEventBottomSheet = ({ location, onSuccess }: CreateEventProps
     name: string;
     icon: string;
   } | null>(null);
+  
   const handleSetSelectedEventType = (
     eventType: { id: number; name: string; icon: string } | null
   ) => {
@@ -100,52 +109,59 @@ export const CreateEventBottomSheet = ({ location, onSuccess }: CreateEventProps
   const isLoading = createEventMutation.isPending;
 
   return (
-    <BottomSheetModal ref={bottomSheetRef} enableDynamicSizing enablePanDownToClose>
-      <BottomSheetView style={styles.container}>
-        <Text style={styles.title}>Zgłoś nowe zdarzenie!</Text>
-        <TextInput
-          label="Tytuł zdarzenia"
-          mode="outlined"
-          value={formData.name}
-          onChangeText={(value) => updateField('name', value)}
-        />
-        <TextInput
-          label="Opis zdarzenia"
-          mode="outlined"
-          value={formData.description}
-          onChangeText={(value) => updateField('description', value)}
-          multiline
-          numberOfLines={3}
-        />
-        <TouchableOpacity onPress={() => setEventTypeModalVisible(true)}>
-          <TextInput
-            label="Rodzaj zdarzenia"
-            mode="outlined"
-            value={selectedEventType?.name || 'Wybierz rodzaj zdarzenia'}
-            right={<TextInput.Icon icon="menu-down" />}
-            left={selectedEventType ? <TextInput.Icon icon={selectedEventType.icon} /> : undefined}
-            editable={false}
+    <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+      <BottomSheetModal ref={bottomSheetRef} enablePanDownToClose>
+        <BottomSheetView style={styles.container}>
+          <Text variant="h3" style={styles.title}>
+            Zgłoś nowe zdarzenie!
+          </Text>
+
+          <View style={{ gap: 20 }}>
+            <CustomTextInput
+              placeholder="Nadaj tytuł zdarzeniu"
+              label="Tytuł zdarzenia"
+              value={formData.name}
+              onChangeText={(value) => updateField('name', value)}
+            />
+            <CustomTextInput
+              placeholder="Opisz krótko zdarzenie, podaj najważniejsze informacje"
+              label="Opis zdarzenia"
+              value={formData.description}
+              onChangeText={(value) => updateField('description', value)}
+              multiline
+              numberOfLines={3}
+            />
+
+            <TouchableOpacity onPress={() => setEventTypeModalVisible(true)}>
+              <CustomTextInput
+                value={selectedEventType?.name || 'Wybierz rodzaj zdarzenia'}
+                label="Rodzaj zdarzenia"
+                startIcon={selectedEventType?.icon}
+                endIcon="menu-down"
+                editable={false}
+              />
+            </TouchableOpacity>
+          </View>
+
+          <EventTypeSelectionModal
+            isVisible={eventTypeModalVisible}
+            setIsVisible={setEventTypeModalVisible}
+            eventType={selectedEventType}
+            setEventType={handleSetSelectedEventType}
           />
-        </TouchableOpacity>
 
-        <EventTypeSelectionModal
-          isVisible={eventTypeModalVisible}
-          setIsVisible={setEventTypeModalVisible}
-          eventType={selectedEventType}
-          setEventType={handleSetSelectedEventType}
-        />
-
-        <Text style={{ fontSize: 16 }}>{`Lokalizacja: ${geocodedAddress}`}</Text>
-        <Button
-          mode="contained"
-          onPress={handleSubmit}
-          loading={isLoading}
-          disabled={isLoading}
-          style={{ marginTop: 16 }}>
-          {isLoading ? 'Zgłaszanie...' : 'Zgłoś zdarzenie'}
-        </Button>
-      </BottomSheetView>
-    </BottomSheetModal>
+          <Text style={{ fontSize: 16 }}>{`Lokalizacja: ${geocodedAddress}`}</Text>
+          <Button
+            mode="contained"
+            onPress={handleSubmit}
+            loading={isLoading}
+            disabled={isLoading}
+            style={{ marginTop: 16 }}>
+            {isLoading ? 'Zgłaszanie...' : 'Zgłoś zdarzenie'}
+          </Button>
+        </BottomSheetView>
+      </BottomSheetModal>
+    </KeyboardAvoidingView>
   );
 };
 
@@ -154,13 +170,11 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'space-between',
     flexDirection: 'column',
-    paddingHorizontal: 16,
+    paddingHorizontal: 24,
     paddingBottom: 16,
-    gap: 12,
+    gap: 16,
   },
   title: {
-    fontSize: 20,
-    fontWeight: '600',
     marginBottom: 4,
     textAlign: 'center',
   },

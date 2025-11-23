@@ -1,6 +1,6 @@
-import axios from "axios";
+import axios, { AxiosHeaders } from "axios";
 import { API_URL } from "config";
-import auth from "@react-native-firebase/auth";
+import { getAuth, getIdToken } from "@react-native-firebase/auth";
 
 export const apiClient = axios.create({
   baseURL: API_URL,
@@ -15,25 +15,27 @@ apiClient.interceptors.request.use(
     console.log(`[${config.method?.toUpperCase()}] Request URL:`, config.url);
 
     try {
-      const currentUser = auth().currentUser;
+      const auth = getAuth();
+      const currentUser = auth.currentUser;
 
       if (currentUser) {
-        const idToken = await currentUser.getIdToken(true);
+        const idToken = await getIdToken(currentUser);
 
-        if ((config.headers as any)?.set instanceof Function) {
-          (config.headers as any).set("Authorization", `Bearer ${idToken}`);
-        } else {
-          (config.headers as any) = {
-            ...(config.headers ?? {}),
-            Authorization: `Bearer ${idToken}`,
-          };
-        }
+        const headers = AxiosHeaders.from(config.headers ?? {});
+        headers.set("Authorization", `Bearer ${idToken}`);
+        config.headers = headers;
       }
     } catch (error) {
       console.error("Failed to attach Firebase token", error);
     }
 
     return config;
-  },
-  (error) => Promise.reject(error)
+  }
+)
+
+apiClient.interceptors.response.use(
+  (response) => {
+    console.log(`[${response.config.method?.toLocaleUpperCase()}] Response URL:`, response.config.url, 'Status:', response.status);
+    return response;
+  }
 );

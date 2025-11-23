@@ -1,5 +1,10 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import auth from "@react-native-firebase/auth";
+import {
+  getAuth,
+  onAuthStateChanged,
+  signOut,
+  FirebaseAuthTypes,
+} from "@react-native-firebase/auth";
 
 interface AuthUser {
   uid: string;
@@ -24,7 +29,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const unsub = auth().onAuthStateChanged((firebaseUser) => {
+    const auth = getAuth();
+
+    const unsub = onAuthStateChanged(auth, (firebaseUser: FirebaseAuthTypes.User | null) => {
       if (firebaseUser) {
         setUser({
           uid: firebaseUser.uid,
@@ -42,7 +49,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   const logout = async () => {
-    await auth().signOut();
+    await signOut(getAuth());
   };
 
   return (

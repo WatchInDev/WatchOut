@@ -11,6 +11,9 @@ import org.zpi.watchout.service.dto.GlobalPreferencesDTO
 class UserService (val userRepository: UserRepository, val userGlobalPreferenceRepository: UserGlobalPreferenceRepository) {
 
     fun createUser(externalId: String, name: String, email: String){
+        if(userRepository.findByExternalId(externalId).isPresent){
+            return
+        }
         userRepository.save(User(name, email, 0.25 , externalId))
     }
 

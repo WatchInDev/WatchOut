@@ -1,16 +1,28 @@
-import auth from "@react-native-firebase/auth";
+import { 
+  getAuth, 
+  createUserWithEmailAndPassword, 
+  signInWithEmailAndPassword, 
+  sendEmailVerification, 
+  sendPasswordResetEmail, 
+  updateProfile, 
+  signOut, 
+  GoogleAuthProvider, 
+  signInWithCredential,
+  getIdToken
+} from "@react-native-firebase/auth";
 import { apiClient } from "utils/apiClient";
 
-export async function signUpEmail(email: string, password: string, displayName: string) {
+export async function signUpEmail(email: string, password: string, displayName?: string) {
   try {
-    const cred = await auth().createUserWithEmailAndPassword(email, password);
+    const auth = getAuth(); // modularne pobranie auth
+    const cred = await createUserWithEmailAndPassword(auth, email, password);
     const user = cred.user;
 
     if (displayName) {
-      await user.updateProfile({ displayName });
+      await updateProfile(user, { displayName });
     }
 
-    await user.sendEmailVerification();
+    await sendEmailVerification(user);
 
     return user;
   } catch (err: any) {
@@ -21,16 +33,17 @@ export async function signUpEmail(email: string, password: string, displayName: 
 
 export async function signInWithEmail(email: string, password: string) {
   try {
-    const cred = await auth().signInWithEmailAndPassword(email, password);
+    const auth = getAuth();
+    const cred = await signInWithEmailAndPassword(auth, email, password);
     const user = cred.user;
 
     if (!user.emailVerified) {
-      await user.sendEmailVerification();
+      await sendEmailVerification(user);
       throw new Error("Email nie został jeszcze zweryfikowany. Sprawdź skrzynkę email.");
     }
 
     try {
-      const idToken = await user.getIdToken();
+      const idToken = await getIdToken(user)
       await apiClient.post(
         "/users/create",
         {
@@ -39,9 +52,7 @@ export async function signInWithEmail(email: string, password: string) {
           displayName: user.displayName ?? null,
         },
         {
-          headers: {
-            Authorization: `Bearer ${idToken}`,
-          },
+          headers: { Authorization: `Bearer ${idToken}` },
         }
       );
     } catch (syncErr) {
@@ -56,19 +67,22 @@ export async function signInWithEmail(email: string, password: string) {
 }
 
 export async function logout() {
-  return auth().signOut();
+  const auth = getAuth();
+  return signOut(auth);
 }
 
 export async function resetPassword(email: string) {
-  return auth().sendPasswordResetEmail(email);
+  const auth = getAuth();
+  return sendPasswordResetEmail(auth, email);
 }
 
 export async function signInWithGoogleIdToken(idToken: string) {
-  const credential = auth.GoogleAuthProvider.credential(idToken);
-  const userCred = await auth().signInWithCredential(credential);
+  const auth = getAuth();
+  const credential = GoogleAuthProvider.credential(idToken);
+  const userCred = await signInWithCredential(auth, credential);
   const user = userCred.user;
 
-  const firebaseIdToken = await user.getIdToken();
+  const firebaseIdToken = await getIdToken(user);
   await apiClient.post(
     "/users/create",
     {

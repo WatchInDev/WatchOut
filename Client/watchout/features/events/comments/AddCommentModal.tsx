@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { View } from 'react-native';
 import { useCreateComment } from 'features/events/comments/useCreateComment';
 import { CustomModal } from 'components/Base/CustomModal';
+import { CustomTextInput } from 'components/Base/CustomTextInput';
 
 type AddCommentModalProps = {
   eventId: number;
@@ -18,7 +19,7 @@ export const AddCommentModal = ({
   onSubmit,
 }: AddCommentModalProps) => {
   const [comment, setComment] = useState('');
-  const { mutate } = useCreateComment();
+  const { mutate, isPending } = useCreateComment();
 
   const handleSubmit = () => {
     mutate(
@@ -34,18 +35,21 @@ export const AddCommentModal = ({
 
   return (
     <>
-      <CustomModal isVisible={isVisible} onBackdropPress={onClose}>
-        <View style={{ gap: 12 }}>
-          <TextInput
+      <CustomModal visible={isVisible} onRequestClose={onClose}>
+        <View style={{ gap: 12, width: 300 }}>
+          <CustomTextInput
             placeholder="Dodaj komentarz..."
             value={comment}
-            mode="outlined"
             onChangeText={setComment}
             multiline
             numberOfLines={4}
-            style={{ minHeight: 100, paddingTop: 8 }}
           />
-          <Button onPress={handleSubmit} mode="contained" disabled={comment.trim() === ''}>
+          <Button
+            onPress={handleSubmit}
+            mode="contained"
+            loading={isPending}
+            icon="send"
+            disabled={comment.trim() === ''}>
             Wyślij
           </Button>
         </View>

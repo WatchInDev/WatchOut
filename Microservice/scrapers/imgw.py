@@ -6,6 +6,11 @@ import requests
 from datetime import datetime, timezone
 from zoneinfo import ZoneInfo
 
+from logging_config import setup_loguru
+
+setup_loguru()
+
+from loguru import logger
 
 utc_zone = timezone.utc
 poland_zone = ZoneInfo("Europe/Warsaw")
@@ -68,9 +73,9 @@ def fetch_meteorological_warnings():
                         warning[field] = local_dt.strftime('%Y-%m-%dT%H:%M')
 
                     except ValueError:
-                        # print(f"Could not parse date: {warning[field]}")
-                        pass
+                        logger.exception(f"Could not parse date: {warning[field]}")
 
+        # print(response_json)
         return response_json
 
     except Exception as e:

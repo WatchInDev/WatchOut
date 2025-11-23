@@ -7,6 +7,7 @@ import org.springframework.data.repository.query.Param
 import org.springframework.stereotype.Repository
 import org.springframework.transaction.annotation.Transactional
 import org.zpi.watchout.data.entity.WeatherWarning
+import org.zpi.watchout.data.repos.impl.WeatherWarningJdbcRepositoryInterface
 import org.zpi.watchout.service.dto.WeatherWarningDTO
 
 @Repository
