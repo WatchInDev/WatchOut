@@ -47,12 +47,11 @@ export default function App() {
   if (!loaded) {
     return (
       <>
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', marginBottom: 24 }}>
-          <Icon
-            source={require('assets/watchout.png')}
-            size={250}
-          />
-          <Text variant="h4" style={{ marginTop: 16 }}>Ładowanie...</Text>
+        <View style={{ justifyContent: 'center', alignItems: 'center', marginBottom: 24 }}>
+          <Icon source={require('assets/watchout.png')} size={250} />
+          <Text variant="h4" style={{ marginTop: 16 }}>
+            Ładowanie...
+          </Text>
           <ActivityIndicator size="large" style={{ marginTop: 16 }} />
         </View>
       </>
