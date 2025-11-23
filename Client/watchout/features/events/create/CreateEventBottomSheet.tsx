@@ -16,6 +16,7 @@ import { ImageUploader } from './ImageUploader';
 type CreateEventProps = {
   location: Coordinates;
   onSuccess: () => void;
+  onClose: () => void;
 };
 
 type FormData = {
@@ -25,7 +26,7 @@ type FormData = {
   images: { uri: string; base64: string }[];
 };
 
-export const CreateEventBottomSheet = ({ location, onSuccess }: CreateEventProps) => {
+export const CreateEventBottomSheet = ({ location, onSuccess, onClose }: CreateEventProps) => {
   const bottomSheetRef = useRef<BottomSheetModal>(null);
   useEffect(() => {
     bottomSheetRef.current?.present();
@@ -115,7 +116,7 @@ export const CreateEventBottomSheet = ({ location, onSuccess }: CreateEventProps
   const isLoading = createEventMutation.isPending;
 
   return (
-    <BottomSheetModal ref={bottomSheetRef} enablePanDownToClose>
+    <BottomSheetModal ref={bottomSheetRef} enablePanDownToClose onDismiss={onClose}>
       <BottomSheetView>
         <PageWrapper>
           <View style={styles.container}>
