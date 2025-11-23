@@ -1,17 +1,12 @@
 import React, { useState } from 'react';
+import { View, Alert, StyleSheet, TouchableOpacity, Modal } from 'react-native';
 import { Text } from 'components/Base/Text';
-import {
-  View,
-  Alert,
-  StyleSheet,
-  TouchableOpacity,
-  Modal,
-} from 'react-native';
-import { signInWithEmail, resetPassword } from './auth';
-import { GoogleSignInButton } from 'features/auth/GoogleSignInButton';
 import { useNavigation } from '@react-navigation/native';
 import { CustomTextInput } from 'components/Base/CustomTextInput';
 import { Button, Icon } from 'react-native-paper';
+import { GoogleSignInButton } from 'features/auth/GoogleSignInButton';
+import { signInWithEmail, resetPassword } from './auth';
+import { AuthLayout } from 'components/Layout/AuthLayout';
 
 export const LoginScreen = () => {
   const navigation = useNavigation();
@@ -34,7 +29,6 @@ export const LoginScreen = () => {
       Alert.alert('Błąd', 'Podaj email');
       return;
     }
-
     try {
       await resetPassword(resetEmail);
       Alert.alert('Sukces', 'Sprawdź skrzynkę email.');
@@ -45,16 +39,29 @@ export const LoginScreen = () => {
     }
   };
 
+  const header = (
+    <Icon source={require('assets/watchout.png')} size={250} />
+  );
+
+  const footer = (
+    <>
+      <View style={styles.dividerRow}>
+        <View style={styles.divider} />
+        <Text style={styles.socialText}>Lub zaloguj się kontem</Text>
+        <View style={styles.divider} />
+      </View>
+
+      <View style={styles.socialButtonsWrapper}>
+        <View style={styles.googleWrapper}>
+          <GoogleSignInButton />
+        </View>
+      </View>
+    </>
+  );
+
   return (
     <>
-      <View style={styles.container}>
-        <View style={{ alignItems: 'center', marginBottom: 24 }}>
-          <Icon
-            source={require('assets/watchout.png')}
-            size={250}
-          />
-        </View>
-
+      <AuthLayout header={header} footer={footer}>
         <View style={{ gap: 16 }}>
           <CustomTextInput
             placeholder="Email"
@@ -72,34 +79,18 @@ export const LoginScreen = () => {
           />
         </View>
 
-        <TouchableOpacity
-          onPress={() => setResetVisible(true)}
-          style={{ alignSelf: 'flex-end' }}
-        >
+        <TouchableOpacity onPress={() => setResetVisible(true)} style={{ alignSelf: 'flex-end' }}>
           <Text style={styles.forgotText}>Zapomniałeś hasła?</Text>
         </TouchableOpacity>
 
-        <Button mode='contained' onPress={handleLogin} style={{ marginTop: 20 }}>
+        <Button mode="contained" onPress={handleLogin} style={styles.primaryButton}>
           Zaloguj się
         </Button>
 
         <TouchableOpacity onPress={() => navigation.navigate('SignUp' as never)}>
           <Text style={styles.registerText}>Nie masz konta? Zarejestruj się</Text>
         </TouchableOpacity>
-
-        <View style={{ marginTop: 80 }}>
-          
-          <View style={styles.dividerRow}>
-            <View style={styles.divider} />
-            <Text style={styles.socialText}>Lub zaloguj się kontem</Text>
-            <View style={styles.divider} />
-          </View>
-
-          <View style={styles.socialButtonsWrapper}>
-            <GoogleSignInButton />
-          </View>
-        </View>
-      </View>
+      </AuthLayout>
 
       <Modal visible={resetVisible} transparent animationType="fade">
         <View style={styles.modalOverlay}>
@@ -114,22 +105,22 @@ export const LoginScreen = () => {
               keyboardType="email-address"
             />
 
-            <Button onPress={handleResetPassword} mode='contained' style={{ marginTop: 12 }}>
+            <Button onPress={handleResetPassword} mode="contained" style={{ marginTop: 12 }}>
               Wyślij link resetujący
             </Button>
 
             <TouchableOpacity onPress={() => setResetVisible(false)} style={{ marginTop: 12 }}>
-              <Text align='center' style={{ color: 'red' }}>Zamknij</Text>
+              <Text align="center" style={{ color: 'red' }}>Zamknij</Text>
             </TouchableOpacity>
           </View>
         </View>
       </Modal>
     </>
   );
-}
+};
 
 const styles = StyleSheet.create({
-  container: { flex: 1, justifyContent: 'center', padding: 16 },
+  primaryButton: { marginTop: 20 },
 
   registerText: {
     marginTop: 20,
@@ -165,7 +156,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 
-
   socialText: {
     color: '#606060',
     fontSize: 16,
@@ -177,10 +167,15 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
 
+  googleWrapper: {
+    width: '70%',
+    alignItems: 'center',
+  },
+
   dividerRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 20,
+    marginBottom: 8,
   },
 
   divider: {
