@@ -1,4 +1,3 @@
-import Modal from 'react-native-modal';
 import { Text } from 'components/Base/Text';
 import { ScrollView, View, StyleSheet, TouchableHighlight } from 'react-native';
 import { Button, Icon } from 'react-native-paper';

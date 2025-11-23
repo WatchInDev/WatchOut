@@ -3,12 +3,9 @@ import { FabButton } from 'components/Base/FabButton';
 import { Text } from 'components/Base/Text';
 import { PageWrapper } from 'components/Common/PageWrapper';
 import { CustomSurface } from 'components/Layout/CustomSurface';
-import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
-import { ActivityIndicator, Button, Icon, IconButton } from 'react-native-paper';
-import { theme } from 'utils/theme';
+import { ScrollView, StyleSheet, View } from 'react-native';
+import { ActivityIndicator, Icon } from 'react-native-paper';
 import { useOutages } from './useOutages';
-import { RefreshControl } from 'react-native-gesture-handler';
-import { useCallback, useState } from 'react';
 import { usePinnedLocations } from './usePinnedLocations';
 import { Row } from 'components/Base/Row';
 
@@ -59,8 +56,6 @@ const OUTAGES_MOCK: Outage[] = [
     placeName: 'string2',
   },
 ];
-
-const TRACKED_LOCATIONS_MOCK = ['Kielce, Kielecka 37', 'Elbląg, powiat elbląski'];
 
 export const Outages = () => {
   const navigation = useNavigation();
@@ -131,8 +126,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     flex: 1,
     flexDirection: 'column',
-    paddingHorizontal: 16,
-    paddingVertical: 8,
+    padding: 16,
     gap: 8,
   },
 });

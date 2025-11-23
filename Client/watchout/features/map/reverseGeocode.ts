@@ -7,7 +7,6 @@ export const reverseGeocode = async (coordinates: Coordinates): Promise<string> 
 
     if (response.results && response.results.length > 0) {
       const fullAddress = response.results[0].formatted_address;
-      console.log('Geocoding result:', fullAddress);
       return fullAddress;
     } else {
       return "Nie znaleziono adresu dla tych współrzędnych.";

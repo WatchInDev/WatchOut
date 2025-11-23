@@ -1,6 +1,7 @@
 import { createContext, ReactNode, useContext, useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Snackbar } from 'react-native-paper';
+import { theme } from './theme';
 
 type SnackbarAction = { label: string; onPress: () => void } | null;
 
@@ -9,13 +10,11 @@ type SnackbarType = 'success' | 'error' | 'info';
 type SnackbarContextType = {
   showSnackbar: ({
     message,
-    label,
-    onPress,
+    action,
     type,
   }: {
     message: string;
-    label: string;
-    onPress: () => void;
+    action?: SnackbarAction;
     type?: SnackbarType;
   }) => void;
 };
@@ -29,42 +28,38 @@ export const useSnackbar = () => useContext(SnackbarContext);
 export const SnackbarProvider = ({ children }: { children: ReactNode }) => {
   const [visible, setVisible] = useState(false);
   const [message, setMessage] = useState('');
-  const [action, setAction] = useState<SnackbarAction>(null);
+  const [action, setAction] = useState<SnackbarAction | undefined>(undefined);
   const [type, setType] = useState<SnackbarType | undefined>(undefined);
 
   const showSnackbar = ({
     message,
-    label,
-    onPress,
+    action,
     type,
   }: {
     message: string;
-    label: string;
-    onPress: () => void;
+    action?: SnackbarAction;
     type?: SnackbarType;
   }) => {
     setMessage(message);
-    setAction({ label, onPress });
+    setAction(action);
     setType(type);
     setVisible(true);
   };
 
   const onDismissSnackBar = () => setVisible(false);
 
-  const defaultAction = { label: 'OK', onPress: onDismissSnackBar };
-
   return (
     <SnackbarContext.Provider value={{ showSnackbar }}>
       <View style={styles.providerContainer}>
         {children}
         <Snackbar
+          wrapperStyle={{ top: 96 }}
+          theme={{ colors: { text: 'white', primary: 'white', inverseOnSurface: 'white' } }}
           visible={visible}
+          duration={2000}
           onDismiss={onDismissSnackBar}
-          style={[
-            styles.snackbar,
-            type === 'success' ? styles.success : type === 'error' ? styles.error : null,
-          ]}
-          action={action || defaultAction}>
+          style={[type === 'success' ? styles.success : type === 'error' ? styles.error : null]}
+          action={{ label: action?.label || '', onPress: action?.onPress || (() => {}) }}>
           {message}
         </Snackbar>
       </View>
@@ -76,12 +71,8 @@ const styles = StyleSheet.create({
   providerContainer: {
     flex: 1,
   },
-  snackbar: {
-    // RNP Snackbar jest domyślnie na dole, gdy jest w kontenerze flex: 1.
-    // Dodatkowe style zazwyczaj nie są potrzebne do pozycjonowania.
-  },
   success: {
-    backgroundColor: 'green',
+    backgroundColor: theme.palette.success,
   },
   error: {
     backgroundColor: 'red',
