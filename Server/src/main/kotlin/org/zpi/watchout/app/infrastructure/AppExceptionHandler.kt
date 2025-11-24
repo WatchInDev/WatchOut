@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
+import org.zpi.watchout.app.infrastructure.exceptions.AccessDeniedException
 import org.zpi.watchout.app.infrastructure.exceptions.EntityNotFoundException
 import org.zpi.watchout.app.infrastructure.exceptions.GoogleGeocodeRequestError
 import org.zpi.watchout.app.infrastructure.exceptions.IncorrectLocationException
@@ -71,6 +72,17 @@ class AppExceptionHandler {
         )
         logger.warn(ex) { "Incorrect location error: ${ex.message}" }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exceptionDto)
+    }
+
+    @ExceptionHandler(AccessDeniedException::class)
+    fun handleAccessDeniedException(ex: AccessDeniedException): ResponseEntity<ExceptionDTO> {
+        val exceptionDto = ExceptionDTO(
+            timestamp = LocalDateTime.now().toString(),
+            message = ex.message ?: HttpStatus.FORBIDDEN.reasonPhrase,
+            status = HttpStatus.FORBIDDEN.value()
+        )
+        logger.warn(ex) { "Access denied: ${ex.message}" }
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(exceptionDto)
     }
 
 
