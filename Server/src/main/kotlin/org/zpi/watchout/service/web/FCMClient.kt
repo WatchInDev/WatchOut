@@ -25,17 +25,18 @@ class FCMClient {
 
     fun sendMessage(messageBody: String, messageTitle: String, fcmToken:String) {
         logger.info { "Sending message to FCM with body: $messageBody" }
-        val response = fcmWebClient.post()
+        fcmWebClient.post()
             .bodyValue(createMessageBody(messageTitle, messageBody, fcmToken))
             .retrieve()
             .bodyToMono(String::class.java)
             .doOnError {
-                logger.error(it) { "Error occurred while sending message to FCM" }
-                throw it
+                logger.error(it) { "Error occurred while sending message to FCM: ${it.message}"}
             }
-            .block() ?: throw Exception("FCM response body is null")
-        logger.info { "Received response from FCM: $response" }
-        logger.info { "send message to url https://exp.host/--/api/v2/push/send with title: $messageTitle, body: $messageBody, fcmToken: $fcmToken" }
+            .toFuture()
+            .thenRun {
+                logger.info { "send message to url https://exp.host/--/api/v2/push/send with title: $messageTitle, body: $messageBody, fcmToken: $fcmToken" }
+            }
+
     }
 
     private fun createMessageBody(title: String, body:String , fcmToken: String): MessagePayload {
