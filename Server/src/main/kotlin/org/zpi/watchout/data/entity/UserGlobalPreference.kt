@@ -8,7 +8,7 @@ import org.zpi.watchout.data.AbstractEntity
 @Entity
 @Table(name = "user_global_preferences", schema = "watchout")
 class UserGlobalPreference(
-    @Column(name = "place_name", unique = true)
+    @Column(name = "user_id", unique = true)
     val userId: Long,
     @Column(name = "notify_on_comment")
     var notifyOnComment: Boolean = true,

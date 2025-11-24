@@ -45,8 +45,15 @@ data class FavouritePlaceDTO(
 
 data class EditFavouritePlacePreferenceDTO(
     val radius : Double,
-    val services : ServicesPreferenceDTO,
+    val services : EditServicesPreferenceDTO,
     val notificationsEnable: Boolean
+
+)
+
+data class EditServicesPreferenceDTO(
+    val electricity: Boolean,
+    val weather : Boolean,
+    val eventTypes : List<Long>
 )
 
 

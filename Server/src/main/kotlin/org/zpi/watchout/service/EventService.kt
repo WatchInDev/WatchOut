@@ -30,7 +30,8 @@ class EventService(val eventRepository: EventRepository, val eventMapper: EventM
                 notificationService.createNotification(
                     NotificationType.EVENT,
                     favouritePlace.userId,
-                    event.name
+                    event.name,
+                    favouritePlace.placeName
                 )
             }
         }

@@ -32,4 +32,18 @@ CREATE TABLE watchout.user_favourite_place_favourite_places (
                                                                     REFERENCES watchout.user_favourite_place_references (id),
                                                                 FOREIGN KEY (event_type_id)
                                                                     REFERENCES watchout.event_types (id)
+
+
 );
+
+INSERT INTO watchout.user_global_preferences (
+    user_id,
+    notify_on_comment,
+    notify_on_event,
+    notify_on_external_warning
+) VALUES
+      (6, TRUE, TRUE, TRUE),
+      (7, TRUE, TRUE, TRUE),
+      (8, TRUE, TRUE, TRUE),
+      (9, TRUE, TRUE, TRUE),
+      (10, TRUE, TRUE, TRUE);

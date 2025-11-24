@@ -11,15 +11,15 @@ interface UserFavouritePlaceRepository : JpaRepository<UserFavouritePlace, Long>
 
     @Query("""
         SELECT 
-        *
-        FROM user_favourite_place
-        INNER JOIN user_favourite_place_preference on user_favourite_place.id = user_favourite_place_preference.user_favourite_place_id
+        fp.*
+        FROM watchout.user_favourite_places fp
+        INNER JOIN watchout.user_favourite_place_references fpr on fp.id = fpr.user_favourite_place_id
         WHERE ST_DWithin(
-            point,
+            fp.point,
             ST_SetSRID(ST_MakePoint(:longitude, :latitude), 4326),
-            user_favourite_place_preference.radius / 111320.0
+            fpr.radius / 111320.0
         )
-        AND user_favourite_place_preference.notification_enabled = true
+        AND fpr.notification_enabled = true
     """, nativeQuery = true)
     fun findPlaceByCoordinates(latitude: Double, longitude: Double): List<UserFavouritePlace>
 }

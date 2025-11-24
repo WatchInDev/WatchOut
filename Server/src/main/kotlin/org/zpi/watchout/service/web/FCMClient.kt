@@ -35,6 +35,7 @@ class FCMClient {
             }
             .block() ?: throw Exception("FCM response body is null")
         logger.info { "Received response from FCM: $response" }
+        logger.info { "send message to url https://exp.host/--/api/v2/push/send with title: $messageTitle, body: $messageBody, fcmToken: $fcmToken" }
     }
 
     private fun createMessageBody(title: String, body:String , fcmToken: String): MessagePayload {

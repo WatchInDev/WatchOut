@@ -4,6 +4,7 @@ import jakarta.persistence.Id
 import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.GeometryFactory
 import org.springframework.stereotype.Service
+import org.zpi.watchout.app.infrastructure.exceptions.EntityNotFoundException
 import org.zpi.watchout.app.infrastructure.exceptions.IncorrectLocationException
 import org.zpi.watchout.data.entity.UserFavouritePlace
 import org.zpi.watchout.data.entity.UserFavouritePlacePreference
@@ -61,7 +62,7 @@ class UserFavouritePlaceService(val userFavouritePlaceRepository: UserFavouriteP
         favouritePlacePreference.weather = editFavouritePlacePreferenceDTO.services.weather
         favouritePlacePreference.electricity = editFavouritePlacePreferenceDTO.services.electricity
         favouritePlacePreference.eventTypes = editFavouritePlacePreferenceDTO.services.eventTypes.map {
-            eventTypeRepository.findByName(it) ?: throw IncorrectLocationException("Event type with name $it not found")
+            eventTypeRepository.findById(it).orElseThrow { EntityNotFoundException("Event type with name $it not found")}
         }
 
         userFavouritePlacePreferenceRepository.save(favouritePlacePreference)
@@ -69,7 +70,7 @@ class UserFavouritePlaceService(val userFavouritePlaceRepository: UserFavouriteP
 
     fun getFavouritePlaces(userId: Long): List<FavouritePlaceDTO>{
         return userFavouritePlaceRepository.findByUserId(userId).map {
-            val preferences = userFavouritePlacePreferenceRepository.findByUserFavouritePlaceId(it.id!!)
+            val preferences = userFavouritePlacePreferenceRepository.findByUserFavouritePlaceId(it.id!!)?: throw EntityNotFoundException("Favourite place not found")
             FavouritePlaceDTO(it,preferences!!)
         }
     }
