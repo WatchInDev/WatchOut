@@ -42,7 +42,8 @@ class CommentService (private val commentRepository: CommentRepository, private 
         if (comment.author.id != userId) {
             throw AccessDeniedException("Comment with id $commentId does not belong to user with id $userId")
         }
-        commentRepository.deleteById(commentId)
+        comment.isDeleted = true
+        commentRepository.save(comment)
     }
 
 }

@@ -47,7 +47,7 @@ class CommentController(private val commentService: CommentService) {
         return comments
     }
 
-    @DeleteMapping("{commentId}")
+    @DeleteMapping("/{commentId}")
     @Operation(summary = "Delete a comment from an event", description = "Delete a comment made by the authenticated user from the specified event.")
     fun deleteComment(@PathVariable("eventId") eventId: Long, @Parameter(hidden = true) @AuthenticationPrincipal userId : Long, @PathVariable("commentId") commentId: Long) {
         logger.info { "Deleting comment with id: $commentId for event with id: $eventId by user with id: $userId" }
