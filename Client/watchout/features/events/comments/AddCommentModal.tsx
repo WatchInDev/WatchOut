@@ -1,4 +1,4 @@
-import { Button, TextInput } from 'react-native-paper';
+import { Button } from 'react-native-paper';
 import { useState } from 'react';
 import { View } from 'react-native';
 import { useCreateComment } from 'features/events/comments/useCreateComment';
@@ -10,6 +10,7 @@ type AddCommentModalProps = {
   isVisible: boolean;
   onClose: () => void;
   onSubmit: (comment: string) => void;
+  onError: (error: unknown) => void;
 };
 
 export const AddCommentModal = ({
@@ -17,6 +18,7 @@ export const AddCommentModal = ({
   isVisible,
   onClose,
   onSubmit,
+  onError,
 }: AddCommentModalProps) => {
   const [comment, setComment] = useState('');
   const { mutate, isPending } = useCreateComment();
@@ -29,6 +31,9 @@ export const AddCommentModal = ({
           onSubmit(comment);
           setComment('');
         },
+        onError: (error) => {
+          onError(error);
+        }
       }
     );
   };
@@ -49,7 +54,7 @@ export const AddCommentModal = ({
             mode="contained"
             loading={isPending}
             icon="send"
-            disabled={comment.trim() === ''}>
+            disabled={comment.trim() === '' || isPending}>
             Wyślij
           </Button>
         </View>

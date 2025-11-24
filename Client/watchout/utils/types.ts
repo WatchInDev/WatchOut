@@ -63,6 +63,10 @@ export type Comment = {
   content: string;
   eventId: number;
   createdAt: Date;
+  author: {
+    id: number;
+    reputation: number;
+  }
   rating: number;
   ratingForCurrentUser: number;
 };

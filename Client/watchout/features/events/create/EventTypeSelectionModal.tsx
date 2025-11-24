@@ -1,7 +1,7 @@
 import { Text } from 'components/Base/Text';
 import { ScrollView, View, StyleSheet, TouchableHighlight } from 'react-native';
 import { Button, Icon } from 'react-native-paper';
-import { useGetEventTypes } from 'features/events/event-types.hooks';
+import { useGetEventTypes } from 'features/event-types/useGetEventTypes';
 import { theme } from 'utils/theme';
 import { CustomSurface } from 'components/Layout/CustomSurface';
 import { icons } from 'components/Base/icons';

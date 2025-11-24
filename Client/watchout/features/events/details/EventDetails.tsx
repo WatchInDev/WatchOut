@@ -16,7 +16,7 @@ export const EventDetails = ({ event }: EventDetailsProps) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
-  const reportedDateText = `${new Date(event.reportedDate).toLocaleString()} (${dayjs(event.reportedDate).fromNow()})`;
+  const reportedDateText = `${dayjs.utc(event.reportedDate).local().format('YYYY-MM-DD HH:mm')} (${dayjs.utc(event.reportedDate).local().fromNow()})`;
 
   const openImage = (uri: string) => {
     setSelectedImage(uri);

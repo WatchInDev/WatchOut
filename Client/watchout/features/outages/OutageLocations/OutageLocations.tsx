@@ -119,7 +119,7 @@ export const OutageLocations = () => {
         ))}
         <ConfirmationModal
           isVisible={locationToDelete !== null}
-          message="Czy na pewno chcesz usunąć tę lokalizację?"
+          content="Czy na pewno chcesz usunąć tę lokalizację?"
           onCancel={() => setLocationToDelete(null)}
           onConfirm={async () => handleLocationDelete(locationToDelete!.id)}
           isLoading={isDeletePending}

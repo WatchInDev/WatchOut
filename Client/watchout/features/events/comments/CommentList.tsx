@@ -2,11 +2,14 @@ import { TouchableOpacity, View } from 'react-native';
 import { useComments } from './useComments';
 import { Text } from 'components/Base/Text';
 import { CustomSurface } from 'components/Layout/CustomSurface';
-import { ActivityIndicator, Button, Icon } from 'react-native-paper';
+import { ActivityIndicator, Button, Icon, IconButton } from 'react-native-paper';
 import { AddCommentModal } from './AddCommentModal';
 import { useState, useMemo } from 'react';
 import dayjs from 'dayjs';
 import { theme } from 'utils/theme';
+import { useCommentDelete } from './useCommentDelete';
+import { useSnackbar } from 'utils/useSnackbar';
+import { ConfirmationModal } from 'components/Common/ConfirmationModal';
 
 type CommentListProps = {
   eventId: number;
@@ -18,12 +21,24 @@ export const CommentList = ({ eventId }: CommentListProps) => {
     {
       page: 0,
       size: 5,
-      sort: [
-        { field: 'createdAt', direction: 'desc' }
-      ],
+      sort: [{ field: 'createdAt', direction: 'desc' }],
     }
   );
 
+  const { mutateAsync: deleteCommentAsync, isPending: isDeleting } = useCommentDelete();
+  const [commentToDelete, setCommentToDelete] = useState<number | null>(null);
+
+  const handleCommentDelete = () => {
+    if (commentToDelete == null) return;
+
+    deleteCommentAsync({ eventId, commentId: commentToDelete }).then(() => {
+      showSnackbar({ message: 'Komentarz usunięty pomyślnie', type: 'success' });
+      setCommentToDelete(null);
+      refetch();
+    });
+  };
+
+  const { showSnackbar } = useSnackbar();
   const [isCommentModalOpen, setIsCommentModalOpen] = useState(false);
 
   const comments = useMemo(() => {
@@ -35,8 +50,9 @@ export const CommentList = ({ eventId }: CommentListProps) => {
     return { content: allComments, totalElements, empty };
   }, [data]);
 
-  const handleCommentSubmit = (comment: string) => {
+  const handleCommentSubmit = () => {
     setIsCommentModalOpen(false);
+    showSnackbar({ message: 'Komentarz dodany pomyślnie', type: 'success' });
     refetch();
   };
 
@@ -53,6 +69,26 @@ export const CommentList = ({ eventId }: CommentListProps) => {
         isVisible={isCommentModalOpen}
         onClose={() => setIsCommentModalOpen(false)}
         onSubmit={handleCommentSubmit}
+        onError={() => {
+          showSnackbar({ message: 'Wystąpił błąd podczas dodawania komentarza', type: 'error' });
+        }}
+      />
+      <ConfirmationModal
+        isVisible={commentToDelete != null}
+        onConfirm={handleCommentDelete}
+        isLoading={isDeleting}
+        onCancel={() => setCommentToDelete(null)}
+        content={
+          <View>
+            <Text>Czy na pewno chcesz usunąć ten komentarz?</Text>
+            <Text
+              variant="body2"
+              color="tertiary"
+              style={{ marginTop: 8, backgroundColor: '#f8f8f8', padding: 8 }}>
+              {comments?.content.find((c) => c.id === commentToDelete)?.content}
+            </Text>
+          </View>
+        }
       />
       <Text variant="h3">Komentarze ({comments?.totalElements || 0})</Text>
       <Button
@@ -69,11 +105,27 @@ export const CommentList = ({ eventId }: CommentListProps) => {
       ) : (
         <>
           {comments?.content.map((item) => (
-            <CustomSurface key={'Comments_' + item.id} style={{ padding: 12, marginBottom: 12 }}>
-              <Text variant="body1">{item.content}</Text>
-              <Text variant="body2" color="tertiary">
-                {new Date(item.createdAt).toLocaleString()} ({dayjs(item.createdAt).fromNow()})
-              </Text>
+            <CustomSurface
+              key={'Comments_' + item.id}
+              style={{
+                padding: 12,
+                marginBottom: 12,
+                justifyContent: 'space-between',
+                flexDirection: 'row',
+              }}>
+              <View style={{ flex: 1 }}>
+                <Text variant="subtitle2">Twój komentarz</Text>
+                <Text variant="body1" wrap>
+                  {item.content}
+                </Text>
+                <Text variant="body2" color="tertiary">
+                  {dayjs.utc(item.createdAt).local().format('YYYY-MM-DD HH:mm')} (
+                  {dayjs.utc(item.createdAt).local().fromNow()})
+                </Text>
+              </View>
+              <View>
+                <IconButton icon={'delete'} onPress={() => setCommentToDelete(item.id)} />
+              </View>
             </CustomSurface>
           ))}
 
