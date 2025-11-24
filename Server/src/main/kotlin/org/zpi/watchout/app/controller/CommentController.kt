@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.web.PageableDefault
 import org.springframework.security.core.annotation.AuthenticationPrincipal
+import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
@@ -44,5 +45,13 @@ class CommentController(private val commentService: CommentService) {
         val comments = commentService.getCommentsByEventId(eventId, userId, pageable)
         logger.info { "Fetched ${comments.size} comments for event with id: $eventId" }
         return comments
+    }
+
+    @DeleteMapping("/{commentId}")
+    @Operation(summary = "Delete a comment from an event", description = "Delete a comment made by the authenticated user from the specified event.")
+    fun deleteComment(@PathVariable("eventId") eventId: Long, @Parameter(hidden = true) @AuthenticationPrincipal userId : Long, @PathVariable("commentId") commentId: Long) {
+        logger.info { "Deleting comment with id: $commentId for event with id: $eventId by user with id: $userId" }
+        commentService.deleteComment(commentId, userId)
+        logger.info { "Deleted comment with id: $commentId for event with id: $eventId by user with id: $userId" }
     }
 }
