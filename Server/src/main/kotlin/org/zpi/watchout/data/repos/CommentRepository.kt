@@ -39,6 +39,7 @@ interface CommentRepository : JpaRepository<Comment, Long> {
         SELECT COUNT(c.id)
         FROM Comment c
         WHERE c.eventId = :eventId
+        AND c.isDeleted = false
     """
     )
     fun findByEventId(
