@@ -25,6 +25,22 @@ import { AppNavigator } from 'components/Layout/AppNavigator';
 import { DevToolsBubble } from 'react-native-react-query-devtools';
 import { SnackbarProvider } from 'utils/useSnackbar';
 import { View } from 'react-native';
+import Reactotron, { openInEditor } from 'reactotron-react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+Reactotron.setAsyncStorageHandler(AsyncStorage)
+  .configure({ name: 'WatchOut' })
+  .use(openInEditor())
+  .useReactNative({
+    asyncStorage: true,
+    networking: {
+      ignoreUrls: /symbolicate/,
+    },
+    editor: true,
+    errors: { veto: (stackFrame) => false },
+    overlay: false,
+  })
+  .connect();
 
 const queryClient = new QueryClient();
 
@@ -47,12 +63,11 @@ export default function App() {
   if (!loaded) {
     return (
       <>
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', marginBottom: 24 }}>
-          <Icon
-            source={require('assets/watchout.png')}
-            size={250}
-          />
-          <Text variant="h4" style={{ marginTop: 16 }}>Ładowanie...</Text>
+        <View style={{ justifyContent: 'center', alignItems: 'center', marginBottom: 24 }}>
+          <Icon source={require('assets/watchout.png')} size={250} />
+          <Text variant="h4" style={{ marginTop: 16 }}>
+            Ładowanie...
+          </Text>
           <ActivityIndicator size="large" style={{ marginTop: 16 }} />
         </View>
       </>
