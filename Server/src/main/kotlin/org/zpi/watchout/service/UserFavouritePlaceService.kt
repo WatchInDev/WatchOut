@@ -4,16 +4,21 @@ import jakarta.persistence.Id
 import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.GeometryFactory
 import org.springframework.stereotype.Service
+import org.zpi.watchout.app.infrastructure.exceptions.EntityNotFoundException
 import org.zpi.watchout.app.infrastructure.exceptions.IncorrectLocationException
 import org.zpi.watchout.data.entity.UserFavouritePlace
+import org.zpi.watchout.data.entity.UserFavouritePlacePreference
+import org.zpi.watchout.data.repos.EventTypeRepository
+import org.zpi.watchout.data.repos.UserFavouritePlacePreferenceRepository
 import org.zpi.watchout.data.repos.UserFavouritePlaceRepository
+import org.zpi.watchout.service.dto.EditFavouritePlacePreferenceDTO
 import org.zpi.watchout.service.dto.FavouritePlaceDTO
 import org.zpi.watchout.service.dto.FavouritePlaceRequestDTO
 import org.zpi.watchout.service.dto.GeocodeResponseDTO
 import org.zpi.watchout.service.web.GoogleGeocodeClient
 
 @Service
-class UserFavouritePlaceService(val userFavouritePlaceRepository: UserFavouritePlaceRepository, val googleGeocodeClient: GoogleGeocodeClient) {
+class UserFavouritePlaceService(val userFavouritePlaceRepository: UserFavouritePlaceRepository, val googleGeocodeClient: GoogleGeocodeClient, val userFavouritePlacePreferenceRepository: UserFavouritePlacePreferenceRepository, val eventTypeRepository: EventTypeRepository) {
     fun addFavouritePlace(userId: Long, favouritePlaceRequestDTO: FavouritePlaceRequestDTO) : FavouritePlaceDTO{
         val response = googleGeocodeClient.getAddressFromCoordinates(favouritePlaceRequestDTO.latitude, favouritePlaceRequestDTO.longitude)
         val components = extractRelevantComponents(response)
@@ -31,12 +36,42 @@ class UserFavouritePlaceService(val userFavouritePlaceRepository: UserFavouriteP
                         it.srid = 4326
                     })
         val result=userFavouritePlaceRepository.save(favouritePlace)
-        return FavouritePlaceDTO(result)
+        val preference = UserFavouritePlacePreference(
+            userFavouritePlaceId = result.id!!,
+            notificationEnabled = true,
+            radius=500.0,
+            weather = true,
+            electricity = true,
+            eventTypes = eventTypeRepository.findAll()
+        )
+        val savedPreferences = userFavouritePlacePreferenceRepository.save(
+            preference
+        )
+        return FavouritePlaceDTO(result, savedPreferences)
+    }
+
+    fun editFavouritePlacePreference(userId: Long,placeId: Long, editFavouritePlacePreferenceDTO: EditFavouritePlacePreferenceDTO){
+        userFavouritePlaceRepository.findByUserId(userId).firstOrNull { it.id == placeId }
+            ?: throw IncorrectLocationException("Favourite place with id $placeId not found for user with id $userId")
+
+        val favouritePlacePreference = userFavouritePlacePreferenceRepository.findByUserFavouritePlaceId(placeId)
+            ?: throw IncorrectLocationException("Favourite place with id $placeId not found")
+
+        favouritePlacePreference.radius = editFavouritePlacePreferenceDTO.radius
+        favouritePlacePreference.notificationEnabled = editFavouritePlacePreferenceDTO.notificationsEnable
+        favouritePlacePreference.weather = editFavouritePlacePreferenceDTO.services.weather
+        favouritePlacePreference.electricity = editFavouritePlacePreferenceDTO.services.electricity
+        favouritePlacePreference.eventTypes = editFavouritePlacePreferenceDTO.services.eventTypes.map {
+            eventTypeRepository.findById(it).orElseThrow { EntityNotFoundException("Event type with name $it not found")}
+        }
+
+        userFavouritePlacePreferenceRepository.save(favouritePlacePreference)
     }
 
     fun getFavouritePlaces(userId: Long): List<FavouritePlaceDTO>{
         return userFavouritePlaceRepository.findByUserId(userId).map {
-            FavouritePlaceDTO(it)
+            val preferences = userFavouritePlacePreferenceRepository.findByUserFavouritePlaceId(it.id!!)?: throw EntityNotFoundException("Favourite place not found")
+            FavouritePlaceDTO(it,preferences!!)
         }
     }
 

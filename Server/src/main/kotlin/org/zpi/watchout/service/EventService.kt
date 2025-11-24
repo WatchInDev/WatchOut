@@ -2,6 +2,8 @@ package org.zpi.watchout.service
 
 import org.springframework.stereotype.Service
 import org.zpi.watchout.data.repos.EventRepository
+import org.zpi.watchout.data.repos.UserFavouritePlaceRepository
+import org.zpi.watchout.data.repos.UserGlobalPreferenceRepository
 import org.zpi.watchout.service.dto.ClusterRequestDTO
 import org.zpi.watchout.service.dto.ClusterResponseDTO
 import org.zpi.watchout.service.dto.EventGetRequestDTO
@@ -10,7 +12,7 @@ import org.zpi.watchout.service.dto.EventResponseDTO
 import org.zpi.watchout.service.mapper.EventMapper
 
 @Service
-class EventService(val eventRepository: EventRepository, val eventMapper: EventMapper) {
+class EventService(val eventRepository: EventRepository, val eventMapper: EventMapper, val userFavouritePlaceRepository: UserFavouritePlaceRepository, val notificationService: NotificationService, val userGlobalPreferenceRepository: UserGlobalPreferenceRepository) {
 
     fun getAllEvents(eventGetRequestDTO: EventGetRequestDTO, userId:Long): List<EventResponseDTO> {
         return eventRepository.findByLocation(
@@ -21,6 +23,20 @@ class EventService(val eventRepository: EventRepository, val eventMapper: EventM
 
     fun createEvent(eventRequestDto: EventRequestDTO, userId: Long): EventResponseDTO {
         val event = eventMapper.mapToEntity(eventRequestDto, authorId = userId)
+
+        for (favouritePlace in userFavouritePlaceRepository.findPlaceByCoordinates(eventRequestDto.latitude,eventRequestDto.longitude)){
+            val userPreferences = userGlobalPreferenceRepository.findByUserId(favouritePlace.userId)
+            if(userPreferences?.notifyOnEvent == true){
+                notificationService.createNotification(
+                    NotificationType.EVENT,
+                    favouritePlace.userId,
+                    event.name,
+                    favouritePlace.placeName
+                )
+            }
+        }
+
+
         return eventMapper.mapToDto(eventRepository.save(event))
     }
 
