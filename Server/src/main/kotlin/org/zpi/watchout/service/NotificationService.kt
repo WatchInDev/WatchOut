@@ -38,7 +38,7 @@ class NotificationService(
 
     fun createNotification(notificationType: NotificationType, userId: Long, vararg args: Any?) {
          val (title, body) = getMessage(notificationType, *args)
-         val token = fcmRepository.findByUserId(userId)?: throw EntityNotFoundException("FCM token not found for user with id $userId")
+         val token = fcmRepository.findByUserId(userId)?: return
          fcmClient.sendMessage(body, title, token.token)
     }
 
