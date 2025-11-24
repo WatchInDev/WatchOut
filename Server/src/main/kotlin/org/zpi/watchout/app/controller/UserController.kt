@@ -1,6 +1,7 @@
 package org.zpi.watchout.app.controller
 
 import io.github.oshai.kotlinlogging.KotlinLogging
+import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.Parameter
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.security.core.annotation.AuthenticationPrincipal
@@ -24,7 +25,7 @@ private val logger = KotlinLogging.logger {}
 
 @RestController
 @RequestMapping("/api/v1/users")
-@Tag(name = "User Favourite Places", description = "Management of user's favourite places")
+@Tag(name = "User Controller", description = "Endpoints for managing user favourite places and preferences")
 class UserController (val userFavouritePlaceService: UserFavouritePlaceService, val userService: UserService) {
 
     @PostMapping("/favourite-places")
@@ -36,6 +37,7 @@ class UserController (val userFavouritePlaceService: UserFavouritePlaceService, 
     }
 
     @GetMapping("/favourite-places")
+    @Operation(summary = "Get Favourite Places", description = "Retrieve a list of user's favourite places along with their preferences. radius in meters.")
     fun getFavouritePlaces(@Parameter(hidden = true) @AuthenticationPrincipal userId: Long): List<FavouritePlaceDTO> {
         logger.info { "Getting favourite places for user with id: $userId" }
         val result =  userFavouritePlaceService.getFavouritePlaces(userId)
@@ -51,6 +53,7 @@ class UserController (val userFavouritePlaceService: UserFavouritePlaceService, 
     }
 
     @PutMapping("/favourite-places/{placeId}/preferences")
+    @Operation(summary = "Edit Favourite Place Preference", description = "Edit all preferences for a specific favourite place. radius in meters. Event types should be provided as a list of event type IDs. send all fields even if not changing them.")
     fun editFavouritePlacePreference(@Parameter(hidden = true) @AuthenticationPrincipal userId: Long, @PathVariable("placeId") placeId: Long, @RequestBody editFavouritePlacePreferenceDTO: EditFavouritePlacePreferenceDTO) {
         logger.info { "Editing favourite place preference with id: $placeId for user with id: $userId" }
         userFavouritePlaceService.editFavouritePlacePreference(userId,placeId, editFavouritePlacePreferenceDTO)
@@ -58,6 +61,7 @@ class UserController (val userFavouritePlaceService: UserFavouritePlaceService, 
     }
 
     @PutMapping("/preferences")
+    @Operation(summary = "Edit Global User Preferences", description = "Edit all global preferences for the authenticated user. send all fields even if not changing them.")
     fun editGlobalUserPreferences(@Parameter(hidden = true) @AuthenticationPrincipal userId: Long, @RequestBody globalPreferencesDTO: GlobalPreferencesDTO) {
         logger.info { "Editing global preferences for user with id: $userId" }
         userService.editPreferences(userId, globalPreferencesDTO)

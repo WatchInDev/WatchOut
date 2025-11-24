@@ -68,7 +68,7 @@ class ExternalDataGetSchedule(private val weatherWarningRepository: WeatherWarni
                             user.id!!,
                             when (warning) {
                                 is WeatherWarning -> warning.event
-                                is ElectricalOutage -> "Electrical Outage"
+                                is ElectricalOutage -> "Problem z prądem"
                                 else -> "External Warning"
                             },
                             fav.placeName
