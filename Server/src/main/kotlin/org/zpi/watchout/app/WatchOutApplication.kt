@@ -12,7 +12,6 @@ import org.springframework.scheduling.annotation.EnableScheduling
 @ComponentScan(basePackages = ["org.zpi.watchout"])
 @EnableJpaRepositories(basePackages = ["org.zpi.watchout"])
 @EntityScan(basePackages = ["org.zpi.watchout"])
-@EnableJpaAuditing
 @EnableScheduling
 class WatchOutApplication
 
