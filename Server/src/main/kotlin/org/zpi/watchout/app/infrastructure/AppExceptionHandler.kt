@@ -85,5 +85,16 @@ class AppExceptionHandler {
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(exceptionDto)
     }
 
+    @ExceptionHandler(IllegalArgumentException::class)
+    fun handleIllegalArgumentException(ex: IllegalArgumentException): ResponseEntity<ExceptionDTO> {
+        val exceptionDto = ExceptionDTO(
+            timestamp = LocalDateTime.now().toString(),
+            message = ex.message ?: HttpStatus.BAD_REQUEST.reasonPhrase,
+            status = HttpStatus.BAD_REQUEST.value()
+        )
+        logger.warn(ex) { "Illegal argument: ${ex.message}" }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exceptionDto)
+    }
+
 
 }
