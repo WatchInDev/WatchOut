@@ -1,6 +1,7 @@
 package org.zpi.watchout.service
 
 import org.springframework.stereotype.Service
+import org.zpi.watchout.app.infrastructure.exceptions.AccessDeniedException
 import org.zpi.watchout.data.repos.EventRepository
 import org.zpi.watchout.data.repos.UserFavouritePlaceRepository
 import org.zpi.watchout.data.repos.UserGlobalPreferenceRepository
@@ -23,7 +24,7 @@ class EventService(val eventRepository: EventRepository, val eventMapper: EventM
 
     fun createEvent(eventRequestDto: EventRequestDTO, userId: Long): EventResponseDTO {
         if(!reputationService.isAbleToPostEvents(userId)){
-            throw Exception("User with id $userId is not allowed to report more events today due to low reputation")
+            throw AccessDeniedException("User with id $userId is not allowed to report more events today due to low reputation")
         }
 
         val event = eventMapper.mapToEntity(eventRequestDto, authorId = userId)

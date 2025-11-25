@@ -18,11 +18,6 @@ class ProdAuthenticationConverter(val userRepository: UserRepository) : Converte
             return UsernamePasswordAuthenticationToken(null, null, listOf())
         }
 
-        ///TODO  Debug : remove if all good
-        for (field in source.claims.keys) {
-            println("JWT Claim - $field: ${source.claims[field]}")
-        }
-
         val externalId = source.getClaim<String>("sub")
         val user = userRepository.findByExternalId(externalId)
             .orElseThrow { EntityNotFoundException("User with external with id ${externalId} not found") }
