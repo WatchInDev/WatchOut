@@ -39,7 +39,7 @@ def setup_loguru():
 
     # File handler for all logs
     logger.add(
-        "logs/app.log",
+        "scrapers/logs/app.log",
         format=formatter,
         level="DEBUG",
         rotation='weekly',
@@ -51,7 +51,7 @@ def setup_loguru():
 
     # File handler for errors only
     logger.add(
-        "logs/errors.log",
+        "scrapers/logs/errors.log",
         format=formatter,
         level="ERROR",
         rotation='weekly',
@@ -66,7 +66,7 @@ def setup_loguru():
 
 # Create logs directory
 def ensure_logs_directory():
-    logs_dir = Path("./logs")
+    logs_dir = Path("scrapers/logs")
     logs_dir.mkdir(exist_ok=True)
 
 
