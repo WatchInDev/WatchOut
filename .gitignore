@@ -1,2 +1,6 @@
 Client/watchout/.idea/
 *.env
+
+.github
+.idea
+.vscode
