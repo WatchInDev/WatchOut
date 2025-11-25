@@ -42,14 +42,13 @@ def send_data_to_server(myTimer: func.TimerRequest) -> None:
     electricity_url = os.getenv("ELECTRICITY_OUTAGES_ENDPOINT", '')
     weather_url = os.getenv("WEATHER_ALARMS_ENDPOINT", '')
 
-    token = os.getenv("SERVER_AUTH_TOKEN", '123')
+    token = os.getenv("INTERNAL_API_KEY", '123')
     electricity = electricity_outages_fetching()
     imgw = meteorological_warnings_fetching()
 
     try:
-        resp1 = requests.post(f"{base_url}/{electricity_url}", json=electricity,
-                              headers={'Authorization': f'Bearer {token}'})
-        resp2 = requests.post(f"{base_url}/{weather_url}", json=imgw, headers={'Authorization': f'Bearer {token}'})
+        resp1 = requests.post(f"{base_url}/{electricity_url}", json=electricity, headers={'INTERNAL_API_KEY': token})
+        resp2 = requests.post(f"{base_url}/{weather_url}", json=imgw, headers={'INTERNAL_API_KEY': token})
 
         resp1.raise_for_status()
         resp2.raise_for_status()
