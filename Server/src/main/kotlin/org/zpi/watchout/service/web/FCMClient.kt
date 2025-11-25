@@ -41,7 +41,7 @@ class FCMClient {
 
     private fun createMessageBody(title: String, body:String , fcmToken: String): MessagePayload {
         return MessagePayload(
-            to = "ExponentPushToken[$fcmToken]",
+            to = fcmToken,
             title = title,
             body = body
         )
