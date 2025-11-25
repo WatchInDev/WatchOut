@@ -31,6 +31,7 @@ interface CommentRepository : JpaRepository<Comment, Long> {
         LEFT JOIN CommentRating cr ON cr.comment = c
         LEFT JOIN cr.user uRater
         WHERE c.eventId = :eventId
+        AND c.isDeleted = false
         GROUP BY 
             c.id, c.content, uAuthor.id, c.eventId, c.createdAt, uAuthor.reputation
     """,
@@ -38,6 +39,7 @@ interface CommentRepository : JpaRepository<Comment, Long> {
         SELECT COUNT(c.id)
         FROM Comment c
         WHERE c.eventId = :eventId
+        AND c.isDeleted = false
     """
     )
     fun findByEventId(

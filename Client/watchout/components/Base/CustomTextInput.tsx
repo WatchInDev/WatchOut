@@ -21,10 +21,6 @@ export const CustomTextInput = ({ label, startIcon, endIcon, ...props }: CustomT
     return {
       outlineWidth: focusProgress.value === 1 ? 1.5 : 1,
       outlineColor: focusProgress.value === 1 ? theme.palette.primary : theme.palette.text.tertiary,
-      borderRadius: 6,
-      paddingHorizontal: 8,
-      flexDirection: 'row',
-      backgroundColor: theme.palette.background.default,
     };
   });
 
@@ -46,7 +42,18 @@ export const CustomTextInput = ({ label, startIcon, endIcon, ...props }: CustomT
   };
 
   return (
-    <Animated.View style={[animatedStyle, props.style]}>
+    <Animated.View
+      style={[
+        animatedStyle,
+        {
+          borderRadius: 6,
+          paddingHorizontal: 8,
+          flexDirection: 'row',
+          alignItems: 'center',
+          backgroundColor: theme.palette.background.default,
+        },
+        props.style,
+      ]}>
       {label && (
         <Text
           style={{
@@ -71,6 +78,7 @@ export const CustomTextInput = ({ label, startIcon, endIcon, ...props }: CustomT
         {...props}
         style={[
           {
+            flex: 1,
             fontFamily: theme.typography.fontFamily,
             lineHeight: 24,
             color: theme.palette.text.primary,

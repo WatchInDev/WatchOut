@@ -1,0 +1,2 @@
+ALTER TABLE watchout.comments
+ADD COLUMN is_deleted BOOLEAN DEFAULT FALSE;

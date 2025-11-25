@@ -1,12 +1,14 @@
-import re
 import sys
 from collections import defaultdict
 from datetime import datetime, timezone
 import json
-import time
 import io
 
 import requests
+
+# from Microservice.logging_config import setup_loguru
+#
+# setup_loguru()
 
 sample_url = """
 https://www.tauron-dystrybucja.pl/waapi/outages/area
@@ -251,7 +253,7 @@ voivodeship_powiats_map = {
 
 
 import re
-from typing import List, Tuple, Dict, Any
+from typing import List, Tuple
 
 
 def _clean_message(message: str) -> str:
@@ -523,8 +525,6 @@ def get_tauron_planned_shutdowns(from_date: datetime, to_date: datetime):
             except Exception as e:
                 # logger.exception(f"Exception making request to {request_url}:\n {e}")
                 pass
-            # time.sleep(0.5)
-
     return transform_tauron_data(responses_and_voivodeships)
 
 

@@ -21,7 +21,7 @@ export type Event = {
   id: number;
   name: string;
   description: string;
-  image: string;
+  images: string[];
   latitude: number;
   longitude: number;
   reportedDate: string;
@@ -45,7 +45,7 @@ export type Outage = {
 export type CreateEventRequest = {
   name: string;
   description: string;
-  image: string | null;
+  images: string[]; // base64 encoded images
   latitude: number;
   longitude: number;
   endDate: Date | string;
@@ -136,3 +136,24 @@ export type Page<T> = {
   };
   empty: boolean;
 };
+
+export type EventFilters = {
+  hoursSinceReport: number;
+  eventTypesIds: number[];
+};
+
+export type GetEventsRequest = {
+  coordinates: CoordinatesRect;
+  eventTypeIds?: number[];
+  reportedDateFrom?: Date;
+  reportedDateTo?: Date;
+  distance?: number;
+  rating?: number;
+};
+
+export type GetEventClusteredRequest = {
+  coordinates: CoordinatesRect;
+  eventTypeIds?: number[];
+  reportedDateFrom?: Date;
+  reportedDateTo?: Date;
+}

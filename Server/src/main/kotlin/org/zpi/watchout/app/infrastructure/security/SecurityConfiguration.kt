@@ -16,8 +16,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 class SecurityConfiguration(
-    private val converter: Converter<Jwt, UsernamePasswordAuthenticationToken>,
-    private val localPrincipalFilter: LocalAuthenticationFilter
+    private val converter: Converter<Jwt, UsernamePasswordAuthenticationToken>
 ) {
 
     companion object {
@@ -25,6 +24,7 @@ class SecurityConfiguration(
             "/api/v1/auth/**",
             "/swagger-ui/**",
             "/v3/api-docs/**",
+            "/api/v1/internal/**"
         )
     }
 
@@ -59,7 +59,6 @@ class SecurityConfiguration(
             .cors(Customizer.withDefaults())
             .authorizeHttpRequests { it.anyRequest().permitAll() }
             .sessionManagement { it.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }
-            .addFilterBefore(localPrincipalFilter, UsernamePasswordAuthenticationFilter::class.java)
         return http.build()
     }
 }

@@ -1,4 +1,4 @@
-import type { CoordinatesRect, PaginationRequest } from './types';
+import type { GetEventsRequest, PaginationRequest } from './types';
 
 export type ApiDefinition = {
   key: string[];
@@ -7,16 +7,18 @@ export type ApiDefinition = {
 
 export const API_ENDPOINTS = {
   events: {
-    get: (coordinates: CoordinatesRect) => `events${queryParams(coordinates)}`,
-    getClusters: (coordinates: CoordinatesRect, minPoints: number, eps: number) => `events/clusters${queryParams(coordinates)}&minPoints=${minPoints}&eps=${eps}`,
+    get: (request: GetEventsRequest) => `events${queryParams(request)}`,
+    getClusters: (request: GetEventsRequest, minPoints: number, eps: number) =>
+      `events/clusters${queryParams(request)}&minPoints=${minPoints}&eps=${eps}`,
     create: 'events',
   },
   comments: {
-    getByEventId: <T>(eventId: number, pagination: PaginationRequest<T>) => `events/${eventId}/comments` + paginationToQueryParams(pagination),
+    getByEventId: <T>(eventId: number, pagination: PaginationRequest<T>) =>
+      `events/${eventId}/comments` + paginationToQueryParams(pagination),
     post: (eventId: number) => `events/${eventId}/comments`,
   },
   rating: {
-    event: (eventId: number) => `events/${eventId}/ratings`
+    event: (eventId: number) => `events/${eventId}/ratings`,
   },
   eventTypes: {
     getAll: 'event-types',
@@ -32,22 +34,31 @@ export const API_ENDPOINTS = {
   notifications: {
     add: 'fcm-tokens',
     get: 'fcm-tokens',
-  }
+  },
 };
 
 // utility functions
 
 const queryParams = (params: Record<string, any>) => {
   const esc = encodeURIComponent;
-  return '?' + Object.keys(params)
-    .map(k => {
-      if (Array.isArray(params[k])) {
-        return params[k].map((val: any) => `${esc(k)}=${esc(val)}`).join('&');
-      }
-      return `${esc(k)}=${esc(params[k])}`;
-    })
-    .join('&');
-}
+  return (
+    '?' +
+    Object.keys(params)
+      .map((k) => {
+        if (Array.isArray(params[k])) {
+          return esc(k) + '=' + params[k].map((val: any) => `${esc(val)}`).join(',');
+        }
+        else if (params[k] instanceof Date) {
+          return `${esc(k)}=${esc((params[k] as Date).toISOString().replace('Z', ''))}`;
+        }
+        else if (typeof params[k] === 'object' && params[k] !== null) {
+          return queryParams(params[k]).slice(1);
+        }
+        return `${esc(k)}=${esc(params[k])}`;
+      })
+      .join('&')
+  );
+};
 
 const paginationToQueryParams = <T>(pagination: PaginationRequest<T>) => {
   const params: Record<string, any> = {
@@ -56,8 +67,8 @@ const paginationToQueryParams = <T>(pagination: PaginationRequest<T>) => {
   };
 
   if (pagination.sort) {
-    params.sort = pagination.sort.map(s => `${s.field.toString()},${s.direction}`);
+    params.sort = pagination.sort.map((s) => `${s.field.toString()},${s.direction}`);
   }
 
   return queryParams(params);
-}
+};

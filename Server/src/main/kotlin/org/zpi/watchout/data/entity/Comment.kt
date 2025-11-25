@@ -17,6 +17,8 @@ class Comment(
     @JoinColumn(name = "author_id", referencedColumnName = "id")
     val author: User,
     @Column(name = "event_id")
-    val eventId: Long
+    val eventId: Long,
+    @Column(name = "is_deleted")
+    var isDeleted: Boolean = false
 ): AbstractEntity() {
 }

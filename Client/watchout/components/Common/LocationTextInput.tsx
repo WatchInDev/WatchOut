@@ -1,7 +1,10 @@
-import GooglePlacesTextInput, { GooglePlacesTextInputStyles } from 'react-native-google-places-textinput';
+import GooglePlacesTextInput, {
+  GooglePlacesTextInputStyles,
+} from 'react-native-google-places-textinput';
 import { GOOGLE_API_KEY } from '@env';
 import { Coordinates } from 'utils/types';
 import { useState } from 'react';
+import { theme } from 'utils/theme';
 
 type LocationTextInputProps = {
   onPlaceSelect: (coordinates: Coordinates) => void;
@@ -11,24 +14,26 @@ export const LocationTextInput = ({ onPlaceSelect }: LocationTextInputProps) => 
   const [value, setValue] = useState('');
 
   return (
-  <GooglePlacesTextInput
-    apiKey={GOOGLE_API_KEY}
-    detailsFields={['displayName', 'location']}
-    fetchDetails={true}
-    scrollEnabled={false}
-    nestedScrollEnabled={false}
-    value={value}
-    textContentType='location'
-    style={styles}
-    onPlaceSelect={(place) => {
-      setValue(place.structuredFormat.mainText.text + ', ' + place.structuredFormat.secondaryText?.text);
-      console.log('Place selected:', JSON.stringify(place, null, '\t'));
-      onPlaceSelect({
-        latitude: place.details?.location.latitude || 0,
-        longitude: place.details?.location.longitude || 0,
-      });
-    }}
-  />
+    <GooglePlacesTextInput
+      apiKey={GOOGLE_API_KEY}
+      detailsFields={['displayName', 'location']}
+      fetchDetails={true}
+      scrollEnabled={false}
+      nestedScrollEnabled={false}
+      value={value}
+      textContentType="location"
+      style={styles}
+      onPlaceSelect={(place) => {
+        setValue(
+          place.structuredFormat.mainText.text + ', ' + place.structuredFormat.secondaryText?.text
+        );
+        console.log('Place selected:', JSON.stringify(place, null, '\t'));
+        onPlaceSelect({
+          latitude: place.details?.location.latitude || 0,
+          longitude: place.details?.location.longitude || 0,
+        });
+      }}
+    />
   );
 };
 
@@ -69,7 +74,7 @@ const styles: GooglePlacesTextInputStyles = {
     },
   },
   loadingIndicator: {
-    color: '#6200EE',
+    color: theme.palette.primary,
   },
   placeholder: {
     color: '#9E9E9E',

@@ -19,8 +19,7 @@ export const CommentList = ({ eventId }: CommentListProps) => {
       page: 0,
       size: 5,
       sort: [
-        { field: 'createdAt', direction: 'desc' },
-        { field: 'id', direction: 'desc' },
+        { field: 'createdAt', direction: 'desc' }
       ],
     }
   );
