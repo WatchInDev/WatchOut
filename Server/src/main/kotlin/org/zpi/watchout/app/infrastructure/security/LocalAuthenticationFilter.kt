@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component
 import org.springframework.web.filter.OncePerRequestFilter
 
 @Component
+@Profile("local")
 class LocalAuthenticationFilter : OncePerRequestFilter() {
     override fun doFilterInternal(
         request: HttpServletRequest,

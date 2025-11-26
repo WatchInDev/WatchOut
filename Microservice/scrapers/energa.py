@@ -2,13 +2,8 @@ import json
 import re
 import sys
 
-from logging_config import setup_loguru
-
 import requests
 from datetime import datetime
-import io
-
-sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
 def parse_locations(line: str) -> list[str]:
     """
