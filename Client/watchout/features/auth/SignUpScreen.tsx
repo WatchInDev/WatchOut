@@ -24,7 +24,7 @@ export const SignUpScreen = () => {
     }
   };
 
-  const header = <Icon source={require('assets/watchout.png')} size={250} />;
+  const header = <Icon source={require('assets/watchout.png')} size={150} />;
 
   const footer = (
     <>
