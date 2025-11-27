@@ -32,6 +32,10 @@ export const API_ENDPOINTS = {
   externalWarnings: {
     get: 'external-warnings',
   },
+  preferences: {
+    get: 'users/preferences',
+    update: 'users/preferences',
+  },
   notifications: {
     add: 'fcm-tokens',
     get: 'fcm-tokens',

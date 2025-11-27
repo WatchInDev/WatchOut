@@ -161,3 +161,9 @@ export type GetEventClusteredRequest = {
   reportedDateFrom?: Date;
   reportedDateTo?: Date;
 }
+
+export type UserPreferences = {
+  notifyOnEvent: boolean;
+  notifyOnComment: boolean;
+  notifyOnExternalWarning: boolean;
+};

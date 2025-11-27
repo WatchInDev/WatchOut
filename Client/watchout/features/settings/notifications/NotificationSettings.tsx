@@ -3,6 +3,10 @@ import { Text } from 'components/Base/Text';
 import { PageWrapper } from 'components/Common/PageWrapper';
 import { useState } from 'react';
 import { View } from 'react-native';
+import { UserPreferences } from 'utils/types';
+import { useNotificationSettings } from './useNotificationSettings';
+import { useNotificationSettingsUpdate } from './useNotificationSettingsUpdate';
+import { Row } from 'components/Base/Row';
 
 type OptionCategory = 'service' | 'event';
 const CATEGORY_GROUPS: { title: string; category: OptionCategory }[] = [
@@ -10,44 +14,48 @@ const CATEGORY_GROUPS: { title: string; category: OptionCategory }[] = [
   { title: 'Zdarzenia', category: 'event' },
 ];
 
-const OPTIONS = {
-  onAlertCreated: {
+type OptionEntry = {
+  [key in keyof UserPreferences]: {
+    code: string;
+    label: string;
+    category: OptionCategory;
+  };
+};
+
+const OPTIONS: OptionEntry = {
+  notifyOnExternalWarning: {
+    code: 'notifyOnExternalWarning',
     label: 'Nowa informacja o przerwie w dostawie usług',
     category: 'service',
   },
-  onAlertStarted: {
-    label: 'Rozpoczęcie planowanej przerwy w dostawie usług',
-    category: 'service',
-  },
-  onAlertEnded: {
-    label: 'Zakończenie się przerwy w dostawie usług',
-    category: 'service',
-  },
-  onNewCommentCreated: {
+  notifyOnComment: {
+    code: 'notifyOnComment',
     label: 'Nowy komentarz do zgłoszonego zdarzenia',
     category: 'event',
   },
-  onEventNearbyCreated: {
+  notifyOnEvent: {
+    code: 'notifyOnEvent',
     label: 'Nowe zdarzenie w pobliżu mojej lokalizacji',
     category: 'event',
   },
 };
 
-type NotificationForm = Record<keyof typeof OPTIONS, boolean>;
-
-const initialSettings: NotificationForm = Object.keys(OPTIONS).reduce(
+const initialSettings: UserPreferences = Object.keys(OPTIONS).reduce(
   (acc, key) => ({ ...acc, [key]: false }),
-  {} as NotificationForm
+  {} as UserPreferences
 );
 
 export const NotificationSettings = () => {
-  const [settings, setSettings] = useState<NotificationForm>(initialSettings);
+  const { data: preferences } = useNotificationSettings();
+  const [settings, setSettings] = useState<UserPreferences>(preferences || initialSettings);
+  const { mutateAsync: updatePreferencesAsync } = useNotificationSettingsUpdate();
 
-  const handleChange = (key: keyof NotificationForm, value: boolean) => {
+  const handleChange = (key: keyof UserPreferences, value: boolean) => {
     setSettings((prev) => ({
       ...prev,
       [key]: value,
     }));
+    updatePreferencesAsync({ ...settings, [key]: value });
   };
 
   return (
@@ -68,19 +76,19 @@ export const NotificationSettings = () => {
               <Text variant="h4">{group.title}</Text>
               <View style={{ gap: 12 }}>
                 {sectionOptions.map((option) => (
-                  <View
+                  <Row
                     key={option.key}
-                    style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>
+                    style={{ alignItems: 'center', gap: 12 }}>
                     <Text variant="body1" style={{ flex: 1 }}>
                       {option.label}
                     </Text>
                     <CustomSwitch
-                      value={settings[option.key as keyof NotificationForm]}
+                      value={settings[option.key as keyof UserPreferences]}
                       onValueChange={(value) =>
-                        handleChange(option.key as keyof NotificationForm, value)
+                        handleChange(option.key as keyof UserPreferences, value)
                       }
                     />
-                  </View>
+                  </Row>
                 ))}
               </View>
             </View>
