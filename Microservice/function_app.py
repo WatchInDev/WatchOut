@@ -32,15 +32,15 @@ def meteorological_warnings_fetching():
 app = func.FunctionApp()
 
 
-@app.timer_trigger(schedule="0 0 3 * * *", arg_name="myTimer", run_on_startup=False,
+@app.timer_trigger(schedule="0 0 3 * * *", arg_name="myTimer", run_on_startup=True,
                    use_monitor=False)
 def send_data_to_server(myTimer: func.TimerRequest) -> None:
     if myTimer.past_due:
         logger.info('The timer is past due!')
 
-    base_url = os.getenv("SERVER_ENDPOINT", '')
-    electricity_url = os.getenv("ELECTRICITY_OUTAGES_ENDPOINT", '')
-    weather_url = os.getenv("WEATHER_ALARMS_ENDPOINT", '')
+    base_url = os.getenv("SERVER_BASE_INTERNAL_URL", '')
+    electricity_url = os.getenv("ELECTRICITY_OUTAGES_ENDPOINT", '/warnings/electricity')
+    weather_url = os.getenv("WEATHER_ALARMS_ENDPOINT", '/warnings/weather')
 
     token = os.getenv("INTERNAL_API_KEY", '123')
     electricity = electricity_outages_fetching()
@@ -57,3 +57,24 @@ def send_data_to_server(myTimer: func.TimerRequest) -> None:
         logger.exception(f"Exception during data sending to server: {e}")
 
     logger.info('Python timer trigger function executed.')
+
+
+if __name__ == '__main__':
+    base_url = os.getenv("SERVER_BASE_INTERNAL_URL",
+                         'https://watchoutapi-h2c2bxesd6fzc2he.polandcentral-01.azurewebsites.net/api/v1/internal')
+    electricity_url = os.getenv("ELECTRICITY_OUTAGES_ENDPOINT", '/warnings/electricity')
+    weather_url = os.getenv("WEATHER_ALARMS_ENDPOINT", '/warnings/weather')
+
+    token = os.getenv("INTERNAL_API_KEY", '123')
+    electricity = electricity_outages_fetching()
+    imgw = meteorological_warnings_fetching()
+
+    try:
+        resp1 = requests.post(f"{base_url}{electricity_url}", json=electricity, headers={'INTERNAL_API_KEY': token})
+        resp2 = requests.post(f"{base_url}{weather_url}", json=imgw, headers={'INTERNAL_API_KEY': token})
+
+        resp1.raise_for_status()
+        resp2.raise_for_status()
+        logger.info('Data sent successfully')
+    except Exception as e:
+        logger.exception(f"Exception during data sending to server: {e}")
