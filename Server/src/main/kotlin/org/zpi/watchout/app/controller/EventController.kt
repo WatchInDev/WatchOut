@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import org.zpi.watchout.service.EventService
+import org.zpi.watchout.service.dto.AbilityToPostDTO
 import org.zpi.watchout.service.dto.ClusterRequestDTO
 import org.zpi.watchout.service.dto.ClusterResponseDTO
 import org.zpi.watchout.service.dto.EventGetRequestDTO
@@ -76,5 +77,14 @@ class EventController(val eventService: EventService) {
         val createdEvent = eventService.createEvent(eventRequestDto, userId)
         logger.info { "Created event with name and id: ${createdEvent.name}, ${createdEvent.id}" }
         return createdEvent
+    }
+
+    @GetMapping("/ability")
+    @Operation(summary = "Check ability to post event for current user")
+    fun isAbleToPostEvents(@Parameter(hidden = true) @AuthenticationPrincipal userId : Long): AbilityToPostDTO {
+        logger.info { "Checking if user with id: $userId is able to post events" }
+        val result = eventService.isAbleToPostEvents(userId)
+        logger.info { "User with id: $userId is able to post events: $result" }
+        return result
     }
 }
