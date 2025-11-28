@@ -54,27 +54,30 @@ class ExternalWarningsService(val userFavouritePlaceRepository: UserFavouritePla
         weatherWarningRepositoryJdbc.batchSave(weatherWarnings)
     }
 
-    fun saveElectricalOutageWarning(result: ElectricalOutageRequestDTO){
-        val outagesToSave : MutableList<ElectricalOutage> = mutableListOf<ElectricalOutage>()
-        for (key in result.outagesResponse.keys) {
-            val voivodshipOutages: Map<String, List<OutageRecord>> = result.outagesResponse[key] ?: continue
-            for (subKey in voivodshipOutages.keys) {
-                val outageRecords: List<OutageRecord> = voivodshipOutages[subKey] ?: continue
-                for (record in outageRecords) {
-                    for(location in record.locations) {
-                        val outage = ElectricalOutage(
-                            provider = result.provider,
-                            voivodeship = key,
-                            region = subKey,
-                            fromDate = record.interval.from_date,
-                            toDate = record.interval.to_date,
-                            location = location
-                        )
-                        outagesToSave.add(outage)
+    fun saveElectricalOutageWarning(results: List<ElectricalOutageRequestDTO>){
+        for(result in results){
+            val outagesToSave : MutableList<ElectricalOutage> = mutableListOf<ElectricalOutage>()
+            for (key in result.outagesResponse.keys) {
+                val voivodshipOutages: Map<String, List<OutageRecord>> = result.outagesResponse[key] ?: continue
+                for (subKey in voivodshipOutages.keys) {
+                    val outageRecords: List<OutageRecord> = voivodshipOutages[subKey] ?: continue
+                    for (record in outageRecords) {
+                        for(location in record.locations) {
+                            val outage = ElectricalOutage(
+                                provider = result.provider,
+                                voivodeship = key,
+                                region = subKey,
+                                fromDate = record.interval.from_date,
+                                toDate = record.interval.to_date,
+                                location = location
+                            )
+                            outagesToSave.add(outage)
+                        }
                     }
                 }
             }
+            electricalOutageRepositoryJdbc.batchSave(outagesToSave)
         }
-        electricalOutageRepositoryJdbc.batchSave(outagesToSave)
+
     }
 }

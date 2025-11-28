@@ -17,7 +17,7 @@ class LocalAuthenticationFilter : OncePerRequestFilter() {
         response: HttpServletResponse,
         filterChain: FilterChain
     ) {
-        val auth = UsernamePasswordAuthenticationToken(6L, null, emptyList())
+        val auth = UsernamePasswordAuthenticationToken(27L, null, emptyList())
         SecurityContextHolder.getContext().authentication = auth
         filterChain.doFilter(request, response)
     }

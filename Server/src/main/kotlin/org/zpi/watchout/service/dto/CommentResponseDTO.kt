@@ -9,6 +9,7 @@ data class CommentResponseDTO(
     val createdAt: LocalDateTime,
     val author: AuthorResponseDTO,
     val rating: Double,
-    val ratingForCurrentUser: Double
+    val ratingForCurrentUser: Double,
+    val isAuthor : Boolean
 ) {
 }
