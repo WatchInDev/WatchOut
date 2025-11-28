@@ -5,11 +5,13 @@ import org.zpi.watchout.app.infrastructure.exceptions.AccessDeniedException
 import org.zpi.watchout.data.repos.EventRepository
 import org.zpi.watchout.data.repos.UserFavouritePlaceRepository
 import org.zpi.watchout.data.repos.UserGlobalPreferenceRepository
+import org.zpi.watchout.service.dto.AbilityToPostDTO
 import org.zpi.watchout.service.dto.ClusterRequestDTO
 import org.zpi.watchout.service.dto.ClusterResponseDTO
 import org.zpi.watchout.service.dto.EventGetRequestDTO
 import org.zpi.watchout.service.dto.EventRequestDTO
 import org.zpi.watchout.service.dto.EventResponseDTO
+import org.zpi.watchout.service.dto.ReasonCannotPost
 import org.zpi.watchout.service.mapper.EventMapper
 
 @Service
@@ -51,6 +53,15 @@ class EventService(val eventRepository: EventRepository, val eventMapper: EventM
             clusterRequestDto.eps,
             clusterRequestDto.minPoints
         )
+    }
+
+    fun isAbleToPostEvents(userId: Long): AbilityToPostDTO {
+        val ableToPost = reputationService.isAbleToPostEvents(userId)
+        return if(ableToPost){
+            AbilityToPostDTO(true)
+        } else {
+            AbilityToPostDTO(ReasonCannotPost.REPUTATION_RESTRICTION)
+        }
     }
 
 }
