@@ -12,10 +12,17 @@ from loguru import logger
 
 def electricity_outages_fetching():
     try:
-        tauron = get_tauron_planned_shutdowns(datetime.now(), datetime.now() + timedelta(days=7))
+        # tauron = get_tauron_planned_shutdowns(datetime.now(), datetime.now() + timedelta(days=7))
         energa = get_energa_planned_shutdowns()
 
-        return {"tauron": tauron, "energa": energa}
+        # tauron_res = {"outagesResponse": tauron, "provider": 'tauron'}
+        energa_res = {"outagesResponse": energa, "provider": 'energa'}
+
+        # print([tauron_res, energa_res])
+        print([energa_res])
+
+        # return [tauron_res, energa_res]
+        return [energa_res]
 
     except Exception as e:
         logger.exception(f"Exception during data scraping or retrieving: {e}")
@@ -24,7 +31,7 @@ def electricity_outages_fetching():
 def meteorological_warnings_fetching():
     try:
         imgw = fetch_meteorological_warnings()
-        return {"imgw": imgw}
+        return imgw
     except Exception as e:
         logger.exception(f"Exception during data retrieving: {e}")
 

@@ -1,6 +1,7 @@
+import os
 import sys
 from collections import defaultdict
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 import json
 import io
 
@@ -14,8 +15,6 @@ sample_url = """
 https://www.tauron-dystrybucja.pl/waapi/outages/area
 ?provinceGAID=2&districtGAID=1041&fromDate=2025-10-17T15:21:32.682Z&toDate=2025-10-22T15:21:32.682Z&_=1760714469806
 """
-
-sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
 voivodeship_powiats_map = {
     "Dolnośląskie": [
@@ -352,6 +351,8 @@ def parse_locations(message: str) -> Tuple[str, List[str]]:
     Zwraca: (nazwa_miasta, lista_lokalizacji)
     """
 
+    print(message)
+
     if "bez transformatora" in message.lower():
         return "Nieznane", ["bez transformatora"]
     if "uzgodniono z odbiorcą" in message.lower():
@@ -501,7 +502,11 @@ def get_tauron_planned_shutdowns(from_date: datetime, to_date: datetime):
 
     base_url = "https://www.tauron-dystrybucja.pl/waapi/outages/area?"
 
-    voivodeship_powiat_GAID_map = json.load(open('Microservice/scrapers/source/tauron_voivodeship_powiat_map.json', 'r', encoding='utf-8'))
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+
+    json_path = os.path.join(current_dir, 'source', 'tauron_voivodeship_powiat_map.json')
+
+    voivodeship_powiat_GAID_map = json.load(open(json_path, 'r', encoding='utf-8'))
 
     responses_and_voivodeships = []
 
@@ -510,13 +515,14 @@ def get_tauron_planned_shutdowns(from_date: datetime, to_date: datetime):
         voivodeship_GAID = list(voivodeship_dict['voivodeship'].values())[0]
 
         for district, district_GAID in voivodeship_dict['districts'].items():
-            request_url = f"{base_url}&provinceGAID={voivodeship_GAID}&districtGAID={district_GAID}&fromDate={from_date}&toDate={to_date}&_=1760714469806"
-            response = requests.get(request_url)
+            request_url = f"{base_url}&provinceGAID={voivodeship_GAID}&districtGAID={district_GAID}&fromDate={from_date}&toDate={to_date}"
+
 
             try:
+                response = requests.get(request_url)
                 resp_json = response.json()
                 # print(resp_json)
-                #
+
                 # print(request_url)
 
                 responses_and_voivodeships.append((resp_json, voivodeship))
@@ -524,6 +530,7 @@ def get_tauron_planned_shutdowns(from_date: datetime, to_date: datetime):
                 # print(resp_json[''])
             except Exception as e:
                 # logger.exception(f"Exception making request to {request_url}:\n {e}")
+                # print(f"Exception making request to {request_url}:\n {e}")
                 pass
     return transform_tauron_data(responses_and_voivodeships)
 
@@ -538,5 +545,6 @@ if __name__ == "__main__":
     # infer_powiat_GAIDs()
     from_date = datetime(year=2025, month=10, day=24, tzinfo=timezone.utc)
     to_date = datetime(year=2025, month=10, day=27, tzinfo=timezone.utc)
-    res = get_tauron_planned_shutdowns(from_date, to_date)
+    # res = get_tauron_planned_shutdowns(from_date, to_date)
+    res = get_tauron_planned_shutdowns(datetime.now(), datetime.now() + timedelta(days=7))
     json.dump(res, sys.stdout, ensure_ascii=False, indent=4)

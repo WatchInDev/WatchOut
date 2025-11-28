@@ -6,6 +6,7 @@ import requests
 from datetime import datetime
 
 def parse_locations(line: str) -> list[str]:
+    print(line)
     """
     Parses a single line of location text into a list of building identifiers,
     omitting the base city name if 'ulica' or 'ulice' is specified.
