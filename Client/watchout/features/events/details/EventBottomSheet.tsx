@@ -19,7 +19,9 @@ export const EventBottomSheet = ({ event, onClose }: EventBottomSheetProps) => {
   const { mutateAsync: rateEventAsync } = useRateEvent(event.id);
   const { showSnackbar } = useSnackbar();
 
-  const [isUpVoted, setIsUpVoted] = useState<boolean | null>(null); // TODO: load initial vote state from API
+  const [isUpVoted, setIsUpVoted] = useState<boolean | null>(
+    event.ratingForCurrentUser === 1 ? true : event.ratingForCurrentUser === -1 ? false : null
+  );
 
   const handleRateEvent = async (isUpvote: boolean) => {
     try {

@@ -12,20 +12,16 @@ export const EventRating = ({ isUpVoted, onRate }: EventRatingProps) => {
   return (
     <View style={{ gap: 8 }}>
       {isUpVoted != null ? (
-        <View>
-          <Icon source="check-circle" size={32} color={theme.palette.primary} />
-          <Text variant="body2" color="primary" style={{ textAlign: 'center' }}>
-            Dziękujemy za zgłoszenie wiarygodności zdarzenia!
-          </Text>
-          <Text variant="body2" color="primary" style={{ textAlign: 'center' }}>
+        <View style={{ alignItems: 'center', gap: 12 }}>
             <Icon
               source={isUpVoted ? 'thumb-up' : 'thumb-down'}
-              size={32}
-              color={isUpVoted ? theme.palette.primary : theme.palette.error}
+              size={64}
+              color={isUpVoted ? `${theme.palette.primary}80` : `${theme.palette.error}80`}
             />
+          <Text variant="body2" color="primary" style={{ textAlign: 'center' }}>
             {isUpVoted === true
-              ? 'Potwierdziłeś, że zdarzenie nadal ma miejsce.'
-              : ' Potwierdziłeś, że zdarzenie już nie występuje.'}
+              ? 'Potwierdziłeś autentyczność zdarzenia!'
+              : ' Zaprzeczyłeś autentyczności zdarzenia.'}
           </Text>
         </View>
       ) : (
