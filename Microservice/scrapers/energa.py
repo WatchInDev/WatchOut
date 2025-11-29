@@ -6,7 +6,7 @@ import requests
 from datetime import datetime
 
 def parse_locations(line: str) -> list[str]:
-    print(line)
+    # print(line)
     """
     Parses a single line of location text into a list of building identifiers,
     omitting the base city name if 'ulica' or 'ulice' is specified.
@@ -203,7 +203,9 @@ def transform_shutdown_data(shutdown_list):
             message = shutdown.get('message')
             hours_list = shutdown.get('hours', [])
 
-            # print(message, end='\n\n')
+            print(hours_list)
+
+            print(message, end='\n\n')
 
             messages.append(message)
 

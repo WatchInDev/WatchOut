@@ -1,4 +1,4 @@
-prompt="""
+base_prompt = """
 parse lines below, into such structure, i dont need code, just final parsed json, do not include town name into location items:
 
 
@@ -36,4 +36,52 @@ Lubinia Mała 69, od 91 do 96, 96A, 98, 99, 99A, 100, 100 C, 100B, 100D, 510, 51
 Parzew .
 Lubinia Mała 53, 54, 54A, 54B, 55, 56, 56 B, 56A, 57, 57A, 65A, 66, 67, 67a, 68, 71, 71A, 72, 73, 73A, od 74 do 77, --363/2, dz. nr-258, 259, dz. nr-350, dz. nr-363/5, Sucha 8, 9.
 Przyborów.
+"""
+
+location_lines_parsing_prompt = """
+System Role: You are a data parsing assistant. Convert the provided raw text into a structured JSON format.
+
+Rules:
+
+    Output: Valid JSON only.
+
+    Structure: 
+        Here's the expected JSON schema:
+        {format_instructions}
+
+    Data: 
+        1. If a city appears without any streets or house numbers, still create an entry for it, but with empty locations list.
+        2. If just the street name without house numbers is specified, add an item to the list with just the street name.
+        3. DO NOT merge multiple occurrences of the same town into a single key.
+        4. One line - one separate dictionary
+
+Handling House Numbers:
+
+    Expand standard ranges: 10-12 → ["10", "11", "12"].
+
+    Expand semantic ranges: od 1 do 3 → ["1", "2", "3"].
+
+    Expand parity ranges: od 1 do 5 nieparzyste → ["1", "3", "5"].
+
+    Preserve complex numbers: 1-143/32 → ["1-143/32"] (Treat as a single entity).
+
+Example:
+    Input:
+    Warszawa 1, 2, Kraków 5
+    Wrocław 10-12
+    
+    Output:
+    [
+      [
+        {"Warszawa": {"locations": ["1", "2"]}},
+        {"Kraków": {"locations": ["5"]}}
+      ],
+      [
+        {"Wrocław": {"locations": ["10", "11", "12"]}}
+      ]
+    ]
+
+
+User input:
+{input}
 """

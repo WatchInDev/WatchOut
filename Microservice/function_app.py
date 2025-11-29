@@ -19,7 +19,7 @@ def electricity_outages_fetching():
         energa_res = {"outagesResponse": energa, "provider": 'energa'}
 
         # print([tauron_res, energa_res])
-        print([energa_res])
+        # print([energa_res])
 
         # return [tauron_res, energa_res]
         return [energa_res]
@@ -54,8 +54,8 @@ def send_data_to_server(myTimer: func.TimerRequest) -> None:
     imgw = meteorological_warnings_fetching()
 
     try:
-        resp1 = requests.post(f"{base_url}/{electricity_url}", json=electricity, headers={'INTERNAL_API_KEY': token})
-        resp2 = requests.post(f"{base_url}/{weather_url}", json=imgw, headers={'INTERNAL_API_KEY': token})
+        resp1 = requests.post(f"{base_url}{electricity_url}", json=electricity, headers={'INTERNAL_API_KEY': token})
+        resp2 = requests.post(f"{base_url}{weather_url}", json=imgw, headers={'INTERNAL_API_KEY': token})
 
         resp1.raise_for_status()
         resp2.raise_for_status()
