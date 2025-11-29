@@ -22,7 +22,7 @@ class EventMapper(val eventTypeMapper: EventTypeMapper, val eventTypeRepository:
              description = event.description,
              latitude = event.location.y,
              longitude = event.location.x,
-             images = event.image.split(","),
+             images = event.image.takeIf { it.isNotBlank() }?.split(",") ?: emptyList(),
              reportedDate = event.reportedDate,
              endDate = event.endDate,
              isActive = event.isActive,
