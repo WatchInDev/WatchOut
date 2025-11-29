@@ -27,6 +27,7 @@ export const API_ENDPOINTS = {
   locations: {
     getAll: 'users/favourite-places',
     add: 'users/favourite-places',
+    edit: (placeId: string) => `users/favourite-places/${placeId}`,
     delete: (placeId: string) => `users/favourite-places/${placeId}`,
   },
   externalWarnings: {

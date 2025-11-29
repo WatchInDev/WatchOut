@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import { CoordinatesRect } from "./types";
 
 export function hoursToMilliseconds(hours: number): number {
@@ -32,3 +33,7 @@ export function stringifyCoordinatesWithInterval(coordinates: CoordinatesRect, i
   const { neLat, neLng, swLat, swLng } = roundCoordinates(coordinates, interval);
   return `${neLat},${neLng},${swLat},${swLng}`;
 };
+
+export function formatDate(date: Date): string {  
+  return `${dayjs.utc(date).local().format('YYYY-MM-DD HH:mm')} (${dayjs.utc(date).local().fromNow()})`;
+}

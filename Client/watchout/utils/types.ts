@@ -28,6 +28,8 @@ export type Event = {
   endDate: string;
   eventType: EventType;
   active: boolean;
+  rating: number;
+  ratingForCurrentUser: number;
 };
 
 export type Outage = {
@@ -40,7 +42,7 @@ export type Outage = {
   provider?: string;
   locality?: string;
   placeName: string;
-}
+};
 
 export type CreateEventRequest = {
   name: string;
@@ -66,7 +68,7 @@ export type Comment = {
   author: {
     id: number;
     reputation: number;
-  }
+  };
   rating: number;
   ratingForCurrentUser: number;
 };
@@ -85,21 +87,30 @@ export type PinnedLocation = {
   locality: string;
   region: string;
   voivodeship: string;
+  notificationsEnable: boolean;
+  services: {
+    electricity: boolean;
+    weather: boolean;
+  };
+  radius: number;
 };
 
 export type AddLocationRequest = {
   placeName: string;
   latitude: number;
   longitude: number;
-  services: {
-    electricity: boolean;
-    water: boolean;
-    gas: boolean;
-    internet: boolean;
+  settings: {
+    radius: number;
+    services: {
+      electricity: boolean;
+      weather: boolean;
+      eventTypes?: number[];
+    };
   };
-  radius: number;
-  notificationsEnabled: boolean;
+  notificationsEnable: boolean;
 };
+
+export type UpdateLocationRequest = AddLocationRequest;
 
 export type PaginationRequest<T> = {
   page: number;
@@ -160,10 +171,22 @@ export type GetEventClusteredRequest = {
   eventTypeIds?: number[];
   reportedDateFrom?: Date;
   reportedDateTo?: Date;
-}
+};
 
 export type UserPreferences = {
   notifyOnEvent: boolean;
   notifyOnComment: boolean;
   notifyOnExternalWarning: boolean;
+};
+
+export type Alert = {
+  type: 'electrical_outage' | 'weather';
+  location?: string;
+  name?: string;
+  description?: string;
+  fromDate: Date;
+  toDate: Date;
+  provider?: string;
+  locality?: string;
+  placeName: string;
 };

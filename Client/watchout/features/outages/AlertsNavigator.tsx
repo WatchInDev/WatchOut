@@ -1,20 +1,22 @@
 import { createStackNavigator } from '@react-navigation/stack';
-import { Outages } from './Outages';
-import { OutageLocations } from './OutageLocations/OutageLocations';
+import { Alerts } from './Alerts';
+import { AlertLocations } from './OutageLocations/AlertLocations';
 import { navigationTheme } from 'components/Base/navigationTheme';
-import { AddLocation } from './OutageLocations/AddLocation/AddLocation';
+import { LocationForm } from './OutageLocations/LocationForm/LocationForm';
+import { AddLocation } from './OutageLocations/LocationForm/AddLocation';
+import { EditLocation } from './OutageLocations/LocationForm/EditLocation';
 
 const Stack = createStackNavigator();
 
 const outageRoutes = [
   {
     name: 'OutagesMain',
-    component: Outages,
+    component: Alerts,
     headerShown: false,
   },
   {
     name: 'LocationSettings',
-    component: OutageLocations,
+    component: AlertLocations,
     label: 'Ustawienia lokalizacji',
   },
   {
@@ -22,9 +24,14 @@ const outageRoutes = [
     component: AddLocation,
     label: 'Dodawanie lokalizacji',
   },
+  {
+    name: 'EditLocation',
+    component: EditLocation,
+    label: 'Edycja lokalizacji',
+  },
 ];
 
-export const OutagesNavigator = () => {
+export const AlertsNavigator = () => {
   return (
     <Stack.Navigator
       screenOptions={{
