@@ -41,7 +41,7 @@ data class EventResponseDTO(
         id,
         name,
         description,
-        image.split(","),
+        image.takeIf { it.isNotBlank() }?.split(",") ?: emptyList(),
         point.y,
         point.x,
         reportedDate,

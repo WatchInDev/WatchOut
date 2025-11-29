@@ -70,7 +70,7 @@ class UserFavouritePlaceService(val userFavouritePlaceRepository: UserFavouriteP
 
     fun getFavouritePlaces(userId: Long): List<FavouritePlaceDTO>{
         return userFavouritePlaceRepository.findByUserId(userId).map {
-            val preferences = userFavouritePlacePreferenceRepository.findByUserFavouritePlaceId(it.id!!)?: throw EntityNotFoundException("Favourite place not found")
+            val preferences = userFavouritePlacePreferenceRepository.findByUserFavouritePlaceId(it.id!!)
             FavouritePlaceDTO(it,preferences!!)
         }
     }
