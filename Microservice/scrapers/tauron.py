@@ -466,6 +466,8 @@ def transform_tauron_data(responses_and_voivodeships: list[tuple[dict, str]]) ->
                 end_date = item.get('EndDate')
                 message = item.get('Message')
 
+                print(message)
+
                 if not all([start_date, end_date, message]):
                     continue
 

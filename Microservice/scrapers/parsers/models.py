@@ -1,8 +1,9 @@
 from pydantic import BaseModel, Field, RootModel
 
 
-class CityData(BaseModel):
+class TownData(BaseModel):
     locations: list[str] = Field(default_factory=list)
+
 
 class TownsAndLocations(RootModel):
     """
@@ -17,4 +18,4 @@ class TownsAndLocations(RootModel):
        ]
     ]
     """
-    root: list[list[dict[str, CityData]]]
+    root: list[list[dict[str, TownData]]]

@@ -3,10 +3,10 @@ parse lines below, into such structure, i dont need code, just final parsed json
 
 
 
-{
+{{
 <city_name>:
     locations: []
-}
+}}
 
 each line will become list of: 
 House numbers 
@@ -57,29 +57,57 @@ Rules:
 
 Handling House Numbers:
 
-    Expand standard ranges: 10-12 → ["10", "11", "12"].
-
-    Expand semantic ranges: od 1 do 3 → ["1", "2", "3"].
+    ALWAYS Expand semantic ranges: od 1 do 3 → ["1", "2", "3"]. DO NOT DARE TO IGNORE SINGLE SEMANTIC RANGE
 
     Expand parity ranges: od 1 do 5 nieparzyste → ["1", "3", "5"].
 
     Preserve complex numbers: 1-143/32 → ["1-143/32"] (Treat as a single entity).
 
+CRITICAL PROCESSING RULES:
+
+    1. FORBIDDEN PATTERNS: 
+       - The output list MUST NOT contain the words "od", "do", "and", "-".
+       - If you see "od 72 do 74", you MUST calculate the intermediate numbers.
+       - BAD: "od 72 do 74" 
+       - GOOD: "72", "73", "74"
+
+    2. CONTEXT PROPAGATION (Street Names):
+       - If a range follows a specific street address, apply that street name to the expanded numbers.
+       - Input: "ul. Północne 70, od 72 do 74"
+       - BAD: "ul. Północne 70", "72", "73", "74"
+       - GOOD: "ul. Północne 70", "ul. Północne 72", "ul. Północne 73", "ul. Północne 74"
+
+    3. COMPLEX NUMBERS:
+       - Preserve slashes and letters exactly: "115/23", "63 E".
+
+    4. HOUSEKEEPING:
+       - If a city has no numbers, return empty locations list.
+       - Do not merge multiple occurrences of the same town.
+
 Example:
     Input:
     Warszawa 1, 2, Kraków 5
     Wrocław 10-12
-    
+    Wrocław ul. Nabycińska 1
     Output:
     [
       [
-        {"Warszawa": {"locations": ["1", "2"]}},
-        {"Kraków": {"locations": ["5"]}}
+        {{"Warszawa": {{"locations": ["1", "2"]}}}},
+        {{"Kraków": {{"locations": ["5"]}}}}
       ],
       [
-        {"Wrocław": {"locations": ["10", "11", "12"]}}
+        {{"Wrocław": {{"locations": ["10", "11", "12"]}}}}
+      ],
+      [
+        {{"Wrocław": {{"locations": ["ul. Nabycińska 1"]}}}}
       ]
     ]
+    
+    
+    Input: "Wrocław ul. Polna 1, od 3 do 5, 10/12"
+    Step 1 (Identify): "ul. Polna 1", Range "3-5" inherits "ul. Polna", "10/12" inherits "ul. Polna"
+    Step 2 (Expand): "ul. Polna 1", "ul. Polna 3", "ul. Polna 4", "ul. Polna 5", "ul. Polna 10/12"
+    Output JSON: [ {{"Wrocław": {{"locations": ["ul. Polna 1", "ul. Polna 3", "ul. Polna 4", "ul. Polna 5", "ul. Polna 10/12"]}}}} ]
 
 
 User input:
