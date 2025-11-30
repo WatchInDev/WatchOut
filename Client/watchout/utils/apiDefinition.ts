@@ -11,6 +11,7 @@ export const API_ENDPOINTS = {
     getClusters: (request: GetEventsRequest, minPoints: number, eps: number) =>
       `events/clusters${queryParams(request)}&minPoints=${minPoints}&eps=${eps}`,
     create: 'events',
+    availability: 'events/ability',
   },
   comments: {
     getByEventId: <T>(eventId: number, pagination: PaginationRequest<T>) =>

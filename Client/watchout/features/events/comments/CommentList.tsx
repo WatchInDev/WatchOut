@@ -8,6 +8,7 @@ import { theme } from 'utils/theme';
 import { ConfirmationModal } from 'components/Common/ConfirmationModal';
 import { generateAnonName } from 'utils/helpers';
 import { useCommentsList } from './useCommentsList';
+import { useActionAvailability } from 'features/events/create/useActionAvailability';
 
 type CommentListProps = {
   eventId: number;
@@ -26,9 +27,12 @@ export const CommentList = ({ eventId }: CommentListProps) => {
     handleCommentSubmitError,
   } = useCommentsList(eventId);
 
+  const { data: availability } = useActionAvailability();
+
   if (comments.isFetching && !comments.isFetchingNextPage) {
     return <ActivityIndicator color={theme.palette.primary} />;
   }
+
 
   const currentCommentCount = comments?.content.length || 0;
 
@@ -61,9 +65,9 @@ export const CommentList = ({ eventId }: CommentListProps) => {
       <Text variant="h3">Komentarze ({comments?.totalElements || 0})</Text>
       <Button
         onPress={() => setIsCommentModalOpen(true)}
-        mode="contained"
+        mode={availability?.canPost ? 'contained' : 'outlined'}
         style={{ marginVertical: 12 }}>
-        Dodaj komentarz
+          {!availability?.canPost ? 'Nie możesz dodać komentarza' : 'Dodaj komentarz'}
       </Button>
       {comments?.empty ? (
         <View style={{ alignItems: 'center', marginTop: 32 }}>

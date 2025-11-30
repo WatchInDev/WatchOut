@@ -191,3 +191,8 @@ export type Alert = {
   locality?: string;
   placeName: string;
 };
+
+export type ActionAvailability = {
+  canPost: boolean;
+  reason?: string;
+};

@@ -8,10 +8,11 @@ import { Coordinates, CreateEventRequest } from 'utils/types';
 import { reverseGeocode } from 'features/map/reverseGeocode';
 import { EventTypeSelectionModal } from './EventTypeSelectionModal';
 import { BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet';
-import { Button } from 'react-native-paper';
 import { useFocusEffect } from '@react-navigation/native';
+import { ActivityIndicator, Button, Icon } from 'react-native-paper';
 import { PageWrapper } from 'components/Common/PageWrapper';
 import { ImageUploader } from './ImageUploader';
+import { useActionAvailability } from './useActionAvailability';
 
 type CreateEventProps = {
   location: Coordinates;
@@ -46,6 +47,8 @@ export const CreateEventBottomSheet = ({ location, onSuccess, onClose }: CreateE
     eventTypeId: null,
     images: [],
   });
+  const { data: actionAvailability, isLoading: isActionAvailabilityLoading } =
+    useActionAvailability();
 
   const [selectedEventType, setSelectedEventType] = useState<{
     id: number;
@@ -119,6 +122,9 @@ export const CreateEventBottomSheet = ({ location, onSuccess, onClose }: CreateE
     <BottomSheetModal ref={bottomSheetRef} enablePanDownToClose onDismiss={onClose}>
       <BottomSheetView>
         <PageWrapper>
+          {isActionAvailabilityLoading ? (
+            <ActivityIndicator style={{ marginVertical: 20 }} />
+          ) : actionAvailability?.canPost ? (
           <View style={styles.container}>
             <Text variant="h3" style={styles.title}>
               Zgłoś nowe zdarzenie!
@@ -173,9 +179,28 @@ export const CreateEventBottomSheet = ({ location, onSuccess, onClose }: CreateE
               {isLoading ? 'Zgłaszanie...' : 'Zgłoś zdarzenie'}
             </Button>
           </View>
+          ) : (
+            <ActionNotAvailableMessage />
+          )}
         </PageWrapper>
       </BottomSheetView>
     </BottomSheetModal>
+  );
+};
+
+const ActionNotAvailableMessage = () => {
+  return (
+    <View style={{ gap: 8, padding: 16 }}>
+      <Row style={{ justifyContent: 'center', marginVertical: 8 }}>
+        <Icon source="block-helper" size={64} color={theme.palette.tertiary}/>
+      </Row>
+      <Text variant="h3" align="center">
+        Akcja niedostępna
+      </Text>
+      <Text align="center">
+        Nie możesz zgłosić nowego zdarzenia, ponieważ twoja reputacja jest zbyt niska. Spróbuj ponownie później.
+      </Text>
+    </View>
   );
 };
 
