@@ -8,6 +8,7 @@ import jakarta.validation.Valid
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.web.PageableDefault
+import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
@@ -29,6 +30,7 @@ private val logger = KotlinLogging.logger {}
 class CommentController(private val commentService: CommentService) {
 
     @PostMapping
+    @PreAuthorize("hasRole('ROLE_USER')")
     @Operation(summary = "Add a comment to an event")
     fun addComment(@RequestBody @Valid commentRequestDto: CommentRequestDTO, @PathVariable("eventId") eventId: Long, @Parameter(hidden = true) @AuthenticationPrincipal userId : Long): CommentResponseDTO {
         logger.info { "Adding comment to event with id: ${eventId}" }
@@ -38,6 +40,7 @@ class CommentController(private val commentService: CommentService) {
     }
 
     @GetMapping
+    @PreAuthorize("hasRole('ROLE_USER')")
     @Operation(summary = "Get all comments for an event", description = "Pagination description: page - page number (0-based), size - number of comments per page(default is 20), sort - sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported." +
             " Example: http://localhost:8080/api/v1/events/2006/comments?page=30&size=10&sort=id,asc")
     fun getComments(@PathVariable("eventId") eventId: Long, @Parameter(hidden = true) @AuthenticationPrincipal userId : Long, @PageableDefault(size = 20) pageable: Pageable): Page<CommentResponseDTO> {
@@ -48,6 +51,7 @@ class CommentController(private val commentService: CommentService) {
     }
 
     @DeleteMapping("/{commentId}")
+    @PreAuthorize("hasRole('ROLE_USER')")
     @Operation(summary = "Delete a comment from an event", description = "Delete a comment made by the authenticated user from the specified event.")
     fun deleteComment(@PathVariable("eventId") eventId: Long, @Parameter(hidden = true) @AuthenticationPrincipal userId : Long, @PathVariable("commentId") commentId: Long) {
         logger.info { "Deleting comment with id: $commentId for event with id: $eventId by user with id: $userId" }

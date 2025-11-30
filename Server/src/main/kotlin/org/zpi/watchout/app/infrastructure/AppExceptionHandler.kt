@@ -13,6 +13,7 @@ import org.zpi.watchout.app.infrastructure.exceptions.GoogleGeocodeRequestError
 import org.zpi.watchout.app.infrastructure.exceptions.IncorrectLocationException
 import org.zpi.watchout.service.dto.ExceptionDTO
 import java.time.LocalDateTime
+import org.springframework.security.authorization.AuthorizationDeniedException
 
 private val logger = KotlinLogging.logger {}
 
@@ -106,6 +107,17 @@ class AppExceptionHandler {
         )
         logger.warn(ex) { "Data integrity violation: ${ex.message}" }
         return ResponseEntity.status(HttpStatus.CONFLICT).body(exceptionDto)
+    }
+
+    @ExceptionHandler(AuthorizationDeniedException::class)
+    fun handleAuthorizationDeniedException(ex: AuthorizationDeniedException): ResponseEntity<ExceptionDTO> {
+        val exceptionDto = ExceptionDTO(
+            timestamp = LocalDateTime.now().toString(),
+            message = ex.message ?: HttpStatus.FORBIDDEN.reasonPhrase,
+            status = HttpStatus.FORBIDDEN.value()
+        )
+        logger.warn(ex) { "Authorization denied: ${ex.message}" }
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(exceptionDto)
     }
 
 
