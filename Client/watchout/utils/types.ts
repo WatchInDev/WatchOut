@@ -71,6 +71,7 @@ export type Comment = {
   };
   rating: number;
   ratingForCurrentUser: number;
+  isAuthor: boolean;
 };
 
 export type AddCommentRequest = {

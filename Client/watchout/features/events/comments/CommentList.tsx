@@ -10,6 +10,8 @@ import { theme } from 'utils/theme';
 import { useCommentDelete } from './useCommentDelete';
 import { useSnackbar } from 'utils/useSnackbar';
 import { ConfirmationModal } from 'components/Common/ConfirmationModal';
+import { useAuth } from 'features/auth/authContext';
+import { generateAnonName } from 'utils/helpers';
 
 type CommentListProps = {
   eventId: number;
@@ -24,7 +26,6 @@ export const CommentList = ({ eventId }: CommentListProps) => {
       sort: [{ field: 'createdAt', direction: 'desc' }],
     }
   );
-
   const { mutateAsync: deleteCommentAsync, isPending: isDeleting } = useCommentDelete();
   const [commentToDelete, setCommentToDelete] = useState<number | null>(null);
 
@@ -114,7 +115,7 @@ export const CommentList = ({ eventId }: CommentListProps) => {
                 flexDirection: 'row',
               }}>
               <View style={{ flex: 1 }}>
-                <Text variant="subtitle2">Twój komentarz</Text>
+                <Text variant="subtitle2">{item.isAuthor ? 'Twój komentarz' : generateAnonName(item.author.id)}</Text>
                 <Text variant="body1" wrap>
                   {item.content}
                 </Text>
@@ -123,9 +124,11 @@ export const CommentList = ({ eventId }: CommentListProps) => {
                   {dayjs.utc(item.createdAt).local().fromNow()})
                 </Text>
               </View>
-              <View>
-                <IconButton icon={'delete'} onPress={() => setCommentToDelete(item.id)} />
-              </View>
+              {item.isAuthor && (
+                <View>
+                  <IconButton icon={'delete'} onPress={() => setCommentToDelete(item.id)} />
+                </View>
+              )}
             </CustomSurface>
           ))}
 
