@@ -17,7 +17,8 @@ class CommentMapper(private val userRepository: UserRepository, private val user
             createdAt = comment.createdAt!!,
             author = userMapper.mapAuthorUserToDto(comment.author),
             rating = 0.0,
-            ratingForCurrentUser = 0.0
+            ratingForCurrentUser = 0.0,
+            isAuthor = true
         )
     }
 

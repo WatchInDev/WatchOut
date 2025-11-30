@@ -38,11 +38,13 @@ class UserFavouritePlaceService(val userFavouritePlaceRepository: UserFavouriteP
         val result=userFavouritePlaceRepository.save(favouritePlace)
         val preference = UserFavouritePlacePreference(
             userFavouritePlaceId = result.id!!,
-            notificationEnabled = true,
-            radius=500.0,
-            weather = true,
-            electricity = true,
-            eventTypes = eventTypeRepository.findAll()
+            notificationEnabled = favouritePlaceRequestDTO.settings.notificationsEnable,
+            radius= favouritePlaceRequestDTO.settings.radius,
+            weather = favouritePlaceRequestDTO.settings.services.weather,
+            electricity = favouritePlaceRequestDTO.settings.services.electricity,
+            eventTypes = favouritePlaceRequestDTO.settings.services.eventTypes.map {
+                eventTypeRepository.findById(it).orElseThrow { EntityNotFoundException("Event type with id $it not found")}
+            }
         )
         val savedPreferences = userFavouritePlacePreferenceRepository.save(
             preference
@@ -70,7 +72,7 @@ class UserFavouritePlaceService(val userFavouritePlaceRepository: UserFavouriteP
 
     fun getFavouritePlaces(userId: Long): List<FavouritePlaceDTO>{
         return userFavouritePlaceRepository.findByUserId(userId).map {
-            val preferences = userFavouritePlacePreferenceRepository.findByUserFavouritePlaceId(it.id!!)?: throw EntityNotFoundException("Favourite place not found")
+            val preferences = userFavouritePlacePreferenceRepository.findByUserFavouritePlaceId(it.id!!)
             FavouritePlaceDTO(it,preferences!!)
         }
     }

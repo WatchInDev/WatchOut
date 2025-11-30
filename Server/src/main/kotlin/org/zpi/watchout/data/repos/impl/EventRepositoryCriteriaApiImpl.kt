@@ -54,6 +54,19 @@ class EventRepositoryCriteriaApiImpl(@PersistenceContext private val entityManag
         0
         )
 
+        val isAuthorCase = cb.greaterThan(
+            cb.max(
+                cb.selectCase<Int>()
+                    .`when`(cb.equal(authorJoin.get<Long>("id"), userId), 1)
+                    .otherwise(0)
+            ).`as`(Int::class.java),
+            0
+        )
+
+        val pseudoAuthorId: Expression<Long> = cb.max(cb.sum(
+            cb.prod(authorJoin.get<Long>("id"), cb.literal(1_000_003L)),
+            cb.prod(eventRoot.get<Long>("id"), cb.literal(1009L))
+        )).`as`(Long::class.java)
 
         cq.select(
             cb.construct(
@@ -72,11 +85,12 @@ class EventRepositoryCriteriaApiImpl(@PersistenceContext private val entityManag
                 eventTypeJoin.get<String>("icon"),
                 eventTypeJoin.get<String>("description"),
 
-                authorJoin.get<Long>("id"),
+                pseudoAuthorId,
                 authorJoin.get<Double>("reputation"),
 
                 weightedRatingExpr,
-                ratingForCurrentUser
+                ratingForCurrentUser,
+                isAuthorCase
             )
         )
         val predicates = generatePredicateWhere(filters, cb, eventRoot)
@@ -95,8 +109,6 @@ class EventRepositoryCriteriaApiImpl(@PersistenceContext private val entityManag
             eventTypeJoin.get<String>("name"),
             eventTypeJoin.get<String>("icon"),
             eventTypeJoin.get<String>("description"),
-
-            authorJoin.get<Long>("id"),
             authorJoin.get<Double>("reputation")
         )
         val havingPredicates = generatePredicateHaving(filters, cb, eventRoot, weightedRatingExpr)
@@ -157,7 +169,14 @@ class EventRepositoryCriteriaApiImpl(@PersistenceContext private val entityManag
                 authorJoin.get<Double>("reputation"),
 
                 weightedRatingExpr,
-                ratingForCurrentUser
+                ratingForCurrentUser,
+                cb.greaterThan(
+                    cb.max(
+                        cb.selectCase<Int>()
+                            .`when`(cb.equal(authorJoin.get<Long>("id"), userId), 1)
+                            .otherwise(0)
+                    ).`as`(Int::class.java),
+                    0)
             )
         )
 
