@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.Parameter
 import io.swagger.v3.oas.annotations.tags.Tag
 import jakarta.validation.Valid
+import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
@@ -71,6 +72,7 @@ class EventController(val eventService: EventService) {
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('ROLE_USER')")
     @Operation(summary = "Create a new event")
     fun createEvent(@RequestBody @Valid eventRequestDto: EventRequestDTO, @Parameter(hidden = true) @AuthenticationPrincipal userId : Long): EventResponseDTO {
         logger.info { "Creating event with request name: ${eventRequestDto.name}" }
@@ -80,6 +82,7 @@ class EventController(val eventService: EventService) {
     }
 
     @GetMapping("/ability")
+    @PreAuthorize("hasRole('ROLE_USER')")
     @Operation(summary = "Check ability to post event for current user")
     fun isAbleToPostEvents(@Parameter(hidden = true) @AuthenticationPrincipal userId : Long): AbilityToPostDTO {
         logger.info { "Checking if user with id: $userId is able to post events" }

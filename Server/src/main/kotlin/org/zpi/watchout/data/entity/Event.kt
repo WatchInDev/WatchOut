@@ -26,7 +26,7 @@ class Event(
     @Column(name = "end_date")
     val endDate: LocalDateTime,
     @Column(name = "is_active")
-    val isActive: Boolean,
+    var isActive: Boolean,
     @ManyToOne
     @JoinColumn(name = "author_id", referencedColumnName = "id")
     val author : User,
