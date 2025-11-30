@@ -1,7 +1,7 @@
 import { CustomSwitch } from 'components/Base/CustomSwitch';
 import { Text } from 'components/Base/Text';
 import { PageWrapper } from 'components/Common/PageWrapper';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { View } from 'react-native';
 import { UserPreferences } from 'utils/types';
 import { useNotificationSettings } from './useNotificationSettings';
@@ -47,15 +47,19 @@ const initialSettings: UserPreferences = Object.keys(OPTIONS).reduce(
 
 export const NotificationSettings = () => {
   const { data: preferences } = useNotificationSettings();
-  const [settings, setSettings] = useState<UserPreferences>(preferences || initialSettings);
+  const [settings, setSettings] = useState<UserPreferences>(initialSettings);
   const { mutateAsync: updatePreferencesAsync } = useNotificationSettingsUpdate();
 
+  useEffect(() => {
+    if (preferences) {
+      setSettings(preferences);
+    } 
+  }, [preferences]);
+
   const handleChange = (key: keyof UserPreferences, value: boolean) => {
-    setSettings((prev) => ({
-      ...prev,
-      [key]: value,
-    }));
-    updatePreferencesAsync({ ...settings, [key]: value });
+    const updatedSettings = {...settings, [key]: value};
+    setSettings(updatedSettings);
+    updatePreferencesAsync(updatedSettings);
   };
 
   return (

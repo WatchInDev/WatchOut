@@ -6,5 +6,6 @@ import { Alert } from 'utils/types';
 export const useAlerts = () =>
   useQuery({
     queryKey: ['alerts'],
-    queryFn: () => apiClient.get<Alert[]>(API_ENDPOINTS.externalWarnings.get).then((res) => res.data),
+    queryFn: () =>
+      apiClient.get<Alert[]>(API_ENDPOINTS.externalWarnings.get).then((res) => res.data),
   });

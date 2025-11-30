@@ -1,5 +1,4 @@
 import { useState, useMemo } from 'react';
-import { PaginationRequest } from 'utils/types';
 import { useSnackbar } from 'utils/useSnackbar';
 import { useCommentDelete } from './useCommentDelete';
 import { useComments } from './useComments';
@@ -55,8 +54,8 @@ export const useCommentsList = (eventId: number) => {
       hasNextPage,
       fetchNextPage,
       isFetchingNextPage,
-      totalElements: comments?.totalElements || 0,
-      empty: comments?.empty || false,
+      totalElements: comments?.totalElements ?? 0,
+      empty: comments?.empty ?? false,
     },
     isDeleting,
     commentToDelete,

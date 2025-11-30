@@ -2,9 +2,8 @@ import { AddLocationRequest, PinnedLocation } from 'utils/types';
 import { useLocationUpdate } from './useLocationUpdate';
 import { LocationForm } from './LocationForm';
 import { useRoute } from '@react-navigation/native';
-import { useQueryClient } from 'node_modules/@tanstack/react-query/build/modern/QueryClientProvider';
 import { useSnackbar } from 'utils/useSnackbar';
-import { reverseGeocode } from 'features/map/reverseGeocode';
+import { useQueryClient } from '@tanstack/react-query';
 
 export const EditLocation = () => {
   const route = useRoute();
