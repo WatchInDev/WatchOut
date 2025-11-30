@@ -4,6 +4,7 @@ import { LocationForm } from './LocationForm';
 import { useRoute } from '@react-navigation/native';
 import { useQueryClient } from 'node_modules/@tanstack/react-query/build/modern/QueryClientProvider';
 import { useSnackbar } from 'utils/useSnackbar';
+import { reverseGeocode } from 'features/map/reverseGeocode';
 
 export const EditLocation = () => {
   const route = useRoute();
@@ -39,6 +40,6 @@ export const EditLocation = () => {
   };
 
   return (
-    <LocationForm submit={handleSubmitAsync} location={locationRequest} isPending={isPending} />
+    <LocationForm submit={handleSubmitAsync} initialLocation={locationRequest} isPending={isPending} />
   );
 };

@@ -12,7 +12,6 @@ import { CustomTextInput } from 'components/Base/CustomTextInput';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { LocationTextInput } from 'components/Common/LocationTextInput';
 import { CustomSurface } from 'components/Layout/CustomSurface';
-import { useQueryClient } from '@tanstack/react-query';
 import { CustomSlider } from 'components/Base/CustomSlider';
 import {
   DEFAULT_LOCATION_RADIUS_KM,
@@ -20,9 +19,10 @@ import {
   METERS_IN_KM,
   MIN_LOCATION_RADIUS_KM,
 } from 'utils/constants';
+import { reverseGeocode } from 'features/map/reverseGeocode';
 
-type AddLocationProps = {
-  location?: AddLocationRequest;
+type LocationFormProps = {
+  initialLocation?: AddLocationRequest;
   submit: (location: AddLocationRequest) => void;
   isPending?: boolean;
 };
@@ -42,13 +42,25 @@ const defaultLocation: AddLocationRequest = {
   notificationsEnable: false,
 };
 
-export const LocationForm = ({
-  location: initialLocation,
-  submit,
-  isPending,
-}: AddLocationProps) => {
+export const LocationForm = ({ initialLocation, submit, isPending }: LocationFormProps) => {
   const navigation = useNavigation();
   const [location, setLocation] = useState<AddLocationRequest>(initialLocation ?? defaultLocation);
+  const [preloadedLocalization, setPreloadedLocalization] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (initialLocation) {
+      const geocodedPlaceName = async () => {
+        const placeName = await reverseGeocode({
+          latitude: initialLocation.latitude,
+          longitude: initialLocation.longitude,
+        });
+        if (placeName) {
+          setPreloadedLocalization(placeName);
+        }
+      };
+      geocodedPlaceName();
+    }
+  }, [initialLocation, location.latitude, location.longitude]);
 
   useEffect(() => {
     if (initialLocation) {
@@ -141,7 +153,10 @@ export const LocationForm = ({
             <Text color="secondary">
               Wprowadź adres lokalizacji, aby dokładnie określić jej położenie na mapie
             </Text>
-            <LocationTextInput onPlaceSelect={handlePlaceSelect} />
+            <LocationTextInput
+              initialValue={preloadedLocalization || ''}
+              onPlaceSelect={handlePlaceSelect}
+            />
           </CustomSurface>
 
           <CustomSurface style={styles.locationSurface}>

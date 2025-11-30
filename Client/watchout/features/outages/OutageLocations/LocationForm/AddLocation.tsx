@@ -29,5 +29,5 @@ export const AddLocation = () => {
     queryClient.invalidateQueries({ queryKey: ['pinnedLocations'] });
   };
 
-  return <LocationForm submit={handleSubmit} location={location} isPending={isPending} />;
+  return <LocationForm submit={handleSubmit} initialLocation={location} isPending={isPending} />;
 };
