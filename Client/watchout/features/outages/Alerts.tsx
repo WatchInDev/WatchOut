@@ -34,7 +34,7 @@ export const Alerts = () => {
             ) : null}
             {pinnedLocations?.map((location) => (
               <Text style={{ marginLeft: 8 }} key={location.id} wrap>
-                • {location.region} , {location.location}
+                • {location.region}, {location.location}
               </Text>
             ))}
           </View>
@@ -44,6 +44,20 @@ export const Alerts = () => {
           />
         </Row>
         {isLoading && <ActivityIndicator size="large" style={styles.loader} />}
+        {alerts?.length === 0 && (
+          <View>
+            <View style={{ opacity: 0.4, alignItems: 'center', marginTop: 48 }}>
+              <Icon
+                source="check-circle-outline"
+                size={128}
+                color="green"
+              />
+            </View>
+            <Text align='center' variant='h5' color='secondary' style={{ marginTop: 32 }}>
+              Brak alertów o awariach.
+            </Text>
+          </View>
+        )}
         {alerts?.map((alert) => {
           const isEventOngoing = new Date(alert.toDate) > new Date();
 
