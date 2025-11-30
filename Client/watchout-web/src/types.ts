@@ -1,66 +1,39 @@
-export type Coordinates = {
-  latitude: number;
-  longitude: number;
-};
+export interface User {
+  id: number
+  name: string
+  email: string
+  reputation: number
+  externalId: string
+  isBlocked?: boolean;
+}
 
-export type CoordinatesRect = {
-  swLat: number;
-  swLng: number;
-  neLat: number;
-  neLng: number;
-};
+export interface EventType {
+  id: number
+  name: string
+  icon: string
+  description: string
+}
 
-export type EventType = {
-  id: number;
-  name: string;
-  description: string;
-  icon: string;
-};
+export interface Event {
+  id: number
+  name: string
+  description: string
+  image: string
+  reportedDate: string
+  endDate: string
+  isActive: boolean
+  author: User
+  eventType: EventType
+  location: {
+    latitude: number
+    longitude: number
+  }
+}
 
-export type Event = {
-  id: number;
-  name: string;
-  description: string;
-  image: string;
-  latitude: number;
-  longitude: number;
-  reportedDate: string;
-  endDate: string;
-  eventType: EventType;
-  active: boolean;
-};
-
-export type CreateEventRequest = {
-  name: string;
-  description: string;
-  image: string | null;
-  latitude: number;
-  longitude: number;
-  endDate: Date | string;
-  eventTypeId: number;
-};
-
-export type EventCluster = {
-  latitude: number;
-  longitude: number;
-  count: number;
-};
-
-export type Comment = {
-  id: number;
-  content: string;
-  eventId: number;
-  author: {
-    id: number;
-    name: string;
-    lastName: string;
-    reputation: number;
-  };
-  rating: number;
-  createdOn: Date;
-};
-
-export type AddCommentRequest = {
-  eventId: number;
-  content: string;
-};
+export interface Comment {
+  id: number
+  content: string
+  author: User
+  eventId: number
+  isDeleted: boolean
+}

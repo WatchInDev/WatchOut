@@ -1,28 +1,20 @@
-import { StrictMode } from "react";
-import "./App.css";
-import { createRoot } from "react-dom/client";
-import dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime";
-import duration from "dayjs/plugin/duration";
-import "dayjs/locale/pl";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { RouterProvider } from "react-router";
-import { routing } from "./Routing";
-import { ThemeProvider } from "@mui/material";
-import theme from "./utils/theme";
+import { StrictMode } from "react"
+import { createRoot } from "react-dom/client"
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
+import { RouterProvider } from "react-router"
+import { routing } from "./Routing"
+import { AuthProvider } from "@/context/AuthContext"
 
-const queryClient = new QueryClient();
+import "./App.css"
 
-dayjs.extend(relativeTime);
-dayjs.extend(duration);
-dayjs.locale("pl");
+const queryClient = new QueryClient()
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <ThemeProvider theme={theme}>
+    <AuthProvider>
+      <QueryClientProvider client={queryClient}>
         <RouterProvider router={routing} />
-      </ThemeProvider>
-    </QueryClientProvider>
+      </QueryClientProvider>
+    </AuthProvider>
   </StrictMode>
-);
+)
