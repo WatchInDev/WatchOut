@@ -5,7 +5,7 @@ import BottomSheet, { BottomSheetScrollView } from '@gorhom/bottom-sheet';
 import { CustomSlider } from 'components/Base/CustomSlider';
 import { CustomSurface } from 'components/Layout/CustomSurface';
 import { ActivityIndicator, Button, IconButton } from 'react-native-paper';
-import { useGetEventTypes } from 'features/events/event-types.hooks';
+import { useGetEventTypes } from 'features/event-types/useGetEventTypes';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { PageWrapper } from 'components/Common/PageWrapper';
 import { DEFAULT_REPORT_HOURS_FILTER, FILTERS_STORAGE_KEY } from 'utils/constants';

@@ -2,7 +2,7 @@ import { View, ScrollView, StyleSheet } from 'react-native';
 import { Text } from 'components/Base/Text';
 import { ActivityIndicator, Card, Icon } from 'react-native-paper';
 import { ErrorDisplay } from 'components/Common/ErrorDisplay';
-import { useGetEventTypes } from 'features/events/event-types.hooks';
+import { useGetEventTypes } from 'features/event-types/useGetEventTypes';
 import { CustomSurface } from 'components/Layout/CustomSurface';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { PageWrapper } from 'components/Common/PageWrapper';

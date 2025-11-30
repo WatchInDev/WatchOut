@@ -14,13 +14,15 @@ import { ConfirmationModal } from 'components/Common/ConfirmationModal';
 import { useState } from 'react';
 import { PinnedLocation } from 'utils/types';
 import { useSnackbar } from 'utils/useSnackbar';
+import { useQueryClient } from '@tanstack/react-query';
 
-export const OutageLocations = () => {
+export const AlertLocations = () => {
   const navigation = useNavigation();
   const { data: pinnedLocations, isLoading, refetch } = usePinnedLocations();
   const { mutateAsync: deleteLocationAsync, isPending: isDeletePending } = useLocationDelete();
   const [locationToDelete, setLocationToDelete] = useState<PinnedLocation | null>(null);
   const { showSnackbar } = useSnackbar();
+  const queryClient = useQueryClient();
 
   const handleLocationDelete = async (locationId: number) => {
     const apiResponse = await deleteLocationAsync(locationId);
@@ -34,6 +36,8 @@ export const OutageLocations = () => {
       alert('Wystąpił błąd podczas usuwania lokalizacji. Spróbuj ponownie później.');
     }
     refetch();
+    queryClient.invalidateQueries({ queryKey: ['alerts'] });
+    queryClient.invalidateQueries({ queryKey: ['pinnedLocations'] });
   };
 
   return (
@@ -74,7 +78,9 @@ export const OutageLocations = () => {
                   icon="pencil-outline"
                   size={26}
                   style={{ margin: 0, padding: 0 }}
-                  onPress={() => {}}
+                  onPress={() =>
+                    navigation.navigate({ name: 'EditLocation', params: { location } } as never)
+                  }
                 />
                 <IconButton
                   icon="delete-outline"
@@ -84,6 +90,7 @@ export const OutageLocations = () => {
                 />
               </Row>
             </View>
+
             <Row style={{ alignItems: 'center', gap: 4 }}>
               <Icon source="map-marker" size={32} color={theme.palette.text.secondary} />
               <Text weight="bold" variant="h6" color="secondary" wrap>
@@ -93,25 +100,25 @@ export const OutageLocations = () => {
                 </Text>
               </Text>
             </Row>
+
             <Row style={{ gap: 8 }}>
-              <IconWithTitle iconName={'flash'} label={'Prąd'} />
-              <IconWithTitle iconName={'water-off'} label={'Woda'} />
-              <IconWithTitle iconName={'fire'} label={'Gaz'} isActive={false} />
-              <IconWithTitle iconName={'wifi'} label={'Sieć'} />
+              <IconWithTitle iconName={'flash'} label={'Prąd'} isActive={location.services.electricity} />
+              <IconWithTitle iconName={'weather-partly-cloudy'} label={'Pogoda'} isActive={location.services.weather} />
             </Row>
+
             <View style={{ gap: 8 }}>
               <Row style={{ alignItems: 'center', gap: 8 }}>
                 <Icon source="radius-outline" size={24} />
                 <Text>
                   <Text weight="bold">Zasięg: </Text>
-                  {15 /*MOCKED*/} km
+                  {location.radius / 1000} km
                 </Text>
               </Row>
               <Row style={{ alignItems: 'center', gap: 8 }}>
                 <Icon source="bell-outline" size={24} />
                 <Text>
                   <Text weight="bold">Powiadomienia: </Text>
-                  {'Włączone' /*MOCKED*/}
+                  {location.notificationsEnable ? 'Włączone' : 'Wyłączone'}
                 </Text>
               </Row>
             </View>
@@ -119,7 +126,7 @@ export const OutageLocations = () => {
         ))}
         <ConfirmationModal
           isVisible={locationToDelete !== null}
-          message="Czy na pewno chcesz usunąć tę lokalizację?"
+          content="Czy na pewno chcesz usunąć tę lokalizację?"
           onCancel={() => setLocationToDelete(null)}
           onConfirm={async () => handleLocationDelete(locationToDelete!.id)}
           isLoading={isDeletePending}
