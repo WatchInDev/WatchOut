@@ -1,63 +1,32 @@
 import { TouchableOpacity, View } from 'react-native';
-import { useComments } from './useComments';
 import { Text } from 'components/Base/Text';
 import { CustomSurface } from 'components/Layout/CustomSurface';
 import { ActivityIndicator, Button, Icon, IconButton } from 'react-native-paper';
 import { AddCommentModal } from './AddCommentModal';
-import { useState, useMemo } from 'react';
 import dayjs from 'dayjs';
 import { theme } from 'utils/theme';
-import { useCommentDelete } from './useCommentDelete';
-import { useSnackbar } from 'utils/useSnackbar';
 import { ConfirmationModal } from 'components/Common/ConfirmationModal';
-import { useAuth } from 'features/auth/authContext';
 import { generateAnonName } from 'utils/helpers';
+import { useCommentsList } from './useCommentsList';
 
 type CommentListProps = {
   eventId: number;
 };
 
 export const CommentList = ({ eventId }: CommentListProps) => {
-  const { data, isFetching, refetch, fetchNextPage, hasNextPage, isFetchingNextPage } = useComments(
-    eventId,
-    {
-      page: 0,
-      size: 5,
-      sort: [{ field: 'createdAt', direction: 'desc' }],
-    }
-  );
-  const { mutateAsync: deleteCommentAsync, isPending: isDeleting } = useCommentDelete();
-  const [commentToDelete, setCommentToDelete] = useState<number | null>(null);
+  const {
+    comments,
+    isDeleting,
+    commentToDelete,
+    setCommentToDelete,
+    isCommentModalOpen,
+    setIsCommentModalOpen,
+    handleCommentDelete,
+    handleCommentSubmit,
+    handleCommentSubmitError,
+  } = useCommentsList(eventId);
 
-  const handleCommentDelete = () => {
-    if (commentToDelete == null) return;
-
-    deleteCommentAsync({ eventId, commentId: commentToDelete }).then(() => {
-      showSnackbar({ message: 'Komentarz usunięty pomyślnie', type: 'success' });
-      setCommentToDelete(null);
-      refetch();
-    });
-  };
-
-  const { showSnackbar } = useSnackbar();
-  const [isCommentModalOpen, setIsCommentModalOpen] = useState(false);
-
-  const comments = useMemo(() => {
-    if (!data) return null;
-    const allComments = data.pages.flatMap((page) => page.content);
-    const totalElements = data.pages[0]?.totalElements;
-    const empty = totalElements === 0;
-
-    return { content: allComments, totalElements, empty };
-  }, [data]);
-
-  const handleCommentSubmit = () => {
-    setIsCommentModalOpen(false);
-    showSnackbar({ message: 'Komentarz dodany pomyślnie', type: 'success' });
-    refetch();
-  };
-
-  if (isFetching && !isFetchingNextPage) {
+  if (comments.isFetching && !comments.isFetchingNextPage) {
     return <ActivityIndicator color={theme.palette.primary} />;
   }
 
@@ -70,9 +39,7 @@ export const CommentList = ({ eventId }: CommentListProps) => {
         isVisible={isCommentModalOpen}
         onClose={() => setIsCommentModalOpen(false)}
         onSubmit={handleCommentSubmit}
-        onError={() => {
-          showSnackbar({ message: 'Wystąpił błąd podczas dodawania komentarza', type: 'error' });
-        }}
+        onError={handleCommentSubmitError}
       />
       <ConfirmationModal
         isVisible={commentToDelete != null}
@@ -115,7 +82,9 @@ export const CommentList = ({ eventId }: CommentListProps) => {
                 flexDirection: 'row',
               }}>
               <View style={{ flex: 1 }}>
-                <Text variant="subtitle2">{item.isAuthor ? 'Twój komentarz' : generateAnonName(item.author.id)}</Text>
+                <Text variant="subtitle2">
+                  {item.isAuthor ? 'Twój komentarz' : generateAnonName(item.author.id)}
+                </Text>
                 <Text variant="body1" wrap>
                   {item.content}
                 </Text>
@@ -132,20 +101,20 @@ export const CommentList = ({ eventId }: CommentListProps) => {
             </CustomSurface>
           ))}
 
-          {hasNextPage && (
+          {comments.hasNextPage && (
             <TouchableOpacity
-              onPress={() => fetchNextPage()}
-              disabled={isFetchingNextPage}
+              onPress={() => comments.fetchNextPage()}
+              disabled={comments.isFetchingNextPage}
               style={{ paddingVertical: 16, alignItems: 'center' }}>
               <Text style={{ textAlign: 'center' }}>
-                {isFetchingNextPage
+                {comments.isFetchingNextPage
                   ? 'Ładowanie...'
                   : `Wyświetl więcej komentarzy (${(comments?.totalElements ?? 0) - currentCommentCount})`}
               </Text>
             </TouchableOpacity>
           )}
 
-          {(!hasNextPage || comments?.totalElements === 0) && currentCommentCount > 0 && (
+          {(!comments.hasNextPage || comments.totalElements === 0) && currentCommentCount > 0 && (
             <View style={{ paddingVertical: 16, alignItems: 'center' }}>
               <Text variant="body1">Wszystkie komentarze zostały załadowane.</Text>
             </View>
