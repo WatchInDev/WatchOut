@@ -1,8 +1,11 @@
 package org.zpi.watchout.service
 
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 import org.zpi.watchout.app.infrastructure.exceptions.EntityNotFoundException
 import org.zpi.watchout.data.entity.User
+import org.zpi.watchout.data.entity.UserGlobalPreference
+import org.zpi.watchout.data.enums.Role
 import org.zpi.watchout.data.repos.UserGlobalPreferenceRepository
 import org.zpi.watchout.data.repos.UserRepository
 import org.zpi.watchout.service.dto.GlobalPreferencesDTO
@@ -10,11 +13,21 @@ import org.zpi.watchout.service.dto.GlobalPreferencesDTO
 @Service
 class UserService (val userRepository: UserRepository, val userGlobalPreferenceRepository: UserGlobalPreferenceRepository) {
 
+
+    @Transactional(rollbackFor = [Exception::class])
     fun createUser(externalId: String, name: String, email: String){
         if(userRepository.findByExternalId(externalId).isPresent){
             return
         }
-        userRepository.save(User(name, email, 0.25 , externalId))
+        val user = userRepository.save(User(name, email, 0.25 , externalId))
+        userGlobalPreferenceRepository.save(
+            UserGlobalPreference(
+        user.id!!,
+                notifyOnComment = true,
+                notifyOnEvent = true,
+                notifyOnExternalWarning = true
+            )
+        )
     }
 
     fun editPreferences(userId: Long, globalPreferencesDTO: GlobalPreferencesDTO){

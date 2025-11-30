@@ -5,6 +5,7 @@ import io.github.oshai.kotlinlogging.KotlinLogging
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.Parameter
 import io.swagger.v3.oas.annotations.tags.Tag
+import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.stereotype.Service
 import org.springframework.web.bind.annotation.GetMapping
@@ -21,6 +22,7 @@ private val logger = KotlinLogging.logger {}
 class ExternalWarningController(val externalWarningService: ExternalWarningsService) {
 
     @GetMapping
+    @PreAuthorize("hasRole('ROLE_USER')")
     @Operation(summary = "Fetch external warnings for the authenticated user", description = "" +
             "Swagger is unable to display output format correctly. Here is an example of the output:\n" +"""
                 [

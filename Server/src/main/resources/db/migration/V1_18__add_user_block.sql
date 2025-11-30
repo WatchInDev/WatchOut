@@ -1,0 +1,2 @@
+ALTER TABLE watchout.users
+    ADD COLUMN is_blocked BOOLEAN NOT NULL DEFAULT FALSE;

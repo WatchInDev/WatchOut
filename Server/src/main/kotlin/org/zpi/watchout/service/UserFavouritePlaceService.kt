@@ -4,6 +4,7 @@ import jakarta.persistence.Id
 import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.GeometryFactory
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 import org.zpi.watchout.app.infrastructure.exceptions.EntityNotFoundException
 import org.zpi.watchout.app.infrastructure.exceptions.IncorrectLocationException
 import org.zpi.watchout.data.entity.UserFavouritePlace
@@ -19,6 +20,7 @@ import org.zpi.watchout.service.web.GoogleGeocodeClient
 
 @Service
 class UserFavouritePlaceService(val userFavouritePlaceRepository: UserFavouritePlaceRepository, val googleGeocodeClient: GoogleGeocodeClient, val userFavouritePlacePreferenceRepository: UserFavouritePlacePreferenceRepository, val eventTypeRepository: EventTypeRepository) {
+    @Transactional(rollbackFor = [Exception::class])
     fun addFavouritePlace(userId: Long, favouritePlaceRequestDTO: FavouritePlaceRequestDTO) : FavouritePlaceDTO{
         val response = googleGeocodeClient.getAddressFromCoordinates(favouritePlaceRequestDTO.latitude, favouritePlaceRequestDTO.longitude)
         val components = extractRelevantComponents(response)

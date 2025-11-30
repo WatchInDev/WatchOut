@@ -8,6 +8,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Component
 import org.springframework.web.filter.OncePerRequestFilter
+import org.zpi.watchout.data.enums.Role
 
 @Component
 @Profile("local")
@@ -17,7 +18,10 @@ class LocalAuthenticationFilter : OncePerRequestFilter() {
         response: HttpServletResponse,
         filterChain: FilterChain
     ) {
-        val auth = UsernamePasswordAuthenticationToken(27L, null, emptyList())
+        ///user
+//        val auth = UsernamePasswordAuthenticationToken(27L, null, listOf(Role.ROLE_USER))
+        ///admin
+        val auth = UsernamePasswordAuthenticationToken(10000L, null, listOf(Role.ROLE_ADMIN))
         SecurityContextHolder.getContext().authentication = auth
         filterChain.doFilter(request, response)
     }

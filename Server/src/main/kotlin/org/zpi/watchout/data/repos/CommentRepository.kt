@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.query.Param
 import org.springframework.stereotype.Repository
 import org.zpi.watchout.data.entity.Comment
+import org.zpi.watchout.service.dto.AdminCommentsDTO
 import org.zpi.watchout.service.dto.CommentResponseDTO
 
 @Repository
@@ -75,4 +76,39 @@ interface CommentRepository : JpaRepository<Comment, Long> {
     """
     )
     fun findByAuthor(@Param("authorId") authorId: Long? = null): List<CommentResponseDTO>
+
+
+    @Query(
+        value = """
+        SELECT new org.zpi.watchout.service.dto.AdminCommentsDTO(
+            c.id,
+            c.content,
+            uAuthor.email,
+            uAuthor.id,
+            c.createdAt,
+            c.isDeleted
+        )
+        FROM Comment c
+        JOIN c.author uAuthor
+        WHERE c.id = :commentId
+    """
+    )
+    fun getAdminCommentById(@Param("commentId") commentId: Long): AdminCommentsDTO?
+
+    @Query(
+        value = """
+        SELECT new org.zpi.watchout.service.dto.AdminCommentsDTO(
+            c.id,
+            c.content,
+            uAuthor.email,
+            uAuthor.id,
+            c.createdAt,
+            c.isDeleted
+        )
+        FROM Comment c
+        JOIN c.author uAuthor
+        WHERE uAuthor.id = :authorId
+    """
+    )
+    fun getAdminCommentsByAuthor(authorId: Long): List<AdminCommentsDTO>
 }

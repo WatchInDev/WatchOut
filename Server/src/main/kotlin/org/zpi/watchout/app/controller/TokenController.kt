@@ -4,6 +4,7 @@ import io.github.oshai.kotlinlogging.KotlinLogging
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.Parameter
 import io.swagger.v3.oas.annotations.tags.Tag
+import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
@@ -21,6 +22,7 @@ private val logger = KotlinLogging.logger {}
 class TokenController(val tokenService: TokenService) {
     @GetMapping
     @Operation(summary = "Get FCM token for the authenticated user")
+    @PreAuthorize("hasRole('ROLE_USER')")
     fun getToken(@Parameter(hidden = true) @AuthenticationPrincipal userId : Long): TokenFCMDTO {
         logger.info { "Received request to get FCM token for userId=$userId" }
         val tokenDTO = tokenService.getTokenByUserId(userId)
@@ -30,6 +32,7 @@ class TokenController(val tokenService: TokenService) {
 
     @PostMapping
     @Operation(summary = "Upsert FCM token for the authenticated user")
+    @PreAuthorize("hasRole('ROLE_USER')")
     fun upsertToken(@Parameter(hidden = true) @AuthenticationPrincipal userId : Long, @RequestBody tokenDTO: TokenFCMDTO) {
         logger.info { "Received request to upsert FCM token for userId=$userId" }
         tokenService.upsertToken(userId, tokenDTO)
