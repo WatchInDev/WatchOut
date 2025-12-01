@@ -1,4 +1,5 @@
 import json
+import os
 import sys
 
 import requests
@@ -35,7 +36,10 @@ poland_zone = ZoneInfo("Europe/Warsaw")
 
 
 def load_teryt_map():
-    return json.load(open('Microservice/scrapers/source/teryt_id_powiat_name_map.json', encoding='utf-8'))
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+
+    json_path = os.path.join(current_dir, 'source', 'teryt_id_powiat_name_map.json')
+    return json.load(open(json_path, encoding='utf-8'))
 
 
 def fetch_meteorological_warnings():
