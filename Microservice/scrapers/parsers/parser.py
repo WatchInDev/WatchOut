@@ -32,7 +32,6 @@ llm = ChatGroq(
     temperature=0
 )
 
-# Define the expected JSON structure
 pydantic_parser = PydanticOutputParser(pydantic_object=TownsAndLocations)
 
 # Define prompt
@@ -48,10 +47,9 @@ def expand_polish_range(text: str) -> list[str]:
     Parses 'od 72 do 74' or '72-74' and returns ['72', '73', '74'].
     Returns [text] if no range is detected.
     """
-    # Pattern for "od X do Y" (integers only)
+
     match_od_do = re.search(r'od\s+(\d+)\s+do\s+(\d+)', text, re.IGNORECASE)
 
-    # Pattern for "X-Y" (integers only, ignores 12/14)
     match_dash = re.search(r'^(\d+)-(\d+)$', text.strip())
 
     start, end = None, None
@@ -62,19 +60,21 @@ def expand_polish_range(text: str) -> list[str]:
         start, end = int(match_dash.group(1)), int(match_dash.group(2))
 
     if start is not None and end is not None:
-        # Safety check: Don't expand if difference is huge (likely a typo or parsing error)
         if 0 < (end - start) < 50:
             return [str(i) for i in range(start, end + 1)]
 
     return [text]
 
 
-async def parse_batches_with_llm(text_chunks: list[str], max_concurrency: int = 40):
+async def parse_batches_with_llm(text_chunks: list[list[str]], max_concurrency: int = 40, retry_num: int = 0):
     """
     Async batch processing with automatic regex cleanup for 'od X do Y' ranges
     that the LLM might have missed. Handles both flat and nested JSON structures.
     """
-    batch_inputs = [{"input": chunk} for chunk in text_chunks]
+    batch_inputs = [
+        {"input": json.dumps([line.strip() for line in chunk], ensure_ascii=False)}
+        for chunk in text_chunks
+    ]
 
     try:
         # Run the batch using async abatch
@@ -86,7 +86,8 @@ async def parse_batches_with_llm(text_chunks: list[str], max_concurrency: int = 
 
         parsed_data = []
 
-        for res in results:
+        # Expanding unexpanded ranges
+        for res, batch_input in zip(results, batch_inputs):
             chunk_entries = res.model_dump()
 
             if isinstance(chunk_entries, dict) and 'root' in chunk_entries:
@@ -113,7 +114,33 @@ async def parse_batches_with_llm(text_chunks: list[str], max_concurrency: int = 
                                         cleaned_locs.append(loc)
 
                                 town_data["locations"] = cleaned_locs
-            parsed_data.extend(chunk_entries)
+
+            lines = json.loads(batch_input["input"])
+            num_lines = len(lines)
+
+            if len(chunk_entries) != num_lines:
+                print(
+                    "ERROR: Model parsed lines into more or less sublists than expected. Extending parsed_data with empty dicts.")
+                parsed_data.extend([{} for _ in range(num_lines)])
+
+                print(f'Chunk entries: {len(chunk_entries)}     Batch input lines: {num_lines}')
+
+                print(json.dumps(chunk_entries, indent=4, ensure_ascii=False), end="\n\n")
+
+                print(json.dumps(batch_input, indent=4, ensure_ascii=False),
+                      end="\n\n ------------NEXT ONE--------------\n")
+
+                if retry_num < 5:
+                    print(f"Batch parsing failed, recursive retry in 5 seconds")
+                    retry_num += 1
+                    await asyncio.sleep(5)
+                    return await parse_batches_with_llm(text_chunks, max_concurrency=max_concurrency,
+                                                        retry_num=retry_num)
+                else:
+                    print(f"Batch parsing failed and limit for recursive retryings as well, so returning empty list")
+                    return []
+            else:
+                parsed_data.extend(chunk_entries)
 
         return parsed_data
 
@@ -123,7 +150,7 @@ async def parse_batches_with_llm(text_chunks: list[str], max_concurrency: int = 
         return await parse_batches_with_llm(text_chunks, max_concurrency=max_concurrency)
 
 
-def parse_location_lines(location_lines: list[str], max_concurrency: int = 40, lines_per_chunk: int = 25) -> list:
+def parse_location_lines(location_lines: list[str], max_concurrency: int = 40, lines_per_chunk: int = 20) -> list:
     """
     Batches lines into text blocks, sends to LLM, returns list of results
     matching 1-to-1 with input lines - one line of input = one sublist of results
@@ -141,8 +168,7 @@ def parse_location_lines(location_lines: list[str], max_concurrency: int = 40, l
     chunked_inputs = []
     for i in range(0, len(location_lines), lines_per_chunk):
         chunk = location_lines[i: i + lines_per_chunk]
-        joined_text = "\n".join(chunk)
-        chunked_inputs.append(joined_text)
+        chunked_inputs.append(chunk)
 
     print(f"Split {len(location_lines)} lines into {len(chunked_inputs)} chunks.")
 
