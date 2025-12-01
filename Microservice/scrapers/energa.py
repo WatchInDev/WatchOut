@@ -3,7 +3,7 @@ import sys
 
 import requests
 from datetime import datetime
-from Microservice.scrapers.parsers import parse_location_lines
+from .parsers import parse_location_lines
 
 
 def transform_shutdown_data(shutdown_list):
@@ -134,5 +134,3 @@ if __name__ == '__main__':
     res = get_energa_planned_shutdowns()
 
     json.dump(res, sys.stdout, ensure_ascii=False, indent=4)
-
-# nToruń ulice Dojazd 43, Działowa 10, 12, 13, 13B, 13C, 14, 16A, 16B, 16C, 16D, 16G, 16J, 16K, 16Ł, 16M, 16N, 16O, 16P, 0054-46/2, 34/5.\n\nPokrzywy, Przykop.\n\nWołuszewo.\n\nCiechocinek ulice Sportowa, Wołuszewska.\n\nKępina 9, Koniecwałd 46, od 48 do 50.\n\nCzarne Małe 56C, Olszówka 1.\n\nGromoty 36, 36A, od 37 do 41, 0012-262/1 (MDZ), Tchórzanka 59.\n\nDrawsko Pomorskie ulica 11 Pułku Piechoty 55, 57, 59, 61, 63, 65, 67, 69, 71.'}

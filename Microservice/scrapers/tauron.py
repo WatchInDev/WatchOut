@@ -5,7 +5,7 @@ import json
 
 import requests
 
-from Microservice.scrapers.parsers import parse_location_lines
+from .parsers import parse_location_lines
 
 sample_url = """
 https://www.tauron-dystrybucja.pl/waapi/outages/area
