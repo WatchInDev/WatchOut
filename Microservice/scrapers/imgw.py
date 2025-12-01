@@ -7,9 +7,7 @@ from datetime import datetime, timezone
 from zoneinfo import ZoneInfo
 
 # from Microservice.logging_config import setup_loguru
-#
 # setup_loguru()
-#
 # from loguru import logger
 
 utc_zone = timezone.utc

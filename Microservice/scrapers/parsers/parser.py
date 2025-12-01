@@ -1,4 +1,5 @@
 import asyncio
+import os
 import sys
 import re
 
@@ -9,8 +10,14 @@ from langchain_core.output_parsers import PydanticOutputParser
 import json
 from json_repair import repair_json
 
-from Microservice.scrapers.parsers.models import TownsAndLocations
-from Microservice.scrapers.parsers.prompts import location_lines_parsing_prompt
+try:
+    # This works when imported by the Azure Function or other modules
+    from .models import TownsAndLocations
+    from .prompts import location_lines_parsing_prompt
+except ImportError:
+    # This works when running this specific file directly for testing
+    from models import TownsAndLocations
+    from prompts import location_lines_parsing_prompt
 
 from dotenv import load_dotenv
 
@@ -26,20 +33,30 @@ def repair_json_wrapper(ai_output) -> str:
         return "{}"
 
 
-# Initialize Groq LLM
-llm = ChatGroq(
-    model_name="llama-3.3-70b-versatile",
-    temperature=0
-)
+# Global variable to cache the chain
+_chain_cache = None
 
-pydantic_parser = PydanticOutputParser(pydantic_object=TownsAndLocations)
 
-# Define prompt
-prompt = ChatPromptTemplate.from_messages(
-    [("system", location_lines_parsing_prompt), ("human", "{input}")]
-).partial(format_instructions=pydantic_parser.get_format_instructions())
+def get_chain():
+    global _chain_cache
+    if _chain_cache:
+        return _chain_cache
 
-chain = prompt | llm | RunnableLambda(repair_json_wrapper) | pydantic_parser
+    # Move initialization INSIDE this function
+    llm = ChatGroq(
+        model_name="llama-3.3-70b-versatile",
+        temperature=0,
+        api_key=os.getenv("GROQ_API_KEY")
+    )
+
+    pydantic_parser = PydanticOutputParser(pydantic_object=TownsAndLocations)
+
+    prompt = ChatPromptTemplate.from_messages(
+        [("system", location_lines_parsing_prompt), ("human", "{input}")]
+    ).partial(format_instructions=pydantic_parser.get_format_instructions())
+
+    _chain_cache = prompt | llm | RunnableLambda(repair_json_wrapper) | pydantic_parser
+    return _chain_cache
 
 
 def expand_polish_range(text: str) -> list[str]:
@@ -75,6 +92,8 @@ async def parse_batches_with_llm(text_chunks: list[list[str]], max_concurrency: 
         {"input": json.dumps([line.strip() for line in chunk], ensure_ascii=False)}
         for chunk in text_chunks
     ]
+
+    chain = get_chain()
 
     try:
         # Run the batch using async abatch
