@@ -11,15 +11,14 @@ import org.zpi.watchout.service.GeoService
 class RatingService (private val commentRatingRepository: CommentRatingRepository, private val eventRatingRepository: EventRatingRepository, private val geoService: GeoService) {
 
     fun upsertCommentRating(userId: Long, commentId: Long, eventId: Long, ratingRequestDTO: RatingRequestDTO) {
-        if (geoService.isUserWithinDistanceByEventId(eventId, ratingRequestDTO.latitude, ratingRequestDTO.longitude)) {
-            commentRatingRepository.upsertRating(userId, commentId, ratingRequestDTO.rating)
-        }
+        commentRatingRepository.upsertRating(userId, commentId, ratingRequestDTO.rating)
     }
 
     fun upsertEventRating(userId: Long, eventId: Long, ratingRequestDTO: RatingRequestDTO) {
-        if (geoService.isUserWithinDistanceByEventId(eventId, ratingRequestDTO.latitude, ratingRequestDTO.longitude)) {
-            eventRatingRepository.upsertRating(userId, eventId, ratingRequestDTO.rating)
+        if (!geoService.isUserWithinDistanceByEventId(eventId, ratingRequestDTO.latitude, ratingRequestDTO.longitude)) {
+            throw IllegalArgumentException("User is not within the allowed distance to rate this event")
         }
+        eventRatingRepository.upsertRating(userId, eventId, ratingRequestDTO.rating)
     }
 
     fun deleteCommentRating(userId: Long, commentId: Long) {
