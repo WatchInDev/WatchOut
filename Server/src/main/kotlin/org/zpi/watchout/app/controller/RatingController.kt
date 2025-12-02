@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.Parameter
 import io.swagger.v3.oas.annotations.tags.Tag
 import jakarta.validation.Valid
+import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -23,6 +24,7 @@ private val logger = KotlinLogging.logger {}
 class RatingController(private val ratingService: RatingService) {
 
     @PostMapping("/ratings")
+    @PreAuthorize("hasRole('ROLE_USER')")
     @Operation(summary = "Upsert a rating",
         description = "Create or update a rating for an event. If the user has already rated the event, the existing rating will be updated with the new value. The rating value can be only be 1 (like) or -1 (dislike).")
     fun rateEvent(
@@ -36,6 +38,7 @@ class RatingController(private val ratingService: RatingService) {
     }
 
     @PostMapping("/comments/{commentId}/ratings")
+    @PreAuthorize("hasRole('ROLE_USER')")
     @Operation(summary = "Upsert a rating",
         description = "Create or update a rating for an comment. If the user has already rated the comment, the existing rating will be updated with the new value. The rating value can be only be 1 (like) or -1 (dislike).")
     fun rateComment(
@@ -50,6 +53,7 @@ class RatingController(private val ratingService: RatingService) {
     }
 
     @DeleteMapping("/ratings")
+    @PreAuthorize("hasRole('ROLE_USER')")
     @Operation (summary = "Delete an event rating",
         description = "Delete a rating for an event made by the user.")
     fun deleteEventRating(
@@ -62,6 +66,7 @@ class RatingController(private val ratingService: RatingService) {
     }
 
     @DeleteMapping("/comments/{commentId}/ratings")
+    @PreAuthorize("hasRole('ROLE_USER')")
     @Operation (summary = "Delete a comment rating",
         description = "Delete a rating for a comment made by the user.")
     fun deleteCommentRating(

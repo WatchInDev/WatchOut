@@ -11,7 +11,7 @@ import { theme } from 'utils/theme';
 import { SettingsNavigator } from 'features/settings/SettingsNavigator';
 import { getFocusedRouteNameFromRoute, RouteProp } from '@react-navigation/native';
 import { navigationTheme } from 'components/Base/navigationTheme';
-import { OutagesNavigator } from 'features/outages/OutagesNavigator';
+import { AlertsNavigator } from 'features/outages/AlertsNavigator';
 import { useBottomSheetModal } from '@gorhom/bottom-sheet';
 
 const NavDrawer = createDrawerNavigator();
@@ -31,7 +31,7 @@ const routes = [
   },
   {
     name: 'Alerts',
-    component: OutagesNavigator,
+    component: AlertsNavigator,
     label: 'Alerty',
     icon: 'alert-circle-outline',
     headerShown: (route: RouteProp<any, any>) => {

@@ -40,7 +40,7 @@ export const LoginScreen = () => {
   };
 
   const header = (
-    <Icon source={require('assets/watchout.png')} size={250} />
+    <Icon source={require('assets/watchout.png')} size={150} />
   );
 
   const footer = (

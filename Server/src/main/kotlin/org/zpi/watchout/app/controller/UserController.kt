@@ -4,6 +4,7 @@ import io.github.oshai.kotlinlogging.KotlinLogging
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.Parameter
 import io.swagger.v3.oas.annotations.tags.Tag
+import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
@@ -29,6 +30,7 @@ private val logger = KotlinLogging.logger {}
 class UserController (val userFavouritePlaceService: UserFavouritePlaceService, val userService: UserService) {
 
     @PostMapping("/favourite-places")
+    @PreAuthorize("hasRole('ROLE_USER')")
     fun addFavouritePlace(@Parameter(hidden = true) @AuthenticationPrincipal userId: Long, @RequestBody place: FavouritePlaceRequestDTO):FavouritePlaceDTO {
         logger .info { "Adding favourite place for with cooordinates: (${place.latitude}, ${place.longitude}) for user with id: $userId" }
         val result = userFavouritePlaceService.addFavouritePlace(userId, place)
@@ -37,6 +39,7 @@ class UserController (val userFavouritePlaceService: UserFavouritePlaceService, 
     }
 
     @GetMapping("/favourite-places")
+    @PreAuthorize("hasRole('ROLE_USER')")
     @Operation(summary = "Get Favourite Places", description = "Retrieve a list of user's favourite places along with their preferences. radius in meters.")
     fun getFavouritePlaces(@Parameter(hidden = true) @AuthenticationPrincipal userId: Long): List<FavouritePlaceDTO> {
         logger.info { "Getting favourite places for user with id: $userId" }
@@ -46,6 +49,7 @@ class UserController (val userFavouritePlaceService: UserFavouritePlaceService, 
     }
 
     @DeleteMapping("/favourite-places/{placeId}")
+    @PreAuthorize("hasRole('ROLE_USER')")
     fun removeFavouritePlace(@Parameter(hidden = true) @AuthenticationPrincipal userId: Long, @PathVariable("placeId")  placeId: Long) {
         logger.info { "Removing favourite place with id: $placeId for user with id: $userId" }
         userFavouritePlaceService.removeFavouritePlace(placeId, userId)
@@ -53,6 +57,7 @@ class UserController (val userFavouritePlaceService: UserFavouritePlaceService, 
     }
 
     @PutMapping("/favourite-places/{placeId}/preferences")
+    @PreAuthorize("hasRole('ROLE_USER')")
     @Operation(summary = "Edit Favourite Place Preference", description = "Edit all preferences for a specific favourite place. radius in meters. Event types should be provided as a list of event type IDs. send all fields even if not changing them.")
     fun editFavouritePlacePreference(@Parameter(hidden = true) @AuthenticationPrincipal userId: Long, @PathVariable("placeId") placeId: Long, @RequestBody editFavouritePlacePreferenceDTO: EditFavouritePlacePreferenceDTO) {
         logger.info { "Editing favourite place preference with id: $placeId for user with id: $userId" }
@@ -61,6 +66,7 @@ class UserController (val userFavouritePlaceService: UserFavouritePlaceService, 
     }
 
     @PutMapping("/preferences")
+    @PreAuthorize("hasRole('ROLE_USER')")
     @Operation(summary = "Edit Global User Preferences", description = "Edit all global preferences for the authenticated user. send all fields even if not changing them.")
     fun editGlobalUserPreferences(@Parameter(hidden = true) @AuthenticationPrincipal userId: Long, @RequestBody globalPreferencesDTO: GlobalPreferencesDTO) {
         logger.info { "Editing global preferences for user with id: $userId" }
@@ -70,6 +76,7 @@ class UserController (val userFavouritePlaceService: UserFavouritePlaceService, 
     }
 
     @GetMapping("/preferences")
+    @PreAuthorize("hasRole('ROLE_USER')")
     fun getGlobalUserPreferences(@Parameter(hidden = true) @AuthenticationPrincipal userId: Long): GlobalPreferencesDTO {
         logger.info { "Getting global preferences for user with id: $userId" }
         val result = userService.getUserGlobalPreferences(userId)

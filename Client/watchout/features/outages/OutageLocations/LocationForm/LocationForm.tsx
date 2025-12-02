@@ -4,55 +4,97 @@ import { Text } from 'components/Base/Text';
 import { useNavigation } from '@react-navigation/native';
 import { IconWithTitle } from 'components/Common/IconWithTitle';
 import { Row } from 'components/Base/Row';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { AddLocationRequest, Coordinates } from 'utils/types';
-import { Slider } from '@miblanchard/react-native-slider';
-import { theme } from 'utils/theme';
 import { CustomSwitch } from 'components/Base/CustomSwitch';
 import { Button } from 'react-native-paper';
-import { useLocationCreate } from './useLocationCreate';
 import { CustomTextInput } from 'components/Base/CustomTextInput';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { LocationTextInput } from 'components/Common/LocationTextInput';
 import { CustomSurface } from 'components/Layout/CustomSurface';
-import { useQueryClient } from '@tanstack/react-query';
 import { CustomSlider } from 'components/Base/CustomSlider';
+import {
+  DEFAULT_LOCATION_RADIUS_KM,
+  MAX_LOCATION_RADIUS_KM,
+  METERS_IN_KM,
+  MIN_LOCATION_RADIUS_KM,
+} from 'utils/constants';
+import { reverseGeocode } from 'features/map/reverseGeocode';
 
-const MIN_RADIUS = 0;
-const MAX_RADIUS = 50;
+type LocationFormProps = {
+  initialLocation?: AddLocationRequest;
+  submit: (location: AddLocationRequest) => void;
+  isPending?: boolean;
+};
 
-export const AddLocation = () => {
-  const navigation = useNavigation();
-  const queryClient = useQueryClient();
-  const [location, setLocation] = useState<AddLocationRequest>({
-    placeName: '',
-    latitude: 0,
-    longitude: 0,
+const defaultLocation: AddLocationRequest = {
+  placeName: '',
+  latitude: 0,
+  longitude: 0,
+  settings: {
     services: {
       electricity: false,
-      water: false,
-      gas: false,
-      internet: false,
+      weather: false,
+      eventTypes: [],
     },
-    radius: 0,
-    notificationsEnabled: false,
-  });
+    radius: DEFAULT_LOCATION_RADIUS_KM, // in km, converted to meters when submitting
+  },
+  notificationsEnable: false,
+};
 
-  const { mutateAsync: createLocationAsync, isPending } = useLocationCreate();
+export const LocationForm = ({ initialLocation, submit, isPending }: LocationFormProps) => {
+  const navigation = useNavigation();
+  const [location, setLocation] = useState<AddLocationRequest>(initialLocation ?? defaultLocation);
+  const [preloadedLocalization, setPreloadedLocalization] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (initialLocation) {
+      const geocodedPlaceName = async () => {
+        const placeName = await reverseGeocode({
+          latitude: initialLocation.latitude,
+          longitude: initialLocation.longitude,
+        });
+        if (placeName) {
+          setPreloadedLocalization(placeName);
+        }
+      };
+      geocodedPlaceName();
+    }
+  }, [initialLocation, location.latitude, location.longitude]);
+
+  useEffect(() => {
+    if (initialLocation) {
+      setLocation({
+        ...initialLocation,
+        settings: {
+          ...initialLocation.settings,
+          radius: initialLocation.settings.radius / METERS_IN_KM,
+        },
+      });
+    }
+  }, [initialLocation]);
 
   const handleSubmit = async () => {
-    console.log('Submitting location:', JSON.stringify(location, null, '\t'));
-    await createLocationAsync(location);
-    queryClient.invalidateQueries({ queryKey: ['pinnedLocations'] });
+    submit({
+      ...location,
+      settings: {
+        ...location.settings,
+        services: { ...location.settings.services, eventTypes: [] },
+        radius: location.settings.radius * METERS_IN_KM,
+      },
+    });
     navigation.goBack();
   };
 
-  const toggleService = (service: keyof AddLocationRequest['services']) => {
+  const toggleService = (service: keyof AddLocationRequest['settings']['services']) => {
     setLocation((prev) => ({
       ...prev,
-      services: {
-        ...prev.services,
-        [service]: !prev.services[service],
+      settings: {
+        ...prev.settings,
+        services: {
+          ...prev.settings.services,
+          [service]: !prev.settings.services[service],
+        },
       },
     }));
   };
@@ -62,7 +104,7 @@ export const AddLocation = () => {
     label,
     iconName,
   }: {
-    service: keyof AddLocationRequest['services'];
+    service: Exclude<keyof AddLocationRequest['settings']['services'], 'eventTypes'>;
     label: string;
     iconName: string;
   }) => {
@@ -72,14 +114,13 @@ export const AddLocation = () => {
           iconName={iconName}
           label={label}
           iconSize={50}
-          isActive={location.services[service]}
+          isActive={location.settings.services[service]}
         />
       </TouchableOpacity>
     );
   };
 
   const handlePlaceSelect = (coordinates: Coordinates) => {
-    console.log('Selected place:', JSON.stringify(coordinates, null, '\t'));
     setLocation((prev) => ({
       ...prev,
       latitude: coordinates.latitude,
@@ -90,8 +131,10 @@ export const AddLocation = () => {
   return (
     <PageWrapper>
       <SafeAreaView edges={['left', 'right', 'bottom']}>
-        <ScrollView contentContainerStyle={{ gap: 16 }} keyboardShouldPersistTaps="handled" nestedScrollEnabled={true}>
-
+        <ScrollView
+          contentContainerStyle={{ gap: 16 }}
+          keyboardShouldPersistTaps="handled"
+          nestedScrollEnabled={true}>
           <CustomSurface style={styles.locationSurface}>
             <Text variant="h2">Nazwa lokalizacji</Text>
             <Text color="secondary">
@@ -104,67 +147,69 @@ export const AddLocation = () => {
               onChangeText={(text) => setLocation((prev) => ({ ...prev, placeName: text }))}
             />
           </CustomSurface>
-          
+
           <CustomSurface style={styles.locationSurface}>
             <Text variant="h2">Adres</Text>
             <Text color="secondary">
               Wprowadź adres lokalizacji, aby dokładnie określić jej położenie na mapie
             </Text>
-            <LocationTextInput onPlaceSelect={handlePlaceSelect} />
+            <LocationTextInput
+              initialValue={preloadedLocalization || ''}
+              onPlaceSelect={handlePlaceSelect}
+            />
           </CustomSurface>
-          
+
           <CustomSurface style={styles.locationSurface}>
             <Text variant="h2">Usługi</Text>
             <Text color="secondary">
               Wybierz usługi dla których będziesz otrzymywać powiadomienia w przypadku ich
               planowanego wyłączenia
             </Text>
-            <Row style={{ justifyContent: 'space-between', height: 80, marginTop: 24 }}>
+            <Row style={{ gap: 12, height: 80, marginTop: 24 }}>
               <OutageSelect service="electricity" label="Prąd" iconName="flash" />
-              <OutageSelect service="water" label="Woda" iconName="water-off" />
-              <OutageSelect service="gas" label="Gaz" iconName="fire" />
-              <OutageSelect service="internet" label="Sieć" iconName="wifi" />
+              <OutageSelect service="weather" label="Pogoda" iconName="weather-partly-cloudy" />
             </Row>
           </CustomSurface>
 
           <CustomSurface style={styles.locationSurface}>
             <Text variant="h2">Zasięg</Text>
             <Row>
-              <Text>{MIN_RADIUS} km</Text>
+              <Text>{MIN_LOCATION_RADIUS_KM} km</Text>
               <View style={{ flex: 1 }} />
-              <Text>{MAX_RADIUS} km</Text>
+              <Text>{MAX_LOCATION_RADIUS_KM} km</Text>
             </Row>
             <CustomSlider
-              value={location.radius}
-              onValueChange={(value) => setLocation((prev) => ({ ...prev, radius: value }))}
-              min={MIN_RADIUS}
-              max={MAX_RADIUS}
+              value={location.settings.radius}
+              onValueChange={(value) =>
+                setLocation((prev) => ({ ...prev, settings: { ...prev.settings, radius: value } }))
+              }
+              min={MIN_LOCATION_RADIUS_KM}
+              max={MAX_LOCATION_RADIUS_KM}
               step={1}
             />
             <Text>
-              <Text weight="bold">Obecny zasięg:</Text> {location.radius} km
+              <Text weight="bold">Obecny zasięg:</Text> {location.settings.radius} km
             </Text>
           </CustomSurface>
 
           <CustomSurface style={styles.locationSurface}>
             <Text variant="h2">Powiadomienia</Text>
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>
-              <Text variant="body1" align='justify' style={{ flex: 1 }}>
+              <Text variant="body1" align="justify" style={{ flex: 1 }}>
                 Otrzymuj powiadomienia push o przerwach w dostawie usług dla tej lokalizacji
               </Text>
               <CustomSwitch
-                value={location.notificationsEnabled}
+                value={location.notificationsEnable}
                 onValueChange={(value: boolean) =>
-                  setLocation((prev) => ({ ...prev, notificationsEnabled: value }))
+                  setLocation((prev) => ({ ...prev, notificationsEnable: value }))
                 }
               />
             </View>
           </CustomSurface>
-          
+
           <Button mode="contained" onPress={handleSubmit} loading={isPending} disabled={isPending}>
             Zatwierdź lokalizację
           </Button>
-
         </ScrollView>
       </SafeAreaView>
     </PageWrapper>
@@ -174,5 +219,5 @@ export const AddLocation = () => {
 const styles = StyleSheet.create({
   locationSurface: {
     padding: 16,
-  }
+  },
 });

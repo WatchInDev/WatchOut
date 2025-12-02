@@ -21,6 +21,7 @@ CREATE TABLE watchout.user_favourite_place_references (
                                                           updated_at TIMESTAMP DEFAULT now(),
                                                             FOREIGN KEY (user_favourite_place_id)
                                                                 REFERENCES watchout.user_favourite_places (id)
+                                                                ON DELETE CASCADE
 
 );
 
@@ -29,9 +30,11 @@ CREATE TABLE watchout.user_favourite_place_favourite_places (
                                                                 event_type_id BIGINT NOT NULL,
                                                                 PRIMARY KEY (user_favourite_place_preference_id, event_type_id),
                                                                 FOREIGN KEY (user_favourite_place_preference_id)
-                                                                    REFERENCES watchout.user_favourite_place_references (id),
+                                                                    REFERENCES watchout.user_favourite_place_references (id)
+                                                                    ON DELETE CASCADE,
                                                                 FOREIGN KEY (event_type_id)
                                                                     REFERENCES watchout.event_types (id)
+                                                                    ON DELETE CASCADE
 
 
 );

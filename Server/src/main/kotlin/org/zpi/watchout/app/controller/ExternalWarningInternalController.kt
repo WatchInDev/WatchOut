@@ -30,7 +30,7 @@ class ExternalWarningInternalController(
     }
 
     @PostMapping("/warnings/electricity")
-    fun saveElectricityWarningData(@RequestHeader("INTERNAL_API_KEY") key: String, @RequestBody warnings:ElectricalOutageRequestDTO) {
+    fun saveElectricityWarningData(@RequestHeader("INTERNAL_API_KEY") key: String, @RequestBody warnings:List<ElectricalOutageRequestDTO>) {
         if (key != internalApiKey) {
             throw IllegalAccessException("Invalid API key")
         }

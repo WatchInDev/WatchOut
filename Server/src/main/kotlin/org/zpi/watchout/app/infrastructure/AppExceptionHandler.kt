@@ -1,6 +1,7 @@
 package org.zpi.watchout.app.infrastructure
 
 import io.github.oshai.kotlinlogging.KotlinLogging
+import org.springframework.dao.DataIntegrityViolationException
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.MethodArgumentNotValidException
@@ -12,6 +13,7 @@ import org.zpi.watchout.app.infrastructure.exceptions.GoogleGeocodeRequestError
 import org.zpi.watchout.app.infrastructure.exceptions.IncorrectLocationException
 import org.zpi.watchout.service.dto.ExceptionDTO
 import java.time.LocalDateTime
+import org.springframework.security.authorization.AuthorizationDeniedException
 
 private val logger = KotlinLogging.logger {}
 
@@ -82,6 +84,39 @@ class AppExceptionHandler {
             status = HttpStatus.FORBIDDEN.value()
         )
         logger.warn(ex) { "Access denied: ${ex.message}" }
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(exceptionDto)
+    }
+
+    @ExceptionHandler(IllegalArgumentException::class)
+    fun handleIllegalArgumentException(ex: IllegalArgumentException): ResponseEntity<ExceptionDTO> {
+        val exceptionDto = ExceptionDTO(
+            timestamp = LocalDateTime.now().toString(),
+            message = ex.message ?: HttpStatus.BAD_REQUEST.reasonPhrase,
+            status = HttpStatus.BAD_REQUEST.value()
+        )
+        logger.warn(ex) { "Illegal argument: ${ex.message}" }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exceptionDto)
+    }
+
+    @ExceptionHandler(DataIntegrityViolationException::class)
+    fun handleDataIntegrityViolationException(ex: DataIntegrityViolationException): ResponseEntity<ExceptionDTO> {
+        val exceptionDto = ExceptionDTO(
+            timestamp = LocalDateTime.now().toString(),
+            message = "Duplicate entry or data integrity violation",
+            status = HttpStatus.CONFLICT.value()
+        )
+        logger.warn(ex) { "Data integrity violation: ${ex.message}" }
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(exceptionDto)
+    }
+
+    @ExceptionHandler(AuthorizationDeniedException::class)
+    fun handleAuthorizationDeniedException(ex: AuthorizationDeniedException): ResponseEntity<ExceptionDTO> {
+        val exceptionDto = ExceptionDTO(
+            timestamp = LocalDateTime.now().toString(),
+            message = ex.message ?: HttpStatus.FORBIDDEN.reasonPhrase,
+            status = HttpStatus.FORBIDDEN.value()
+        )
+        logger.warn(ex) { "Authorization denied: ${ex.message}" }
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(exceptionDto)
     }
 
