@@ -4,7 +4,7 @@ import { useUserLocation } from 'features/map/useLocation';
 import { Coordinates, Event, EventFilters } from 'utils/types';
 import { Icon } from 'react-native-paper';
 import { useRef, useState, useCallback, useEffect } from 'react';
-import { EventBottomSheet } from 'features/events/EventBottomSheet';
+import { EventBottomSheet } from 'features/events/details/EventBottomSheet';
 import { useMapLogic } from 'features/map/useMapLogic';
 import { ClusterMarker } from './ClusterMarker';
 import { EventMarker } from './EventMarker';
@@ -12,7 +12,7 @@ import { CreateEventBottomSheet } from 'features/events/create/CreateEventBottom
 import { FilterButton } from './filters/FilterButton';
 import { Filters } from './filters/Filters';
 import { DEFAULT_REPORT_HOURS_FILTER, FILTERS_STORAGE_KEY } from 'utils/constants';
-import { useGetEventTypes } from 'features/events/event-types.hooks';
+import { useGetEventTypes } from 'features/event-types/useGetEventTypes';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const styles = StyleSheet.create({

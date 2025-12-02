@@ -5,6 +5,7 @@ import dayjs from 'dayjs';
 import { icons } from 'components/Base/icons';
 import { Row } from 'components/Base/Row';
 import { useState } from 'react';
+import { formatDate } from 'utils/helpers';
 
 type EventDetailsProps = {
   event: Event;
@@ -16,7 +17,7 @@ export const EventDetails = ({ event }: EventDetailsProps) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
-  const reportedDateText = `${new Date(event.reportedDate).toLocaleString()} (${dayjs(event.reportedDate).fromNow()})`;
+  const reportedDateText = formatDate(new Date(event.reportedDate));
 
   const openImage = (uri: string) => {
     setSelectedImage(uri);

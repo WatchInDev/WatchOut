@@ -5,6 +5,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
+  useWindowDimensions,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -21,14 +22,22 @@ export const AuthLayout: React.FC<Props> = ({
   header,
   children,
   footer,
-  headerOffset = 48,
-  headerBottomSpacing = 48,
-  footerOffset = 20,
+  headerOffset = 32,
+  headerBottomSpacing = 24,
+  footerOffset = 12,
 }) => {
   const insets = useSafeAreaInsets();
+  const { height } = useWindowDimensions();
+
+  const isSmallScreen = height < 700;
 
   return (
-    <View style={[styles.root, { paddingTop: insets.top, paddingBottom: insets.bottom }]}>
+    <View
+      style={[
+        styles.root,
+        { paddingTop: insets.top, paddingBottom: insets.bottom },
+      ]}
+    >
       <KeyboardAvoidingView
         style={styles.container}
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
@@ -37,8 +46,8 @@ export const AuthLayout: React.FC<Props> = ({
           style={[
             styles.header,
             {
-              marginTop: headerOffset,
-              marginBottom: headerBottomSpacing,
+              marginTop: isSmallScreen ? 16 : headerOffset,
+              marginBottom: isSmallScreen ? 16 : headerBottomSpacing,
             },
           ]}
         >
@@ -46,13 +55,25 @@ export const AuthLayout: React.FC<Props> = ({
         </View>
 
         <ScrollView
-          contentContainerStyle={styles.content}
+          contentContainerStyle={[
+            styles.content,
+            { justifyContent: 'center' },
+          ]}
           keyboardShouldPersistTaps="handled"
-        >
+          showsVerticalScrollIndicator={false}
+          >
           {children}
         </ScrollView>
 
-        <View style={[styles.footer, { marginBottom: footerOffset }]}>
+
+        <View
+          style={[
+            styles.footer,
+            {
+              marginBottom: isSmallScreen ? 8 : footerOffset,
+            },
+          ]}
+        >
           {footer}
         </View>
       </KeyboardAvoidingView>
@@ -74,7 +95,7 @@ const styles = StyleSheet.create({
   header: {
     alignItems: 'center',
     justifyContent: 'flex-end',
-    minHeight: 200,
+    paddingVertical: 8,
   },
 
   content: {
@@ -84,7 +105,7 @@ const styles = StyleSheet.create({
   },
 
   footer: {
-    minHeight: 120,
     justifyContent: 'flex-start',
+    paddingVertical: 8,
   },
 });

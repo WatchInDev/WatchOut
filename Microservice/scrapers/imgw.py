@@ -1,23 +1,17 @@
 import json
+import os
 import sys
 
-import pandas as pd
 import requests
 from datetime import datetime, timezone
 from zoneinfo import ZoneInfo
 
-from logging_config import setup_loguru
-
-setup_loguru()
-
-from loguru import logger
+# from Microservice.logging_config import setup_loguru
+# setup_loguru()
+# from loguru import logger
 
 utc_zone = timezone.utc
 poland_zone = ZoneInfo("Europe/Warsaw")
-
-import io
-
-sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
 
 # def construct_teryt_id_powiat_name_map():
@@ -40,7 +34,10 @@ sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
 
 def load_teryt_map():
-    return json.load(open('Microservice/scrapers/source/teryt_id_powiat_name_map.json', encoding='utf-8'))
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+
+    json_path = os.path.join(current_dir, 'source', 'teryt_id_powiat_name_map.json')
+    return json.load(open(json_path, encoding='utf-8'))
 
 
 def fetch_meteorological_warnings():
@@ -73,7 +70,8 @@ def fetch_meteorological_warnings():
                         warning[field] = local_dt.strftime('%Y-%m-%dT%H:%M')
 
                     except ValueError:
-                        logger.exception(f"Could not parse date: {warning[field]}")
+                        pass
+                        # logger.exception(f"Could not parse date: {warning[field]}")
 
         # print(response_json)
         return response_json

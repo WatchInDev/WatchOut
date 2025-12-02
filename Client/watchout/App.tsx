@@ -16,6 +16,7 @@ import Geocoding from 'react-native-geocoding';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import duration from 'dayjs/plugin/duration';
+import utc from 'dayjs/plugin/utc';
 import 'dayjs/locale/pl';
 import { useNotifications } from 'utils/notifications/useNotifications';
 import { useEffect } from 'react';
@@ -47,6 +48,7 @@ const queryClient = new QueryClient();
 dayjs.extend(relativeTime);
 dayjs.extend(duration);
 dayjs.locale('pl');
+dayjs.extend(utc);
 
 export default function App() {
   const { loaded } = useCustomFonts();
@@ -101,7 +103,7 @@ export default function App() {
             </PaperProvider>
           </GestureHandlerRootView>
         </SafeAreaProvider>
-        <DevToolsBubble queryClient={queryClient} />
+        {/* <DevToolsBubble queryClient={queryClient} /> */}
       </QueryClientProvider>
     </>
   );
