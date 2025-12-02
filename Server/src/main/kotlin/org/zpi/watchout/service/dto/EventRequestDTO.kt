@@ -11,14 +11,26 @@ data class EventRequestDTO(
     @field:NotBlank(message = "Name must not be blank")
     val name: String,
     val description : String?,
+
     @field:Size(max = 5, message = "A maximum of 5 images are allowed")
     val images: List<ByteArray>?,
+
     @field:Max(90, message = "Latitude must be between -90 and 90")
     @field:Min(-90, message = "Latitude must be between -90 and 90")
     val latitude: Double,
+
     @field:Max(180, message = "Longitude must be between -180 and 180")
     @Min(-180, message = "Longitude must be between -180 and 180")
     val longitude: Double,
+
+    @field:Max(90, message = "User latitude must be between -90 and 90")
+    @field:Min(-90, message = "User latitude must be between -90 and 90")
+    val userLatitude: Double,
+
+    @field:Max(180, message = "User longitude must be between -180 and 180")
+    @Min(-180, message = "User longitude must be between -180 and 180")
+    val userLongitude: Double,
+
     @field:Future(message = "End date must be in the future")
     val endDate: LocalDateTime,
     val eventTypeId: Long
