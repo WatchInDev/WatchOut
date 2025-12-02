@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { AdminAPI } from "@/api/admin";
+import { AdminAPI } from "@/features/admin/api/adminApi";
 import type { Event, Comment } from "@/types";
 
 import { MaterialReactTable, type MRT_ColumnDef } from "material-react-table";
@@ -18,6 +18,7 @@ import {
 export default function EventsPage() {
   const [events, setEvents] = useState<Event[]>([]);
   const [comments, setComments] = useState<Record<number, Comment[]>>({});
+  const [loadingComments, setLoadingComments] = useState<Record<number, boolean>>({});
   const [confirm, setConfirm] = useState<{ text: string; action: () => void } | null>(null);
 
   useEffect(() => {
@@ -25,50 +26,35 @@ export default function EventsPage() {
   }, []);
 
   const loadComments = async (eventId: number) => {
+    if (loadingComments[eventId]) return;
+    setLoadingComments(prev => ({ ...prev, [eventId]: true }));
     const c = await AdminAPI.getCommentsForEvent(eventId);
     setComments(prev => ({ ...prev, [eventId]: c }));
+    setLoadingComments(prev => ({ ...prev, [eventId]: false }));
   };
 
-  const confirmDeleteEvent = (event: Event) => {
+  const handleDeleteEvent = (event: Event, banAuthor = false) => {
     setConfirm({
-      text: `Czy na pewno chcesz usunąć zdarzenie "${event.name}"?`,
+      text: banAuthor
+        ? `Usunąć zdarzenie "${event.name}" i zablokować autora (${event.author.email})?`
+        : `Czy na pewno chcesz usunąć zdarzenie "${event.name}"?`,
       action: async () => {
-        const updated = await AdminAPI.deleteEvent(event.id);
+        if (banAuthor) await AdminAPI.blockUser(event.author.id);
+        await AdminAPI.deleteEvent(event.id);
+        const updated = await AdminAPI.getEvents();
         setEvents(updated);
         setConfirm(null);
       }
     });
   };
 
-  const confirmDeleteAndBanEvent = (event: Event) => {
+  const handleDeleteComment = (comment: Comment, banAuthor = false) => {
     setConfirm({
-      text: `Usunąć zdarzenie "${event.name}" i zablokować autora (${event.author.email})?`,
+      text: banAuthor
+        ? `Usunąć komentarz i zablokować autora (${comment.author.email})?`
+        : "Usunąć komentarz?",
       action: async () => {
-        await AdminAPI.blockUser(event.author.id);
-        const updated = await AdminAPI.deleteEvent(event.id);
-        setEvents(updated);
-        setConfirm(null);
-      }
-    });
-  };
-
-  const confirmDeleteComment = (comment: Comment) => {
-    setConfirm({
-      text: "Usunąć komentarz?",
-      action: async () => {
-        await AdminAPI.deleteComment(comment.id);
-        const updated = await AdminAPI.getCommentsForEvent(comment.eventId);
-        setComments(prev => ({ ...prev, [comment.eventId]: updated }));
-        setConfirm(null);
-      }
-    });
-  };
-
-  const confirmDeleteAndBanComment = (comment: Comment) => {
-    setConfirm({
-      text: `Usunąć komentarz i zablokować autora (${comment.author.email})?`,
-      action: async () => {
-        await AdminAPI.blockUser(comment.author.id);
+        if (banAuthor) await AdminAPI.blockUser(comment.author.id);
         await AdminAPI.deleteComment(comment.id);
         const updated = await AdminAPI.getCommentsForEvent(comment.eventId);
         setComments(prev => ({ ...prev, [comment.eventId]: updated }));
@@ -130,8 +116,8 @@ export default function EventsPage() {
         const event = row.original;
         return (
           <div className="flex gap-2">
-            <Button size="sm" variant="destructive" onClick={() => confirmDeleteEvent(event)}>Usuń</Button>
-            <Button size="sm" variant="destructive" onClick={() => confirmDeleteAndBanEvent(event)}>Usuń + Zablokuj</Button>
+            <Button size="sm" variant="destructive" onClick={() => handleDeleteEvent(event)}>Usuń</Button>
+            <Button size="sm" variant="destructive" onClick={() => handleDeleteEvent(event, true)}>Usuń + Zablokuj</Button>
           </div>
         );
       }
@@ -161,10 +147,10 @@ export default function EventsPage() {
             }
 
             return (
-              <Card className="p-4 w-full">
+              <Card className="p-4 w-full space-y-2">
                 <h3 className="text-lg font-semibold mb-2">Komentarze</h3>
                 {commentsList.length === 0 && <p className="text-sm opacity-70">Brak komentarzy</p>}
-                <div className="space-y-2 mt-2">
+                <div className="space-y-2">
                   {commentsList.map(c => (
                     <Card key={c.id} className="p-3 flex justify-between">
                       <div>
@@ -173,8 +159,8 @@ export default function EventsPage() {
                         <p>{c.content}</p>
                       </div>
                       <div className="flex gap-2">
-                        <Button variant="destructive" size="sm" onClick={() => confirmDeleteComment(c)}>Usuń</Button>
-                        <Button variant="destructive" size="sm" onClick={() => confirmDeleteAndBanComment(c)}>Usuń + Zablokuj</Button>
+                        <Button size="sm" variant="destructive" onClick={() => handleDeleteComment(c)}>Usuń</Button>
+                        <Button size="sm" variant="destructive" onClick={() => handleDeleteComment(c, true)}>Usuń + Zablokuj</Button>
                       </div>
                     </Card>
                   ))}

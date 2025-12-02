@@ -1,41 +1,85 @@
-import { createContext, useContext, useState } from "react"
-import type { ReactNode } from "react"
+// src/context/AuthContext.tsx
+import React, { createContext, useContext, useEffect, useState } from "react";
+import { auth } from "@/lib/firebase";
+import {
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  signOut as firebaseSignOut
+} from "firebase/auth";
+import { apiClient } from "@/utils/apiClient";
 
-interface User {
-  email: string
-  role: "ADMIN" | "USER"
-}
+type AuthContextType = {
+  user: any | null;
+  loading: boolean;
+  isAdmin: boolean;
+  signIn: (email: string, password: string) => Promise<void>;
+  signOut: () => Promise<void>;
+  refreshAdminStatus: () => Promise<void>;
+};
 
-interface AuthContextType {
-  user: User | null
-  login: (email: string, password: string) => Promise<boolean>
-  logout: () => void
-}
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-const AuthContext = createContext<AuthContextType | undefined>(undefined)
+export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const [user, setUser] = useState<any | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [isAdmin, setIsAdmin] = useState(false);
 
-export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [user, setUser] = useState<User | null>(null)
+  useEffect(() => {
+    const unsub = onAuthStateChanged(auth, async (u) => {
+      setUser(u);
+      setIsAdmin(false);
+      if (u) {
+        await u.getIdToken(true);
+        await checkAdminOnBackend();
+      }
+      setLoading(false);
+    });
 
-  const login = async (email: string, password: string) => {
-    if (email === "admin@example.com" && password === "admin123") {
-      setUser({ email, role: "ADMIN" })
-      return true
+    return () => unsub();
+  }, []);
+
+  const checkAdminOnBackend = async () => {
+    try {
+      await apiClient.get("/admin/check");
+      setIsAdmin(true);
+    } catch (err) {
+      setIsAdmin(false);
     }
-    return false
-  }
+  };
 
-  const logout = () => setUser(null)
+  const signIn = async (email: string, password: string) => {
+    setLoading(true);
+    const cred = await signInWithEmailAndPassword(auth, email, password);
+    await cred.user.getIdToken(true);
+    await checkAdminOnBackend();
+    setUser(cred.user);
+    setLoading(false);
+  };
+
+  const signOut = async () => {
+    await firebaseSignOut(auth);
+    setUser(null);
+    setIsAdmin(false);
+  };
+
+  const refreshAdminStatus = async () => {
+    if (!auth.currentUser) {
+      setIsAdmin(false);
+      return;
+    }
+    await auth.currentUser.getIdToken(true);
+    await checkAdminOnBackend();
+  };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, loading, isAdmin, signIn, signOut, refreshAdminStatus }}>
       {children}
     </AuthContext.Provider>
-  )
-}
+  );
+};
 
 export const useAuth = () => {
-  const ctx = useContext(AuthContext)
-  if (!ctx) throw new Error("AuthContext used outside AuthProvider")
-  return ctx
-}
+  const ctx = useContext(AuthContext);
+  if (!ctx) throw new Error("useAuth must be used inside AuthProvider");
+  return ctx;
+};
