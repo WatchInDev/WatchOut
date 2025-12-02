@@ -60,8 +60,8 @@ class ExternalWarningsService(val userFavouritePlaceRepository: UserFavouritePla
     @Transactional
     fun saveElectricalOutageWarning(results: List<ElectricalOutageRequestDTO>){
         electricalOutageRepository.deleteAll()
+        val outagesToSave : MutableList<ElectricalOutage> = mutableListOf<ElectricalOutage>()
         for(result in results){
-            val outagesToSave : MutableList<ElectricalOutage> = mutableListOf<ElectricalOutage>()
             for (key in result.outagesResponse.keys) {
                 val voivodshipOutages: Map<String, List<OutageRecord>> = result.outagesResponse[key] ?: continue
                 for (subKey in voivodshipOutages.keys) {
@@ -81,8 +81,8 @@ class ExternalWarningsService(val userFavouritePlaceRepository: UserFavouritePla
                     }
                 }
             }
-            electricalOutageRepository.saveAll(outagesToSave)
         }
+        electricalOutageRepository.saveAll(outagesToSave)
 
     }
 }
