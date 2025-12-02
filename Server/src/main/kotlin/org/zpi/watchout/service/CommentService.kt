@@ -9,6 +9,7 @@ import org.zpi.watchout.data.repos.CommentRepository
 import org.zpi.watchout.data.repos.EventRepository
 import org.zpi.watchout.data.repos.UserGlobalPreferenceRepository
 import org.zpi.watchout.service.dto.CommentRequestDTO
+import org.zpi.watchout.service.GeoService
 import org.zpi.watchout.service.dto.CommentResponseDTO
 import org.zpi.watchout.service.mapper.CommentMapper
 
@@ -32,7 +33,7 @@ class CommentService(
             throw AccessDeniedException("User with id $userId is not allowed to post more comments today due to low reputation")
         }
 
-        if (!geoService.isUserWithinDistance(eventId, commentRequestDto.latitude, commentRequestDto.longitude)) {
+        if (!geoService.isUserWithinDistanceByEventId(eventId, commentRequestDto.latitude, commentRequestDto.longitude)) {
             throw IllegalArgumentException("User is not within the allowed distance to comment on this event")
         }
 
