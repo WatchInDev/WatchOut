@@ -1,6 +1,7 @@
 package org.zpi.watchout.service
 
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 import org.zpi.watchout.data.entity.ElectricalOutage
 import org.zpi.watchout.data.entity.WeatherWarning
 import org.zpi.watchout.data.repos.ElectricalOutageRepository
@@ -35,7 +36,9 @@ class ExternalWarningsService(val userFavouritePlaceRepository: UserFavouritePla
         return warnings
     }
 
+    @Transactional
     fun saveWeatherWarnings(result :List<WeatherDTO>) {
+        weatherWarningRepository.deleteAll()
         val weatherWarnings : MutableList<WeatherWarning> = mutableListOf<WeatherWarning>()
 
         for(event in result) {
@@ -51,10 +54,12 @@ class ExternalWarningsService(val userFavouritePlaceRepository: UserFavouritePla
             }
         }
 
-        weatherWarningRepositoryJdbc.batchSave(weatherWarnings)
+        weatherWarningRepository.saveAll(weatherWarnings)
     }
 
+    @Transactional
     fun saveElectricalOutageWarning(results: List<ElectricalOutageRequestDTO>){
+        electricalOutageRepository.deleteAll()
         for(result in results){
             val outagesToSave : MutableList<ElectricalOutage> = mutableListOf<ElectricalOutage>()
             for (key in result.outagesResponse.keys) {
@@ -76,7 +81,7 @@ class ExternalWarningsService(val userFavouritePlaceRepository: UserFavouritePla
                     }
                 }
             }
-            electricalOutageRepositoryJdbc.batchSave(outagesToSave)
+            electricalOutageRepository.saveAll(outagesToSave)
         }
 
     }
