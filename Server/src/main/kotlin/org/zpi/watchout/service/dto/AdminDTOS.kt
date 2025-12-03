@@ -15,13 +15,8 @@ data class AdminEventFlatRow (
     val reportedDate: Timestamp,
     val endDate: Timestamp,
     val eventType: String,
-    val commentId: Long?,
-    val commentContent: String?,
-    val commentAuthorEmail: String?,
-    val commentAuthorId: Long?,
-    val commentCreatedAt: Timestamp?,
     val isActive: Boolean,
-    val isCommentDeleted: Boolean?
+    val images: String,
 )
 
 data class AdminEventDTO(
@@ -33,8 +28,8 @@ data class AdminEventDTO(
     val reportedDate: LocalDateTime,
     val endDate: LocalDateTime,
     val eventType: String,
-    val comments: List<AdminCommentsDTO>,
-    val isActive: Boolean
+    val isActive: Boolean,
+    val images: List<String>
 )
 
 data class AdminUserDTO(
@@ -43,13 +38,15 @@ data class AdminUserDTO(
     val email: String,
     val externalId: String,
     val isBlocked: Boolean,
+    val reputation: Double
 ){
     constructor(user: User) : this(
         id = user.id!!,
         name = user.name,
         email = user.email,
         externalId = user.externalId,
-        isBlocked = user.isBlocked
+        isBlocked = user.isBlocked,
+        reputation = user.reputation
     )
 }
 

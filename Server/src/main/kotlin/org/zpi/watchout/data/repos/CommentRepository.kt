@@ -111,4 +111,24 @@ interface CommentRepository : JpaRepository<Comment, Long> {
     """
     )
     fun getAdminCommentsByAuthor(authorId: Long): List<AdminCommentsDTO>
+
+
+    @Query
+    (
+        value = """
+        SELECT new org.zpi.watchout.service.dto.AdminCommentsDTO(
+            c.id,
+            c.content,
+            uAuthor.email,
+            uAuthor.id,
+            c.createdAt,
+            c.isDeleted
+        )
+        FROM Comment c
+        JOIN c.author uAuthor
+        WHERE c.eventId = :eventId
+    """
+    )
+    fun getAdminCommentByEventId(eventId: Long): List<AdminCommentsDTO>
+
 }
