@@ -33,7 +33,7 @@ class RatingController(private val ratingService: RatingService) {
         @Parameter(hidden = true) @AuthenticationPrincipal userId : Long
     ){
         logger.info { "Rating event with id: $eventId" }
-        ratingService.upsertEventRating(userId,eventId, ratingRequestDTO.rating)
+        ratingService.upsertEventRating(userId, eventId, ratingRequestDTO)
         logger.info { "Rated event with id: $eventId" }
     }
 
@@ -43,11 +43,12 @@ class RatingController(private val ratingService: RatingService) {
         description = "Create or update a rating for an comment. If the user has already rated the comment, the existing rating will be updated with the new value. The rating value can be only be 1 (like) or -1 (dislike).")
     fun rateComment(
         @PathVariable("commentId") commentId: Long,
+        @PathVariable("eventId") eventId: Long,
         @RequestBody @Valid ratingRequestDTO: RatingRequestDTO,
         @Parameter(hidden = true) @AuthenticationPrincipal userId : Long
     ){
         logger.info { "Rating comment with id: $commentId" }
-        ratingService.upsertCommentRating(userId, commentId, ratingRequestDTO.rating)
+        ratingService.upsertCommentRating(userId, commentId, eventId, ratingRequestDTO)
         logger.info { "Rated comment with id: $commentId" }
     }
 
