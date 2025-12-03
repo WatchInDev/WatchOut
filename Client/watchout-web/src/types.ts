@@ -18,12 +18,12 @@ export interface Event {
   id: number
   name: string
   description: string
-  image: string
+  images: string
   reportedDate: string
   endDate: string
   isActive: boolean
   author: User
-  eventType: EventType
+  eventType: string
   location: {
     latitude: number
     longitude: number

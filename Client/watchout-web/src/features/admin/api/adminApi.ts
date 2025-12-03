@@ -20,12 +20,11 @@ export const AdminAPI = {
   getEventsByUser: (userId: number): Promise<Event[]> =>
     apiClient.get(`/admin/content/user/events/${userId}`).then(r => r.data),
 
-  getCommentById: (commentId: number) =>
+  getCommentById: (commentId: number): Promise<Comment> =>
     apiClient.get(`/admin/content/comments/${commentId}`).then(r => r.data),
+  
   getCommentsByUser: (userId: number): Promise<Comment[]> =>
     apiClient.get(`/admin/content/user/comments/${userId}`).then(r => r.data),
-  getCommentsForEvent: (eventId: number): Promise<Comment[]> =>
-    apiClient.get(`/admin/content/events/${eventId}/comments`).then(r => r.data).catch(() => []),
   deleteComment: (commentId: number) =>
     apiClient.patch(`/admin/actions/comments/delete/${commentId}`),
 
