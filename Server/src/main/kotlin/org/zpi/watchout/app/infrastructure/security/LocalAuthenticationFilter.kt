@@ -19,9 +19,9 @@ class LocalAuthenticationFilter : OncePerRequestFilter() {
         filterChain: FilterChain
     ) {
         ///user
-//        val auth = UsernamePasswordAuthenticationToken(27L, null, listOf(Role.ROLE_USER))
+        val auth = UsernamePasswordAuthenticationToken(27L, null, listOf(Role.ROLE_USER))
         ///admin
-        val auth = UsernamePasswordAuthenticationToken(10000L, null, listOf(Role.ROLE_ADMIN))
+//        val auth = UsernamePasswordAuthenticationToken(10000L, null, listOf(Role.ROLE_ADMIN))
         SecurityContextHolder.getContext().authentication = auth
         filterChain.doFilter(request, response)
     }
