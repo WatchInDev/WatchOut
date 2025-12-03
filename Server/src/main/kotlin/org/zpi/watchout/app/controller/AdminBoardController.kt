@@ -148,6 +148,27 @@ class AdminBoardController(val adminService: AdminService) {
         return comments
     }
 
+    @GetMapping("/content/event/comments/{eventId}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @Operation(summary = "Fetch comments by event ID", description = "Endpoint to fetch all comments for a specific event for the admin board.")
+    fun getCommentsByEventId(@PathVariable("eventId") eventId: Long): List<AdminCommentsDTO> {
+        logger.info { "Fetching comments for event ID: $eventId" }
+        val comments = adminService.getAdminCommentByEventId(eventId)
+        logger.info { "Fetched ${comments.size} comments for event ID: $eventId" }
+        return comments
+    }
+
+
+    @GetMapping("/content/user/info/{userId}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @Operation(summary = "Fetch user info by user ID", description = "Endpoint to fetch detailed information about a specific user for the admin board.")
+    fun getUserInfoByUserId(@PathVariable("userId") userId: Long): AdminUserDTO {
+        logger.info { "Fetching user info for user ID: $userId" }
+        val userInfo = adminService.getUserById(userId)
+        logger.info { "Fetched user info for user ID: $userId" }
+        return userInfo
+    }
+
 
 
 }

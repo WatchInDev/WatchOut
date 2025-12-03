@@ -23,18 +23,11 @@ interface EventRepository: JpaRepository<Event, Long>, EventRepositoryCriteriaAp
             e.reported_date AS reported_date,
             e.end_date AS end_date,
             et.name AS event_type,
-            c.id AS comment_id,
-            c.content AS comment_content,
-            cu.email AS comment_author_email,
-            cu.id AS comment_author_id,
-            c.created_at AS comment_created_at,
             e.is_active AS is_active,
-            c.is_deleted AS comment_is_deleted
+            e.image AS images
         FROM watchout.events e
         JOIN watchout.users au ON au.id = e.author_id
         JOIN watchout.event_types et ON et.id = e.event_type_id
-        LEFT JOIN watchout.comments c ON c.event_id = e.id
-        LEFT JOIN watchout.users cu ON cu.id = c.author_id
         ORDER BY e.id
         """,
         nativeQuery = true
@@ -52,18 +45,11 @@ interface EventRepository: JpaRepository<Event, Long>, EventRepositoryCriteriaAp
             e.reported_date AS reported_date,
             e.end_date AS end_date,
             et.name AS event_type,
-            c.id AS comment_id,
-            c.content AS comment_content,
-            cu.email AS comment_author_email,
-            cu.id AS comment_author_id,
-            c.created_at AS comment_created_at,
             e.is_active AS is_active,
-            c.is_deleted AS comment_is_deleted
+            e.image AS images
         FROM watchout.events e
         JOIN watchout.users au ON au.id = e.author_id
         JOIN watchout.event_types et ON et.id = e.event_type_id
-        LEFT JOIN watchout.comments c ON c.event_id = e.id
-        LEFT JOIN watchout.users cu ON cu.id = c.author_id
         WHERE e.id = :id
         ORDER BY e.id
         """,
@@ -82,18 +68,11 @@ interface EventRepository: JpaRepository<Event, Long>, EventRepositoryCriteriaAp
             e.reported_date AS reported_date,
             e.end_date AS end_date,
             et.name AS event_type,
-            c.id AS comment_id,
-            c.content AS comment_content,
-            cu.email AS comment_author_email,
-            cu.id AS comment_author_id,
-            c.created_at AS comment_created_at,
             e.is_active AS is_active,
-            c.is_deleted AS comment_is_deleted
+            e.image AS images
         FROM watchout.events e
         JOIN watchout.users au ON au.id = e.author_id
         JOIN watchout.event_types et ON et.id = e.event_type_id
-        LEFT JOIN watchout.comments c ON c.event_id = e.id
-        LEFT JOIN watchout.users cu ON cu.id = c.author_id
         WHERE au.id = :userId
         ORDER BY e.id
         """,

@@ -58,87 +58,54 @@ class AdminService(val userRepository : UserRepository, val commentRepository: C
 
     fun getAdminEvents(): List<AdminEventDTO> {
         val rows = eventRepository.findAllEventsWithCommentsFlat()
-        return rows.groupBy { it.eventId }.map { (_, group) ->
-            val first = group.first()
-            val comments = group.filter { it.commentId != null }.map {
-                AdminCommentsDTO(
-                    id = it.commentId!!,
-                    content = it.commentContent!!,
-                    authorEmail = it.commentAuthorEmail!!,
-                    authorId = it.commentAuthorId!!,
-                    createdAt = it.commentCreatedAt!!.toLocalDateTime(),
-                    isDeleted = it.isCommentDeleted!!
-                )
-            }
+        return rows.map { event ->
             AdminEventDTO(
-                id = first.eventId,
-                name = first.name,
-                description = first.description,
-                authorEmail = first.authorEmail,
-                authorId = first.authorId,
-                reportedDate = first.reportedDate.toLocalDateTime(),
-                endDate = first.endDate.toLocalDateTime(),
-                eventType = first.eventType,
-                comments = comments,
-                isActive = first.isActive
+                id = event.eventId,
+                name = event.name,
+                description = event.description,
+                authorEmail = event.authorEmail,
+                authorId = event.authorId,
+                reportedDate = event.reportedDate.toLocalDateTime(),
+                endDate = event.endDate.toLocalDateTime(),
+                eventType = event.eventType,
+                images = event.images.takeIf { it.isNotBlank() }?.split(",") ?: emptyList(),
+                isActive = event.isActive
             )
         }
     }
 
     fun getAdminEventById(eventId: Long): AdminEventDTO {
         val rows = eventRepository.findEventById(eventId)
-        return rows.groupBy { it.eventId }.map { (_, group) ->
-            val first = group.first()
-            val comments = group.filter { it.commentId != null }.map {
-                AdminCommentsDTO(
-                    id = it.commentId!!,
-                    content = it.commentContent!!,
-                    authorEmail = it.commentAuthorEmail!!,
-                    authorId = it.commentAuthorId!!,
-                    createdAt = it.commentCreatedAt!!.toLocalDateTime(),
-                    isDeleted = it.isCommentDeleted!!
-                )
-            }
+        return rows.map { event ->
             AdminEventDTO(
-                id = first.eventId,
-                name = first.name,
-                description = first.description,
-                authorEmail = first.authorEmail,
-                authorId = first.authorId,
-                reportedDate = first.reportedDate.toLocalDateTime(),
-                endDate = first.endDate.toLocalDateTime(),
-                eventType = first.eventType,
-                comments = comments,
-                isActive = first.isActive
+                id = event.eventId,
+                name = event.name,
+                description = event.description,
+                authorEmail = event.authorEmail,
+                authorId = event.authorId,
+                reportedDate = event.reportedDate.toLocalDateTime(),
+                endDate = event.endDate.toLocalDateTime(),
+                eventType = event.eventType,
+                images = event.images.takeIf { it.isNotBlank() }?.split(",") ?: emptyList(),
+                isActive = event.isActive
             )
         }.first()
     }
 
     fun getAdminEventsByAuthor(authorId: Long): List<AdminEventDTO> {
         val rows = eventRepository.findEventByUserId(authorId)
-        return rows.groupBy { it.eventId }.map { (_, group) ->
-            val first = group.first()
-            val comments = group.filter { it.commentId != null }.map {
-                AdminCommentsDTO(
-                    id = it.commentId!!,
-                    content = it.commentContent!!,
-                    authorEmail = it.commentAuthorEmail!!,
-                    authorId = it.commentAuthorId!!,
-                    createdAt = it.commentCreatedAt!!.toLocalDateTime(),
-                    isDeleted = it.isCommentDeleted!!
-                )
-            }
+        return rows.map { event ->
             AdminEventDTO(
-                id = first.eventId,
-                name = first.name,
-                description = first.description,
-                authorEmail = first.authorEmail,
-                authorId = first.authorId,
-                reportedDate = first.reportedDate.toLocalDateTime(),
-                endDate = first.endDate.toLocalDateTime(),
-                eventType = first.eventType,
-                comments = comments,
-                isActive = first.isActive
+                id = event.eventId,
+                name = event.name,
+                description = event.description,
+                authorEmail = event.authorEmail,
+                authorId = event.authorId,
+                reportedDate = event.reportedDate.toLocalDateTime(),
+                endDate = event.endDate.toLocalDateTime(),
+                eventType = event.eventType,
+                images = event.images.takeIf { it.isNotBlank() }?.split(",") ?: emptyList(),
+                isActive = event.isActive
             )
         }
     }
@@ -153,7 +120,17 @@ class AdminService(val userRepository : UserRepository, val commentRepository: C
         return comment
     }
 
+    fun getAdminCommentByEventId(eventId: Long): List<AdminCommentsDTO> {
+        val comments = commentRepository.getAdminCommentByEventId(eventId)
+        return comments
+    }
+
     fun getReportedEvents() = reportRepository.findAll()
+
+    fun getUserById(userId: Long): AdminUserDTO {
+        val user = userRepository.findById(userId).orElseThrow { EntityNotFoundException("User not found") }
+        return AdminUserDTO(user)
+    }
 
 
 
