@@ -3,9 +3,12 @@ package org.zpi.watchout.service
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import org.zpi.watchout.data.entity.ElectricalOutage
+import org.zpi.watchout.data.entity.UserFavouritePlacePreference
 import org.zpi.watchout.data.entity.WeatherWarning
 import org.zpi.watchout.data.repos.ElectricalOutageRepository
+import org.zpi.watchout.data.repos.UserFavouritePlacePreferenceRepository
 import org.zpi.watchout.data.repos.UserFavouritePlaceRepository
+import org.zpi.watchout.data.repos.UserGlobalPreferenceRepository
 import org.zpi.watchout.data.repos.WeatherWarningRepository
 import org.zpi.watchout.data.repos.impl.ElectricalOutageJdbcRepositoryInterface
 import org.zpi.watchout.data.repos.impl.WeatherWarningJdbcRepositoryInterface
@@ -18,20 +21,34 @@ import org.zpi.watchout.service.dto.WeatherDTO
 
 
 @Service
-class ExternalWarningsService(val userFavouritePlaceRepository: UserFavouritePlaceRepository, val weatherWarningRepository: WeatherWarningRepository, val electricalOutageRepository: ElectricalOutageRepository, val weatherWarningRepositoryJdbc: WeatherWarningJdbcRepositoryInterface, val electricalOutageRepositoryJdbc: ElectricalOutageJdbcRepositoryInterface) {
+class ExternalWarningsService(val userFavouritePlaceRepository: UserFavouritePlaceRepository, val weatherWarningRepository: WeatherWarningRepository, val electricalOutageRepository: ElectricalOutageRepository, val userFavouritePlacePreferenceRepository: UserFavouritePlacePreferenceRepository, val userGlobalPreferenceRepository: UserGlobalPreferenceRepository) {
     fun getExternalWarning(userId: Long) : List<ExternalWarningDTO>{
         val favouritePlaces = userFavouritePlaceRepository.findByUserId(userId)
+        val userGlobalPreference = userGlobalPreferenceRepository.findByUserId(userId) ?: return emptyList()
+        if(!userGlobalPreference.notifyOnExternalWarning){
+            return emptyList()
+        }
+
         val warnings = mutableListOf<ExternalWarningDTO>()
         favouritePlaces.forEach { fav ->
-            val updatedWarnings = weatherWarningRepository
-                .findWeatherWarningByUsersFavouritePlace(fav.locality)
-                .map { warning -> warning.apply { placeName = fav.placeName } }
+            val pref: UserFavouritePlacePreference = userFavouritePlacePreferenceRepository.findByUserFavouritePlaceId(fav.id!!)?: return@forEach
+            if(!pref.notificationEnabled){
+                return@forEach
+            }
 
-            warnings.addAll(updatedWarnings)
+            if(pref.weather){
+                val updatedWarnings = weatherWarningRepository
+                    .findWeatherWarningByUsersFavouritePlace(fav.locality)
+                    .map { warning -> warning.apply { placeName = fav.placeName } }
 
-            val updatedOutages = electricalOutageRepository.findElectricalOutageByFavouritePlace(fav.voivodeship, fav.location, fav.region)
-                .map { outage -> outage.apply { placeName = fav.placeName } }
-            warnings.addAll(updatedOutages)
+                warnings.addAll(updatedWarnings)
+            }
+
+            if(pref.electricity){
+                val updatedOutages = electricalOutageRepository.findElectricalOutageByFavouritePlace(fav.voivodeship, fav.location, fav.region)
+                    .map { outage -> outage.apply { placeName = fav.placeName } }
+                warnings.addAll(updatedOutages)
+            }
         }
         return warnings
     }
