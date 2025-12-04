@@ -12,8 +12,8 @@ export default function AdminLayout() {
   };
 
   return (
-    <div className="flex min-h-screen bg-gray-50">
-      <aside className="w-64 bg-gray-900 text-white p-6 flex flex-col justify-between">
+    <div className="flex min-h-screen">
+      <aside className="w-64 bg-gray-900 text-white p-6 flex flex-col sticky top-0 h-screen">
         <div>
           <h1 className="text-2xl font-bold mb-6">Admin Panel</h1>
           <nav className="space-y-3">
@@ -44,10 +44,14 @@ export default function AdminLayout() {
           </nav>
         </div>
 
-        <Button variant="secondary" onClick={handleSignOut}>Wyloguj</Button>
+        <div className="mt-auto">
+          <Button className="w-full" variant="secondary" onClick={handleSignOut}>
+            Wyloguj
+          </Button>
+        </div>
       </aside>
 
-      <main className="flex-1 p-6">
+      <main className="flex-1 p-6 overflow-auto">
         <Outlet />
       </main>
     </div>

@@ -25,6 +25,10 @@ export const AdminAPI = {
   
   getCommentsByUser: (userId: number): Promise<Comment[]> =>
     apiClient.get(`/admin/content/user/comments/${userId}`).then(r => r.data),
+
+  getCommentsByEvent: (eventId: number): Promise<Comment[]> =>
+    apiClient.get(`/admin/content/event/comments/${eventId}`).then(r => r.data),
+
   deleteComment: (commentId: number) =>
     apiClient.patch(`/admin/actions/comments/delete/${commentId}`),
 

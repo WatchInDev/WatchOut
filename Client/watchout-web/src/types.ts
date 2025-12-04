@@ -22,6 +22,7 @@ export interface Event {
   reportedDate: string
   endDate: string
   isActive: boolean
+  authorId: number
   author: User
   eventType: string
   location: {
@@ -33,7 +34,9 @@ export interface Event {
 export interface Comment {
   id: number
   content: string
-  author: User
+  authorEmail: string
+  authorId: number
   eventId: number
+  createdAt: string
   isDeleted: boolean
 }

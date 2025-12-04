@@ -236,6 +236,8 @@ export default function UsersPage() {
                       {commentsQuery.data?.map((c: Comment) => (
                         <li key={c.id} className="p-2 border rounded flex justify-between items-start">
                           <p className="text-sm">{c.content}</p>
+                          <p className="text-sm opacity-50">{new Date(c.createdAt).toLocaleString()}</p>
+
                           <Button
                             size="sm"
                             variant="destructive"
