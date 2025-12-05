@@ -5,6 +5,7 @@ import { Alert } from 'react-native';
 import { Coordinates, CreateEventRequest } from 'utils/types';
 import { useCreateEvent } from './useEventCreate';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
+import { useUserLocation } from 'features/map/useLocation';
 
 type FormData = {
   name: string;
@@ -58,9 +59,16 @@ export const useEventCreateForm = (location: Coordinates, onSuccess: () => void)
     setFormData({ name: '', description: '', eventTypeId: null, images: [] });
   }, []);
 
+  const userLocation = useUserLocation();
+
   const handleSubmit = useCallback(() => {
     if (!validateForm()) {
       Alert.alert('Błąd', 'Wszystkie pola muszą być wypełnione.');
+      return;
+    }
+
+    if (!userLocation.location) {
+      Alert.alert('Błąd', 'Aby móc utworzyć zdarzenie, upewnij się, że usługi lokalizacyjne są włączone.');
       return;
     }
 
@@ -71,6 +79,8 @@ export const useEventCreateForm = (location: Coordinates, onSuccess: () => void)
       description: formData.description,
       latitude: location.latitude,
       longitude: location.longitude,
+      userLatitude: userLocation?.location.latitude,
+      userLongitude: userLocation?.location.longitude,
       endDate: dateInOneHour.toISOString(),
       images: formData.images.map((image) => image.base64),
       eventTypeId: formData.eventTypeId!,
@@ -86,7 +96,7 @@ export const useEventCreateForm = (location: Coordinates, onSuccess: () => void)
         Alert.alert('Błąd', `Nie udało się zgłosić zdarzenia. Spróbuj ponownie. ${error.message}`);
       },
     });
-  }, [validateForm, formData, location, createEventMutation, resetForm, onSuccess]);
+  }, [validateForm, formData, location, createEventMutation, resetForm, onSuccess, userLocation.location]);
 
   return {
     formData,
