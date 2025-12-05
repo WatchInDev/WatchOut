@@ -50,6 +50,8 @@ export type CreateEventRequest = {
   images: string[]; // base64 encoded images
   latitude: number;
   longitude: number;
+  userLatitude: number;
+  userLongitude: number;
   endDate: Date | string;
   eventTypeId: number;
 };
