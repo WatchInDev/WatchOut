@@ -302,8 +302,10 @@ class EventRepositoryCriteriaApiImpl(@PersistenceContext private val entityManag
         }
 
         filters.reportedDateTo?.let { endDate ->
-            predicates.add(cb.lessThanOrEqualTo(eventRoot.get("endDate"), endDate))
+            predicates.add(cb.lessThanOrEqualTo(eventRoot.get("reportedDate"), endDate))
         }
+
+        predicates.add(cb.greaterThanOrEqualTo(eventRoot.get("endDate"), LocalDateTime.now()))
 
         predicates.add(cb.equal(eventRoot.get<Boolean>("isActive"), true))
 
@@ -372,8 +374,10 @@ class EventRepositoryCriteriaApiImpl(@PersistenceContext private val entityManag
         }
 
         filters.reportedDateTo?.let { endDate ->
-            predicates.add(cb.lessThanOrEqualTo(eventRoot.get("endDate"), endDate))
+            predicates.add(cb.lessThanOrEqualTo(eventRoot.get("reportedDate"), endDate))
         }
+
+        predicates.add(cb.greaterThanOrEqualTo(eventRoot.get("endDate"), LocalDateTime.now()))
 
         predicates.add(cb.equal(eventRoot.get<Boolean>("isActive"), true))
 
