@@ -44,7 +44,8 @@ def get_chain():
 
     # Move initialization INSIDE this function
     llm = ChatGroq(
-        model_name="llama-3.3-70b-versatile",
+        # model_name="llama-3.3-70b-versatile",
+        model_name="meta-llama/llama-4-maverick-17b-128e-instruct",
         temperature=0,
         api_key=os.getenv("GROQ_API_KEY")
     )
@@ -169,7 +170,7 @@ async def parse_batches_with_llm(text_chunks: list[list[str]], max_concurrency: 
         return await parse_batches_with_llm(text_chunks, max_concurrency=max_concurrency)
 
 
-def parse_location_lines(location_lines: list[str], max_concurrency: int = 40, lines_per_chunk: int = 20) -> list:
+def parse_location_lines(location_lines: list[str], max_concurrency: int = 40, lines_per_chunk: int = 15) -> list:
     """
     Batches lines into text blocks, sends to LLM, returns list of results
     matching 1-to-1 with input lines - one line of input = one sublist of results

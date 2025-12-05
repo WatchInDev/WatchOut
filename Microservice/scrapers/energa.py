@@ -3,8 +3,8 @@ import sys
 
 import requests
 from datetime import datetime
-from .parsers import parse_location_lines
-
+# from .parsers import parse_location_lines
+from Microservice.scrapers.parsers import parse_location_lines
 
 def transform_shutdown_data(shutdown_list):
     """

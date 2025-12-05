@@ -65,14 +65,14 @@ Example:
     Output:
     [
       [
-        {{"Warszawa": {{"locations": ["1", "2"]}}}},
-        {{"Kraków": {{"locations": ["5"]}}}}
+        {{"Warszawa": ["1", "2"]}},
+        {{"Kraków": ["5"]}}
       ],
       [
-        {{"Wrocław": {{"locations": ["10", "11", "12"]}}}}
+        {{"Wrocław": ["10", "11", "12"]}}
       ],
       [
-        {{"Wrocław": {{"locations": ["ul. Nabycińska 1"]}}}}
+        {{"Wrocław": ["ul. Nabycińska 1"]}}
       ]
     ]
     
@@ -80,7 +80,7 @@ Example:
     Input: "Wrocław ul. Polna 1, od 3 do 5, 10/12"
     Step 1 (Identify): "ul. Polna 1", Range "3-5" inherits "ul. Polna", "10/12" inherits "ul. Polna"
     Step 2 (Expand): "ul. Polna 1", "ul. Polna 3", "ul. Polna 4", "ul. Polna 5", "ul. Polna 10/12"
-    Output JSON: [ {{"Wrocław": {{"locations": ["ul. Polna 1", "ul. Polna 3", "ul. Polna 4", "ul. Polna 5", "ul. Polna 10/12"]}}}} ]
+    Output JSON: [ {{"Wrocław": ["ul. Polna 1", "ul. Polna 3", "ul. Polna 4", "ul. Polna 5", "ul. Polna 10/12"]}} ]
 
 
 User input:

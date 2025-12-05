@@ -1,21 +1,17 @@
 from pydantic import BaseModel, Field, RootModel
 
 
-class TownData(BaseModel):
-    locations: list[str] = Field(default_factory=list)
-
-
 class TownsAndLocations(RootModel):
     """
     Structure:
     [                                      <- The Batch (List of Lines)
-       [                                   <- Line 1 Data (List of Towns)
-          {"Parzew": {"locations": [...]}},
-          {"Sławoszew": {"locations": [...]}}
-       ],
-       [                                   <- Line 2 Data
-          {"Lubinia": {"locations": [...]}}
-       ]
+       {                                   <- Line 1 Data (List of Towns)
+          "Parzew": [...],
+          "Sławoszew": [...]
+       },
+       {                                   <- Line 2 Data
+          "Lubinia": [...]
+       }
     ]
     """
-    root: list[list[dict[str, TownData]]]
+    root: list[dict[str, list[str]]]

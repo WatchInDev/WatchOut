@@ -50,8 +50,6 @@ langchain-groq==1.1.0
     # via watchout (pyproject.toml)
 langsmith==0.4.49
     # via langchain-core
-loguru==0.7.3
-    # via watchout (pyproject.toml)
 markupsafe==3.0.3
     # via werkzeug
 nltk==3.9.2

@@ -1,0 +1,5469 @@
+{
+    "Dolnośląskie": {
+        "Bolesławiec": [
+            {
+                "interval": {
+                    "from_date": "2025-12-03T07:00:00Z",
+                    "to_date": "2025-12-03T09:00:00Z"
+                },
+                "locations": [
+                    "Bolesławice",
+                    "Wiaduktowa",
+                    "ul. Ceramiczna"
+                ]
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-03T12:00:00Z",
+                    "to_date": "2025-12-03T14:00:00Z"
+                },
+                "locations": [
+                    "Bolesławice",
+                    "Wiaduktowa",
+                    "ul. Ceramiczna"
+                ]
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-08T07:00:00Z",
+                    "to_date": "2025-12-08T08:30:00Z"
+                },
+                "locations": [
+                    "Modłowa 32A",
+                    "Przemysłowa 3",
+                    "ul. Ekonomiczna 1",
+                    "ul. Ekonomiczna 2",
+                    "ul. Ekonomiczna 6",
+                    "ul. Ekonomiczna 8"
+                ]
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-08T12:00:00Z",
+                    "to_date": "2025-12-08T14:00:00Z"
+                },
+                "locations": [
+                    "Modłowa 32A",
+                    "Przemysłowa 3",
+                    "ul. Ekonomiczna 1",
+                    "ul. Ekonomiczna 2",
+                    "ul. Ekonomiczna 6",
+                    "ul. Ekonomiczna 8"
+                ]
+            }
+        ],
+        "Powiadomić": [
+            {
+                "interval": {
+                    "from_date": "2025-12-03T08:00:00Z",
+                    "to_date": "2025-12-03T13:00:00Z"
+                },
+                "locations": [
+                    "JGB57603",
+                    "JGB57604",
+                    "JGB57605"
+                ]
+            }
+        ],
+        "Nowogrodziec": [
+            {
+                "interval": {
+                    "from_date": "2025-12-09T07:00:00Z",
+                    "to_date": "2025-12-09T13:00:00Z"
+                },
+                "locations": [
+                    "1-go Maja 35",
+                    "1-go Maja 35A",
+                    "ul. Polna 33",
+                    "ul. Polna 33A",
+                    "ul. Polna 5",
+                    "ul. Polna 7",
+                    "ul. Polna 9"
+                ]
+            }
+        ],
+        "Bielawa": [
+            {
+                "interval": {
+                    "from_date": "2025-12-04T07:00:00Z",
+                    "to_date": "2025-12-04T15:00:00Z"
+                },
+                "locations": [
+                    "ul. 3 Maja 20"
+                ]
+            }
+        ],
+        "Głogów": [
+            {
+                "interval": {
+                    "from_date": "2025-12-03T07:00:00Z",
+                    "to_date": "2025-12-03T15:00:00Z"
+                },
+                "locations": [
+                    "ul. Akacjowa 31",
+                    "ul. Akacjowa 31B",
+                    "ul. Akacjowa 33",
+                    "ul. Akacjowa 33A",
+                    "ul. Akacjowa 33B",
+                    "ul. Akacjowa 33D"
+                ]
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-09T07:00:00Z",
+                    "to_date": "2025-12-09T19:00:00Z"
+                },
+                "locations": [
+                    "ul. Generała Władysława Sikorskiego 48"
+                ]
+            }
+        ],
+        "Bolków": [
+            {
+                "interval": {
+                    "from_date": "2025-12-02T07:00:00Z",
+                    "to_date": "2025-12-02T08:00:00Z"
+                },
+                "locations": [
+                    "1-go Maja",
+                    "Ludowa",
+                    "Mickiewicza",
+                    "ul. Wysokogórska"
+                ]
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-02T11:00:00Z",
+                    "to_date": "2025-12-02T12:00:00Z"
+                },
+                "locations": [
+                    "1-go Maja",
+                    "Ludowa",
+                    "Mickiewicza",
+                    "ul. Wysokogórska"
+                ]
+            }
+        ],
+        "Paszowice numery": [
+            {
+                "interval": {
+                    "from_date": "2025-12-02T07:00:00Z",
+                    "to_date": "2025-12-02T14:00:00Z"
+                },
+                "locations": [
+                    "50A",
+                    "B",
+                    "F",
+                    "G",
+                    "i C",
+                    "i C 35D"
+                ]
+            }
+        ],
+        "Lipa": [
+            {
+                "interval": {
+                    "from_date": "2025-12-08T07:00:00Z",
+                    "to_date": "2025-12-08T09:00:00Z"
+                },
+                "locations": []
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-08T07:00:00Z",
+                    "to_date": "2025-12-08T09:00:00Z"
+                },
+                "locations": []
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-08T07:00:00Z",
+                    "to_date": "2025-12-08T09:00:00Z"
+                },
+                "locations": []
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-08T07:00:00Z",
+                    "to_date": "2025-12-08T09:00:00Z"
+                },
+                "locations": []
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-08T07:00:00Z",
+                    "to_date": "2025-12-08T09:00:00Z"
+                },
+                "locations": []
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-08T16:00:00Z",
+                    "to_date": "2025-12-08T18:00:00Z"
+                },
+                "locations": []
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-08T16:00:00Z",
+                    "to_date": "2025-12-08T18:00:00Z"
+                },
+                "locations": []
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-08T16:00:00Z",
+                    "to_date": "2025-12-08T18:00:00Z"
+                },
+                "locations": []
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-08T16:00:00Z",
+                    "to_date": "2025-12-08T18:00:00Z"
+                },
+                "locations": []
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-08T16:00:00Z",
+                    "to_date": "2025-12-08T18:00:00Z"
+                },
+                "locations": []
+            }
+        ],
+        "Muchówek": [
+            {
+                "interval": {
+                    "from_date": "2025-12-08T07:00:00Z",
+                    "to_date": "2025-12-08T09:00:00Z"
+                },
+                "locations": []
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-08T16:00:00Z",
+                    "to_date": "2025-12-08T18:00:00Z"
+                },
+                "locations": []
+            }
+        ],
+        "Chełmsko": [
+            {
+                "interval": {
+                    "from_date": "2025-12-08T09:00:00Z",
+                    "to_date": "2025-12-08T12:00:00Z"
+                },
+                "locations": [
+                    "Olszyny"
+                ]
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-09T07:00:00Z",
+                    "to_date": "2025-12-09T09:00:00Z"
+                },
+                "locations": []
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-09T07:00:00Z",
+                    "to_date": "2025-12-09T09:00:00Z"
+                },
+                "locations": []
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-09T16:00:00Z",
+                    "to_date": "2025-12-09T18:00:00Z"
+                },
+                "locations": []
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-09T16:00:00Z",
+                    "to_date": "2025-12-09T18:00:00Z"
+                },
+                "locations": []
+            }
+        ],
+        "Olszyny": [
+            {
+                "interval": {
+                    "from_date": "2025-12-09T07:00:00Z",
+                    "to_date": "2025-12-09T09:00:00Z"
+                },
+                "locations": []
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-09T07:00:00Z",
+                    "to_date": "2025-12-09T09:00:00Z"
+                },
+                "locations": []
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-09T16:00:00Z",
+                    "to_date": "2025-12-09T18:00:00Z"
+                },
+                "locations": []
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-09T16:00:00Z",
+                    "to_date": "2025-12-09T18:00:00Z"
+                },
+                "locations": []
+            }
+        ],
+        "Krzeszówek": [
+            {
+                "interval": {
+                    "from_date": "2025-12-09T09:00:00Z",
+                    "to_date": "2025-12-09T12:00:00Z"
+                },
+                "locations": [
+                    "1",
+                    "1 2",
+                    "1 9",
+                    "10 15",
+                    "10 16",
+                    "10 17",
+                    "10 18",
+                    "10 19",
+                    "10 20",
+                    "10 21",
+                    "10 22",
+                    "10 23",
+                    "10 24",
+                    "10 25",
+                    "10 26",
+                    "10 29",
+                    "10 30",
+                    "10 32",
+                    "10 34",
+                    "Centrum Rekreacyjne",
+                    "Kościół",
+                    "Plebania",
+                    "Przepompownia wody Sanikom",
+                    "Sklep"
+                ]
+            }
+        ],
+        "Międzylesie": [
+            {
+                "interval": {
+                    "from_date": "2025-12-02T06:30:00Z",
+                    "to_date": "2025-12-02T15:30:00Z"
+                },
+                "locations": [
+                    "Bolesława Chrobrego",
+                    "Mickiewicza",
+                    "Szkolna",
+                    "Widokowa"
+                ]
+            }
+        ],
+        "Bystrzyca Kłodzka": [
+            {
+                "interval": {
+                    "from_date": "2025-12-02T07:00:00Z",
+                    "to_date": "2025-12-02T15:00:00Z"
+                },
+                "locations": [
+                    "Mickiewicza"
+                ]
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-02T07:46:25.103Z",
+                    "to_date": "2025-12-02T15:00:00Z"
+                },
+                "locations": [
+                    "1 Sierpnia",
+                    "Cmentarna",
+                    "Konopnickiej",
+                    "Lotników",
+                    "Mickiewicza",
+                    "Odrowąża",
+                    "Sienkiewicza",
+                    "Willowa",
+                    "Świerczewskiego",
+                    "Żerebeckiego"
+                ]
+            }
+        ],
+        "Polanica Zdrój": [
+            {
+                "interval": {
+                    "from_date": "2025-12-03T06:00:00Z",
+                    "to_date": "2025-12-03T14:00:00Z"
+                },
+                "locations": [
+                    "12; ul. Rubinowa 2",
+                    "12; ul. Rubinowa 3",
+                    "12; ul. Rubinowa 5",
+                    "18 - możliwość zasilania z agregatu",
+                    "29; ul. Nefrytowa 3",
+                    "29; ul. Nefrytowa 5",
+                    "29; ul. Nefrytowa 6",
+                    "31; ul. Koralowa 10A",
+                    "31; ul. Koralowa 12",
+                    "31; ul. Koralowa 14",
+                    "31; ul. Koralowa 19",
+                    "31; ul. Koralowa 2",
+                    "31; ul. Koralowa 22",
+                    "31; ul. Koralowa 27",
+                    "6; ul. Brylantowa 2; ul. Bursztynowa 3",
+                    "6; ul. Brylantowa 4",
+                    "6; ul. Kilińskiego 4B",
+                    "6; ul. Kilińskiego 4C",
+                    "6; ul. Topazowa 5",
+                    "7; ul. Opalowa 11",
+                    "7; ul. Opalowa 4",
+                    "7; ul. Opalowa 6",
+                    "7; ul. Opalowa 7",
+                    "7; ul. Opalowa 8",
+                    "7; ul. Opalowa 9",
+                    "7; ul. Turkusowa 1",
+                    "7; ul. Turkusowa 4",
+                    "7; ul. Turkusowa 5",
+                    "7; ul. Turkusowa 6",
+                    "8; ul. Złota 10",
+                    "8; ul. Złota 2",
+                    "8; ul. Złota 3",
+                    "8; ul. Złota 4",
+                    "8; ul. Złota 5",
+                    "; ul. Szmaragdowa 1",
+                    "; ul. Szmaragdowa 3",
+                    "ul. Berylowa 2",
+                    "ul. Berylowa 4"
+                ]
+            }
+        ],
+        "Kłodzko": [
+            {
+                "interval": {
+                    "from_date": "2025-12-03T08:00:00Z",
+                    "to_date": "2025-12-03T13:00:00Z"
+                },
+                "locations": [
+                    "Dz. 1/10 (Budowa PSP Kłodzko)",
+                    "ul. Zajęcza Dz. 19/5"
+                ]
+            }
+        ],
+        "Stara Bystrzyca": [
+            {
+                "interval": {
+                    "from_date": "2025-12-04T07:00:00Z",
+                    "to_date": "2025-12-04T14:00:00Z"
+                },
+                "locations": [
+                    "Leśna",
+                    "Słoneczna",
+                    "Zajęcza"
+                ]
+            }
+        ],
+        "Pławnica": [
+            {
+                "interval": {
+                    "from_date": "2025-12-05T08:00:00Z",
+                    "to_date": "2025-12-05T11:00:00Z"
+                },
+                "locations": []
+            }
+        ],
+        "Szalejów Dolny": [
+            {
+                "interval": {
+                    "from_date": "2025-12-05T08:00:00Z",
+                    "to_date": "2025-12-05T13:00:00Z"
+                },
+                "locations": [
+                    "1",
+                    "10",
+                    "100",
+                    "101",
+                    "102",
+                    "103",
+                    "104",
+                    "105",
+                    "106",
+                    "107",
+                    "108",
+                    "109",
+                    "11",
+                    "12",
+                    "13",
+                    "14",
+                    "15",
+                    "16",
+                    "17",
+                    "18",
+                    "19",
+                    "2",
+                    "20",
+                    "21",
+                    "22",
+                    "23",
+                    "24",
+                    "25",
+                    "26",
+                    "27",
+                    "28",
+                    "29",
+                    "3",
+                    "30",
+                    "303/1",
+                    "303/1 306",
+                    "31",
+                    "32",
+                    "33",
+                    "34",
+                    "35",
+                    "36",
+                    "37",
+                    "38",
+                    "39",
+                    "4",
+                    "40",
+                    "41",
+                    "42",
+                    "43",
+                    "44",
+                    "45",
+                    "46",
+                    "47",
+                    "48",
+                    "49",
+                    "5",
+                    "50",
+                    "51",
+                    "52",
+                    "53",
+                    "54",
+                    "55",
+                    "56",
+                    "57",
+                    "58",
+                    "59",
+                    "6",
+                    "60",
+                    "61",
+                    "62",
+                    "63",
+                    "64",
+                    "65",
+                    "66",
+                    "67",
+                    "68",
+                    "69",
+                    "7",
+                    "70",
+                    "71",
+                    "72",
+                    "73",
+                    "74",
+                    "75",
+                    "76",
+                    "77",
+                    "78",
+                    "79",
+                    "8",
+                    "80",
+                    "81",
+                    "82",
+                    "83",
+                    "84",
+                    "85",
+                    "86",
+                    "87",
+                    "88",
+                    "89",
+                    "9",
+                    "90",
+                    "91",
+                    "91/6",
+                    "91/6 249",
+                    "91/6 345",
+                    "92",
+                    "93",
+                    "94",
+                    "95",
+                    "96",
+                    "97",
+                    "98",
+                    "99",
+                    "Szalejów Górny 32",
+                    "Szalejów Górny 33",
+                    "Szalejów Górny 34",
+                    "Szalejów Górny 35",
+                    "Szalejów Górny 36",
+                    "Szalejów Górny 37",
+                    "Szalejów Górny 38",
+                    "działka 108",
+                    "działka 169",
+                    "działka 35",
+                    "działka 380"
+                ]
+            }
+        ],
+        "Idzików": [
+            {
+                "interval": {
+                    "from_date": "2025-12-06T08:00:00Z",
+                    "to_date": "2025-12-06T11:00:00Z"
+                },
+                "locations": [
+                    "Nowa Pławnica",
+                    "Pławnica"
+                ]
+            }
+        ],
+        "Duszniki Zdrój": [
+            {
+                "interval": {
+                    "from_date": "2025-12-09T08:00:00Z",
+                    "to_date": "2025-12-09T15:00:00Z"
+                },
+                "locations": [
+                    "6; ul. Orzechowa 32; ul. Podgórze 3a; ul. Zielona; możliwa praca agregatu",
+                    "dz. 2",
+                    "dz. 207/376; ul. Górska 14; ul. Graniczna 5",
+                    "dz. 26",
+                    "dz. 3",
+                    "dz. 4",
+                    "dz. 7",
+                    "ul. Wojska Polskiego 10",
+                    "ul. Wojska Polskiego 10a",
+                    "ul. Wojska Polskiego 12",
+                    "ul. Wojska Polskiego 14",
+                    "ul. Wojska Polskiego 14a",
+                    "ul. Wojska Polskiego 16",
+                    "ul. Wojska Polskiego 18",
+                    "ul. Wojska Polskiego 20",
+                    "ul. Wojska Polskiego 22",
+                    "ul. Wojska Polskiego 31",
+                    "ul. Wojska Polskiego 33",
+                    "ul. Wojska Polskiego 35",
+                    "ul. Wojska Polskiego 37",
+                    "ul. Wojska Polskiego 43",
+                    "ul. Wojska Polskiego 47",
+                    "ul. Wojska Polskiego 49",
+                    "ul. Wojska Polskiego 49a",
+                    "ul. Wojska Polskiego 51"
+                ]
+            }
+        ],
+        "Kozice cała wieś pozbawiona zasilania": [
+            {
+                "interval": {
+                    "from_date": "2025-12-04T07:00:00Z",
+                    "to_date": "2025-12-04T12:00:00Z"
+                },
+                "locations": []
+            }
+        ],
+        "Kunice": [
+            {
+                "interval": {
+                    "from_date": "2025-12-05T07:00:00Z",
+                    "to_date": "2025-12-05T13:00:00Z"
+                },
+                "locations": [
+                    "Gwarna 17",
+                    "Gwarna 18",
+                    "Plażowa 1a",
+                    "Plażowa 1b",
+                    "Staropolska 17",
+                    "Staropolska 18",
+                    "Staropolska 19",
+                    "Staropolska 20",
+                    "Staropolska 21",
+                    "ul. Słoneczna 10",
+                    "ul. Słoneczna 11",
+                    "ul. Słoneczna 12",
+                    "ul. Słoneczna 13",
+                    "ul. Słoneczna 14",
+                    "ul. Słoneczna 15",
+                    "ul. Słoneczna 16",
+                    "ul. Słoneczna 17",
+                    "ul. Słoneczna 18",
+                    "ul. Słoneczna 19",
+                    "ul. Słoneczna 20",
+                    "ul. Słoneczna 21",
+                    "ul. Słoneczna 22",
+                    "ul. Słoneczna 23",
+                    "ul. Słoneczna 24",
+                    "ul. Słoneczna 25",
+                    "ul. Słoneczna 26",
+                    "ul. Słoneczna 27",
+                    "ul. Słoneczna 28",
+                    "ul. Słoneczna 8",
+                    "ul. Słoneczna 9"
+                ]
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-05T07:00:00Z",
+                    "to_date": "2025-12-05T13:00:00Z"
+                },
+                "locations": [
+                    "Gwarna 17",
+                    "Gwarna 18",
+                    "Plażowa 1a",
+                    "Plażowa 1b",
+                    "Staropolska 17",
+                    "Staropolska 18",
+                    "Staropolska 19",
+                    "Staropolska 20",
+                    "Staropolska 21",
+                    "ul. Słoneczna 10",
+                    "ul. Słoneczna 11",
+                    "ul. Słoneczna 12",
+                    "ul. Słoneczna 13",
+                    "ul. Słoneczna 14",
+                    "ul. Słoneczna 15",
+                    "ul. Słoneczna 16",
+                    "ul. Słoneczna 17",
+                    "ul. Słoneczna 18",
+                    "ul. Słoneczna 19",
+                    "ul. Słoneczna 20",
+                    "ul. Słoneczna 21",
+                    "ul. Słoneczna 22",
+                    "ul. Słoneczna 23",
+                    "ul. Słoneczna 24",
+                    "ul. Słoneczna 25",
+                    "ul. Słoneczna 26",
+                    "ul. Słoneczna 27",
+                    "ul. Słoneczna 28",
+                    "ul. Słoneczna 8",
+                    "ul. Słoneczna 9"
+                ]
+            }
+        ],
+        "Gromadzyń  cała wieś pozbawiona zasilania": [
+            {
+                "interval": {
+                    "from_date": "2025-12-08T07:00:00Z",
+                    "to_date": "2025-12-08T12:00:00Z"
+                },
+                "locations": []
+            }
+        ],
+        "Strzałkowice cała wieś pozbawiona zasilania": [
+            {
+                "interval": {
+                    "from_date": "2025-12-08T07:00:00Z",
+                    "to_date": "2025-12-08T13:00:00Z"
+                },
+                "locations": []
+            }
+        ],
+        "Platerówka": [
+            {
+                "interval": {
+                    "from_date": "2025-12-02T07:30:00Z",
+                    "to_date": "2025-12-02T13:00:00Z"
+                },
+                "locations": [
+                    "1",
+                    "10",
+                    "11",
+                    "12",
+                    "13",
+                    "14",
+                    "15",
+                    "16",
+                    "17",
+                    "18",
+                    "19",
+                    "195",
+                    "196",
+                    "197",
+                    "198",
+                    "199",
+                    "2",
+                    "20",
+                    "200",
+                    "201",
+                    "202",
+                    "203",
+                    "204",
+                    "205",
+                    "206",
+                    "207",
+                    "208",
+                    "209",
+                    "21",
+                    "210",
+                    "211",
+                    "212",
+                    "213",
+                    "214",
+                    "215",
+                    "216",
+                    "217",
+                    "218",
+                    "219",
+                    "22",
+                    "220",
+                    "221",
+                    "222",
+                    "223",
+                    "224",
+                    "225",
+                    "226",
+                    "227",
+                    "228",
+                    "229",
+                    "23",
+                    "24",
+                    "25",
+                    "26",
+                    "27",
+                    "28",
+                    "29",
+                    "3",
+                    "30",
+                    "31",
+                    "32",
+                    "33",
+                    "34",
+                    "35",
+                    "36",
+                    "37",
+                    "38",
+                    "39",
+                    "4",
+                    "40",
+                    "41",
+                    "42",
+                    "43",
+                    "44",
+                    "45",
+                    "46",
+                    "47",
+                    "48",
+                    "49",
+                    "5",
+                    "50",
+                    "51",
+                    "52",
+                    "53",
+                    "54",
+                    "55",
+                    "56",
+                    "6",
+                    "7",
+                    "8",
+                    "9"
+                ]
+            }
+        ],
+        "Stankowice": [
+            {
+                "interval": {
+                    "from_date": "2025-12-03T08:00:00Z",
+                    "to_date": "2025-12-03T14:00:00Z"
+                },
+                "locations": []
+            }
+        ],
+        "Lubań": [
+            {
+                "interval": {
+                    "from_date": "2025-12-04T07:00:00Z",
+                    "to_date": "2025-12-04T13:00:00Z"
+                },
+                "locations": [
+                    "Chopina 2",
+                    "Chopina 2A",
+                    "Chopina 4",
+                    "Chopina 4A",
+                    "Kościuszki 10",
+                    "ul. Energetyczna 2",
+                    "ul. Energetyczna 4",
+                    "ul. Energetyczna 6",
+                    "ul. Energetyczna 8"
+                ]
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-04T07:00:00Z",
+                    "to_date": "2025-12-04T13:00:00Z"
+                },
+                "locations": [
+                    "Chopina 2",
+                    "Chopina 2A",
+                    "Chopina 4",
+                    "Chopina 4A",
+                    "Kościuszki 10",
+                    "ul. Energetyczna 2",
+                    "ul. Energetyczna 4",
+                    "ul. Energetyczna 6",
+                    "ul. Energetyczna 8"
+                ]
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-04T07:00:00Z",
+                    "to_date": "2025-12-04T14:00:00Z"
+                },
+                "locations": [
+                    "Chopina 1",
+                    "Chopina 1A",
+                    "Chopina 5",
+                    "Energetyczna 10",
+                    "Kościuszki 11",
+                    "Kościuszki 11A",
+                    "Kościuszki 7",
+                    "Kościuszki 7B",
+                    "Kościuszki 8",
+                    "Kościuszki 9",
+                    "ul. Ogrodowa 2",
+                    "ul. Ogrodowa 4",
+                    "ul. Ogrodowa 6",
+                    "ul. Ogrodowa 8"
+                ]
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-04T07:00:00Z",
+                    "to_date": "2025-12-04T14:00:00Z"
+                },
+                "locations": [
+                    "Chopina 1",
+                    "Chopina 1A",
+                    "Chopina 5",
+                    "Energetyczna 10",
+                    "Kościuszki 11",
+                    "Kościuszki 11A",
+                    "Kościuszki 7",
+                    "Kościuszki 7B",
+                    "Kościuszki 8",
+                    "Kościuszki 9",
+                    "ul. Ogrodowa 2",
+                    "ul. Ogrodowa 4",
+                    "ul. Ogrodowa 6",
+                    "ul. Ogrodowa 8"
+                ]
+            }
+        ],
+        "Uniegoszcz": [
+            {
+                "interval": {
+                    "from_date": "2025-12-04T07:00:00Z",
+                    "to_date": "2025-12-04T13:00:00Z"
+                },
+                "locations": [
+                    "ul. Widokowa 19",
+                    "ul. Widokowa 20",
+                    "ul. Widokowa 24",
+                    "ul. Widokowa 26",
+                    "ul. Widokowa 27"
+                ]
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-04T07:00:00Z",
+                    "to_date": "2025-12-04T13:00:00Z"
+                },
+                "locations": [
+                    "działka budowlana 418/6",
+                    "ul. Widokowa 28"
+                ]
+            }
+        ],
+        "Grabiszyce": [
+            {
+                "interval": {
+                    "from_date": "2025-12-05T07:00:00Z",
+                    "to_date": "2025-12-05T09:00:00Z"
+                },
+                "locations": [
+                    "Grabiszyce Średnie",
+                    "Górne"
+                ]
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-05T10:00:00Z",
+                    "to_date": "2025-12-05T12:00:00Z"
+                },
+                "locations": [
+                    "Grabiszyce Średnie",
+                    "Górne"
+                ]
+            }
+        ],
+        "Zacisze": [
+            {
+                "interval": {
+                    "from_date": "2025-12-05T07:00:00Z",
+                    "to_date": "2025-12-05T15:00:00Z"
+                },
+                "locations": [
+                    "27",
+                    "27 53",
+                    "Karłowiec 1"
+                ]
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-05T07:00:00Z",
+                    "to_date": "2025-12-05T15:00:00Z"
+                },
+                "locations": [
+                    "27",
+                    "27 53",
+                    "Karłowiec 1"
+                ]
+            }
+        ],
+        "Grabiszyce Średnie": [
+            {
+                "interval": {
+                    "from_date": "2025-12-05T08:00:00Z",
+                    "to_date": "2025-12-05T11:00:00Z"
+                },
+                "locations": [
+                    "101",
+                    "102",
+                    "103",
+                    "104",
+                    "105",
+                    "106",
+                    "107",
+                    "108",
+                    "109",
+                    "110",
+                    "111",
+                    "112",
+                    "113",
+                    "22",
+                    "23",
+                    "24",
+                    "25",
+                    "26",
+                    "27",
+                    "28",
+                    "29",
+                    "30",
+                    "31",
+                    "32",
+                    "33",
+                    "34",
+                    "35",
+                    "36",
+                    "37",
+                    "38",
+                    "43",
+                    "44",
+                    "45",
+                    "46",
+                    "47",
+                    "48",
+                    "49",
+                    "50",
+                    "51",
+                    "52",
+                    "53",
+                    "54",
+                    "55",
+                    "56",
+                    "57",
+                    "58",
+                    "59",
+                    "60",
+                    "61",
+                    "62",
+                    "63",
+                    "64",
+                    "65",
+                    "66",
+                    "76",
+                    "77",
+                    "78",
+                    "79",
+                    "80",
+                    "81",
+                    "82",
+                    "83",
+                    "84",
+                    "85",
+                    "86",
+                    "87",
+                    "88",
+                    "89",
+                    "90",
+                    "91",
+                    "92",
+                    "93",
+                    "94",
+                    "95",
+                    "96",
+                    "97",
+                    "98",
+                    "Grabiszyce Dolne",
+                    "od 129",
+                    "od 130",
+                    "od 136",
+                    "od 137",
+                    "od 138",
+                    "od 139",
+                    "od 140",
+                    "od 141",
+                    "od 143"
+                ]
+            }
+        ],
+        "Lubin": [
+            {
+                "interval": {
+                    "from_date": "2025-12-08T07:00:00Z",
+                    "to_date": "2025-12-08T16:00:00Z"
+                },
+                "locations": [
+                    "136/3",
+                    "136/4",
+                    "136/5",
+                    "136/5 455",
+                    "141/8",
+                    "B",
+                    "D",
+                    "E",
+                    "działki 140",
+                    "ul. Małomicka - okolice numerów 28A"
+                ]
+            }
+        ],
+        "Radoniów": [
+            {
+                "interval": {
+                    "from_date": "2025-12-02T07:00:00Z",
+                    "to_date": "2025-12-02T08:00:00Z"
+                },
+                "locations": []
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-02T07:00:00Z",
+                    "to_date": "2025-12-02T08:00:00Z"
+                },
+                "locations": []
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-02T14:00:00Z",
+                    "to_date": "2025-12-02T17:00:00Z"
+                },
+                "locations": []
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-02T14:00:00Z",
+                    "to_date": "2025-12-02T17:00:00Z"
+                },
+                "locations": []
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-03T07:00:00Z",
+                    "to_date": "2025-12-03T08:00:00Z"
+                },
+                "locations": []
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-03T07:00:00Z",
+                    "to_date": "2025-12-03T08:00:00Z"
+                },
+                "locations": []
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-03T14:00:00Z",
+                    "to_date": "2025-12-03T17:00:00Z"
+                },
+                "locations": []
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-03T14:00:00Z",
+                    "to_date": "2025-12-03T17:00:00Z"
+                },
+                "locations": []
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-04T07:00:00Z",
+                    "to_date": "2025-12-04T08:00:00Z"
+                },
+                "locations": []
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-04T07:00:00Z",
+                    "to_date": "2025-12-04T08:00:00Z"
+                },
+                "locations": []
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-04T14:00:00Z",
+                    "to_date": "2025-12-04T17:00:00Z"
+                },
+                "locations": []
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-04T14:00:00Z",
+                    "to_date": "2025-12-04T17:00:00Z"
+                },
+                "locations": []
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-05T07:00:00Z",
+                    "to_date": "2025-12-05T08:00:00Z"
+                },
+                "locations": []
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-05T07:00:00Z",
+                    "to_date": "2025-12-05T08:00:00Z"
+                },
+                "locations": []
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-05T14:00:00Z",
+                    "to_date": "2025-12-05T17:00:00Z"
+                },
+                "locations": []
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-05T14:00:00Z",
+                    "to_date": "2025-12-05T17:00:00Z"
+                },
+                "locations": []
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-08T07:00:00Z",
+                    "to_date": "2025-12-08T08:00:00Z"
+                },
+                "locations": []
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-08T07:00:00Z",
+                    "to_date": "2025-12-08T08:00:00Z"
+                },
+                "locations": []
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-08T14:00:00Z",
+                    "to_date": "2025-12-08T17:00:00Z"
+                },
+                "locations": []
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-08T14:00:00Z",
+                    "to_date": "2025-12-08T17:00:00Z"
+                },
+                "locations": []
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-09T07:00:00Z",
+                    "to_date": "2025-12-09T08:00:00Z"
+                },
+                "locations": []
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-09T07:00:00Z",
+                    "to_date": "2025-12-09T08:00:00Z"
+                },
+                "locations": []
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-09T14:00:00Z",
+                    "to_date": "2025-12-09T17:00:00Z"
+                },
+                "locations": []
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-09T14:00:00Z",
+                    "to_date": "2025-12-09T17:00:00Z"
+                },
+                "locations": []
+            }
+        ],
+        "Rębiszów": [
+            {
+                "interval": {
+                    "from_date": "2025-12-02T07:00:00Z",
+                    "to_date": "2025-12-02T14:00:00Z"
+                },
+                "locations": [
+                    "116",
+                    "132",
+                    "133",
+                    "134",
+                    "135",
+                    "136",
+                    "137",
+                    "138",
+                    "139",
+                    "348/4",
+                    "działka budowlana 290/1"
+                ]
+            }
+        ],
+        "Pilchowice": [
+            {
+                "interval": {
+                    "from_date": "2025-12-04T07:00:00Z",
+                    "to_date": "2025-12-04T08:00:00Z"
+                },
+                "locations": [
+                    "1",
+                    "10",
+                    "109",
+                    "11",
+                    "110",
+                    "111",
+                    "112",
+                    "113",
+                    "114",
+                    "115",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                    "6",
+                    "7",
+                    "8",
+                    "9"
+                ]
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-04T07:00:00Z",
+                    "to_date": "2025-12-04T13:00:00Z"
+                },
+                "locations": [
+                    "116",
+                    "116 116A",
+                    "116 121",
+                    "116 122",
+                    "EW-6 Obce Powiadomić",
+                    "działka 212/3\nJGB10402"
+                ]
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-04T12:00:00Z",
+                    "to_date": "2025-12-04T14:00:00Z"
+                },
+                "locations": [
+                    "1",
+                    "10",
+                    "109",
+                    "11",
+                    "110",
+                    "111",
+                    "112",
+                    "113",
+                    "114",
+                    "115",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                    "6",
+                    "7",
+                    "8",
+                    "9"
+                ]
+            }
+        ],
+        "Golejów": [
+            {
+                "interval": {
+                    "from_date": "2025-12-05T07:30:00Z",
+                    "to_date": "2025-12-05T09:00:00Z"
+                },
+                "locations": [
+                    "12",
+                    "13",
+                    "14",
+                    "15",
+                    "16",
+                    "17",
+                    "18",
+                    "19",
+                    "20",
+                    "21",
+                    "22",
+                    "23",
+                    "24",
+                    "25",
+                    "26",
+                    "27",
+                    "28",
+                    "29",
+                    "30",
+                    "31",
+                    "32",
+                    "33",
+                    "55",
+                    "56",
+                    "57",
+                    "58",
+                    "59",
+                    "60",
+                    "61",
+                    "62",
+                    "63",
+                    "64",
+                    "65",
+                    "66",
+                    "67"
+                ]
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-05T13:00:00Z",
+                    "to_date": "2025-12-05T15:00:00Z"
+                },
+                "locations": [
+                    "12",
+                    "13",
+                    "14",
+                    "15",
+                    "16",
+                    "17",
+                    "18",
+                    "19",
+                    "20",
+                    "21",
+                    "22",
+                    "23",
+                    "24",
+                    "25",
+                    "26",
+                    "27",
+                    "28",
+                    "29",
+                    "30",
+                    "31",
+                    "32",
+                    "33",
+                    "55",
+                    "56",
+                    "57",
+                    "58",
+                    "59",
+                    "60",
+                    "61",
+                    "62",
+                    "63",
+                    "64",
+                    "65",
+                    "66",
+                    "67"
+                ]
+            }
+        ],
+        "Pławna Górna": [
+            {
+                "interval": {
+                    "from_date": "2025-12-05T08:00:00Z",
+                    "to_date": "2025-12-05T13:00:00Z"
+                },
+                "locations": [
+                    "1",
+                    "10",
+                    "11",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                    "6",
+                    "68",
+                    "69",
+                    "7",
+                    "70",
+                    "71",
+                    "72",
+                    "73",
+                    "74",
+                    "75",
+                    "76",
+                    "77",
+                    "78",
+                    "79",
+                    "8",
+                    "9",
+                    "Golejów"
+                ]
+            }
+        ],
+        "Ustronie": [
+            {
+                "interval": {
+                    "from_date": "2025-12-08T08:00:00Z",
+                    "to_date": "2025-12-08T14:00:00Z"
+                },
+                "locations": []
+            }
+        ],
+        "Rząsiny": [
+            {
+                "interval": {
+                    "from_date": "2025-12-09T07:00:00Z",
+                    "to_date": "2025-12-09T14:00:00Z"
+                },
+                "locations": [
+                    "52",
+                    "52 54",
+                    "56",
+                    "57",
+                    "58",
+                    "60",
+                    "61",
+                    "62",
+                    "63",
+                    "64",
+                    "65",
+                    "66",
+                    "67",
+                    "68",
+                    "69",
+                    "70",
+                    "71",
+                    "72",
+                    "73",
+                    "74",
+                    "75",
+                    "działki budowlane",
+                    "działki budowlane 129",
+                    "działki budowlane 133"
+                ]
+            }
+        ],
+        "Nagórze, Płóczki Górne": [
+            {
+                "interval": {
+                    "from_date": "2025-12-09T08:00:00Z",
+                    "to_date": "2025-12-09T12:00:00Z"
+                },
+                "locations": [
+                    "1",
+                    "10",
+                    "11",
+                    "12",
+                    "13",
+                    "14",
+                    "15",
+                    "16",
+                    "17",
+                    "18",
+                    "19",
+                    "2",
+                    "20",
+                    "21",
+                    "22",
+                    "23",
+                    "24",
+                    "25",
+                    "26",
+                    "27",
+                    "28",
+                    "29",
+                    "3",
+                    "30",
+                    "31",
+                    "32",
+                    "33",
+                    "34",
+                    "35",
+                    "36",
+                    "37",
+                    "38",
+                    "39",
+                    "4",
+                    "5",
+                    "6",
+                    "7",
+                    "8",
+                    "9"
+                ]
+            }
+        ],
+        "Gogołowice": [
+            {
+                "interval": {
+                    "from_date": "2025-12-02T12:13:50.483Z",
+                    "to_date": "2025-12-02T14:00:00Z"
+                },
+                "locations": [
+                    "Marchwiska"
+                ]
+            }
+        ],
+        "Grabownica 46": [
+            {
+                "interval": {
+                    "from_date": "2025-12-04T07:00:00Z",
+                    "to_date": "2025-12-04T15:00:00Z"
+                },
+                "locations": [
+                    "dz. 140",
+                    "dz. 145/2"
+                ]
+            }
+        ],
+        "Milicz": [
+            {
+                "interval": {
+                    "from_date": "2025-12-09T07:00:00Z",
+                    "to_date": "2025-12-09T11:00:00Z"
+                },
+                "locations": [
+                    "ul. Leśna"
+                ]
+            }
+        ],
+        "Nowy Zamek, Trzebicko Dolne": [
+            {
+                "interval": {
+                    "from_date": "2025-12-09T07:00:00Z",
+                    "to_date": "2025-12-09T15:00:00Z"
+                },
+                "locations": [
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "dz. 33/3"
+                ]
+            }
+        ],
+        "Łazy Leśniczówka": [
+            {
+                "interval": {
+                    "from_date": "2025-12-09T07:00:00Z",
+                    "to_date": "2025-12-09T17:00:00Z"
+                },
+                "locations": [
+                    "4",
+                    "5",
+                    "6",
+                    "7",
+                    "8",
+                    "dz. 384",
+                    "dz. 385",
+                    "dz. 386"
+                ]
+            }
+        ],
+        "Spalice": [
+            {
+                "interval": {
+                    "from_date": "2025-12-02T07:30:00Z",
+                    "to_date": "2025-12-02T09:30:00Z"
+                },
+                "locations": [
+                    "Wrocławska 19",
+                    "Wrocławska 20",
+                    "Wrocławska 21",
+                    "Wrocławska 9",
+                    "ul. Orzechowa"
+                ]
+            }
+        ],
+        "Stępin": [
+            {
+                "interval": {
+                    "from_date": "2025-12-02T19:17:48.497Z",
+                    "to_date": "2025-12-02T21:00:00Z"
+                },
+                "locations": []
+            }
+        ],
+        "Nowica": [
+            {
+                "interval": {
+                    "from_date": "2025-12-04T06:00:00Z",
+                    "to_date": "2025-12-04T16:00:00Z"
+                },
+                "locations": [
+                    "Miodary Kolonia"
+                ]
+            }
+        ],
+        "Grabowno Wielkie 98-111B": [
+            {
+                "interval": {
+                    "from_date": "2025-12-04T07:00:00Z",
+                    "to_date": "2025-12-04T13:00:00Z"
+                },
+                "locations": [
+                    "120",
+                    "120 121",
+                    "dz. 368/19",
+                    "gm. Twardogóra"
+                ]
+            }
+        ],
+        "Strzelce 83": [
+            {
+                "interval": {
+                    "from_date": "2025-12-04T08:00:00Z",
+                    "to_date": "2025-12-04T09:00:00Z"
+                },
+                "locations": [
+                    "dz. 314/12",
+                    "dz. 314/14",
+                    "dz. 314/5",
+                    "dz. 5"
+                ]
+            }
+        ],
+        "Sadków": [
+            {
+                "interval": {
+                    "from_date": "2025-12-04T09:00:00Z",
+                    "to_date": "2025-12-04T12:00:00Z"
+                },
+                "locations": [
+                    "dz. 140/7"
+                ]
+            }
+        ],
+        "Drogoszowice": [
+            {
+                "interval": {
+                    "from_date": "2025-12-05T07:00:00Z",
+                    "to_date": "2025-12-05T11:00:00Z"
+                },
+                "locations": [
+                    "dz. 3",
+                    "dz. 393/2",
+                    "dz. 93/ 10",
+                    "dz. 93/ 11",
+                    "dz. 93/ 12",
+                    "dz. 93/ 13",
+                    "dz. 93/ 14",
+                    "dz. 93/ 15",
+                    "dz. 93/ 4",
+                    "dz. 93/ 5",
+                    "dz. 93/ 6",
+                    "dz. 93/ 7",
+                    "dz. 93/ 8",
+                    "dz. 93/ 9",
+                    "dz. przyległe Gm. Twardogóra",
+                    "dz.151",
+                    "dz.151 152"
+                ]
+            }
+        ],
+        "Nowosiedlice": [
+            {
+                "interval": {
+                    "from_date": "2025-12-05T09:00:00Z",
+                    "to_date": "2025-12-05T11:00:00Z"
+                },
+                "locations": [
+                    "Tymiankowa",
+                    "dz. 151/ 4",
+                    "dz. 151/ 5",
+                    "dz. 151/ 6",
+                    "dz. 151/ 7",
+                    "dz. 151/ 8",
+                    "ul. Bursztynowa"
+                ]
+            }
+        ],
+        "Smolna": [
+            {
+                "interval": {
+                    "from_date": "2025-12-08T08:00:00Z",
+                    "to_date": "2025-12-08T13:00:00Z"
+                },
+                "locations": [
+                    "dz. 284/18",
+                    "dz. 6",
+                    "dz. 736/5",
+                    "od 88A",
+                    "od 88W",
+                    "od do"
+                ]
+            }
+        ],
+        "Jenkowice 30F": [
+            {
+                "interval": {
+                    "from_date": "2025-12-08T09:00:00Z",
+                    "to_date": "2025-12-08T12:00:00Z"
+                },
+                "locations": [
+                    "30P",
+                    "dz. 3",
+                    "dz. 396",
+                    "dz. 397",
+                    "dz. 398",
+                    "dz. 399",
+                    "dz. 400",
+                    "dz. 83/"
+                ]
+            }
+        ],
+        "Nowy": [
+            {
+                "interval": {
+                    "from_date": "2025-12-09T06:30:00Z",
+                    "to_date": "2025-12-09T13:00:00Z"
+                },
+                "locations": [
+                    "Dwór",
+                    "Piszkawa"
+                ]
+            }
+        ],
+        "Świerzna": [
+            {
+                "interval": {
+                    "from_date": "2025-12-09T09:00:00Z",
+                    "to_date": "2025-12-09T13:00:00Z"
+                },
+                "locations": [
+                    "16",
+                    "17",
+                    "dz. 11",
+                    "dz. 130/10",
+                    "dz. 49/ 10",
+                    "dz. 49/ 11",
+                    "dz. 49/ 12",
+                    "dz. 49/ 13",
+                    "dz. 49/ 6",
+                    "dz. 49/ 7",
+                    "dz. 49/ 8",
+                    "dz. 49/ 9",
+                    "od 12",
+                    "od 9D",
+                    "od do"
+                ]
+            }
+        ],
+        "Chwałowice": [
+            {
+                "interval": {
+                    "from_date": "2025-12-02T08:00:00Z",
+                    "to_date": "2025-12-02T13:00:00Z"
+                },
+                "locations": [
+                    "dz. 136/1"
+                ]
+            }
+        ],
+        "Psary": [
+            {
+                "interval": {
+                    "from_date": "2025-12-03T06:00:00Z",
+                    "to_date": "2025-12-03T15:00:00Z"
+                },
+                "locations": []
+            }
+        ],
+        "Gać": [
+            {
+                "interval": {
+                    "from_date": "2025-12-03T06:00:00Z",
+                    "to_date": "2025-12-03T15:00:00Z"
+                },
+                "locations": [
+                    "326/1",
+                    "326/1 62",
+                    "85",
+                    "85 86",
+                    "obręb działek numer 315"
+                ]
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-05T06:00:00Z",
+                    "to_date": "2025-12-05T14:00:00Z"
+                },
+                "locations": []
+            }
+        ],
+        "Wierzbno działka 319/1": [
+            {
+                "interval": {
+                    "from_date": "2025-12-04T06:00:00Z",
+                    "to_date": "2025-12-04T15:00:00Z"
+                },
+                "locations": [
+                    "2"
+                ]
+            }
+        ],
+        "Śluza Oława, Oława": [
+            {
+                "interval": {
+                    "from_date": "2025-12-09T06:00:00Z",
+                    "to_date": "2025-12-09T15:00:00Z"
+                },
+                "locations": [
+                    "działka 2",
+                    "ul. Zwierzyniec Duży 2",
+                    "ul. Zwierzyniec Duży 3",
+                    "ul. Zwierzyniec Duży 4",
+                    "ul. Zwierzyniec Duży 5",
+                    "ul. Zwierzyniec Duży 6"
+                ]
+            }
+        ],
+        "Polkowice": [
+            {
+                "interval": {
+                    "from_date": "2025-12-03T07:00:00Z",
+                    "to_date": "2025-12-03T14:00:00Z"
+                },
+                "locations": [
+                    "18",
+                    "brak",
+                    "ul Legnicka 5",
+                    "zasilania"
+                ]
+            }
+        ],
+        "Przemków": [
+            {
+                "interval": {
+                    "from_date": "2025-12-09T07:00:00Z",
+                    "to_date": "2025-12-09T13:00:00Z"
+                },
+                "locations": [
+                    "Krasińskiego",
+                    "Mickiewicza",
+                    "Norwida",
+                    "Przepompownia Mickiewicza",
+                    "Słowackiego",
+                    "Zielona"
+                ]
+            }
+        ],
+        "Strzelin": [
+            {
+                "interval": {
+                    "from_date": "2025-12-04T06:00:00Z",
+                    "to_date": "2025-12-04T17:00:00Z"
+                },
+                "locations": [
+                    "oraz działka 5/1",
+                    "ul. Generała Leopolda Okulickiego 1",
+                    "ul. Generała Leopolda Okulickiego 2",
+                    "ul. Generała Leopolda Okulickiego 3",
+                    "ul. Jana Pawła 2-go 24",
+                    "ul. Jana Pawła 2-go 25",
+                    "ul. Jana Pawła 2-go 26",
+                    "ul. Jana Pawła 2-go 27",
+                    "ul. Jana Pawła 2-go 28",
+                    "ul. Jana Pawła 2-go 29",
+                    "ul. Jana Pawła 2-go 30",
+                    "ul. Jana Pawła 2-go 31",
+                    "ul. Oławska 5",
+                    "ul. Targowa",
+                    "ul. Wolności 30",
+                    "ul. Wolności 31",
+                    "ul. Wolności 32",
+                    "ul. Wolności 33",
+                    "ul. Wolności 34",
+                    "ul. Wolności 35",
+                    "ul. Wolności 36",
+                    "ul. Wrocławska 30",
+                    "ul. Wrocławska 31",
+                    "ul. Wrocławska 32",
+                    "ul. Wrocławska 33",
+                    "ul. Wrocławska 34",
+                    "ul. Wrocławska 35",
+                    "ul. Wrocławska 36",
+                    "ul. Wrocławska 37",
+                    "ul. Wrocławska 38",
+                    "ul. Wrocławska 39",
+                    "ul. Wrocławska 40",
+                    "ul. Wrocławska 41",
+                    "ul. Wrocławska 42"
+                ]
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-09T06:00:00Z",
+                    "to_date": "2025-12-09T13:00:00Z"
+                },
+                "locations": [
+                    "3/11",
+                    "3/11 37",
+                    "obręb działek numer 8/8",
+                    "ul. Oławska 41",
+                    "ul. Oławska 43"
+                ]
+            }
+        ],
+        "Maleszów": [
+            {
+                "interval": {
+                    "from_date": "2025-12-05T06:00:00Z",
+                    "to_date": "2025-12-05T13:00:00Z"
+                },
+                "locations": [
+                    "Maleszów SUW"
+                ]
+            }
+        ],
+        "Księginice Wielkie": [
+            {
+                "interval": {
+                    "from_date": "2025-12-05T06:00:00Z",
+                    "to_date": "2025-12-05T15:00:00Z"
+                },
+                "locations": [
+                    "10",
+                    "11",
+                    "12",
+                    "13",
+                    "14",
+                    "15",
+                    "7",
+                    "8",
+                    "87",
+                    "88",
+                    "89",
+                    "9",
+                    "90",
+                    "91",
+                    "92",
+                    "93",
+                    "94",
+                    "95",
+                    "96"
+                ]
+            }
+        ],
+        "Komorowice": [
+            {
+                "interval": {
+                    "from_date": "2025-12-08T06:00:00Z",
+                    "to_date": "2025-12-08T12:00:00Z"
+                },
+                "locations": []
+            }
+        ],
+        "Pisarzowice": [
+            {
+                "interval": {
+                    "from_date": "2025-12-02T06:00:00Z",
+                    "to_date": "2025-12-02T15:00:00Z"
+                },
+                "locations": [
+                    "Spacerowa",
+                    "Tęczowa",
+                    "Wiosenna",
+                    "Wrocławska",
+                    "ul. Szkolna",
+                    "wszystkie do nich przyległe"
+                ]
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-03T06:00:00Z",
+                    "to_date": "2025-12-03T15:00:00Z"
+                },
+                "locations": [
+                    "Spacerowa",
+                    "Tęczowa",
+                    "Wiosenna",
+                    "Wrocławska",
+                    "ul. Szkolna",
+                    "wszystkie do nich przyległe"
+                ]
+            }
+        ],
+        "Prężyce": [
+            {
+                "interval": {
+                    "from_date": "2025-12-02T06:00:00Z",
+                    "to_date": "2025-12-02T15:00:00Z"
+                },
+                "locations": [
+                    "Lenartowice"
+                ]
+            }
+        ],
+        "Święte": [
+            {
+                "interval": {
+                    "from_date": "2025-12-03T06:00:00Z",
+                    "to_date": "2025-12-03T15:00:00Z"
+                },
+                "locations": [
+                    "Jabłonka",
+                    "Przedmoście"
+                ]
+            }
+        ],
+        "Jabłonka": [
+            {
+                "interval": {
+                    "from_date": "2025-12-03T06:00:00Z",
+                    "to_date": "2025-12-03T15:00:00Z"
+                },
+                "locations": []
+            }
+        ],
+        "Jarostów": [
+            {
+                "interval": {
+                    "from_date": "2025-12-03T07:00:00Z",
+                    "to_date": "2025-12-03T14:00:00Z"
+                },
+                "locations": [
+                    "działki budowlane 23",
+                    "działki budowlane 52",
+                    "od numeru 1 do numeru 24"
+                ]
+            }
+        ],
+        "Brzezinka": [
+            {
+                "interval": {
+                    "from_date": "2025-12-04T06:00:00Z",
+                    "to_date": "2025-12-04T12:00:00Z"
+                },
+                "locations": [
+                    "Czystopole",
+                    "Gosławice",
+                    "Średzka"
+                ]
+            }
+        ],
+        "Udanin ul Sportowa 2": [
+            {
+                "interval": {
+                    "from_date": "2025-12-09T07:00:00Z",
+                    "to_date": "2025-12-09T15:00:00Z"
+                },
+                "locations": [
+                    "4",
+                    "4 6",
+                    "4 8"
+                ]
+            }
+        ],
+        "Jaroszów": [
+            {
+                "interval": {
+                    "from_date": "2025-12-02T07:00:00Z",
+                    "to_date": "2025-12-02T13:00:00Z"
+                },
+                "locations": [
+                    "60/13",
+                    "60/17",
+                    "60/18",
+                    "60/20",
+                    "dz. 60"
+                ]
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-04T07:00:00Z",
+                    "to_date": "2025-12-04T13:00:00Z"
+                },
+                "locations": [
+                    "388/10",
+                    "388/13",
+                    "388/14",
+                    "dz. 388"
+                ]
+            }
+        ],
+        "Stawiska 4a": [
+            {
+                "interval": {
+                    "from_date": "2025-12-02T07:00:00Z",
+                    "to_date": "2025-12-03T14:00:00Z"
+                },
+                "locations": [
+                    "4",
+                    "4 4b",
+                    "dz. 191/2. dz 92. dz.32",
+                    "dz.129/1"
+                ]
+            }
+        ],
+        "Strzegom": [
+            {
+                "interval": {
+                    "from_date": "2025-12-03T07:00:00Z",
+                    "to_date": "2025-12-03T13:00:00Z"
+                },
+                "locations": [
+                    "361/11",
+                    "361/21",
+                    "361/9",
+                    "ul. Diamentowa dz. 361"
+                ]
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-04T08:00:00Z",
+                    "to_date": "2025-12-04T14:00:00Z"
+                },
+                "locations": [
+                    "Agatowa 12",
+                    "Agatowa 14",
+                    "Agatowa 16"
+                ]
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-08T07:00:00Z",
+                    "to_date": "2025-12-08T13:00:00Z"
+                },
+                "locations": [
+                    "ul. Szarych Szeregów 16  dz. 1018"
+                ]
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-09T07:00:00Z",
+                    "to_date": "2025-12-09T13:00:00Z"
+                },
+                "locations": [
+                    "ul. Winogronowa  dz. nr 609/ 1",
+                    "ul. Winogronowa  dz. nr 609/ 2",
+                    "ul. Winogronowa  dz. nr 609/ 3",
+                    "ul. Winogronowa  dz. nr 609/ 4"
+                ]
+            }
+        ],
+        "Boguszów Gorce": [
+            {
+                "interval": {
+                    "from_date": "2025-12-04T07:00:00Z",
+                    "to_date": "2025-12-04T15:00:00Z"
+                },
+                "locations": [
+                    "ul. Poniatowskiego 23",
+                    "ul. Poniatowskiego 24"
+                ]
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-03T07:00:00Z",
+                    "to_date": "2025-12-03T19:00:00Z"
+                },
+                "locations": [
+                    "2/13",
+                    "2/2",
+                    "2/34",
+                    "2/36",
+                    "2/46",
+                    "działki 2/39",
+                    "ul. Dworcowa 1",
+                    "ul. Dworcowa 1E",
+                    "ul. Dworcowa 1a",
+                    "ul. Dworcowa 2b"
+                ]
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-04T07:00:00Z",
+                    "to_date": "2025-12-04T15:00:00Z"
+                },
+                "locations": [
+                    "ul. Poniatowskiego 23",
+                    "ul. Poniatowskiego 24"
+                ]
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-05T07:00:00Z",
+                    "to_date": "2025-12-05T15:00:00Z"
+                },
+                "locations": [
+                    "2/13",
+                    "2/2",
+                    "2/34",
+                    "2/36",
+                    "2/46",
+                    "działki 2/39",
+                    "ul. Dworcowa 1",
+                    "ul. Dworcowa 1E",
+                    "ul. Dworcowa 1a",
+                    "ul. Dworcowa 2b"
+                ]
+            }
+        ],
+        "Świebodzice": [
+            {
+                "interval": {
+                    "from_date": "2025-12-05T07:00:00Z",
+                    "to_date": "2025-12-05T13:00:00Z"
+                },
+                "locations": [
+                    "ul. Wolności 10",
+                    "ul. Wolności 12"
+                ]
+            }
+        ],
+        "Lutomia Dolna": [
+            {
+                "interval": {
+                    "from_date": "2025-12-09T07:00:00Z",
+                    "to_date": "2025-12-09T10:00:00Z"
+                },
+                "locations": [
+                    "194/1",
+                    "48",
+                    "748/1",
+                    "748/1 749",
+                    "748/10",
+                    "748/7",
+                    "Lutomia Dolna 37",
+                    "Lutomia Dolna 38",
+                    "Lutomia Dolna 39",
+                    "Lutomia Dolna 40",
+                    "Lutomia Dolna 41",
+                    "Lutomia Dolna 42",
+                    "Lutomia Dolna 43",
+                    "Lutomia Dolna 44",
+                    "Lutomia Dolna 45",
+                    "Lutomia Dolna 46",
+                    "Lutomia Dolna 47",
+                    "Lutomia Dolna 48",
+                    "Lutomia Dolna 49",
+                    "Lutomia Dolna 50",
+                    "Lutomia Dolna 51",
+                    "Lutomia Dolna 52",
+                    "Lutomia Dolna 53",
+                    "Lutomia Dolna 54",
+                    "Lutomia Dolna 55",
+                    "Lutomia Dolna 56",
+                    "Lutomia Dolna 57",
+                    "Lutomia Dolna 58",
+                    "Lutomia Dolna 59",
+                    "Lutomia Dolna 60",
+                    "Lutomia Dolna 61",
+                    "Lutomia Dolna 62",
+                    "Lutomia Dolna 63",
+                    "Lutomia Dolna 64",
+                    "Lutomia Dolna 65",
+                    "Lutomia Dolna dz. 194",
+                    "R-Royal 2 Lutomia Dolna"
+                ]
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-09T07:00:00Z",
+                    "to_date": "2025-12-09T16:00:00Z"
+                },
+                "locations": [
+                    "48",
+                    "R-Royal 2 Lutomia Dolna"
+                ]
+            }
+        ],
+        "Trzebnica": [
+            {
+                "interval": {
+                    "from_date": "2025-12-02T07:00:00Z",
+                    "to_date": "2025-12-02T09:00:00Z"
+                },
+                "locations": [
+                    "dz. 5/ 3",
+                    "dz. 5/ 4"
+                ]
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-02T13:00:00Z",
+                    "to_date": "2025-12-02T15:00:00Z"
+                },
+                "locations": [
+                    "dz. 5/ 3",
+                    "dz. 5/ 4"
+                ]
+            }
+        ],
+        "Czeszów": [
+            {
+                "interval": {
+                    "from_date": "2025-12-02T08:00:00Z",
+                    "to_date": "2025-12-02T14:00:00Z"
+                },
+                "locations": [
+                    "ul. Lawendowa"
+                ]
+            }
+        ],
+        "Koniowo": [
+            {
+                "interval": {
+                    "from_date": "2025-12-02T09:27:37.65Z",
+                    "to_date": "2025-12-02T15:45:00Z"
+                },
+                "locations": [
+                    "Ujeździec Mały",
+                    "Ujeździec Wielki"
+                ]
+            }
+        ],
+        "Budczyce": [
+            {
+                "interval": {
+                    "from_date": "2025-12-02T15:10:56.547Z",
+                    "to_date": "2025-12-02T19:00:00Z"
+                },
+                "locations": []
+            }
+        ],
+        "Brzyków": [
+            {
+                "interval": {
+                    "from_date": "2025-12-03T08:00:00Z",
+                    "to_date": "2025-12-03T13:00:00Z"
+                },
+                "locations": [
+                    "ul. Kwiatowa dz. 123/2"
+                ]
+            }
+        ],
+        "Rogoż": [
+            {
+                "interval": {
+                    "from_date": "2025-12-04T08:00:00Z",
+                    "to_date": "2025-12-04T13:00:00Z"
+                },
+                "locations": [
+                    "ul. Ogrodowa 10",
+                    "ul. Ogrodowa 11",
+                    "ul. Ogrodowa 12",
+                    "ul. Ogrodowa 13",
+                    "ul. Ogrodowa 14",
+                    "ul. Ogrodowa 15",
+                    "ul. Ogrodowa 16",
+                    "ul. Ogrodowa 17",
+                    "ul. Ogrodowa 18",
+                    "ul. Ogrodowa 19",
+                    "ul. Ogrodowa 20",
+                    "ul. Ogrodowa 21",
+                    "ul. Ogrodowa 22",
+                    "ul. Ogrodowa 8",
+                    "ul. Ogrodowa 9"
+                ]
+            }
+        ],
+        "Machnice": [
+            {
+                "interval": {
+                    "from_date": "2025-12-04T08:00:00Z",
+                    "to_date": "2025-12-04T13:00:00Z"
+                },
+                "locations": []
+            }
+        ],
+        "Pawłów Trzebnicki": [
+            {
+                "interval": {
+                    "from_date": "2025-12-05T07:00:00Z",
+                    "to_date": "2025-12-05T14:00:00Z"
+                },
+                "locations": [
+                    "dz. 11/56; 11/54"
+                ]
+            }
+        ],
+        "Droszów, Węgrzynów, Mienice": [
+            {
+                "interval": {
+                    "from_date": "2025-12-08T06:30:00Z",
+                    "to_date": "2025-12-08T09:00:00Z"
+                },
+                "locations": [
+                    "dz. nr 160/6/8; 160/ 11",
+                    "dz. nr 160/6/8; 160/ 12"
+                ]
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-09T13:00:00Z",
+                    "to_date": "2025-12-09T15:00:00Z"
+                },
+                "locations": [
+                    "dz. nr 160/6/8; 160/ 11",
+                    "dz. nr 160/6/8; 160/ 12"
+                ]
+            }
+        ],
+        "Trzebnica Zielona, Sadowa, Spokojna 15-21": [
+            {
+                "interval": {
+                    "from_date": "2025-12-08T06:30:00Z",
+                    "to_date": "2025-12-08T09:00:00Z"
+                },
+                "locations": [
+                    "14",
+                    "15",
+                    "16",
+                    "17",
+                    "18",
+                    "firma \"Anotis\" Dz. nr 12; 13; 4/5; 4/2; 4/ 3",
+                    "firma \"Anotis\" Dz. nr 12; 13; 4/5; 4/2; 4/ 4",
+                    "ogródki działkowe Obornicka dz. 2"
+                ]
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-09T13:00:00Z",
+                    "to_date": "2025-12-09T15:00:00Z"
+                },
+                "locations": [
+                    "14",
+                    "15",
+                    "16",
+                    "17",
+                    "18",
+                    "firma \"Anotis\"\nDz. nr 12; 13; 4/5; 4/2; 4/ 3",
+                    "firma \"Anotis\"\nDz. nr 12; 13; 4/5; 4/2; 4/ 4",
+                    "ogródki działkowe Obornicka dz. 2"
+                ]
+            }
+        ],
+        "Trzebnica Fiołkowa, Liliowa": [
+            {
+                "interval": {
+                    "from_date": "2025-12-08T06:30:00Z",
+                    "to_date": "2025-12-08T09:00:00Z"
+                },
+                "locations": [
+                    "Dz. nr 60-59/2; 62; 89/ 2",
+                    "Dz. nr 60-59/2; 62; 89/ 3"
+                ]
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-09T13:00:00Z",
+                    "to_date": "2025-12-09T15:00:00Z"
+                },
+                "locations": [
+                    "Dz. nr 60-59/2; 62; 89/ 2",
+                    "Dz. nr 60-59/2; 62; 89/ 3"
+                ]
+            }
+        ],
+        "Droszów": [
+            {
+                "interval": {
+                    "from_date": "2025-12-08T08:30:00Z",
+                    "to_date": "2025-12-08T14:00:00Z"
+                },
+                "locations": [
+                    "(sady)",
+                    "Trzebnica (radiolatarnia) maszt"
+                ]
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-09T08:30:00Z",
+                    "to_date": "2025-12-09T14:00:00Z"
+                },
+                "locations": [
+                    "(sady)",
+                    "Trzebnica (radiolatarnia) maszt"
+                ]
+            }
+        ],
+        "Barkowo 1": [
+            {
+                "interval": {
+                    "from_date": "2025-12-09T06:30:00Z",
+                    "to_date": "2025-12-09T16:00:00Z"
+                },
+                "locations": [
+                    "2",
+                    "dz. 881/40; 881/18"
+                ]
+            }
+        ],
+        "Jaszyce": [
+            {
+                "interval": {
+                    "from_date": "2025-12-09T08:00:00Z",
+                    "to_date": "2025-12-09T11:00:00Z"
+                },
+                "locations": []
+            }
+        ],
+        "Szczawno Zdrój": [
+            {
+                "interval": {
+                    "from_date": "2025-12-02T07:00:00Z",
+                    "to_date": "2025-12-02T12:00:00Z"
+                },
+                "locations": [
+                    "ul.: Wańkowicza"
+                ]
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-02T07:00:00Z",
+                    "to_date": "2025-12-02T14:00:00Z"
+                },
+                "locations": [
+                    "Klonowa 10",
+                    "Klonowa 12",
+                    "Klonowa 8",
+                    "Klonowa 9",
+                    "Kolejowa 22",
+                    "Kolejowa 23",
+                    "Kolejowa 25",
+                    "działka 72/1",
+                    "działka 77",
+                    "ul.: Skłodowskiej-Curie"
+                ]
+            }
+        ],
+        "Szczawno-Zdrój": [
+            {
+                "interval": {
+                    "from_date": "2025-12-02T14:36:57.137Z",
+                    "to_date": "2025-12-02T17:30:00Z"
+                },
+                "locations": [
+                    "Bohaterów Warszawy",
+                    "Klonowa",
+                    "Kolejowa",
+                    "Marii Skłodowskiej-Curie"
+                ]
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-04T07:30:00Z",
+                    "to_date": "2025-12-04T13:30:00Z"
+                },
+                "locations": [
+                    "dz. 705",
+                    "dz. 706",
+                    "dz. 707",
+                    "dz. 708",
+                    "garaże dz. 704",
+                    "ul. Solicka 9",
+                    "ul. Solicka 9A"
+                ]
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-04T07:30:00Z",
+                    "to_date": "2025-12-04T13:30:00Z"
+                },
+                "locations": [
+                    "dz. 705",
+                    "dz. 706",
+                    "dz. 707",
+                    "dz. 708",
+                    "garaże dz. 704",
+                    "ul. Solicka 9",
+                    "ul. Solicka 9A"
+                ]
+            }
+        ],
+        "Zagórze Śląskie": [
+            {
+                "interval": {
+                    "from_date": "2025-12-09T07:00:00Z",
+                    "to_date": "2025-12-09T13:00:00Z"
+                },
+                "locations": [
+                    "198/2",
+                    "ul. Drzymały działki 198/1"
+                ]
+            }
+        ],
+        "Warzęgowo": [
+            {
+                "interval": {
+                    "from_date": "2025-12-02T08:02:00.42Z",
+                    "to_date": "2025-12-02T09:30:00Z"
+                },
+                "locations": []
+            }
+        ],
+        "Piotroniowice 52": [
+            {
+                "interval": {
+                    "from_date": "2025-12-03T07:00:00Z",
+                    "to_date": "2025-12-03T15:00:00Z"
+                },
+                "locations": [
+                    "53",
+                    "Lipnica 70",
+                    "pompownia ścieków PL-Ł dz. 191/9"
+                ]
+            }
+        ],
+        "Iwno": [
+            {
+                "interval": {
+                    "from_date": "2025-12-05T08:00:00Z",
+                    "to_date": "2025-12-05T12:00:00Z"
+                },
+                "locations": [
+                    "dz. 177"
+                ]
+            }
+        ],
+        "Krzydlina Wielka 1-40; Szkoła": [
+            {
+                "interval": {
+                    "from_date": "2025-12-05T08:00:00Z",
+                    "to_date": "2025-12-05T13:00:00Z"
+                },
+                "locations": []
+            }
+        ],
+        "Mietków": [
+            {
+                "interval": {
+                    "from_date": "2025-12-02T06:00:00Z",
+                    "to_date": "2025-12-02T15:00:00Z"
+                },
+                "locations": [
+                    "ul. Lipowa"
+                ]
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-04T06:00:00Z",
+                    "to_date": "2025-12-04T15:00:00Z"
+                },
+                "locations": [
+                    "156/ 10",
+                    "156/ 11",
+                    "156/ 12",
+                    "156/ 7",
+                    "156/ 8",
+                    "156/ 9",
+                    "156/15",
+                    "obręb działek numer 156/5",
+                    "ul. Dębowa",
+                    "ul. Kolejowa 28C"
+                ]
+            }
+        ],
+        "Małuszów": [
+            {
+                "interval": {
+                    "from_date": "2025-12-02T06:00:00Z",
+                    "to_date": "2025-12-02T15:00:00Z"
+                },
+                "locations": []
+            }
+        ],
+        "Nadolice Wielkie": [
+            {
+                "interval": {
+                    "from_date": "2025-12-02T07:00:00Z",
+                    "to_date": "2025-12-02T13:00:00Z"
+                },
+                "locations": [
+                    "Rzeczna",
+                    "dz. 125",
+                    "dz. 152/2",
+                    "ul. Kasztanowa"
+                ]
+            }
+        ],
+        "Szczodre": [
+            {
+                "interval": {
+                    "from_date": "2025-12-02T07:48:11.547Z",
+                    "to_date": "2025-12-02T09:00:00Z"
+                },
+                "locations": []
+            }
+        ],
+        "Domaszczyn": [
+            {
+                "interval": {
+                    "from_date": "2025-12-02T19:38:18.977Z",
+                    "to_date": "2025-12-02T21:00:00Z"
+                },
+                "locations": []
+            }
+        ],
+        "Kątna": [
+            {
+                "interval": {
+                    "from_date": "2025-12-03T07:00:00Z",
+                    "to_date": "2025-12-03T13:00:00Z"
+                },
+                "locations": [
+                    "ul. Sportowa 7",
+                    "ul. Sportowa 9"
+                ]
+            }
+        ],
+        "Kiełczówek": [
+            {
+                "interval": {
+                    "from_date": "2025-12-03T07:00:00Z",
+                    "to_date": "2025-12-03T13:00:00Z"
+                },
+                "locations": [
+                    "ul. Fiołkowa"
+                ]
+            }
+        ],
+        "Długołęka": [
+            {
+                "interval": {
+                    "from_date": "2025-12-04T07:00:00Z",
+                    "to_date": "2025-12-04T14:00:00Z"
+                },
+                "locations": [
+                    "128 -140 parzyste",
+                    "79",
+                    "81",
+                    "83",
+                    "85",
+                    "87",
+                    "89",
+                    "91",
+                    "93",
+                    "Cisowa 10A",
+                    "Cisowa 2",
+                    "Cisowa 4",
+                    "Słoneczna 85",
+                    "Słoneczna 87",
+                    "Słoneczna 89",
+                    "Zachodnia 1",
+                    "Zachodnia 2",
+                    "Zachodnia 3",
+                    "Zachodnia 4",
+                    "Zachodnia 5",
+                    "Zachodnia 6",
+                    "Zachodnia 7",
+                    "Zachodnia 8",
+                    "Zawadzkiego 59",
+                    "dz. przyległe",
+                    "ul. Wiejska 44-58A"
+                ]
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-04T07:00:00Z",
+                    "to_date": "2025-12-04T17:00:00Z"
+                },
+                "locations": [
+                    "Cisowa 10A",
+                    "Cisowa 2",
+                    "Cisowa 4",
+                    "Zawadzkiego 100",
+                    "Zawadzkiego 101",
+                    "Zawadzkiego 102",
+                    "Zawadzkiego 103",
+                    "Zawadzkiego 104",
+                    "Zawadzkiego 105",
+                    "Zawadzkiego 106",
+                    "Zawadzkiego 107",
+                    "Zawadzkiego 108",
+                    "Zawadzkiego 109",
+                    "Zawadzkiego 110",
+                    "Zawadzkiego 111",
+                    "Zawadzkiego 112",
+                    "Zawadzkiego 113",
+                    "Zawadzkiego 114",
+                    "Zawadzkiego 115",
+                    "Zawadzkiego 116",
+                    "Zawadzkiego 117",
+                    "Zawadzkiego 118",
+                    "Zawadzkiego 119",
+                    "Zawadzkiego 120",
+                    "Zawadzkiego 121",
+                    "Zawadzkiego 122",
+                    "Zawadzkiego 123",
+                    "Zawadzkiego 124",
+                    "Zawadzkiego 125",
+                    "Zawadzkiego 126",
+                    "Zawadzkiego 127",
+                    "Zawadzkiego 128",
+                    "Zawadzkiego 129",
+                    "Zawadzkiego 130",
+                    "Zawadzkiego 131",
+                    "Zawadzkiego 132",
+                    "Zawadzkiego 133",
+                    "Zawadzkiego 134",
+                    "Zawadzkiego 135",
+                    "Zawadzkiego 136",
+                    "Zawadzkiego 137",
+                    "Zawadzkiego 138",
+                    "Zawadzkiego 139",
+                    "Zawadzkiego 140",
+                    "Zawadzkiego 79",
+                    "Zawadzkiego 80",
+                    "Zawadzkiego 81",
+                    "Zawadzkiego 82",
+                    "Zawadzkiego 83",
+                    "Zawadzkiego 84",
+                    "Zawadzkiego 85",
+                    "Zawadzkiego 86",
+                    "Zawadzkiego 87",
+                    "Zawadzkiego 88",
+                    "Zawadzkiego 89",
+                    "Zawadzkiego 90",
+                    "Zawadzkiego 91",
+                    "Zawadzkiego 92",
+                    "Zawadzkiego 93",
+                    "Zawadzkiego 94",
+                    "Zawadzkiego 95",
+                    "Zawadzkiego 96",
+                    "Zawadzkiego 97",
+                    "Zawadzkiego 98",
+                    "Zawadzkiego 99",
+                    "ul. Zachodnia 1",
+                    "ul. Zachodnia 2",
+                    "ul. Zachodnia 3",
+                    "ul. Zachodnia 4",
+                    "ul. Zachodnia 5",
+                    "ul. Zachodnia 6",
+                    "ul. Zachodnia 7",
+                    "ul. Zachodnia 8"
+                ]
+            }
+        ],
+        "Brzezia Łąka": [
+            {
+                "interval": {
+                    "from_date": "2025-12-05T07:00:00Z",
+                    "to_date": "2025-12-05T13:00:00Z"
+                },
+                "locations": [
+                    "ul. Chmielowa 15",
+                    "ul. Chmielowa 16",
+                    "ul. Chmielowa 17",
+                    "ul. Chmielowa 18",
+                    "ul. Chmielowa 19"
+                ]
+            }
+        ],
+        "Kamieniec Wrocławski": [
+            {
+                "interval": {
+                    "from_date": "2025-12-05T07:00:00Z",
+                    "to_date": "2025-12-05T13:00:00Z"
+                },
+                "locations": [
+                    "Brzozowa 1",
+                    "Brzozowa 2",
+                    "Brzozowa 3",
+                    "Brzozowa 4",
+                    "Kasztanowa",
+                    "ul. Ładna 10"
+                ]
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-05T07:00:00Z",
+                    "to_date": "2025-12-05T13:30:00Z"
+                },
+                "locations": [
+                    "Brzozowa 1",
+                    "Brzozowa 2",
+                    "Brzozowa 3",
+                    "Brzozowa 4",
+                    "Kasztanowa",
+                    "ul. Zaułek Szkolny",
+                    "Ładna"
+                ]
+            }
+        ],
+        "Kamieniec WR.": [
+            {
+                "interval": {
+                    "from_date": "2025-12-05T07:00:00Z",
+                    "to_date": "2025-12-05T13:30:00Z"
+                },
+                "locations": [
+                    "Brzozowa 1",
+                    "Brzozowa 2",
+                    "Brzozowa 3",
+                    "Brzozowa 4",
+                    "Kasztanowa",
+                    "dz. przyległe Gm. Czernica",
+                    "ul. Zaułek Szkolny",
+                    "Ładna"
+                ]
+            }
+        ],
+        "Szostakowice": [
+            {
+                "interval": {
+                    "from_date": "2025-12-08T06:00:00Z",
+                    "to_date": "2025-12-08T15:00:00Z"
+                },
+                "locations": [
+                    "Sulimowska",
+                    "ul. Konwaliowa"
+                ]
+            }
+        ],
+        "Smolec": [
+            {
+                "interval": {
+                    "from_date": "2025-12-08T07:00:00Z",
+                    "to_date": "2025-12-08T13:00:00Z"
+                },
+                "locations": [
+                    "15",
+                    "16",
+                    "17",
+                    "18",
+                    "19",
+                    "20",
+                    "21",
+                    "22",
+                    "23",
+                    "24",
+                    "25",
+                    "26",
+                    "27",
+                    "28",
+                    "29",
+                    "30",
+                    "31",
+                    "32",
+                    "33",
+                    "działka 190/5",
+                    "ul. Dereniowa",
+                    "ul. Jaworowa",
+                    "ul. Rdestowa",
+                    "ul. Łubinowa 36",
+                    "ul. Łubinowa 37",
+                    "ul. Łubinowa 38",
+                    "ul. Łubinowa 39",
+                    "ul. Łubinowa 40",
+                    "ul. Łubinowa 41",
+                    "ul. Łubinowa 42",
+                    "ul. Łubinowa 43",
+                    "ul. Łubinowa 44",
+                    "ul. Łubinowa 45",
+                    "ul. Łubinowa 46",
+                    "ul. Łubinowa 47",
+                    "ul. Łubinowa 48",
+                    "ul. Łubinowa 49",
+                    "ul. Łubinowa 50"
+                ]
+            }
+        ],
+        "Łany": [
+            {
+                "interval": {
+                    "from_date": "2025-12-08T07:00:00Z",
+                    "to_date": "2025-12-08T14:00:00Z"
+                },
+                "locations": [
+                    "Księżycowa",
+                    "ul. Parkowa"
+                ]
+            }
+        ],
+        "Galowice": [
+            {
+                "interval": {
+                    "from_date": "2025-12-09T06:00:00Z",
+                    "to_date": "2025-12-09T15:00:00Z"
+                },
+                "locations": [
+                    "Aroniowa",
+                    "Brzoskwiniowa",
+                    "Dębowa 2",
+                    "Dębowa 3",
+                    "Dębowa 4",
+                    "Dębowa 5",
+                    "Dębowa 6",
+                    "Dębowa 7",
+                    "Dębowa 8",
+                    "ul. Truskawkowa wraz z ulicami przyległymi"
+                ]
+            }
+        ],
+        "Groblice": [
+            {
+                "interval": {
+                    "from_date": "2025-12-09T06:00:00Z",
+                    "to_date": "2025-12-09T15:00:00Z"
+                },
+                "locations": [
+                    "Pogodna 10",
+                    "Pogodna 11",
+                    "Pogodna 12",
+                    "Pogodna 13",
+                    "Pogodna 14",
+                    "Pogodna 15",
+                    "Pogodna 16",
+                    "Pogodna 17",
+                    "Pogodna 18",
+                    "dz.122/2"
+                ]
+            }
+        ],
+        "Wilczyce": [
+            {
+                "interval": {
+                    "from_date": "2025-12-09T07:00:00Z",
+                    "to_date": "2025-12-09T13:00:00Z"
+                },
+                "locations": [
+                    "ul. Cisowa dz. 541/19"
+                ]
+            }
+        ],
+        "Gajków": [
+            {
+                "interval": {
+                    "from_date": "2025-12-09T07:00:00Z",
+                    "to_date": "2025-12-09T13:30:00Z"
+                },
+                "locations": [
+                    "Lipowa 3",
+                    "Lipowa 5",
+                    "Lipowa 5A",
+                    "ul. Skowronia"
+                ]
+            }
+        ],
+        "Nadolice Małe": [
+            {
+                "interval": {
+                    "from_date": "2025-12-09T07:00:00Z",
+                    "to_date": "2025-12-09T14:00:00Z"
+                },
+                "locations": [
+                    "Lawendowa",
+                    "Letnia",
+                    "Tymiankowa",
+                    "Wiosenna",
+                    "Wrocławska 1",
+                    "Wrocławska 10",
+                    "Wrocławska 11",
+                    "Wrocławska 12",
+                    "Wrocławska 13",
+                    "Wrocławska 14",
+                    "Wrocławska 15",
+                    "Wrocławska 16",
+                    "Wrocławska 17",
+                    "Wrocławska 2",
+                    "Wrocławska 3",
+                    "Wrocławska 4",
+                    "Wrocławska 5",
+                    "Wrocławska 6",
+                    "Wrocławska 7",
+                    "Wrocławska 8",
+                    "Wrocławska 9",
+                    "dz. 109/16",
+                    "ul. Zimowa"
+                ]
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-09T07:00:00Z",
+                    "to_date": "2025-12-09T14:00:00Z"
+                },
+                "locations": [
+                    "Cyprysowa",
+                    "Ziołowa",
+                    "ul. Truskawkowa"
+                ]
+            }
+        ],
+        "Ząbkowice Śląskie ul Biznesowa": [
+            {
+                "interval": {
+                    "from_date": "2025-12-05T06:30:00Z",
+                    "to_date": "2025-12-05T15:00:00Z"
+                },
+                "locations": []
+            }
+        ],
+        "Osiek Łużycki": [
+            {
+                "interval": {
+                    "from_date": "2025-12-02T07:00:00Z",
+                    "to_date": "2025-12-02T09:00:00Z"
+                },
+                "locations": [
+                    "1",
+                    "10",
+                    "11",
+                    "12",
+                    "13",
+                    "14",
+                    "15",
+                    "16",
+                    "17",
+                    "18",
+                    "19",
+                    "2",
+                    "20",
+                    "21",
+                    "22",
+                    "23",
+                    "24",
+                    "25",
+                    "26",
+                    "27",
+                    "28",
+                    "3",
+                    "4",
+                    "41",
+                    "42",
+                    "43",
+                    "44",
+                    "45",
+                    "46",
+                    "47",
+                    "48",
+                    "49",
+                    "5",
+                    "50",
+                    "51",
+                    "52",
+                    "53",
+                    "54",
+                    "55",
+                    "56",
+                    "57",
+                    "58",
+                    "59",
+                    "6",
+                    "60",
+                    "61",
+                    "62",
+                    "63",
+                    "64",
+                    "65",
+                    "66",
+                    "67",
+                    "68",
+                    "69",
+                    "7",
+                    "8",
+                    "9",
+                    "Szkoła"
+                ]
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-02T14:00:00Z",
+                    "to_date": "2025-12-02T20:00:00Z"
+                },
+                "locations": [
+                    "1",
+                    "10",
+                    "11",
+                    "12",
+                    "13",
+                    "14",
+                    "15",
+                    "16",
+                    "17",
+                    "18",
+                    "19",
+                    "2",
+                    "20",
+                    "21",
+                    "22",
+                    "23",
+                    "24",
+                    "25",
+                    "26",
+                    "27",
+                    "28",
+                    "3",
+                    "4",
+                    "41",
+                    "42",
+                    "43",
+                    "44",
+                    "45",
+                    "46",
+                    "47",
+                    "48",
+                    "49",
+                    "5",
+                    "50",
+                    "51",
+                    "52",
+                    "53",
+                    "54",
+                    "55",
+                    "56",
+                    "57",
+                    "58",
+                    "59",
+                    "6",
+                    "60",
+                    "61",
+                    "62",
+                    "63",
+                    "64",
+                    "65",
+                    "66",
+                    "67",
+                    "68",
+                    "69",
+                    "7",
+                    "8",
+                    "9",
+                    "Szkoła"
+                ]
+            }
+        ],
+        "Czerwona Woda": [
+            {
+                "interval": {
+                    "from_date": "2025-12-02T07:30:00Z",
+                    "to_date": "2025-12-02T12:30:00Z"
+                },
+                "locations": [
+                    "Przekaźnik",
+                    "działka budowlana 952",
+                    "działka budowlana 953",
+                    "działka budowlana 954",
+                    "ul. Leśna 11",
+                    "ul. Leśna 11A"
+                ]
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-03T07:30:00Z",
+                    "to_date": "2025-12-03T12:30:00Z"
+                },
+                "locations": [
+                    "Przekaźnik",
+                    "działka budowlana 952",
+                    "działka budowlana 953",
+                    "działka budowlana 954",
+                    "ul. Leśna 11",
+                    "ul. Leśna 11A"
+                ]
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-04T07:30:00Z",
+                    "to_date": "2025-12-04T12:30:00Z"
+                },
+                "locations": [
+                    "Przekaźnik",
+                    "działka budowlana 952",
+                    "działka budowlana 953",
+                    "działka budowlana 954",
+                    "ul. Leśna 11",
+                    "ul. Leśna 11A"
+                ]
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-05T07:30:00Z",
+                    "to_date": "2025-12-05T12:30:00Z"
+                },
+                "locations": [
+                    "Leśna 24",
+                    "Leśna 25",
+                    "Leśna 26",
+                    "Leśna 27",
+                    "Leśna 28",
+                    "Leśna 29",
+                    "Leśna 30",
+                    "ul. Wesoła 29",
+                    "ul. Wesoła 30",
+                    "ul. Wesoła 31",
+                    "ul. Wesoła 32"
+                ]
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-08T07:30:00Z",
+                    "to_date": "2025-12-08T12:30:00Z"
+                },
+                "locations": [
+                    "ul. Wesoła 22",
+                    "ul. Wesoła 23",
+                    "ul. Wesoła 24",
+                    "ul. Wesoła 25",
+                    "ul. Wesoła 26",
+                    "ul. Wesoła 27",
+                    "ul. Wesoła 28",
+                    "ul. Wesoła 29",
+                    "ul. Wesoła 30"
+                ]
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-08T07:30:00Z",
+                    "to_date": "2025-12-08T12:30:00Z"
+                },
+                "locations": [
+                    "Przekaźnik",
+                    "działki budowlane",
+                    "działki budowlane 952",
+                    "działki budowlane 953",
+                    "działki budowlane 954",
+                    "ul. Leśna 11",
+                    "ul. Leśna 11A"
+                ]
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-09T07:30:00Z",
+                    "to_date": "2025-12-09T12:30:00Z"
+                },
+                "locations": [
+                    "ul. Wesoła 22",
+                    "ul. Wesoła 23",
+                    "ul. Wesoła 24",
+                    "ul. Wesoła 25",
+                    "ul. Wesoła 26",
+                    "ul. Wesoła 27",
+                    "ul. Wesoła 28",
+                    "ul. Wesoła 29",
+                    "ul. Wesoła 30"
+                ]
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-09T07:30:00Z",
+                    "to_date": "2025-12-09T12:30:00Z"
+                },
+                "locations": [
+                    "Przekaźnik",
+                    "działki budowlane",
+                    "działki budowlane 952",
+                    "działki budowlane 953",
+                    "działki budowlane 954",
+                    "ul. Leśna 11",
+                    "ul. Leśna 11A"
+                ]
+            }
+        ],
+        "Ruszów": [
+            {
+                "interval": {
+                    "from_date": "2025-12-02T08:00:00Z",
+                    "to_date": "2025-12-02T11:00:00Z"
+                },
+                "locations": [
+                    "Modrzewiowa 2",
+                    "Modrzewiowa 3",
+                    "Modrzewiowa 4",
+                    "Modrzewiowa 5",
+                    "Modrzewiowa 6",
+                    "Modrzewiowa 7",
+                    "Ujęcie wody",
+                    "Zgorzelecka 1",
+                    "Zgorzelecka 2",
+                    "Zgorzelecka 3",
+                    "Zgorzelecka 4",
+                    "Zgorzelecka 5",
+                    "Zgorzelecka 6",
+                    "ul. Łużycka 12",
+                    "ul. Łużycka 13",
+                    "ul. Łużycka 14",
+                    "ul. Łużycka 15",
+                    "ul. Łużycka 16"
+                ]
+            }
+        ],
+        "Pieńsk": [
+            {
+                "interval": {
+                    "from_date": "2025-12-03T07:30:00Z",
+                    "to_date": "2025-12-03T09:30:00Z"
+                },
+                "locations": [
+                    "355/2",
+                    "działka budowlana 354/4",
+                    "ul. Dąbrowskiego od 45A do 64"
+                ]
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-04T07:00:00Z",
+                    "to_date": "2025-12-04T09:00:00Z"
+                },
+                "locations": [
+                    "ul. Batorego 1",
+                    "ul. Batorego 10",
+                    "ul. Batorego 11",
+                    "ul. Batorego 12",
+                    "ul. Batorego 13",
+                    "ul. Batorego 14",
+                    "ul. Batorego 15",
+                    "ul. Batorego 16",
+                    "ul. Batorego 17",
+                    "ul. Batorego 18",
+                    "ul. Batorego 19",
+                    "ul. Batorego 2",
+                    "ul. Batorego 20",
+                    "ul. Batorego 21",
+                    "ul. Batorego 22",
+                    "ul. Batorego 23",
+                    "ul. Batorego 24",
+                    "ul. Batorego 3",
+                    "ul. Batorego 4",
+                    "ul. Batorego 5",
+                    "ul. Batorego 6",
+                    "ul. Batorego 7",
+                    "ul. Batorego 8",
+                    "ul. Batorego 9"
+                ]
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-04T07:00:00Z",
+                    "to_date": "2025-12-04T18:00:00Z"
+                },
+                "locations": [
+                    "ul. Dąbrowskiego 46"
+                ]
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-04T14:00:00Z",
+                    "to_date": "2025-12-04T18:00:00Z"
+                },
+                "locations": [
+                    "ul. Batorego 1",
+                    "ul. Batorego 10",
+                    "ul. Batorego 11",
+                    "ul. Batorego 12",
+                    "ul. Batorego 13",
+                    "ul. Batorego 14",
+                    "ul. Batorego 15",
+                    "ul. Batorego 16",
+                    "ul. Batorego 17",
+                    "ul. Batorego 18",
+                    "ul. Batorego 19",
+                    "ul. Batorego 2",
+                    "ul. Batorego 20",
+                    "ul. Batorego 21",
+                    "ul. Batorego 22",
+                    "ul. Batorego 23",
+                    "ul. Batorego 24",
+                    "ul. Batorego 3",
+                    "ul. Batorego 4",
+                    "ul. Batorego 5",
+                    "ul. Batorego 6",
+                    "ul. Batorego 7",
+                    "ul. Batorego 8",
+                    "ul. Batorego 9"
+                ]
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-05T07:30:00Z",
+                    "to_date": "2025-12-05T09:30:00Z"
+                },
+                "locations": [
+                    "354/5",
+                    "działka budowlana 354/4",
+                    "ul. Dąbrowskiego od 45A do 64"
+                ]
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-05T08:00:00Z",
+                    "to_date": "2025-12-05T10:00:00Z"
+                },
+                "locations": [
+                    "Chopina",
+                    "Hutnicza 53A",
+                    "Hutnicza 53B",
+                    "Hutnicza 54",
+                    "Hutnicza 58",
+                    "Hutnicza 64",
+                    "Ruczajowa",
+                    "Wycieczkowa",
+                    "ul. Długa",
+                    "Środkowa"
+                ]
+            }
+        ],
+        "Bogatynia": [
+            {
+                "interval": {
+                    "from_date": "2025-12-05T07:00:00Z",
+                    "to_date": "2025-12-05T09:00:00Z"
+                },
+                "locations": [
+                    "Piaskowa",
+                    "ul. Skalna",
+                    "Żwirkowa"
+                ]
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-05T17:00:00Z",
+                    "to_date": "2025-12-05T19:00:00Z"
+                },
+                "locations": [
+                    "Piaskowa",
+                    "ul. Skalna",
+                    "Żwirkowa"
+                ]
+            }
+        ],
+        "Jasna Góra": [
+            {
+                "interval": {
+                    "from_date": "2025-12-05T07:00:00Z",
+                    "to_date": "2025-12-05T09:00:00Z"
+                },
+                "locations": []
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-05T17:00:00Z",
+                    "to_date": "2025-12-05T19:00:00Z"
+                },
+                "locations": []
+            }
+        ],
+        "Działoszyn": [
+            {
+                "interval": {
+                    "from_date": "2025-12-08T07:00:00Z",
+                    "to_date": "2025-12-08T15:00:00Z"
+                },
+                "locations": [
+                    "100",
+                    "101",
+                    "102",
+                    "103",
+                    "104",
+                    "105",
+                    "106",
+                    "107",
+                    "108",
+                    "109",
+                    "110",
+                    "111",
+                    "112",
+                    "113",
+                    "114",
+                    "115",
+                    "116",
+                    "117",
+                    "118",
+                    "119",
+                    "120",
+                    "121",
+                    "122",
+                    "123",
+                    "124",
+                    "125",
+                    "126",
+                    "127",
+                    "128",
+                    "129",
+                    "130",
+                    "131",
+                    "132",
+                    "133",
+                    "134",
+                    "135",
+                    "136",
+                    "137",
+                    "138",
+                    "139",
+                    "140",
+                    "141",
+                    "142",
+                    "143",
+                    "144",
+                    "145",
+                    "146",
+                    "147",
+                    "59",
+                    "60",
+                    "61",
+                    "62",
+                    "63",
+                    "64",
+                    "65",
+                    "66",
+                    "67",
+                    "68",
+                    "69",
+                    "70",
+                    "71",
+                    "72",
+                    "73",
+                    "74",
+                    "75",
+                    "76",
+                    "77",
+                    "78",
+                    "79",
+                    "80",
+                    "81",
+                    "82",
+                    "83",
+                    "84",
+                    "85",
+                    "86",
+                    "87",
+                    "88",
+                    "89",
+                    "90",
+                    "91",
+                    "92",
+                    "93",
+                    "94",
+                    "95",
+                    "96",
+                    "97",
+                    "98",
+                    "99"
+                ]
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-09T07:00:00Z",
+                    "to_date": "2025-12-09T14:00:00Z"
+                },
+                "locations": [
+                    "129",
+                    "130",
+                    "131",
+                    "132",
+                    "133",
+                    "134",
+                    "135",
+                    "136",
+                    "137",
+                    "138",
+                    "141",
+                    "142",
+                    "143",
+                    "144",
+                    "145",
+                    "146",
+                    "147",
+                    "59",
+                    "60",
+                    "61",
+                    "62",
+                    "63",
+                    "66",
+                    "67",
+                    "68",
+                    "od 74",
+                    "od 82"
+                ]
+            }
+        ],
+        "Bogatynia, Zatonie": [
+            {
+                "interval": {
+                    "from_date": "2025-12-09T08:00:00Z",
+                    "to_date": "2025-12-09T11:00:00Z"
+                },
+                "locations": [
+                    "Cicha",
+                    "Francuska",
+                    "Kręta",
+                    "Młodych Energetyków 1",
+                    "Norwida",
+                    "Ogrodowa",
+                    "Parkowa",
+                    "Spacerowa",
+                    "Wesoła",
+                    "od 4A do 4D",
+                    "od 6A do 6B",
+                    "stacja paliw Lotos",
+                    "ul. Mickiewicza nieparzyste 1",
+                    "ul. Mickiewicza nieparzyste 10",
+                    "ul. Mickiewicza nieparzyste 11",
+                    "ul. Mickiewicza nieparzyste 12",
+                    "ul. Mickiewicza nieparzyste 13",
+                    "ul. Mickiewicza nieparzyste 14",
+                    "ul. Mickiewicza nieparzyste 15",
+                    "ul. Mickiewicza nieparzyste 16",
+                    "ul. Mickiewicza nieparzyste 17",
+                    "ul. Mickiewicza nieparzyste 18",
+                    "ul. Mickiewicza nieparzyste 19",
+                    "ul. Mickiewicza nieparzyste 2",
+                    "ul. Mickiewicza nieparzyste 3",
+                    "ul. Mickiewicza nieparzyste 4",
+                    "ul. Mickiewicza nieparzyste 5",
+                    "ul. Mickiewicza nieparzyste 6",
+                    "ul. Mickiewicza nieparzyste 7",
+                    "ul. Mickiewicza nieparzyste 8",
+                    "ul. Mickiewicza nieparzyste 9"
+                ]
+            }
+        ],
+        "Sieniawka": [
+            {
+                "interval": {
+                    "from_date": "2025-12-09T08:00:00Z",
+                    "to_date": "2025-12-09T14:00:00Z"
+                },
+                "locations": [
+                    "ul. Piastowska 1A"
+                ]
+            }
+        ],
+        "Nowy Kościół": [
+            {
+                "interval": {
+                    "from_date": "2025-12-02T07:00:00Z",
+                    "to_date": "2025-12-02T09:00:00Z"
+                },
+                "locations": [
+                    "11",
+                    "12",
+                    "13",
+                    "14",
+                    "15",
+                    "16",
+                    "17",
+                    "18",
+                    "19",
+                    "20",
+                    "21",
+                    "22",
+                    "23",
+                    "35",
+                    "36",
+                    "37",
+                    "38",
+                    "39",
+                    "40",
+                    "41",
+                    "42",
+                    "43",
+                    "44",
+                    "45",
+                    "46",
+                    "47",
+                    "48",
+                    "49",
+                    "50",
+                    "51",
+                    "52",
+                    "53",
+                    "54",
+                    "Fabryczna 13",
+                    "Fabryczna 14",
+                    "Fabryczna 15",
+                    "Fabryczna 16",
+                    "Fabryczna 17",
+                    "Fabryczna 18",
+                    "Gospodarstwo rolne SKR",
+                    "Szkolna 1",
+                    "Szkolna 10",
+                    "Szkolna 11",
+                    "Szkolna 12",
+                    "Szkolna 13",
+                    "Szkolna 14",
+                    "Szkolna 15",
+                    "Szkolna 16",
+                    "Szkolna 17",
+                    "Szkolna 18",
+                    "Szkolna 19",
+                    "Szkolna 2",
+                    "Szkolna 20",
+                    "Szkolna 21",
+                    "Szkolna 22",
+                    "Szkolna 23",
+                    "Szkolna 24",
+                    "Szkolna 25",
+                    "Szkolna 3",
+                    "Szkolna 4",
+                    "Szkolna 5",
+                    "Szkolna 6",
+                    "Szkolna 7",
+                    "Szkolna 8",
+                    "Szkolna 9",
+                    "od 25",
+                    "od 27",
+                    "od 29",
+                    "od 31",
+                    "ul. Jeleniogórska parzyste 24",
+                    "ul. Jeleniogórska parzyste 25",
+                    "ul. Jeleniogórska parzyste 26",
+                    "ul. Jeleniogórska parzyste 27",
+                    "ul. Jeleniogórska parzyste 28",
+                    "ul. Jeleniogórska parzyste 29",
+                    "ul. Jeleniogórska parzyste 30",
+                    "ul. Jeleniogórska parzyste 31",
+                    "ul. Jeleniogórska parzyste 32",
+                    "ul. Jeleniogórska parzyste 33",
+                    "ul. Jeleniogórska parzyste 34"
+                ]
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-02T07:00:00Z",
+                    "to_date": "2025-12-02T09:00:00Z"
+                },
+                "locations": [
+                    "19",
+                    "20",
+                    "21",
+                    "Kolejowa 10",
+                    "Kolejowa 11",
+                    "Kolejowa 12",
+                    "Kolejowa 13",
+                    "Kolejowa 5",
+                    "Kolejowa 6",
+                    "Kolejowa 7",
+                    "Kolejowa 8",
+                    "Kolejowa 9",
+                    "od 24",
+                    "ul. Jeleniogórska 54",
+                    "ul. Jeleniogórska 55",
+                    "ul. Jeleniogórska 56",
+                    "ul. Jeleniogórska 57",
+                    "ul. Jeleniogórska 58",
+                    "ul. Jeleniogórska 59"
+                ]
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-02T07:00:00Z",
+                    "to_date": "2025-12-02T09:00:00Z"
+                },
+                "locations": [
+                    "Jeleniogórska 10",
+                    "Jeleniogórska 4",
+                    "Jeleniogórska 5",
+                    "Jeleniogórska 6",
+                    "Jeleniogórska 7",
+                    "Jeleniogórska 8",
+                    "Jeleniogórska 9",
+                    "Złotoryjska 1",
+                    "Złotoryjska 10",
+                    "Złotoryjska 11",
+                    "Złotoryjska 12",
+                    "Złotoryjska 13",
+                    "Złotoryjska 14",
+                    "Złotoryjska 15",
+                    "Złotoryjska 16",
+                    "Złotoryjska 17",
+                    "Złotoryjska 18",
+                    "Złotoryjska 2",
+                    "Złotoryjska 3",
+                    "Złotoryjska 4",
+                    "Złotoryjska 5",
+                    "Złotoryjska 6",
+                    "Złotoryjska 7",
+                    "Złotoryjska 8",
+                    "Złotoryjska 9",
+                    "ul. Fabryczna 1",
+                    "ul. Fabryczna 10",
+                    "ul. Fabryczna 11",
+                    "ul. Fabryczna 12",
+                    "ul. Fabryczna 13",
+                    "ul. Fabryczna 2",
+                    "ul. Fabryczna 3",
+                    "ul. Fabryczna 4",
+                    "ul. Fabryczna 5",
+                    "ul. Fabryczna 6",
+                    "ul. Fabryczna 7",
+                    "ul. Fabryczna 8",
+                    "ul. Fabryczna 9"
+                ]
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-02T17:00:00Z",
+                    "to_date": "2025-12-02T19:00:00Z"
+                },
+                "locations": [
+                    "11",
+                    "12",
+                    "13",
+                    "14",
+                    "15",
+                    "16",
+                    "17",
+                    "18",
+                    "19",
+                    "20",
+                    "21",
+                    "22",
+                    "23",
+                    "35",
+                    "36",
+                    "37",
+                    "38",
+                    "39",
+                    "40",
+                    "41",
+                    "42",
+                    "43",
+                    "44",
+                    "45",
+                    "46",
+                    "47",
+                    "48",
+                    "49",
+                    "50",
+                    "51",
+                    "52",
+                    "53",
+                    "54",
+                    "Fabryczna 13",
+                    "Fabryczna 14",
+                    "Fabryczna 15",
+                    "Fabryczna 16",
+                    "Fabryczna 17",
+                    "Fabryczna 18",
+                    "Gospodarstwo rolne SKR",
+                    "Szkolna 1",
+                    "Szkolna 10",
+                    "Szkolna 11",
+                    "Szkolna 12",
+                    "Szkolna 13",
+                    "Szkolna 14",
+                    "Szkolna 15",
+                    "Szkolna 16",
+                    "Szkolna 17",
+                    "Szkolna 18",
+                    "Szkolna 19",
+                    "Szkolna 2",
+                    "Szkolna 20",
+                    "Szkolna 21",
+                    "Szkolna 22",
+                    "Szkolna 23",
+                    "Szkolna 24",
+                    "Szkolna 25",
+                    "Szkolna 3",
+                    "Szkolna 4",
+                    "Szkolna 5",
+                    "Szkolna 6",
+                    "Szkolna 7",
+                    "Szkolna 8",
+                    "Szkolna 9",
+                    "od 25",
+                    "od 27",
+                    "od 29",
+                    "od 31",
+                    "ul. Jeleniogórska parzyste 24",
+                    "ul. Jeleniogórska parzyste 25",
+                    "ul. Jeleniogórska parzyste 26",
+                    "ul. Jeleniogórska parzyste 27",
+                    "ul. Jeleniogórska parzyste 28",
+                    "ul. Jeleniogórska parzyste 29",
+                    "ul. Jeleniogórska parzyste 30",
+                    "ul. Jeleniogórska parzyste 31",
+                    "ul. Jeleniogórska parzyste 32",
+                    "ul. Jeleniogórska parzyste 33",
+                    "ul. Jeleniogórska parzyste 34"
+                ]
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-02T17:00:00Z",
+                    "to_date": "2025-12-02T19:00:00Z"
+                },
+                "locations": [
+                    "Jeleniogórska 10",
+                    "Jeleniogórska 4",
+                    "Jeleniogórska 5",
+                    "Jeleniogórska 6",
+                    "Jeleniogórska 7",
+                    "Jeleniogórska 8",
+                    "Jeleniogórska 9",
+                    "Złotoryjska 1",
+                    "Złotoryjska 10",
+                    "Złotoryjska 11",
+                    "Złotoryjska 12",
+                    "Złotoryjska 13",
+                    "Złotoryjska 14",
+                    "Złotoryjska 15",
+                    "Złotoryjska 16",
+                    "Złotoryjska 17",
+                    "Złotoryjska 18",
+                    "Złotoryjska 2",
+                    "Złotoryjska 3",
+                    "Złotoryjska 4",
+                    "Złotoryjska 5",
+                    "Złotoryjska 6",
+                    "Złotoryjska 7",
+                    "Złotoryjska 8",
+                    "Złotoryjska 9",
+                    "ul. Fabryczna 1",
+                    "ul. Fabryczna 10",
+                    "ul. Fabryczna 11",
+                    "ul. Fabryczna 12",
+                    "ul. Fabryczna 13",
+                    "ul. Fabryczna 2",
+                    "ul. Fabryczna 3",
+                    "ul. Fabryczna 4",
+                    "ul. Fabryczna 5",
+                    "ul. Fabryczna 6",
+                    "ul. Fabryczna 7",
+                    "ul. Fabryczna 8",
+                    "ul. Fabryczna 9"
+                ]
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-02T17:00:00Z",
+                    "to_date": "2025-12-02T19:00:00Z"
+                },
+                "locations": [
+                    "19",
+                    "20",
+                    "21",
+                    "Kolejowa 10",
+                    "Kolejowa 11",
+                    "Kolejowa 12",
+                    "Kolejowa 13",
+                    "Kolejowa 5",
+                    "Kolejowa 6",
+                    "Kolejowa 7",
+                    "Kolejowa 8",
+                    "Kolejowa 9",
+                    "od 24",
+                    "ul. Jeleniogórska 54",
+                    "ul. Jeleniogórska 55",
+                    "ul. Jeleniogórska 56",
+                    "ul. Jeleniogórska 57",
+                    "ul. Jeleniogórska 58",
+                    "ul. Jeleniogórska 59"
+                ]
+            }
+        ],
+        "Rzeszówek": [
+            {
+                "interval": {
+                    "from_date": "2025-12-03T07:00:00Z",
+                    "to_date": "2025-12-03T09:00:00Z"
+                },
+                "locations": []
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-03T07:00:00Z",
+                    "to_date": "2025-12-03T09:00:00Z"
+                },
+                "locations": []
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-03T17:00:00Z",
+                    "to_date": "2025-12-03T19:00:00Z"
+                },
+                "locations": []
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-03T17:00:00Z",
+                    "to_date": "2025-12-03T19:00:00Z"
+                },
+                "locations": []
+            }
+        ],
+        "Stara Kraśnica": [
+            {
+                "interval": {
+                    "from_date": "2025-12-03T07:00:00Z",
+                    "to_date": "2025-12-03T09:00:00Z"
+                },
+                "locations": [
+                    "44",
+                    "45",
+                    "46",
+                    "47",
+                    "48",
+                    "49",
+                    "50",
+                    "51",
+                    "52",
+                    "53",
+                    "54",
+                    "55",
+                    "56",
+                    "57",
+                    "58",
+                    "59",
+                    "60",
+                    "61",
+                    "62",
+                    "63",
+                    "64",
+                    "65",
+                    "66",
+                    "67",
+                    "68",
+                    "69",
+                    "70",
+                    "71",
+                    "73",
+                    "74",
+                    "75",
+                    "76",
+                    "77",
+                    "78",
+                    "79",
+                    "80"
+                ]
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-03T07:00:00Z",
+                    "to_date": "2025-12-03T09:00:00Z"
+                },
+                "locations": [
+                    "1",
+                    "10",
+                    "11",
+                    "12",
+                    "13",
+                    "14",
+                    "15",
+                    "16",
+                    "17",
+                    "18",
+                    "19",
+                    "2",
+                    "20",
+                    "21",
+                    "22",
+                    "23",
+                    "24",
+                    "25",
+                    "26",
+                    "27",
+                    "28",
+                    "29",
+                    "3",
+                    "30",
+                    "4",
+                    "5",
+                    "6",
+                    "7",
+                    "8",
+                    "9",
+                    "Biedronka",
+                    "od 41",
+                    "od 5e",
+                    "od 5f",
+                    "ul. Jeleniogórska 43",
+                    "ul. Jeleniogórska 45",
+                    "ul. Jeleniogórska 60",
+                    "ul. Jeleniogórska 62",
+                    "ul. Jeleniogórska 64",
+                    "ul. Kusocińskiego 1",
+                    "ul. Kusocińskiego 2",
+                    "ul. Kusocińskiego 3",
+                    "ul. Kusocińskiego 4",
+                    "ul. Kusocińskiego 5",
+                    "ul. Kusocińskiego 6",
+                    "Świerzawa"
+                ]
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-03T16:30:00Z",
+                    "to_date": "2025-12-03T18:30:00Z"
+                },
+                "locations": [
+                    "1",
+                    "10",
+                    "11",
+                    "12",
+                    "13",
+                    "14",
+                    "15",
+                    "16",
+                    "17",
+                    "18",
+                    "19",
+                    "2",
+                    "20",
+                    "21",
+                    "22",
+                    "23",
+                    "24",
+                    "25",
+                    "26",
+                    "27",
+                    "28",
+                    "29",
+                    "3",
+                    "30",
+                    "4",
+                    "5",
+                    "6",
+                    "7",
+                    "8",
+                    "9",
+                    "Biedronka",
+                    "od 41",
+                    "od 5e",
+                    "od 5f",
+                    "ul. Jeleniogórska 43",
+                    "ul. Jeleniogórska 45",
+                    "ul. Jeleniogórska 60",
+                    "ul. Jeleniogórska 62",
+                    "ul. Jeleniogórska 64",
+                    "ul. Kusocińskiego 1",
+                    "ul. Kusocińskiego 2",
+                    "ul. Kusocińskiego 3",
+                    "ul. Kusocińskiego 4",
+                    "ul. Kusocińskiego 5",
+                    "ul. Kusocińskiego 6",
+                    "Świerzawa"
+                ]
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-03T17:00:00Z",
+                    "to_date": "2025-12-03T19:00:00Z"
+                },
+                "locations": [
+                    "44",
+                    "45",
+                    "46",
+                    "47",
+                    "48",
+                    "49",
+                    "50",
+                    "51",
+                    "52",
+                    "53",
+                    "54",
+                    "55",
+                    "56",
+                    "57",
+                    "58",
+                    "59",
+                    "60",
+                    "61",
+                    "62",
+                    "63",
+                    "64",
+                    "65",
+                    "66",
+                    "67",
+                    "68",
+                    "69",
+                    "70",
+                    "71",
+                    "73",
+                    "74",
+                    "75",
+                    "76",
+                    "77",
+                    "78",
+                    "79",
+                    "80"
+                ]
+            }
+        ],
+        "Świerzawa": [
+            {
+                "interval": {
+                    "from_date": "2025-12-03T07:00:00Z",
+                    "to_date": "2025-12-03T09:00:00Z"
+                },
+                "locations": [
+                    "Jeleniogórska 54",
+                    "Przekaźnik",
+                    "Reymonta 1",
+                    "Reymonta 10",
+                    "Reymonta 12",
+                    "Reymonta 13",
+                    "Reymonta 14",
+                    "Reymonta 16",
+                    "Reymonta 2",
+                    "Reymonta 25",
+                    "Reymonta 27",
+                    "Reymonta 3",
+                    "Reymonta 4",
+                    "Reymonta 5",
+                    "Reymonta 6",
+                    "Reymonta 7",
+                    "Reymonta 8",
+                    "Reymonta 9",
+                    "Szkoła",
+                    "ul. Parkowa 6"
+                ]
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-03T07:00:00Z",
+                    "to_date": "2025-12-03T09:00:00Z"
+                },
+                "locations": [
+                    "ul. Mickiewicza"
+                ]
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-03T07:00:00Z",
+                    "to_date": "2025-12-03T09:00:00Z"
+                },
+                "locations": [
+                    "33",
+                    "34",
+                    "35",
+                    "36",
+                    "37",
+                    "38",
+                    "39",
+                    "40",
+                    "41",
+                    "Piasta 15j",
+                    "Plac Strzelecki",
+                    "Plac Wolności 48",
+                    "Plac Wolności 56A",
+                    "Plac Wolności 57",
+                    "Plac Wolności 59B",
+                    "parzyste 30",
+                    "parzyste 31",
+                    "parzyste 32",
+                    "parzyste 33",
+                    "parzyste 34",
+                    "parzyste 35",
+                    "parzyste 36",
+                    "parzyste 37",
+                    "parzyste 38",
+                    "parzyste 39",
+                    "parzyste 40",
+                    "parzyste 41",
+                    "parzyste 42",
+                    "parzyste 43",
+                    "parzyste 44",
+                    "parzyste 45",
+                    "parzyste 46",
+                    "parzyste 47",
+                    "parzyste 48",
+                    "ul. Jeleniogórska 1",
+                    "ul. Jeleniogórska 10",
+                    "ul. Jeleniogórska 11",
+                    "ul. Jeleniogórska 12",
+                    "ul. Jeleniogórska 13",
+                    "ul. Jeleniogórska 14",
+                    "ul. Jeleniogórska 15",
+                    "ul. Jeleniogórska 16",
+                    "ul. Jeleniogórska 17",
+                    "ul. Jeleniogórska 18",
+                    "ul. Jeleniogórska 19",
+                    "ul. Jeleniogórska 2",
+                    "ul. Jeleniogórska 20",
+                    "ul. Jeleniogórska 21",
+                    "ul. Jeleniogórska 22",
+                    "ul. Jeleniogórska 23",
+                    "ul. Jeleniogórska 24",
+                    "ul. Jeleniogórska 25",
+                    "ul. Jeleniogórska 26",
+                    "ul. Jeleniogórska 27",
+                    "ul. Jeleniogórska 28",
+                    "ul. Jeleniogórska 3",
+                    "ul. Jeleniogórska 4",
+                    "ul. Jeleniogórska 5",
+                    "ul. Jeleniogórska 6",
+                    "ul. Jeleniogórska 7",
+                    "ul. Jeleniogórska 8",
+                    "ul. Jeleniogórska 9"
+                ]
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-03T09:00:00Z",
+                    "to_date": "2025-12-03T18:00:00Z"
+                },
+                "locations": [
+                    "20/1",
+                    "20/2",
+                    "ul. Mickiewicza dz. 20/7"
+                ]
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-03T16:30:00Z",
+                    "to_date": "2025-12-03T18:30:00Z"
+                },
+                "locations": [
+                    "ul. Mickiewicza"
+                ]
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-03T17:00:00Z",
+                    "to_date": "2025-12-03T19:00:00Z"
+                },
+                "locations": [
+                    "34",
+                    "36",
+                    "38",
+                    "40",
+                    "Piasta 15",
+                    "Plac Strzelecki",
+                    "Plac Wolności 48",
+                    "Plac Wolności 56A",
+                    "Plac Wolności 57",
+                    "Plac Wolności 59B",
+                    "ul. Jeleniogórska 1",
+                    "ul. Jeleniogórska 10",
+                    "ul. Jeleniogórska 11",
+                    "ul. Jeleniogórska 12",
+                    "ul. Jeleniogórska 13",
+                    "ul. Jeleniogórska 14",
+                    "ul. Jeleniogórska 15",
+                    "ul. Jeleniogórska 16",
+                    "ul. Jeleniogórska 17",
+                    "ul. Jeleniogórska 18",
+                    "ul. Jeleniogórska 19",
+                    "ul. Jeleniogórska 2",
+                    "ul. Jeleniogórska 20",
+                    "ul. Jeleniogórska 21",
+                    "ul. Jeleniogórska 22",
+                    "ul. Jeleniogórska 23",
+                    "ul. Jeleniogórska 24",
+                    "ul. Jeleniogórska 25",
+                    "ul. Jeleniogórska 26",
+                    "ul. Jeleniogórska 27",
+                    "ul. Jeleniogórska 28",
+                    "ul. Jeleniogórska 3",
+                    "ul. Jeleniogórska 4",
+                    "ul. Jeleniogórska 5",
+                    "ul. Jeleniogórska 6",
+                    "ul. Jeleniogórska 7",
+                    "ul. Jeleniogórska 8",
+                    "ul. Jeleniogórska 9"
+                ]
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-03T17:00:00Z",
+                    "to_date": "2025-12-03T19:00:00Z"
+                },
+                "locations": [
+                    "Jeleniogórska 54",
+                    "Przekaźnik",
+                    "Reymonta 1",
+                    "Reymonta 10",
+                    "Reymonta 12",
+                    "Reymonta 13",
+                    "Reymonta 14",
+                    "Reymonta 16",
+                    "Reymonta 2",
+                    "Reymonta 25",
+                    "Reymonta 27",
+                    "Reymonta 3",
+                    "Reymonta 4",
+                    "Reymonta 5",
+                    "Reymonta 6",
+                    "Reymonta 7",
+                    "Reymonta 8",
+                    "Reymonta 9",
+                    "Szkoła",
+                    "ul. Parkowa 6"
+                ]
+            }
+        ],
+        "Dobków": [
+            {
+                "interval": {
+                    "from_date": "2025-12-04T07:00:00Z",
+                    "to_date": "2025-12-04T09:00:00Z"
+                },
+                "locations": []
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-04T07:00:00Z",
+                    "to_date": "2025-12-04T09:00:00Z"
+                },
+                "locations": []
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-04T17:00:00Z",
+                    "to_date": "2025-12-04T19:00:00Z"
+                },
+                "locations": []
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-04T17:00:00Z",
+                    "to_date": "2025-12-04T19:00:00Z"
+                },
+                "locations": []
+            }
+        ],
+        "Dobków - Jurczyce": [
+            {
+                "interval": {
+                    "from_date": "2025-12-04T07:00:00Z",
+                    "to_date": "2025-12-04T09:00:00Z"
+                },
+                "locations": []
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-04T17:00:00Z",
+                    "to_date": "2025-12-04T19:00:00Z"
+                },
+                "locations": []
+            }
+        ],
+        "Jelenia Góra Osiedle Europejskie": [
+            {
+                "interval": {
+                    "from_date": "2025-12-02T17:26:20.46Z",
+                    "to_date": "2025-12-02T20:30:00Z"
+                },
+                "locations": []
+            }
+        ],
+        "Jelenia Góra": [
+            {
+                "interval": {
+                    "from_date": "2025-12-09T07:00:00Z",
+                    "to_date": "2025-12-09T09:00:00Z"
+                },
+                "locations": [
+                    "27. chwilowe przerwy w dostawie energii elektrycznej",
+                    "ul. Goduszyńska 1",
+                    "ul. Goduszyńska 10",
+                    "ul. Goduszyńska 11",
+                    "ul. Goduszyńska 12",
+                    "ul. Goduszyńska 13",
+                    "ul. Goduszyńska 14",
+                    "ul. Goduszyńska 15",
+                    "ul. Goduszyńska 16",
+                    "ul. Goduszyńska 2",
+                    "ul. Goduszyńska 21",
+                    "ul. Goduszyńska 3",
+                    "ul. Goduszyńska 4",
+                    "ul. Goduszyńska 5",
+                    "ul. Goduszyńska 6",
+                    "ul. Goduszyńska 7",
+                    "ul. Goduszyńska 8",
+                    "ul. Goduszyńska 9"
+                ]
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-09T07:00:00Z",
+                    "to_date": "2025-12-09T09:00:00Z"
+                },
+                "locations": [
+                    "ul. Goduszyńska 16",
+                    "ul. Goduszyńska 17",
+                    "ul. Goduszyńska 18",
+                    "ul. Goduszyńska 19",
+                    "ul. Goduszyńska 20",
+                    "ul. Goduszyńska 21",
+                    "ul. Goduszyńska 22",
+                    "ul. Goduszyńska 23",
+                    "ul. Goduszyńska 24",
+                    "ul. Goduszyńska 25",
+                    "ul. Goduszyńska 26",
+                    "ul. Goduszyńska 27",
+                    "ul. Goduszyńska 28",
+                    "ul. Goduszyńska 29",
+                    "ul. Goduszyńska 30",
+                    "ul. Goduszyńska 31",
+                    "ul. Goduszyńska 32",
+                    "ul. Goduszyńska 33",
+                    "ul. Goduszyńska 34",
+                    "ul. Goduszyńska 35",
+                    "ul. Goduszyńska 36",
+                    "ul. Goduszyńska 37",
+                    "ul. Goduszyńska 38",
+                    "ul. Goduszyńska 39",
+                    "ul. Goduszyńska 40",
+                    "ul. Goduszyńska 41",
+                    "ul. Goduszyńska 42",
+                    "ul. Goduszyńska 43",
+                    "ul. Goduszyńska 44",
+                    "ul. Goduszyńska 46A"
+                ]
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-09T07:00:00Z",
+                    "to_date": "2025-12-09T09:00:00Z"
+                },
+                "locations": [
+                    "ul. Goduszyńska 19",
+                    "ul. Goduszyńska 19A"
+                ]
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-09T07:30:00Z",
+                    "to_date": "2025-12-09T12:30:00Z"
+                },
+                "locations": [
+                    "ul. Cieplicka - LIDL"
+                ]
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-09T08:00:00Z",
+                    "to_date": "2025-12-09T13:00:00Z"
+                },
+                "locations": [
+                    "Malinnik",
+                    "ul. Widok"
+                ]
+            }
+        ],
+        "Wałbrzych": [
+            {
+                "interval": {
+                    "from_date": "2025-12-03T11:00:00Z",
+                    "to_date": "2025-12-03T15:00:00Z"
+                },
+                "locations": [
+                    "Siemiradzkiego",
+                    "ul.: Niegolewskiego"
+                ]
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-04T08:00:00Z",
+                    "to_date": "2025-12-04T11:00:00Z"
+                },
+                "locations": [
+                    "ul. Fałata"
+                ]
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-04T11:00:00Z",
+                    "to_date": "2025-12-04T15:00:00Z"
+                },
+                "locations": [
+                    "ul. Weteranów"
+                ]
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-09T07:00:00Z",
+                    "to_date": "2025-12-09T11:00:00Z"
+                },
+                "locations": [
+                    "ul. Lubelska 12 centrum handlowe. Przewidujemy zasilenie odbiorców z agregatu prądotwórczego"
+                ]
+            }
+        ],
+        "Wrocław Fabryczna": [
+            {
+                "interval": {
+                    "from_date": "2025-12-02T06:00:00Z",
+                    "to_date": "2025-12-02T15:00:00Z"
+                },
+                "locations": [
+                    "Dobrzańska 1",
+                    "Dobrzańska 10",
+                    "Dobrzańska 11",
+                    "Dobrzańska 12",
+                    "Dobrzańska 13",
+                    "Dobrzańska 14",
+                    "Dobrzańska 15",
+                    "Dobrzańska 16",
+                    "Dobrzańska 17",
+                    "Dobrzańska 18",
+                    "Dobrzańska 19",
+                    "Dobrzańska 2",
+                    "Dobrzańska 20",
+                    "Dobrzańska 21",
+                    "Dobrzańska 22",
+                    "Dobrzańska 23",
+                    "Dobrzańska 24",
+                    "Dobrzańska 25",
+                    "Dobrzańska 26",
+                    "Dobrzańska 27",
+                    "Dobrzańska 28",
+                    "Dobrzańska 3",
+                    "Dobrzańska 4",
+                    "Dobrzańska 5",
+                    "Dobrzańska 6",
+                    "Dobrzańska 7",
+                    "Dobrzańska 8",
+                    "Dobrzańska 9",
+                    "Dworska",
+                    "Gałowska 3",
+                    "Gałowska 4",
+                    "Królewiecka dz.6/11",
+                    "Mączna 10",
+                    "Mączna 11",
+                    "Mączna 12",
+                    "Mączna 13",
+                    "Mączna 14",
+                    "Mączna 15",
+                    "Mączna 16",
+                    "Mączna 17",
+                    "Mączna 18",
+                    "Mączna 2",
+                    "Mączna 3",
+                    "Mączna 4",
+                    "Mączna 5",
+                    "Mączna 6",
+                    "Mączna 7",
+                    "Mączna 8",
+                    "Mączna 9",
+                    "Nadrzeczna",
+                    "Pilczycka 163",
+                    "Pilczycka 164",
+                    "Pilczycka 165",
+                    "Pilczycka 166",
+                    "Pilczycka 167",
+                    "Pilczycka 168",
+                    "Pilczycka 169",
+                    "Pilczycka 170",
+                    "Pilczycka 171",
+                    "Pilczycka 172",
+                    "Pilczycka 173",
+                    "Pilczycka 174",
+                    "Pilczycka 175",
+                    "Pilczycka 176",
+                    "Pilczycka 177",
+                    "Pilczycka 178",
+                    "Pilczycka 179",
+                    "Pilczycka 180",
+                    "Pilczycka 181",
+                    "Pilczycka 182",
+                    "Pilczycka 183",
+                    "Pilczycka 184",
+                    "Pilczycka 185",
+                    "Pilczycka 186",
+                    "Pilczycka 187",
+                    "Pilczycka 188",
+                    "Pilczycka 189",
+                    "Pilczycka 190",
+                    "Pilczycka 191",
+                    "Pilczycka 192",
+                    "Pilczycka 193",
+                    "Pilczycka 194",
+                    "Pilczycka 195",
+                    "Pilczycka 196",
+                    "Pilczycka 197",
+                    "dz.8/9",
+                    "Ślężańska 19-23a nieparzyste"
+                ]
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-03T06:00:00Z",
+                    "to_date": "2025-12-03T15:00:00Z"
+                },
+                "locations": [
+                    "Dobrzańska 13",
+                    "Dobrzańska 14",
+                    "Dobrzańska 15",
+                    "Dobrzańska 16",
+                    "Dobrzańska 17",
+                    "Dobrzańska 18",
+                    "Dobrzańska 19",
+                    "Dobrzańska 20",
+                    "Dobrzańska 21",
+                    "Dobrzańska 22",
+                    "Dobrzańska 23",
+                    "Dobrzańska 24",
+                    "Dobrzańska 25",
+                    "Dobrzańska 26",
+                    "Dobrzańska 27",
+                    "Dobrzańska 28"
+                ]
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-04T06:00:00Z",
+                    "to_date": "2025-12-04T15:00:00Z"
+                },
+                "locations": [
+                    "4-6a",
+                    "Pajączkowskiego 1",
+                    "Ślebodzińskiego 4-6a parzyste"
+                ]
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-08T06:00:00Z",
+                    "to_date": "2025-12-08T15:00:00Z"
+                },
+                "locations": [
+                    "Batorego dz.66/11",
+                    "Miodowa 100",
+                    "Miodowa 101",
+                    "Miodowa 102",
+                    "Miodowa 103",
+                    "Miodowa 104",
+                    "Miodowa 105",
+                    "Miodowa 106",
+                    "Miodowa 107",
+                    "Miodowa 108",
+                    "Miodowa 109",
+                    "Miodowa 110",
+                    "Miodowa 111",
+                    "Miodowa 112",
+                    "Miodowa 113",
+                    "Miodowa 114",
+                    "Miodowa 115",
+                    "Miodowa 116",
+                    "Miodowa 74",
+                    "Miodowa 75",
+                    "Miodowa 76",
+                    "Miodowa 77",
+                    "Miodowa 78",
+                    "Miodowa 79",
+                    "Miodowa 80",
+                    "Miodowa 81",
+                    "Miodowa 82",
+                    "Miodowa 83",
+                    "Miodowa 84",
+                    "Miodowa 85",
+                    "Miodowa 86",
+                    "Miodowa 87",
+                    "Miodowa 88",
+                    "Miodowa 89",
+                    "Miodowa 90",
+                    "Miodowa 91",
+                    "Miodowa 92",
+                    "Miodowa 93",
+                    "Miodowa 94",
+                    "Miodowa 95",
+                    "Miodowa 96",
+                    "Miodowa 97",
+                    "Miodowa 98",
+                    "Miodowa 99",
+                    "Zarembowicza 10",
+                    "Zarembowicza 12",
+                    "Zarembowicza 14",
+                    "Zarembowicza 6",
+                    "Zarembowicza 8",
+                    "dz.22/2",
+                    "dz.67/5"
+                ]
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-09T06:00:00Z",
+                    "to_date": "2025-12-09T15:00:00Z"
+                },
+                "locations": [
+                    "Baskijska 10",
+                    "Baskijska 12",
+                    "Baskijska 14",
+                    "Baskijska 16",
+                    "Baskijska 2",
+                    "Baskijska 4",
+                    "Baskijska 6",
+                    "Baskijska 8",
+                    "Batorego dz.66/11",
+                    "Brzozy dz.24a/b",
+                    "Grabowa 92-92a",
+                    "Grecka 26",
+                    "Grecka 27",
+                    "Grecka 28",
+                    "Grecka 29",
+                    "Grecka 30",
+                    "Grecka 31",
+                    "Grecka 32",
+                    "Grecka 33",
+                    "Grecka 34",
+                    "Grecka 35",
+                    "Grecka 36",
+                    "Grecka 37",
+                    "Grecka 38",
+                    "Grecka 39",
+                    "Grecka 40",
+                    "Grecka 41",
+                    "Grecka 42",
+                    "Grecka 43",
+                    "Grecka 44",
+                    "Grecka 45",
+                    "Grecka 46",
+                    "Grecka 47",
+                    "Grecka 48",
+                    "Grecka 49",
+                    "Grecka 50",
+                    "Grecka 51",
+                    "Grecka 52",
+                    "Grecka 53",
+                    "Grecka 54",
+                    "Grecka 55",
+                    "Grecka 56",
+                    "Grecka 57",
+                    "Maya dz.190/11",
+                    "Miodowa 100",
+                    "Miodowa 101",
+                    "Miodowa 102",
+                    "Miodowa 103",
+                    "Miodowa 104",
+                    "Miodowa 105",
+                    "Miodowa 106",
+                    "Miodowa 107",
+                    "Miodowa 108",
+                    "Miodowa 109",
+                    "Miodowa 110",
+                    "Miodowa 111",
+                    "Miodowa 112",
+                    "Miodowa 113",
+                    "Miodowa 114",
+                    "Miodowa 115",
+                    "Miodowa 116",
+                    "Miodowa 74",
+                    "Miodowa 75",
+                    "Miodowa 76",
+                    "Miodowa 77",
+                    "Miodowa 78",
+                    "Miodowa 79",
+                    "Miodowa 80",
+                    "Miodowa 81",
+                    "Miodowa 82",
+                    "Miodowa 83",
+                    "Miodowa 84",
+                    "Miodowa 85",
+                    "Miodowa 86",
+                    "Miodowa 87",
+                    "Miodowa 88",
+                    "Miodowa 89",
+                    "Miodowa 90",
+                    "Miodowa 91",
+                    "Miodowa 92",
+                    "Miodowa 93",
+                    "Miodowa 94",
+                    "Miodowa 95",
+                    "Miodowa 96",
+                    "Miodowa 97",
+                    "Miodowa 98",
+                    "Miodowa 99",
+                    "Stanów Zjednoczonych 33",
+                    "Stanów Zjednoczonych 35",
+                    "Stanów Zjednoczonych 37",
+                    "Stanów Zjednoczonych 39",
+                    "Stanów Zjednoczonych 41",
+                    "dz.190/10/11",
+                    "dz.190/5/6",
+                    "dz.190/8",
+                    "dz.22/2",
+                    "dz.26/13",
+                    "dz.67/5"
+                ]
+            }
+        ],
+        "Wrocław Krzyki": [
+            {
+                "interval": {
+                    "from_date": "2025-12-03T06:00:00Z",
+                    "to_date": "2025-12-03T15:00:00Z"
+                },
+                "locations": [
+                    "Chmurna 12",
+                    "Chmurna 14",
+                    "Chmurna 16",
+                    "Chmurna 18",
+                    "Chmurna 20",
+                    "Chmurna 22",
+                    "Jaworowa 21",
+                    "Jaworowa 23",
+                    "Jaworowa 25",
+                    "Jaworowa 27",
+                    "Jaworowa 29",
+                    "Jaworowa 31",
+                    "Jaworowa 33",
+                    "Jaworowa 35"
+                ]
+            }
+        ],
+        "Wrocław Psie Pole": [
+            {
+                "interval": {
+                    "from_date": "2025-12-03T06:00:00Z",
+                    "to_date": "2025-12-03T15:00:00Z"
+                },
+                "locations": [
+                    "Badury",
+                    "Dobrackiego",
+                    "Drobuta",
+                    "Grobla Łaniewska dz.10",
+                    "Niedziałkowskiego",
+                    "Rataja",
+                    "Strachocińska 63-101a",
+                    "Strachocińska 66",
+                    "Strachocińska 67",
+                    "Strachocińska 68",
+                    "Strachocińska 69",
+                    "Strachocińska 70",
+                    "Strachocińska 71",
+                    "Strachocińska 72",
+                    "Strachocińska 73",
+                    "Strachocińska 74",
+                    "Strachocińska 75",
+                    "Strachocińska 76",
+                    "Strachocińska 77",
+                    "Strachocińska 78",
+                    "Strachocińska 79",
+                    "Strachocińska 80",
+                    "Strachocińska 81",
+                    "Strachocińska 82",
+                    "Strachocińska 83",
+                    "Strachocińska 84",
+                    "Strachocińska 85",
+                    "Strachocińska 86",
+                    "Strachocińska 87",
+                    "Strachocińska 88",
+                    "Strachocińska 89",
+                    "Strachocińska 90",
+                    "Strachocińska 91",
+                    "Strachocińska 92",
+                    "Strachocińska 93",
+                    "Strachocińska 94",
+                    "Strachocińska 95",
+                    "Strachocińska 96",
+                    "Tatarakowa 1",
+                    "Tatarakowa 3",
+                    "Treski",
+                    "Wieśniacza",
+                    "Witosa",
+                    "Wołczyńska",
+                    "Zamojskiego 3"
+                ]
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-04T06:00:00Z",
+                    "to_date": "2025-12-04T15:00:00Z"
+                },
+                "locations": [
+                    "2-6a",
+                    "Gimnazjalna 1",
+                    "Gimnazjalna 2",
+                    "Gimnazjalna 3",
+                    "Knastera",
+                    "Lekcyjna 1",
+                    "Lekcyjna 10",
+                    "Lekcyjna 11",
+                    "Lekcyjna 12",
+                    "Lekcyjna 13",
+                    "Lekcyjna 14",
+                    "Lekcyjna 15",
+                    "Lekcyjna 16",
+                    "Lekcyjna 17",
+                    "Lekcyjna 18",
+                    "Lekcyjna 19",
+                    "Lekcyjna 2",
+                    "Lekcyjna 20",
+                    "Lekcyjna 21",
+                    "Lekcyjna 22",
+                    "Lekcyjna 23",
+                    "Lekcyjna 24",
+                    "Lekcyjna 25",
+                    "Lekcyjna 26",
+                    "Lekcyjna 27",
+                    "Lekcyjna 28",
+                    "Lekcyjna 29",
+                    "Lekcyjna 3",
+                    "Lekcyjna 30",
+                    "Lekcyjna 31",
+                    "Lekcyjna 32",
+                    "Lekcyjna 33",
+                    "Lekcyjna 34",
+                    "Lekcyjna 35",
+                    "Lekcyjna 36",
+                    "Lekcyjna 37",
+                    "Lekcyjna 38",
+                    "Lekcyjna 39",
+                    "Lekcyjna 4",
+                    "Lekcyjna 40",
+                    "Lekcyjna 41",
+                    "Lekcyjna 5",
+                    "Lekcyjna 6",
+                    "Lekcyjna 7",
+                    "Lekcyjna 8",
+                    "Lekcyjna 9",
+                    "Marczewskiego",
+                    "Przejazdowa 6-8a parzyste",
+                    "Redycka 1-27a",
+                    "Redycka 10",
+                    "Redycka 11",
+                    "Redycka 12",
+                    "Redycka 13",
+                    "Redycka 14",
+                    "Redycka 15",
+                    "Redycka 16",
+                    "Redycka 17",
+                    "Redycka 18",
+                    "Redycka 19",
+                    "Redycka 2",
+                    "Redycka 20",
+                    "Redycka 21",
+                    "Redycka 22",
+                    "Redycka 23",
+                    "Redycka 24",
+                    "Redycka 25",
+                    "Redycka 26",
+                    "Redycka 27",
+                    "Redycka 28",
+                    "Redycka 3",
+                    "Redycka 4",
+                    "Redycka 5",
+                    "Redycka 6",
+                    "Redycka 7",
+                    "Redycka 8",
+                    "Redycka 9",
+                    "Sołtysowicka 47",
+                    "Sołtysowicka 48",
+                    "Sołtysowicka 49",
+                    "Sołtysowicka 50",
+                    "Sołtysowicka 51",
+                    "Sołtysowicka 52",
+                    "Sołtysowicka 53",
+                    "Sołtysowicka 54",
+                    "Sołtysowicka 55",
+                    "Sołtysowicka 56",
+                    "Sołtysowicka 57",
+                    "Sołtysowicka 58",
+                    "Sołtysowicka 59",
+                    "Sołtysowicka 60",
+                    "Sołtysowicka 61",
+                    "Sołtysowicka 62",
+                    "Sołtysowicka 63",
+                    "Sołtysowicka 64",
+                    "Sołtysowicka 65",
+                    "Sołtysowicka 66",
+                    "Sołtysowicka 67",
+                    "Sołtysowicka 68",
+                    "Sołtysowicka 69",
+                    "Sołtysowicka 70",
+                    "Sołtysowicka 71",
+                    "Sołtysowicka 72",
+                    "Sołtysowicka 73",
+                    "Sołtysowicka 74",
+                    "Sołtysowicka 75",
+                    "dz.10",
+                    "dz.12/2",
+                    "dz.12/6",
+                    "dz.12/7",
+                    "dz.2/3",
+                    "dz.23/6"
+                ]
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-04T06:00:00Z",
+                    "to_date": "2025-12-04T16:00:00Z"
+                },
+                "locations": [
+                    "Kordiana",
+                    "Litewska 15",
+                    "Mazepy",
+                    "Rzeczna 1",
+                    "Rzeczna 10",
+                    "Rzeczna 11",
+                    "Rzeczna 12",
+                    "Rzeczna 13",
+                    "Rzeczna 14",
+                    "Rzeczna 2",
+                    "Rzeczna 3",
+                    "Rzeczna 4",
+                    "Rzeczna 5",
+                    "Rzeczna 6",
+                    "Rzeczna 7",
+                    "Rzeczna 8",
+                    "Rzeczna 9",
+                    "Szewczenki 1",
+                    "Szewczenki 10",
+                    "Szewczenki 11",
+                    "Szewczenki 12",
+                    "Szewczenki 2",
+                    "Szewczenki 3",
+                    "Szewczenki 4",
+                    "Szewczenki 5",
+                    "Szewczenki 6",
+                    "Szewczenki 7",
+                    "Szewczenki 8",
+                    "Szewczenki 9"
+                ]
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-05T06:00:00Z",
+                    "to_date": "2025-12-05T15:00:00Z"
+                },
+                "locations": [
+                    "Kamieńskiego 139",
+                    "Redycka 138",
+                    "Redycka 139",
+                    "Redycka 140",
+                    "Redycka 141",
+                    "Starościńska dz.3/1",
+                    "dz.19/4",
+                    "dz.8/1"
+                ]
+            }
+        ],
+        "Wrocław Stare Miasto": [
+            {
+                "interval": {
+                    "from_date": "2025-12-03T06:00:00Z",
+                    "to_date": "2025-12-03T15:00:00Z"
+                },
+                "locations": [
+                    "Bulwar Dunikowskiego",
+                    "Frycza-Modrzewskiego 12",
+                    "Frycza-Modrzewskiego 14",
+                    "Kraińskiego 10",
+                    "Kraińskiego 11",
+                    "Kraińskiego 12",
+                    "Kraińskiego 13",
+                    "Kraińskiego 14",
+                    "Kraińskiego 15",
+                    "Kraińskiego 16",
+                    "Kraińskiego 3",
+                    "Kraińskiego 4",
+                    "Kraińskiego 5",
+                    "Kraińskiego 6",
+                    "Kraińskiego 7",
+                    "Kraińskiego 8",
+                    "Kraińskiego 9",
+                    "Piaskowa",
+                    "Sygnalizacja drogowa",
+                    "kioski handlowe Grodzka róg Piaskowej (przy Moście Piaskowym)",
+                    "pl. Nankiera 10",
+                    "pl. Nankiera 11",
+                    "pl. Nankiera 12",
+                    "pl. Nankiera 13",
+                    "pl. Nankiera 14",
+                    "pl. Nankiera 15",
+                    "pl. Nankiera 16",
+                    "pl. Nankiera 17",
+                    "pl. Nankiera 8",
+                    "pl. Nankiera 9",
+                    "pl. Nowy Targ 15",
+                    "pl. Nowy Targ 16",
+                    "pl. Nowy Targ 17",
+                    "pl. Nowy Targ 18",
+                    "pl. Nowy Targ 19",
+                    "pl. Nowy Targ 20",
+                    "pl. Nowy Targ 21",
+                    "pl. Nowy Targ 22",
+                    "pl. Nowy Targ 23",
+                    "pl. Nowy Targ 24",
+                    "Św. Ducha"
+                ]
+            },
+            {
+                "interval": {
+                    "from_date": "2025-12-04T06:00:00Z",
+                    "to_date": "2025-12-04T15:00:00Z"
+                },
+                "locations": [
+                    "Bulwar Dunikowskiego",
+                    "Frycza-Modrzewskiego 12",
+                    "Frycza-Modrzewskiego 14",
+                    "Kraińskiego 10",
+                    "Kraińskiego 11",
+                    "Kraińskiego 12",
+                    "Kraińskiego 13",
+                    "Kraińskiego 14",
+                    "Kraińskiego 15",
+                    "Kraińskiego 16",
+                    "Kraińskiego 3",
+                    "Kraińskiego 4",
+                    "Kraińskiego 5",
+                    "Kraińskiego 6",
+                    "Kraińskiego 7",
+                    "Kraińskiego 8",
+                    "Kraińskiego 9",
+                    "Piaskowa",
+                    "Sygnalizacja drogowa",
+                    "kioski handlowe Grodzka róg Piaskowej (przy Moście Piaskowym)",
+                    "pl. Nankiera 10",
+                    "pl. Nankiera 11",
+                    "pl. Nankiera 12",
+                    "pl. Nankiera 13",
+                    "pl. Nankiera 14",
+                    "pl. Nankiera 15",
+                    "pl. Nankiera 16",
+                    "pl. Nankiera 17",
+                    "pl. Nankiera 8",
+                    "pl. Nankiera 9",
+                    "pl. Nowy Targ 15",
+                    "pl. Nowy Targ 16",
+                    "pl. Nowy Targ 17",
+                    "pl. Nowy Targ 18",
+                    "pl. Nowy Targ 19",
+                    "pl. Nowy Targ 20",
+                    "pl. Nowy Targ 21",
+                    "pl. Nowy Targ 22",
+                    "pl. Nowy Targ 23",
+                    "pl. Nowy Targ 24",
+                    "Św. Ducha"
+                ]
+            }
+        ],
+        "Wrocław Śródmieście": [
+            {
+                "interval": {
+                    "from_date": "2025-12-09T06:00:00Z",
+                    "to_date": "2025-12-09T15:00:00Z"
+                },
+                "locations": [
+                    "164 \"Politechnika\"",
+                    "Braci Gierymskich 159 \"Wody Polskie\"",
+                    "Handelsmana",
+                    "Krzywickiego",
+                    "Mianowskiego 15",
+                    "Mianowskiego 16",
+                    "Mianowskiego 17",
+                    "Mianowskiego 18",
+                    "Mianowskiego 19",
+                    "Mianowskiego 20",
+                    "Mianowskiego 21",
+                    "Mianowskiego 22",
+                    "Świętochowskiego 10",
+                    "Świętochowskiego 11",
+                    "Świętochowskiego 12",
+                    "Świętochowskiego 13",
+                    "Świętochowskiego 6",
+                    "Świętochowskiego 7",
+                    "Świętochowskiego 8",
+                    "Świętochowskiego 9"
+                ]
+            }
+        ]
+    }
+}
+Process finished with exit code 0

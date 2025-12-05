@@ -5,7 +5,8 @@ import json
 
 import requests
 
-from .parsers import parse_location_lines
+# from .parsers import parse_location_lines
+from Microservice.scrapers.parsers import parse_location_lines
 
 sample_url = """
 https://www.tauron-dystrybucja.pl/waapi/outages/area
@@ -131,14 +132,9 @@ def get_tauron_planned_shutdowns(from_date: datetime, to_date: datetime):
                 resp_json = response.json()
                 print(resp_json)
 
-                # print(request_url)
-
                 responses_and_voivodeships.append((resp_json, voivodeship))
-
-                # print(resp_json[''])
             except Exception as e:
-                # logger.exception(f"Exception making request to {request_url}:\n {e}")
-                # print(f"Exception making request to {request_url}:\n {e}")
+                print(f"Exception making request to {request_url}:\n {e}")
                 pass
     return transform_shutdown_data(responses_and_voivodeships)
 

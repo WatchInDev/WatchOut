@@ -3,29 +3,21 @@ from datetime import datetime, timedelta
 from scrapers import get_tauron_planned_shutdowns, get_energa_planned_shutdowns, fetch_meteorological_warnings
 import requests
 import azure.functions as func
-from logging_config import setup_loguru
-
-setup_loguru()
-
-from loguru import logger
 
 
 def electricity_outages_fetching():
     try:
-        tauron = get_tauron_planned_shutdowns(datetime.now(), datetime.now() + timedelta(days=7))
         energa = get_energa_planned_shutdowns()
+        tauron = get_tauron_planned_shutdowns(datetime.now(), datetime.now() + timedelta(days=7))
+
 
         tauron_res = {"outagesResponse": tauron, "provider": 'tauron'}
         energa_res = {"outagesResponse": energa, "provider": 'energa'}
 
-        print([tauron_res, energa_res])
-        # print([energa_res])
-
         return [tauron_res, energa_res]
-        # return [energa_res]
 
     except Exception as e:
-        logger.exception(f"Exception during data scraping or retrieving: {e}")
+        print(f"Exception during data scraping or retrieving: {e}")
 
 
 def meteorological_warnings_fetching():
@@ -33,7 +25,7 @@ def meteorological_warnings_fetching():
         imgw = fetch_meteorological_warnings()
         return imgw
     except Exception as e:
-        logger.exception(f"Exception during data retrieving: {e}")
+        print(f"Exception during data retrieving: {e}")
 
 
 app = func.FunctionApp()
@@ -43,7 +35,7 @@ app = func.FunctionApp()
                    use_monitor=False)
 def send_data_to_server(myTimer: func.TimerRequest) -> None:
     if myTimer.past_due:
-        logger.info('The timer is past due!')
+        print('The timer is past due!')
 
     base_url = os.getenv("SERVER_BASE_INTERNAL_URL", '')
     electricity_url = os.getenv("ELECTRICITY_OUTAGES_ENDPOINT", '/warnings/electricity')
@@ -59,11 +51,11 @@ def send_data_to_server(myTimer: func.TimerRequest) -> None:
 
         resp1.raise_for_status()
         resp2.raise_for_status()
-        logger.info('Data sent successfully')
+        print('Data sent successfully')
     except Exception as e:
-        logger.exception(f"Exception during data sending to server: {e}")
+        print(f"Exception during data sending to server: {e}")
 
-    logger.info('Python timer trigger function executed.')
+    print('Python timer trigger function executed.')
 
 
 if __name__ == '__main__':
@@ -82,6 +74,6 @@ if __name__ == '__main__':
 
         resp1.raise_for_status()
         resp2.raise_for_status()
-        logger.info('Data sent successfully')
+        print('Data sent successfully')
     except Exception as e:
-        logger.exception(f"Exception during data sending to server: {e}")
+        print(f"Exception during data sending to server: {e}")
