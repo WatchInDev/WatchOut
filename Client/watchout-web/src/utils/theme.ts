@@ -43,8 +43,17 @@ const theme = createTheme({
           boxShadow: 'none',
         },
       },
-    }
+    },
   }
 });
 
+export const reactTableStyles = {
+  muiTablePaperProps: {
+    elevation: 0,
+    sx: {
+      borderRadius: "1rem",
+      border: "none",
+    },
+  }
+}
 export default theme;
