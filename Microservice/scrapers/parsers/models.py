@@ -1,4 +1,4 @@
-from pydantic import BaseModel, Field, RootModel
+from pydantic import RootModel
 
 
 class TownsAndLocations(RootModel):

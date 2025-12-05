@@ -3,8 +3,13 @@ import sys
 
 import requests
 from datetime import datetime
-# from .parsers import parse_location_lines
-from Microservice.scrapers.parsers import parse_location_lines
+
+try:
+    # Try importing from local modules (Azure/Production context)
+    from .parsers import parse_location_lines
+except ImportError:
+    from Microservice.scrapers.parsers import parse_location_lines
+
 
 def transform_shutdown_data(shutdown_list):
     """
@@ -70,26 +75,21 @@ def transform_shutdown_data(shutdown_list):
     if not messages_to_parse:
         return transformed_data
 
-    # Send all messages to LLM.
+    # Parse address data by LLM
     parsed_results = parse_location_lines(messages_to_parse)
 
-    # Use zip to pair the specific date/voivodeship with the parsed locations
+    # Reassemble
     for context, towns_list in zip(valid_contexts, parsed_results):
         voivodeship = context["voivodeship"]
 
-        # This handles the "Parzew..., Sławoszew..." case where one line = multiple cities.
-        for town_entry in towns_list:
-
-            # Assuming structure: [{"Parzew": ...details...}, {"Sławoszew": ...details...}]
-            if isinstance(town_entry, dict):
-                for town_name, location_details in town_entry.items():
-
-                    # CRITICAL: We use the town name from the LLM as the "City"
+        for town_dict in towns_list:
+            if isinstance(town_dict, dict):
+                for town_name, location_details in town_dict.items():
                     city = town_name
 
                     shutdown_details = {
                         "interval": context["interval"],
-                        "locations": location_details['locations']
+                        "locations": location_details
                     }
 
                     # Initialize structure if needed

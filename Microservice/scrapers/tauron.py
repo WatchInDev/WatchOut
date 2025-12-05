@@ -5,13 +5,11 @@ import json
 
 import requests
 
-# from .parsers import parse_location_lines
-from Microservice.scrapers.parsers import parse_location_lines
-
-sample_url = """
-https://www.tauron-dystrybucja.pl/waapi/outages/area
-?provinceGAID=2&districtGAID=1041&fromDate=2025-10-17T15:21:32.682Z&toDate=2025-10-22T15:21:32.682Z&_=1760714469806
-"""
+try:
+    # Try importing from local modules (Azure/Production context)
+    from .parsers import parse_location_lines
+except ImportError:
+    from Microservice.scrapers.parsers import parse_location_lines
 
 
 def transform_shutdown_data(responses_and_voivodeships: list[tuple[dict, str]]) -> dict:
@@ -52,36 +50,26 @@ def transform_shutdown_data(responses_and_voivodeships: list[tuple[dict, str]]) 
             messages_to_parse.append(message)
 
     # Batch Parsing
-
     if not messages_to_parse:
         return transformed_data
 
-    # Send all messages to LLM.
-    # Expected result: A list where index i matches messages_to_parse[i].
+    # Parse messages by LLM
     parsed_results = parse_location_lines(messages_to_parse)
 
     # Reassembly
-
     for context, towns_list in zip(valid_contexts, parsed_results):
 
         voivodeship = context["voivodeship"]
 
         # Iterate over EVERY town found in this single message line.
-        for town_entry in towns_list:
-
-            # Assuming structure: [{"TownName": {"locations": [...]}}, ...]
-            if isinstance(town_entry, dict):
-                for town_name, location_details in town_entry.items():
-
-                    # Use the town name parsed by the LLM
+        for town_dict in towns_list:
+            if isinstance(town_dict, dict):
+                for town_name, location_details in town_dict.items():
                     city = town_name
-
-                    # Extract locations list (handles potential nesting issues if sanitize wasn't perfect)
-                    locs = location_details.get('locations', []) if isinstance(location_details, dict) else []
 
                     shutdown_details = {
                         "interval": context["interval"],
-                        "locations": locs
+                        "locations": location_details
                     }
 
                     # Initialize structure

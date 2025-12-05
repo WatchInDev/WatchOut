@@ -10,7 +10,6 @@ def electricity_outages_fetching():
         energa = get_energa_planned_shutdowns()
         tauron = get_tauron_planned_shutdowns(datetime.now(), datetime.now() + timedelta(days=7))
 
-
         tauron_res = {"outagesResponse": tauron, "provider": 'tauron'}
         energa_res = {"outagesResponse": energa, "provider": 'energa'}
 
@@ -41,7 +40,7 @@ def send_data_to_server(myTimer: func.TimerRequest) -> None:
     electricity_url = os.getenv("ELECTRICITY_OUTAGES_ENDPOINT", '/warnings/electricity')
     weather_url = os.getenv("WEATHER_ALARMS_ENDPOINT", '/warnings/weather')
 
-    token = os.getenv("INTERNAL_API_KEY", '123')
+    token = os.getenv("INTERNAL_API_KEY", '')
     electricity = electricity_outages_fetching()
     imgw = meteorological_warnings_fetching()
 
@@ -56,24 +55,3 @@ def send_data_to_server(myTimer: func.TimerRequest) -> None:
         print(f"Exception during data sending to server: {e}")
 
     print('Python timer trigger function executed.')
-
-
-if __name__ == '__main__':
-    base_url = os.getenv("SERVER_BASE_INTERNAL_URL",
-                         'https://watchoutapi-h2c2bxesd6fzc2he.polandcentral-01.azurewebsites.net/api/v1/internal')
-    electricity_url = os.getenv("ELECTRICITY_OUTAGES_ENDPOINT", '/warnings/electricity')
-    weather_url = os.getenv("WEATHER_ALARMS_ENDPOINT", '/warnings/weather')
-
-    token = os.getenv("INTERNAL_API_KEY", '123')
-    electricity = electricity_outages_fetching()
-    imgw = meteorological_warnings_fetching()
-
-    try:
-        resp1 = requests.post(f"{base_url}{electricity_url}", json=electricity, headers={'INTERNAL_API_KEY': token})
-        resp2 = requests.post(f"{base_url}{weather_url}", json=imgw, headers={'INTERNAL_API_KEY': token})
-
-        resp1.raise_for_status()
-        resp2.raise_for_status()
-        print('Data sent successfully')
-    except Exception as e:
-        print(f"Exception during data sending to server: {e}")
