@@ -109,8 +109,8 @@ export type AddLocationRequest = {
       weather: boolean;
       eventTypes?: number[];
     };
-  };
   notificationsEnable: boolean;
+  };
 };
 
 export type UpdateLocationRequest = AddLocationRequest;
