@@ -25,6 +25,7 @@ export const useUserLocation = () => {
   const [hasPermission, setHasPermission] = useState(false);
   const [location, setLocation] = useState<{ latitude: number; longitude: number } | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const checkAndRequest = async () => {
@@ -51,9 +52,10 @@ export const useUserLocation = () => {
           }
         );
       }
+      setLoading(false);
     };
     checkAndRequest();
   }, []);
 
-  return { hasPermission, location, error };
+  return { hasPermission, location, error, loading };
 };

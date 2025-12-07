@@ -1,4 +1,4 @@
-import type { GetEventsRequest, PaginationRequest } from './types';
+import type { ActionAvailabilityRequest, GetEventsRequest, PaginationRequest } from './types';
 
 export type ApiDefinition = {
   key: string[];
@@ -11,7 +11,7 @@ export const API_ENDPOINTS = {
     getClusters: (request: GetEventsRequest, minPoints: number, eps: number) =>
       `events/clusters${queryParams(request)}&minPoints=${minPoints}&eps=${eps}`,
     create: 'events',
-    availability: 'events/ability',
+    availability: (request: ActionAvailabilityRequest) => 'events/ability' + queryParams(request),
   },
   comments: {
     getByEventId: <T>(eventId: number, pagination: PaginationRequest<T>) =>
@@ -28,7 +28,7 @@ export const API_ENDPOINTS = {
   locations: {
     getAll: 'users/favourite-places',
     add: 'users/favourite-places',
-    edit: (placeId: string) => `users/favourite-places/${placeId}`,
+    edit: (placeId: string) => `users/favourite-places/${placeId}/preferences`,
     delete: (placeId: string) => `users/favourite-places/${placeId}`,
   },
   externalWarnings: {

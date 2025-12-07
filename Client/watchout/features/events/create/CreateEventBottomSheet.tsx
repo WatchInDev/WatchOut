@@ -1,7 +1,7 @@
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Text } from 'components/Base/Text';
 import { CustomTextInput } from 'components/Base/CustomTextInput';
-import { Coordinates } from 'utils/types';
+import { Coordinates, PostUnabilityReason } from 'utils/types';
 import { EventTypeSelectionModal } from './EventTypeSelectionModal';
 import { BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet';
 import { ActivityIndicator, Button, Icon } from 'react-native-paper';
@@ -13,6 +13,8 @@ import { useActionAvailability } from './useActionAvailability';
 import { Row } from 'components/Base/Row';
 import { theme } from 'utils/theme';
 import { Controller } from 'react-hook-form';
+import { useUserLocation } from 'features/map/useLocation';
+import { unavailabilityDictionary } from 'utils/dictionaries';
 
 type CreateEventProps = {
   location: Coordinates;
@@ -33,18 +35,46 @@ export const CreateEventBottomSheet = ({ location, onSuccess, onClose }: CreateE
     isLoading,
   } = useEventCreateForm(location, onSuccess);
 
+  const { location: userLocation, loading: isUserLocationLoading } = useUserLocation();
+  const isUserLocationFetched = !isUserLocationLoading && userLocation != null;
+
   const { data: actionAvailability, isLoading: isActionAvailabilityLoading } =
-    useActionAvailability();
+    useActionAvailability(
+      {
+        lat: userLocation?.latitude ?? 0,
+        long: userLocation?.longitude ?? 0,
+        eventLat: location.latitude,
+        eventLong: location.longitude,
+      },
+      { isEnabled: isUserLocationFetched }
+    );
 
   useEffect(() => {
     eventBottomSheetRef.current?.present();
   }, [eventBottomSheetRef]);
 
+  console.log({
+    isUserLocationFetched
+  })
   return (
     <BottomSheetModal ref={eventBottomSheetRef} enablePanDownToClose onDismiss={onClose}>
       <BottomSheetView>
         <PageWrapper>
-          {isActionAvailabilityLoading ? (
+          {!isUserLocationFetched ? (
+            <View style={{ padding: 16, justifyContent: 'center', alignItems: 'center', gap: 8 }}>
+              <View>
+                <Icon source="map-marker-off" size={64} color={theme.palette.text.secondary} />
+              </View>
+              <Text variant="h3" align="center">
+                Lokalizacja niedostępna
+              </Text>
+              <Text color="secondary" align="center">
+                Aby móc zgłosić nowe zdarzenie, potrzebujemy wiedzieć, że znajdujesz się w pobliżu
+                miejsca zdarzenia. Upewnij się, że usługi lokalizacyjne są włączone i spróbuj
+                ponownie.
+              </Text>
+            </View>
+          ) : isActionAvailabilityLoading ? (
             <ActivityIndicator style={{ marginVertical: 20 }} />
           ) : actionAvailability?.canPost ? (
             <View style={styles.container}>
@@ -100,10 +130,7 @@ export const CreateEventBottomSheet = ({ location, onSuccess, onClose }: CreateE
                 control={control}
                 name="images"
                 render={({ field: { value, onChange } }) => (
-                  <ImageUploader
-                    images={value}
-                    onImagesUpload={onChange}
-                  />
+                  <ImageUploader images={value} onImagesUpload={onChange} />
                 )}
               />
 
@@ -125,7 +152,7 @@ export const CreateEventBottomSheet = ({ location, onSuccess, onClose }: CreateE
               </Button>
             </View>
           ) : (
-            <ActionNotAvailableMessage />
+            <ActionNotAvailableMessage reason={actionAvailability?.reason} />
           )}
         </PageWrapper>
       </BottomSheetView>
@@ -133,7 +160,11 @@ export const CreateEventBottomSheet = ({ location, onSuccess, onClose }: CreateE
   );
 };
 
-const ActionNotAvailableMessage = () => {
+const ActionNotAvailableMessage = ({ reason }: { reason?: PostUnabilityReason }) => {
+  const errorDescription = reason
+    ? unavailabilityDictionary[reason]
+    : 'Chilowo nie jest możliwe zgłoszenie zdarzenia. Spróbuj ponownie później.';
+
   return (
     <View style={{ gap: 8, padding: 16 }}>
       <Row style={{ justifyContent: 'center', marginVertical: 8 }}>
@@ -142,10 +173,7 @@ const ActionNotAvailableMessage = () => {
       <Text variant="h3" align="center">
         Akcja niedostępna
       </Text>
-      <Text align="center">
-        Nie możesz zgłosić nowego zdarzenia, ponieważ twoja reputacja jest zbyt niska. Spróbuj
-        ponownie później.
-      </Text>
+      <Text align="center">{errorDescription}</Text>
     </View>
   );
 };

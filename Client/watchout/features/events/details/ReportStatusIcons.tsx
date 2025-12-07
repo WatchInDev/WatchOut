@@ -34,13 +34,7 @@ const reportIcons = (event: Event) => [
 
 export const ReportStatusIcons = ({ event }: { event: Event }) => {
   const icons = reportIcons(event).filter(({ predicate }) => predicate);
-  const dayjsNow = dayjs.utc();
-  console.log({
-    reportedDate: event.reportedDate,
-    dayjsNow: dayjsNow,
-    diffMinutes: dayjsNow.diff(dayjs.utc(event.reportedDate), 'minute'),
-  })
-  
+
   return (
     <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginTop: 4 }}>
       {icons.map(({ icon, color, text }) => (

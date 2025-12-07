@@ -1,14 +1,10 @@
 import { StyleSheet, View, Image, Modal, Pressable } from 'react-native';
 import { Text } from 'components/Base/Text';
 import { Event } from 'utils/types';
-import dayjs from 'dayjs';
 import { icons } from 'components/Base/icons';
 import { Row } from 'components/Base/Row';
 import { useState } from 'react';
 import { formatDate } from 'utils/helpers';
-import { HIGH_REPUTATION_THRESHOLD, LOW_REPUTATION_THRESHOLD } from 'utils/constants';
-import { Chip, Icon } from 'react-native-paper';
-import { CustomChip } from 'components/Base/CustomChip';
 import { ReportStatusIcons } from './ReportStatusIcons';
 
 type EventDetailsProps = {

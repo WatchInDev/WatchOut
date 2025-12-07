@@ -1,3 +1,4 @@
+import { ActionAvailability } from 'utils/types';
 export type Coordinates = {
   latitude: number;
   longitude: number;
@@ -199,7 +200,16 @@ export type Alert = {
   placeName: string;
 };
 
-export type ActionAvailability = {
+export type ActionAvailabilityRequest = {
+  lat: number;
+  long: number;
+  eventLat: number;
+  eventLong: number;
+}
+
+export type ActionAvailabilityResponse = {
   canPost: boolean;
-  reason?: string;
+  reason?: PostUnabilityReason;
 };
+
+export type PostUnabilityReason = 'DISTANCE_RESTRICTION' | 'REPUTATION_RESTRICTION';
