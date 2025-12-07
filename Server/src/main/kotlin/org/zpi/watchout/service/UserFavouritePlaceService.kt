@@ -13,6 +13,7 @@ import org.zpi.watchout.data.repos.EventTypeRepository
 import org.zpi.watchout.data.repos.UserFavouritePlacePreferenceRepository
 import org.zpi.watchout.data.repos.UserFavouritePlaceRepository
 import org.zpi.watchout.service.dto.EditFavouritePlacePreferenceDTO
+import org.zpi.watchout.service.dto.EditFavouritePlaceRequestDTO
 import org.zpi.watchout.service.dto.FavouritePlaceDTO
 import org.zpi.watchout.service.dto.FavouritePlaceRequestDTO
 import org.zpi.watchout.service.dto.GeocodeResponseDTO
@@ -54,18 +55,40 @@ class UserFavouritePlaceService(val userFavouritePlaceRepository: UserFavouriteP
         return FavouritePlaceDTO(result, savedPreferences)
     }
 
-    fun editFavouritePlacePreference(userId: Long,placeId: Long, editFavouritePlacePreferenceDTO: EditFavouritePlacePreferenceDTO){
-        userFavouritePlaceRepository.findByUserId(userId).firstOrNull { it.id == placeId }
-            ?: throw IncorrectLocationException("Favourite place with id $placeId not found for user with id $userId")
+    @Transactional(rollbackFor = [Exception::class])
+    fun editFavouritePlacePreference(userId: Long,placeId: Long, editFavouritePlacePreferenceDTO: EditFavouritePlaceRequestDTO){
+        val favouritePlace = userFavouritePlaceRepository.findById(placeId)
+            .orElseThrow { IncorrectLocationException("Favourite place with id ${placeId} not found") }
 
         val favouritePlacePreference = userFavouritePlacePreferenceRepository.findByUserFavouritePlaceId(placeId)
             ?: throw IncorrectLocationException("Favourite place with id $placeId not found")
 
-        favouritePlacePreference.radius = editFavouritePlacePreferenceDTO.radius
-        favouritePlacePreference.notificationEnabled = editFavouritePlacePreferenceDTO.notificationsEnable
-        favouritePlacePreference.weather = editFavouritePlacePreferenceDTO.services.weather
-        favouritePlacePreference.electricity = editFavouritePlacePreferenceDTO.services.electricity
-        favouritePlacePreference.eventTypes = editFavouritePlacePreferenceDTO.services.eventTypes.map {
+        if(favouritePlace.userId != userId){
+            throw IncorrectLocationException("Favourite place with id $placeId not found for user with id $userId")
+        }
+
+        favouritePlace.placeName = editFavouritePlacePreferenceDTO.placeName
+
+        val response = googleGeocodeClient.getAddressFromCoordinates(editFavouritePlacePreferenceDTO.latitude, editFavouritePlacePreferenceDTO.longitude)
+        val components = extractRelevantComponents(response)
+        if(components["route"] == null && components["street_number"] == null){
+            throw IncorrectLocationException("Provided coordinates do not correspond to a valid street address.")
+        }
+        favouritePlace.locality = components["administrative_area_level_2"]!!
+        favouritePlace.location = components["route"] + " " + components["street_number"]
+        favouritePlace.region = components["locality"]!!
+        favouritePlace.voivodeship = components["administrative_area_level_1"]!!
+        favouritePlace.point = GeometryFactory().createPoint((Coordinate(editFavouritePlacePreferenceDTO.longitude, editFavouritePlacePreferenceDTO.latitude))).also{
+            it.srid = 4326
+        }
+
+        userFavouritePlaceRepository.save(favouritePlace)
+
+        favouritePlacePreference.radius = editFavouritePlacePreferenceDTO.settings.radius
+        favouritePlacePreference.notificationEnabled = editFavouritePlacePreferenceDTO.settings.notificationsEnable
+        favouritePlacePreference.weather = editFavouritePlacePreferenceDTO.settings.services.weather
+        favouritePlacePreference.electricity = editFavouritePlacePreferenceDTO.settings.services.electricity
+        favouritePlacePreference.eventTypes = editFavouritePlacePreferenceDTO.settings.services.eventTypes.map {
             eventTypeRepository.findById(it).orElseThrow { EntityNotFoundException("Event type with name $it not found")}
         }
 

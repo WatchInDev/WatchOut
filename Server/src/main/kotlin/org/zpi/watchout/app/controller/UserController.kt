@@ -18,6 +18,7 @@ import org.zpi.watchout.data.entity.UserFavouritePlace
 import org.zpi.watchout.service.UserFavouritePlaceService
 import org.zpi.watchout.service.UserService
 import org.zpi.watchout.service.dto.EditFavouritePlacePreferenceDTO
+import org.zpi.watchout.service.dto.EditFavouritePlaceRequestDTO
 import org.zpi.watchout.service.dto.FavouritePlaceDTO
 import org.zpi.watchout.service.dto.FavouritePlaceRequestDTO
 import org.zpi.watchout.service.dto.GlobalPreferencesDTO
@@ -59,7 +60,7 @@ class UserController (val userFavouritePlaceService: UserFavouritePlaceService, 
     @PutMapping("/favourite-places/{placeId}/preferences")
     @PreAuthorize("hasRole('ROLE_USER')")
     @Operation(summary = "Edit Favourite Place Preference", description = "Edit all preferences for a specific favourite place. radius in meters. Event types should be provided as a list of event type IDs. send all fields even if not changing them.")
-    fun editFavouritePlacePreference(@Parameter(hidden = true) @AuthenticationPrincipal userId: Long, @PathVariable("placeId") placeId: Long, @RequestBody editFavouritePlacePreferenceDTO: EditFavouritePlacePreferenceDTO) {
+    fun editFavouritePlacePreference(@Parameter(hidden = true) @AuthenticationPrincipal userId: Long, @PathVariable("placeId") placeId: Long, @RequestBody editFavouritePlacePreferenceDTO: EditFavouritePlaceRequestDTO) {
         logger.info { "Editing favourite place preference with id: $placeId for user with id: $userId" }
         userFavouritePlaceService.editFavouritePlacePreference(userId,placeId, editFavouritePlacePreferenceDTO)
         logger.info { "Edited favourite place preference with id: $placeId for user with id: $userId" }
