@@ -3,11 +3,7 @@ import { Text } from 'components/Base/Text';
 import { PageWrapper } from 'components/Common/PageWrapper';
 import { TouchableOpacity, View } from 'react-native';
 import { Icon } from 'react-native-paper';
-import { settingsRoutes } from './SettingsNavigator';
-
-type SettingsProps = {
-  options: { icon: string; label: string; link: string }[];
-};
+import { settingsRoutes } from './settingsRoutes';
 
 export const Settings = () => {
   const navigation = useNavigation();

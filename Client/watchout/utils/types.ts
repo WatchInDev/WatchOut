@@ -1,4 +1,3 @@
-import { ActionAvailability } from 'utils/types';
 export type Coordinates = {
   latitude: number;
   longitude: number;
@@ -31,7 +30,7 @@ export type Event = {
   author: {
     id: number;
     reputation: number;
-  }
+  };
   active: boolean;
   rating: number;
   ratingForCurrentUser: number;
@@ -205,7 +204,7 @@ export type ActionAvailabilityRequest = {
   long: number;
   eventLat: number;
   eventLong: number;
-}
+};
 
 export type ActionAvailabilityResponse = {
   canPost: boolean;

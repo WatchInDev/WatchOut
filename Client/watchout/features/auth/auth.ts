@@ -9,7 +9,6 @@ import {
   GoogleAuthProvider,
   signInWithCredential,
   getIdToken,
-  firebase,
   FirebaseAuthTypes,
 } from '@react-native-firebase/auth';
 import { apiClient } from 'utils/apiClient';
@@ -38,7 +37,7 @@ export async function signUpEmail(email: string, password: string, displayName?:
 export async function signInWithEmail(
   email: string,
   password: string
-): Promise<FirebaseAuthTypes.User | { error: string }> {
+): Promise<FirebaseAuthTypes.User> {
   try {
     const auth = getAuth();
     const cred = await signInWithEmailAndPassword(auth, email, password);
@@ -93,7 +92,7 @@ export async function signInWithGoogleIdToken(idToken: string) {
 
   const firebaseIdToken = await getIdToken(user);
   await apiClient.post(
-    '/users/create',
+    API_ENDPOINTS.users.create,
     {
       firebaseUid: user.uid,
       email: user.email,

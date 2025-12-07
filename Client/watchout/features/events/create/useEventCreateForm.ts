@@ -21,7 +21,11 @@ type SelectedEventType = {
   icon: string;
 } | null;
 
-export const useEventCreateForm = (location: Coordinates, onSuccess: () => void) => {
+export const useEventCreateForm = (
+  location: Coordinates,
+  userLocation: Coordinates | null,
+  onSuccess: () => void
+) => {
   const eventBottomSheetRef = useRef<BottomSheetModal>(null);
 
   const [selectedEventType, setSelectedEventType] = useState<SelectedEventType>(null);
@@ -44,12 +48,13 @@ export const useEventCreateForm = (location: Coordinates, onSuccess: () => void)
 
   const createEventMutation = useCreateEvent();
 
-  const handleSetSelectedEventType = useCallback((eventType: SelectedEventType) => {
-    setSelectedEventType(eventType);
-    setValue('eventTypeId', eventType?.id || null);
-  }, [setValue]);
-
-  const userLocation = useUserLocation();
+  const handleSetSelectedEventType = useCallback(
+    (eventType: SelectedEventType) => {
+      setSelectedEventType(eventType);
+      setValue('eventTypeId', eventType?.id || null);
+    },
+    [setValue]
+  );
 
   const onSubmit = (values: FormData) => {
     const isValid = values.name && values.description && values.eventTypeId !== null;
@@ -57,12 +62,8 @@ export const useEventCreateForm = (location: Coordinates, onSuccess: () => void)
       Alert.alert('Błąd', 'Wszystkie pola muszą być wypełnione.');
       return;
     }
-
-    if (!userLocation.location) {
-      Alert.alert(
-        'Błąd',
-        'Aby móc utworzyć zdarzenie, upewnij się, że usługi lokalizacyjne są włączone.'
-      );
+    if (!userLocation) {
+      Alert.alert('Błąd', 'Nie udało się pobrać Twojej lokalizacji. Spróbuj ponownie.');
       return;
     }
 
@@ -73,8 +74,8 @@ export const useEventCreateForm = (location: Coordinates, onSuccess: () => void)
       description: values.description,
       latitude: location.latitude,
       longitude: location.longitude,
-      userLatitude: location.latitude,
-      userLongitude: location.longitude,
+      userLatitude: userLocation.latitude,
+      userLongitude: userLocation.longitude,
       endDate: dateInOneHour.toISOString(),
       images: values.images.map((image) => image.base64),
       eventTypeId: values.eventTypeId!,

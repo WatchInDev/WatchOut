@@ -1,7 +1,6 @@
 import { CustomSurface } from 'components/Layout/CustomSurface';
 import { ViewStyle } from 'react-native';
 import { Icon } from 'react-native-paper';
-import { View } from 'react-native-reanimated/lib/typescript/Animated';
 
 type CustomChipProps = {
   icon: string;

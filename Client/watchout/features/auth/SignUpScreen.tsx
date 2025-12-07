@@ -7,7 +7,8 @@ import { Button, Icon } from 'react-native-paper';
 import { GoogleSignInButton } from 'features/auth/GoogleSignInButton';
 import { signUpEmail } from './auth';
 import { AuthLayout } from 'components//Layout/AuthLayout';
-import { AuthError, firebaseAuthErrorMessages } from 'utils/AuthError';
+import { AuthError } from 'utils/AuthError';
+import { firebaseAuthErrorMessages } from 'utils/dictionaries';
 
 export const SignUpScreen = () => {
   const { navigate } = useNavigation();

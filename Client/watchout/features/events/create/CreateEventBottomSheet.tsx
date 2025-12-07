@@ -23,6 +23,9 @@ type CreateEventProps = {
 };
 
 export const CreateEventBottomSheet = ({ location, onSuccess, onClose }: CreateEventProps) => {
+  const { location: userLocation, loading: isUserLocationLoading } = useUserLocation();
+  const isUserLocationFetched = !isUserLocationLoading && userLocation != null;
+
   const {
     control,
     handleSubmit,
@@ -33,10 +36,8 @@ export const CreateEventBottomSheet = ({ location, onSuccess, onClose }: CreateE
     geocodedAddress,
     eventBottomSheetRef,
     isLoading,
-  } = useEventCreateForm(location, onSuccess);
+  } = useEventCreateForm(location, userLocation, onSuccess);
 
-  const { location: userLocation, loading: isUserLocationLoading } = useUserLocation();
-  const isUserLocationFetched = !isUserLocationLoading && userLocation != null;
 
   const { data: actionAvailability, isLoading: isActionAvailabilityLoading } =
     useActionAvailability(
@@ -53,9 +54,6 @@ export const CreateEventBottomSheet = ({ location, onSuccess, onClose }: CreateE
     eventBottomSheetRef.current?.present();
   }, [eventBottomSheetRef]);
 
-  console.log({
-    isUserLocationFetched
-  })
   return (
     <BottomSheetModal ref={eventBottomSheetRef} enablePanDownToClose onDismiss={onClose}>
       <BottomSheetView>
@@ -163,7 +161,7 @@ export const CreateEventBottomSheet = ({ location, onSuccess, onClose }: CreateE
 const ActionNotAvailableMessage = ({ reason }: { reason?: PostUnabilityReason }) => {
   const errorDescription = reason
     ? unavailabilityDictionary[reason]
-    : 'Chilowo nie jest możliwe zgłoszenie zdarzenia. Spróbuj ponownie później.';
+    : 'Chwilowo nie jest możliwe zgłoszenie zdarzenia. Spróbuj ponownie później.';
 
   return (
     <View style={{ gap: 8, padding: 16 }}>

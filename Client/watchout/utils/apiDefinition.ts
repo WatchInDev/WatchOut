@@ -44,7 +44,7 @@ export const API_ENDPOINTS = {
   },
   users: {
     create: 'users/create',
-  }
+  },
 };
 
 // utility functions
@@ -57,18 +57,16 @@ function queryParams(params: Record<string, any>): string {
       .map((k) => {
         if (Array.isArray(params[k])) {
           return esc(k) + '=' + params[k].map((val: any) => `${esc(val)}`).join(',');
-        }
-        else if (params[k] instanceof Date) {
+        } else if (params[k] instanceof Date) {
           return `${esc(k)}=${esc((params[k] as Date).toISOString().replace('Z', ''))}`;
-        }
-        else if (typeof params[k] === 'object' && params[k] !== null) {
+        } else if (typeof params[k] === 'object' && params[k] !== null) {
           return queryParams(params[k]).slice(1);
         }
         return `${esc(k)}=${esc(params[k])}`;
       })
       .join('&')
   );
-};
+}
 
 function paginationToQueryParams<T>(pagination: PaginationRequest<T>) {
   const params: Record<string, any> = {
@@ -81,4 +79,4 @@ function paginationToQueryParams<T>(pagination: PaginationRequest<T>) {
   }
 
   return queryParams(params);
-};
+}

@@ -1,26 +1,9 @@
-import { Text } from 'components/Base/Text';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Settings } from './Settings';
 import { navigationTheme } from 'components/Base/navigationTheme';
-import { NotificationSettings } from './notifications/NotificationSettings';
-import { AccountSettings } from './AccountSettings';
+import { settingsRoutes } from './settingsRoutes';
 
 const Stack = createStackNavigator();
-
-export const settingsRoutes = [
-  {
-    icon: 'account-circle',
-    label: 'Konto',
-    component: AccountSettings,
-    link: 'AccountSettings',
-  },
-  {
-    icon: 'bell',
-    label: 'Powiadomienia',
-    component: NotificationSettings,
-    link: 'NotificationSettings',
-  },
-];
 
 export const SettingsNavigator = () => {
   return (

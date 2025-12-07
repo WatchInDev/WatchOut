@@ -1,5 +1,5 @@
-import React from 'react'
-import { View } from 'react-native'
+import React from 'react';
+import { View } from 'react-native';
 import { Text } from 'components/Base/Text';
 
 export const AccountSettings = () => {
@@ -7,5 +7,5 @@ export const AccountSettings = () => {
     <View>
       <Text>Konto</Text>
     </View>
-  )
-}
+  );
+};
