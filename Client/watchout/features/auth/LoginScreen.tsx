@@ -7,9 +7,10 @@ import { Button, Icon } from 'react-native-paper';
 import { GoogleSignInButton } from 'features/auth/GoogleSignInButton';
 import { signInWithEmail, resetPassword } from './auth';
 import { AuthLayout } from 'components/Layout/AuthLayout';
+import { AuthError, firebaseAuthErrorMessages } from 'utils/AuthError';
 
 export const LoginScreen = () => {
-  const navigation = useNavigation();
+  const { navigate } = useNavigation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -19,8 +20,16 @@ export const LoginScreen = () => {
   const handleLogin = async () => {
     try {
       await signInWithEmail(email, password);
+      navigate('Map' as never);
     } catch (err: any) {
-      Alert.alert('Login failed', err.message || 'Nie udało się zalogować');
+      if (err.code && err.code in firebaseAuthErrorMessages) {
+        Alert.alert('Ups! Coś poszło nie tak', firebaseAuthErrorMessages[err.code]);
+        return;
+      }
+      Alert.alert(
+        'Ups! Coś poszło nie tak',
+        'Nie udało się zalogować. Spróbuj ponownie później. Przepraszamy za utrudnienia.'
+      );
     }
   };
 
@@ -35,13 +44,22 @@ export const LoginScreen = () => {
       setResetVisible(false);
       setResetEmail('');
     } catch (err: any) {
-      Alert.alert('Błąd', err.message || 'Nie udało się wysłać maila');
+      if (err.code && err.code in firebaseAuthErrorMessages) {
+        Alert.alert('Ups! Coś poszło nie tak', firebaseAuthErrorMessages[err.code]);
+        return;
+      }
+      if (err instanceof AuthError) {
+        Alert.alert('Ups! Coś poszło nie tak', err.message);
+        return;
+      }
+      Alert.alert(
+        'Ups! Coś poszło nie tak',
+        'Nie udało się zarejestrować. Spróbuj ponownie później. Przepraszamy za utrudnienia.'
+      );
     }
   };
 
-  const header = (
-    <Icon source={require('assets/watchout.png')} size={150} />
-  );
+  const header = <Icon source={require('assets/watchout.png')} size={150} />;
 
   const footer = (
     <>
@@ -87,7 +105,7 @@ export const LoginScreen = () => {
           Zaloguj się
         </Button>
 
-        <TouchableOpacity onPress={() => navigation.navigate('SignUp' as never)}>
+        <TouchableOpacity onPress={() => navigate('SignUp' as never)}>
           <Text style={styles.registerText}>Nie masz konta? Zarejestruj się</Text>
         </TouchableOpacity>
       </AuthLayout>
@@ -110,7 +128,9 @@ export const LoginScreen = () => {
             </Button>
 
             <TouchableOpacity onPress={() => setResetVisible(false)} style={{ marginTop: 12 }}>
-              <Text align="center" style={{ color: 'red' }}>Zamknij</Text>
+              <Text align="center" style={{ color: 'red' }}>
+                Zamknij
+              </Text>
             </TouchableOpacity>
           </View>
         </View>

@@ -1,16 +1,20 @@
-import { 
-  getAuth, 
-  createUserWithEmailAndPassword, 
-  signInWithEmailAndPassword, 
-  sendEmailVerification, 
-  sendPasswordResetEmail, 
-  updateProfile, 
-  signOut, 
-  GoogleAuthProvider, 
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  sendEmailVerification,
+  sendPasswordResetEmail,
+  updateProfile,
+  signOut,
+  GoogleAuthProvider,
   signInWithCredential,
-  getIdToken
-} from "@react-native-firebase/auth";
-import { apiClient } from "utils/apiClient";
+  getIdToken,
+  firebase,
+  FirebaseAuthTypes,
+} from '@react-native-firebase/auth';
+import { apiClient } from 'utils/apiClient';
+import { API_ENDPOINTS } from 'utils/apiDefinition';
+import { AuthError } from 'utils/AuthError';
 
 export async function signUpEmail(email: string, password: string, displayName?: string) {
   try {
@@ -26,12 +30,15 @@ export async function signUpEmail(email: string, password: string, displayName?:
 
     return user;
   } catch (err: any) {
-    console.error("signUpEmail error", err);
+    console.error('signUpEmail error', err);
     throw err;
   }
 }
 
-export async function signInWithEmail(email: string, password: string) {
+export async function signInWithEmail(
+  email: string,
+  password: string
+): Promise<FirebaseAuthTypes.User | { error: string }> {
   try {
     const auth = getAuth();
     const cred = await signInWithEmailAndPassword(auth, email, password);
@@ -39,13 +46,13 @@ export async function signInWithEmail(email: string, password: string) {
 
     if (!user.emailVerified) {
       await sendEmailVerification(user);
-      throw new Error("Email nie został jeszcze zweryfikowany. Sprawdź skrzynkę email.");
+      throw new AuthError('Email nie został jeszcze zweryfikowany. Sprawdź skrzynkę email.');
     }
 
     try {
-      const idToken = await getIdToken(user)
+      const idToken = await getIdToken(user);
       await apiClient.post(
-        "/users/create",
+        API_ENDPOINTS.users.create,
         {
           firebaseUid: user.uid,
           email: user.email,
@@ -55,13 +62,15 @@ export async function signInWithEmail(email: string, password: string) {
           headers: { Authorization: `Bearer ${idToken}` },
         }
       );
+      return user;
     } catch (syncErr) {
-      console.error("Backend sync failed:", syncErr);
+      console.error('Backend sync failed:', syncErr);
+      throw new AuthError(
+        'Nie udało się zsynchronizować konta z serwerem. Spróbuj ponownie później.'
+      );
     }
-
-    return user;
   } catch (err: any) {
-    console.error("signInWithEmail error", err);
+    console.error('signInWithEmail error', err);
     throw err;
   }
 }
@@ -84,7 +93,7 @@ export async function signInWithGoogleIdToken(idToken: string) {
 
   const firebaseIdToken = await getIdToken(user);
   await apiClient.post(
-    "/users/create",
+    '/users/create',
     {
       firebaseUid: user.uid,
       email: user.email,

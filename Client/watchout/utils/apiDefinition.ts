@@ -42,6 +42,9 @@ export const API_ENDPOINTS = {
     add: 'fcm-tokens',
     get: 'fcm-tokens',
   },
+  users: {
+    create: 'users/create',
+  }
 };
 
 // utility functions
