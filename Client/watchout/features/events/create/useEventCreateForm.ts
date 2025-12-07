@@ -6,6 +6,7 @@ import { Coordinates, CreateEventRequest } from 'utils/types';
 import { useCreateEvent } from './useEventCreate';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { useUserLocation } from 'features/map/useLocation';
+import { useForm } from 'react-hook-form';
 
 type FormData = {
   name: string;
@@ -26,11 +27,13 @@ export const useEventCreateForm = (location: Coordinates, onSuccess: () => void)
   const [selectedEventType, setSelectedEventType] = useState<SelectedEventType>(null);
   const [eventTypeModalVisible, setEventTypeModalVisible] = useState(false);
   const [geocodedAddress, setGeocodedAddress] = useState<string>('Ładowanie lokalizacji...');
-  const [formData, setFormData] = useState<FormData>({
-    name: '',
-    description: '',
-    eventTypeId: null,
-    images: [],
+  const { control, handleSubmit, setValue, reset } = useForm<FormData>({
+    defaultValues: {
+      name: '',
+      description: '',
+      eventTypeId: null,
+      images: [],
+    },
   });
 
   useEffect(() => {
@@ -41,73 +44,63 @@ export const useEventCreateForm = (location: Coordinates, onSuccess: () => void)
 
   const createEventMutation = useCreateEvent();
 
-  const updateField = useCallback(<K extends keyof FormData>(field: K, value: FormData[K]) => {
-    setFormData((prev) => ({ ...prev, [field]: value }));
-  }, []);
-
   const handleSetSelectedEventType = useCallback((eventType: SelectedEventType) => {
     setSelectedEventType(eventType);
-    setFormData((prev) => ({ ...prev, eventTypeId: eventType?.id || null }));
-  }, []);
-
-  const validateForm = useCallback(() => {
-    const { name, description, eventTypeId } = formData;
-    return name && description && eventTypeId !== null;
-  }, [formData]);
-
-  const resetForm = useCallback(() => {
-    setFormData({ name: '', description: '', eventTypeId: null, images: [] });
-  }, []);
+    setValue('eventTypeId', eventType?.id || null);
+  }, [setValue]);
 
   const userLocation = useUserLocation();
 
-  const handleSubmit = useCallback(() => {
-    if (!validateForm()) {
+  const onSubmit = (values: FormData) => {
+    const isValid = values.name && values.description && values.eventTypeId !== null;
+    if (!isValid) {
       Alert.alert('Błąd', 'Wszystkie pola muszą być wypełnione.');
       return;
     }
 
     if (!userLocation.location) {
-      Alert.alert('Błąd', 'Aby móc utworzyć zdarzenie, upewnij się, że usługi lokalizacyjne są włączone.');
+      Alert.alert(
+        'Błąd',
+        'Aby móc utworzyć zdarzenie, upewnij się, że usługi lokalizacyjne są włączone.'
+      );
       return;
     }
 
     const dateInOneHour = dayjs().add(3, 'hours');
 
     const requestData: CreateEventRequest = {
-      name: formData.name,
-      description: formData.description,
+      name: values.name,
+      description: values.description,
       latitude: location.latitude,
       longitude: location.longitude,
-      userLatitude: userLocation?.location.latitude,
-      userLongitude: userLocation?.location.longitude,
+      userLatitude: location.latitude,
+      userLongitude: location.longitude,
       endDate: dateInOneHour.toISOString(),
-      images: formData.images.map((image) => image.base64),
-      eventTypeId: formData.eventTypeId!,
+      images: values.images.map((image) => image.base64),
+      eventTypeId: values.eventTypeId!,
     };
 
     createEventMutation.mutate(requestData, {
       onSuccess: () => {
         Alert.alert('Sukces!', 'Nowe zdarzenie zostało zgłoszone.');
-        resetForm();
+        reset();
         onSuccess();
       },
       onError: (error) => {
         Alert.alert('Błąd', `Nie udało się zgłosić zdarzenia. Spróbuj ponownie. ${error.message}`);
       },
     });
-  }, [validateForm, formData, location, createEventMutation, resetForm, onSuccess, userLocation.location]);
+  };
 
   return {
-    formData,
+    control,
     eventBottomSheetRef,
     selectedEventType,
     eventTypeModalVisible,
     geocodedAddress,
     isLoading: createEventMutation.isPending,
-    updateField,
     handleSetSelectedEventType,
     setEventTypeModalVisible,
-    handleSubmit,
+    handleSubmit: handleSubmit(onSubmit),
   };
 };

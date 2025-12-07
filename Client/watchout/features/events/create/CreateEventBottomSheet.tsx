@@ -12,6 +12,7 @@ import { useEffect } from 'react';
 import { useActionAvailability } from './useActionAvailability';
 import { Row } from 'components/Base/Row';
 import { theme } from 'utils/theme';
+import { Controller } from 'react-hook-form';
 
 type CreateEventProps = {
   location: Coordinates;
@@ -21,13 +22,12 @@ type CreateEventProps = {
 
 export const CreateEventBottomSheet = ({ location, onSuccess, onClose }: CreateEventProps) => {
   const {
-    formData,
+    control,
     handleSubmit,
     handleSetSelectedEventType,
     eventTypeModalVisible,
     setEventTypeModalVisible,
     selectedEventType,
-    updateField,
     geocodedAddress,
     eventBottomSheetRef,
     isLoading,
@@ -53,35 +53,58 @@ export const CreateEventBottomSheet = ({ location, onSuccess, onClose }: CreateE
               </Text>
 
               <View style={{ gap: 20 }}>
-                <CustomTextInput
-                  placeholder="Nadaj tytuł zdarzeniu"
-                  label="Tytuł zdarzenia"
-                  value={formData.name}
-                  onChangeText={(value) => updateField('name', value)}
+                <Controller
+                  control={control}
+                  name="name"
+                  render={({ field: { value, onChange } }) => (
+                    <CustomTextInput
+                      placeholder="Nadaj tytuł zdarzeniu"
+                      label="Tytuł zdarzenia"
+                      value={value}
+                      onChangeText={onChange}
+                    />
+                  )}
                 />
-                <CustomTextInput
-                  placeholder="Opisz krótko zdarzenie, podaj najważniejsze informacje"
-                  label="Opis zdarzenia"
-                  value={formData.description}
-                  onChangeText={(value) => updateField('description', value)}
-                  multiline
-                  numberOfLines={3}
+                <Controller
+                  control={control}
+                  name="description"
+                  render={({ field: { value, onChange } }) => (
+                    <CustomTextInput
+                      placeholder="Opisz krótko zdarzenie, podaj najważniejsze informacje"
+                      label="Opis zdarzenia"
+                      value={value}
+                      onChangeText={onChange}
+                      multiline
+                      numberOfLines={3}
+                    />
+                  )}
                 />
-
-                <TouchableOpacity onPress={() => setEventTypeModalVisible(true)}>
-                  <CustomTextInput
-                    value={selectedEventType?.name || 'Wybierz rodzaj zdarzenia'}
-                    label="Rodzaj zdarzenia"
-                    startIcon={selectedEventType?.icon}
-                    endIcon="menu-down"
-                    editable={false}
-                  />
-                </TouchableOpacity>
+                <Controller
+                  control={control}
+                  name="eventTypeId"
+                  render={({ field: { value } }) => (
+                    <TouchableOpacity onPress={() => setEventTypeModalVisible(true)}>
+                      <CustomTextInput
+                        value={selectedEventType?.name || 'Wybierz rodzaj zdarzenia'}
+                        label="Rodzaj zdarzenia"
+                        startIcon={selectedEventType?.icon}
+                        endIcon="menu-down"
+                        editable={false}
+                      />
+                    </TouchableOpacity>
+                  )}
+                />
               </View>
 
-              <ImageUploader
-                images={formData.images}
-                onImagesUpload={(images) => updateField('images', images)}
+              <Controller
+                control={control}
+                name="images"
+                render={({ field: { value, onChange } }) => (
+                  <ImageUploader
+                    images={value}
+                    onImagesUpload={onChange}
+                  />
+                )}
               />
 
               <EventTypeSelectionModal
@@ -114,13 +137,14 @@ const ActionNotAvailableMessage = () => {
   return (
     <View style={{ gap: 8, padding: 16 }}>
       <Row style={{ justifyContent: 'center', marginVertical: 8 }}>
-        <Icon source="block-helper" size={64} color={theme.palette.tertiary}/>
+        <Icon source="block-helper" size={64} color={theme.palette.tertiary} />
       </Row>
       <Text variant="h3" align="center">
         Akcja niedostępna
       </Text>
       <Text align="center">
-        Nie możesz zgłosić nowego zdarzenia, ponieważ twoja reputacja jest zbyt niska. Spróbuj ponownie później.
+        Nie możesz zgłosić nowego zdarzenia, ponieważ twoja reputacja jest zbyt niska. Spróbuj
+        ponownie później.
       </Text>
     </View>
   );
