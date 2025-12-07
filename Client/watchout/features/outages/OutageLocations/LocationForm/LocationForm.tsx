@@ -38,8 +38,8 @@ const defaultLocation: AddLocationRequest = {
       eventTypes: [],
     },
     radius: DEFAULT_LOCATION_RADIUS_KM, // in km, converted to meters when submitting
+    notificationsEnable: false,
   },
-  notificationsEnable: false,
 };
 
 export const LocationForm = ({ initialLocation, submit, isPending }: LocationFormProps) => {
@@ -199,9 +199,9 @@ export const LocationForm = ({ initialLocation, submit, isPending }: LocationFor
                 Otrzymuj powiadomienia push o przerwach w dostawie usług dla tej lokalizacji
               </Text>
               <CustomSwitch
-                value={location.notificationsEnable}
+                value={location.settings.notificationsEnable}
                 onValueChange={(value: boolean) =>
-                  setLocation((prev) => ({ ...prev, notificationsEnable: value }))
+                  setLocation((prev) => ({ ...prev, settings: { ...prev.settings, notificationsEnable: value } }))
                 }
               />
             </View>

@@ -43,17 +43,14 @@ export const Alerts = () => {
             iconName="cog"
           />
         </Row>
+
         {isLoading && <ActivityIndicator size="large" style={styles.loader} />}
         {alerts?.length === 0 && (
           <View>
             <View style={{ opacity: 0.4, alignItems: 'center', marginTop: 48 }}>
-              <Icon
-                source="check-circle-outline"
-                size={128}
-                color="green"
-              />
+              <Icon source="check-circle-outline" size={128} color="green" />
             </View>
-            <Text align='center' variant='h5' color='secondary' style={{ marginTop: 32 }}>
+            <Text align="center" variant="h5" color="secondary" style={{ marginTop: 32 }}>
               Brak alertów o awariach.
             </Text>
           </View>

@@ -7,9 +7,11 @@ import { Button, Icon } from 'react-native-paper';
 import { GoogleSignInButton } from 'features/auth/GoogleSignInButton';
 import { signUpEmail } from './auth';
 import { AuthLayout } from 'components//Layout/AuthLayout';
+import { AuthError } from 'utils/AuthError';
+import { firebaseAuthErrorMessages } from 'utils/dictionaries';
 
 export const SignUpScreen = () => {
-  const navigation = useNavigation();
+  const { navigate } = useNavigation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [displayName, setDisplayName] = useState('');
@@ -17,10 +19,18 @@ export const SignUpScreen = () => {
   const handleSignup = async () => {
     try {
       await signUpEmail(email, password, displayName);
-      Alert.alert('Sukces', 'Konto zostało utworzone');
-      navigation.navigate('Login' as never);
+      Alert.alert('Udało się!', 'Konto zostało utworzone. Zapraszamy do korzystania z aplikacji!');
+      navigate('Map' as never);
     } catch (err: any) {
-      Alert.alert('Rejestracja nie powiodła się', err.message || 'Błąd');
+      let message = err.message || '';
+      if (err.code && err.code in firebaseAuthErrorMessages) {
+        message = firebaseAuthErrorMessages[err.code];
+      } else if (err instanceof AuthError) {
+        message = err.message;
+      } else {
+        message = 'Nie udało się zarejestrować. Spróbuj ponownie później. Przepraszamy za utrudnienia.';
+      }
+      Alert.alert('Ups! Coś poszło nie tak', message);
     }
   };
 
@@ -71,7 +81,7 @@ export const SignUpScreen = () => {
         Zarejestruj się
       </Button>
 
-      <TouchableOpacity onPress={() => navigation.navigate('Login' as never)}>
+      <TouchableOpacity onPress={() => navigate('Login' as never)}>
         <Text style={styles.registerText}>Masz już konto? Zaloguj się</Text>
       </TouchableOpacity>
     </AuthLayout>

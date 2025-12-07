@@ -1,4 +1,4 @@
-import type { GetEventsRequest, PaginationRequest } from './types';
+import type { ActionAvailabilityRequest, GetEventsRequest, PaginationRequest } from './types';
 
 export type ApiDefinition = {
   key: string[];
@@ -11,7 +11,7 @@ export const API_ENDPOINTS = {
     getClusters: (request: GetEventsRequest, minPoints: number, eps: number) =>
       `events/clusters${queryParams(request)}&minPoints=${minPoints}&eps=${eps}`,
     create: 'events',
-    availability: 'events/ability',
+    availability: (request: ActionAvailabilityRequest) => 'events/ability' + queryParams(request),
   },
   comments: {
     getByEventId: <T>(eventId: number, pagination: PaginationRequest<T>) =>
@@ -28,7 +28,7 @@ export const API_ENDPOINTS = {
   locations: {
     getAll: 'users/favourite-places',
     add: 'users/favourite-places',
-    edit: (placeId: string) => `users/favourite-places/${placeId}`,
+    edit: (placeId: string) => `users/favourite-places/${placeId}/preferences`,
     delete: (placeId: string) => `users/favourite-places/${placeId}`,
   },
   externalWarnings: {
@@ -42,6 +42,9 @@ export const API_ENDPOINTS = {
     add: 'fcm-tokens',
     get: 'fcm-tokens',
   },
+  users: {
+    create: 'users/create',
+  },
 };
 
 // utility functions
@@ -54,18 +57,16 @@ function queryParams(params: Record<string, any>): string {
       .map((k) => {
         if (Array.isArray(params[k])) {
           return esc(k) + '=' + params[k].map((val: any) => `${esc(val)}`).join(',');
-        }
-        else if (params[k] instanceof Date) {
+        } else if (params[k] instanceof Date) {
           return `${esc(k)}=${esc((params[k] as Date).toISOString().replace('Z', ''))}`;
-        }
-        else if (typeof params[k] === 'object' && params[k] !== null) {
+        } else if (typeof params[k] === 'object' && params[k] !== null) {
           return queryParams(params[k]).slice(1);
         }
         return `${esc(k)}=${esc(params[k])}`;
       })
       .join('&')
   );
-};
+}
 
 function paginationToQueryParams<T>(pagination: PaginationRequest<T>) {
   const params: Record<string, any> = {
@@ -78,4 +79,4 @@ function paginationToQueryParams<T>(pagination: PaginationRequest<T>) {
   }
 
   return queryParams(params);
-};
+}

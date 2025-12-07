@@ -22,6 +22,7 @@ export const EditLocation = () => {
       services: {
         ...location.services,
       },
+      notificationsEnable: location.notificationsEnable,
     },
   };
 

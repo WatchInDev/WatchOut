@@ -1,11 +1,11 @@
 import { StyleSheet, View, Image, Modal, Pressable } from 'react-native';
 import { Text } from 'components/Base/Text';
 import { Event } from 'utils/types';
-import dayjs from 'dayjs';
 import { icons } from 'components/Base/icons';
 import { Row } from 'components/Base/Row';
 import { useState } from 'react';
 import { formatDate } from 'utils/helpers';
+import { ReportStatusIcons } from './ReportStatusIcons';
 
 type EventDetailsProps = {
   event: Event;
@@ -17,7 +17,7 @@ export const EventDetails = ({ event }: EventDetailsProps) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
-  const reportedDateText = formatDate(new Date(event.reportedDate));
+  const reportedDateText = formatDate(event.reportedDate);
 
   const openImage = (uri: string) => {
     setSelectedImage(uri);
@@ -41,6 +41,9 @@ export const EventDetails = ({ event }: EventDetailsProps) => {
         </Text>
       </View>
       <Text variant="body2">Zgłoszono: {reportedDateText}</Text>
+      <View>
+        <ReportStatusIcons event={event} />
+      </View>
       <Text>{event.description}</Text>
 
       {event.images.length > 0 && (
@@ -85,6 +88,7 @@ export const EventDetails = ({ event }: EventDetailsProps) => {
     </View>
   );
 };
+
 
 const styles = StyleSheet.create({
   header: {
