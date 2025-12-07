@@ -3,18 +3,19 @@ import { Text } from 'components/Base/Text';
 import { PageWrapper } from 'components/Common/PageWrapper';
 import { TouchableOpacity, View } from 'react-native';
 import { Icon } from 'react-native-paper';
+import { settingsRoutes } from './SettingsNavigator';
 
 type SettingsProps = {
   options: { icon: string; label: string; link: string }[];
 };
 
-export const Settings = ({ options }: SettingsProps) => {
+export const Settings = () => {
   const navigation = useNavigation();
 
   return (
     <PageWrapper>
       <View style={{ flex: 1, gap: 24 }}>
-        {options.map((option) => (
+        {settingsRoutes.map((option) => (
           <TouchableOpacity
             key={option.label}
             onPress={() => navigation.navigate(option.link as never)}

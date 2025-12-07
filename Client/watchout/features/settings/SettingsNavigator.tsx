@@ -3,6 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { Settings } from './Settings';
 import { navigationTheme } from 'components/Base/navigationTheme';
 import { NotificationSettings } from './notifications/NotificationSettings';
+import { AccountSettings } from './AccountSettings';
 
 const Stack = createStackNavigator();
 
@@ -10,20 +11,14 @@ export const settingsRoutes = [
   {
     icon: 'account-circle',
     label: 'Konto',
-    component: () => <Text>Konto</Text>,
+    component: AccountSettings,
     link: 'AccountSettings',
   },
   {
     icon: 'bell',
     label: 'Powiadomienia',
-    component: () => <NotificationSettings />,
+    component: NotificationSettings,
     link: 'NotificationSettings',
-  },
-  {
-    icon: 'lock',
-    label: 'Prywatność',
-    component: () => <Text>Prywatność</Text>,
-    link: 'PrivacySettings',
   },
 ];
 
@@ -31,11 +26,11 @@ export const SettingsNavigator = () => {
   return (
     <Stack.Navigator
       screenOptions={{
-      ...navigationTheme
-    }}>
+        ...navigationTheme,
+      }}>
       <Stack.Screen
         name="SettingsMain"
-        component={() => <Settings options={settingsRoutes} />}
+        component={Settings}
         options={{ headerShown: false }}
       />
       {settingsRoutes.map((option) => (
