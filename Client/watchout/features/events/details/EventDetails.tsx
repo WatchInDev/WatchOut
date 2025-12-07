@@ -6,6 +6,10 @@ import { icons } from 'components/Base/icons';
 import { Row } from 'components/Base/Row';
 import { useState } from 'react';
 import { formatDate } from 'utils/helpers';
+import { HIGH_REPUTATION_THRESHOLD, LOW_REPUTATION_THRESHOLD } from 'utils/constants';
+import { Chip, Icon } from 'react-native-paper';
+import { CustomChip } from 'components/Base/CustomChip';
+import { ReportStatusIcons } from './ReportStatusIcons';
 
 type EventDetailsProps = {
   event: Event;
@@ -41,6 +45,9 @@ export const EventDetails = ({ event }: EventDetailsProps) => {
         </Text>
       </View>
       <Text variant="body2">Zgłoszono: {reportedDateText}</Text>
+      <View>
+        <ReportStatusIcons event={event} />
+      </View>
       <Text>{event.description}</Text>
 
       {event.images.length > 0 && (
@@ -85,6 +92,7 @@ export const EventDetails = ({ event }: EventDetailsProps) => {
     </View>
   );
 };
+
 
 const styles = StyleSheet.create({
   header: {

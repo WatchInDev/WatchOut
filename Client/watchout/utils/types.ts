@@ -27,6 +27,10 @@ export type Event = {
   reportedDate: Date;
   endDate: Date;
   eventType: EventType;
+  author: {
+    id: number;
+    reputation: number;
+  }
   active: boolean;
   rating: number;
   ratingForCurrentUser: number;
