@@ -1,5 +1,6 @@
 package org.zpi.watchout.app.controller
 
+import com.azure.core.annotation.Patch
 import io.github.oshai.kotlinlogging.KotlinLogging
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.Parameter
@@ -8,7 +9,10 @@ import jakarta.validation.Valid
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PatchMapping
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
@@ -16,6 +20,7 @@ import org.zpi.watchout.service.EventService
 import org.zpi.watchout.service.dto.AbilityToPostDTO
 import org.zpi.watchout.service.dto.ClusterRequestDTO
 import org.zpi.watchout.service.dto.ClusterResponseDTO
+import org.zpi.watchout.service.dto.EditEventDTO
 import org.zpi.watchout.service.dto.EventGetRequestDTO
 import org.zpi.watchout.service.dto.EventRequestDTO
 import org.zpi.watchout.service.dto.EventResponseDTO
@@ -84,10 +89,35 @@ class EventController(val eventService: EventService) {
     @GetMapping("/ability")
     @PreAuthorize("hasRole('ROLE_USER')")
     @Operation(summary = "Check ability to post event for current user")
-    fun isAbleToPostEvents(@Parameter(hidden = true) @AuthenticationPrincipal userId : Long): AbilityToPostDTO {
+    fun isAbleToPostEvents(@Parameter(hidden = true) @AuthenticationPrincipal userId : Long, lat: Double, long: Double, eventLat: Double, eventLong: Double): AbilityToPostDTO {
         logger.info { "Checking if user with id: $userId is able to post events" }
-        val result = eventService.isAbleToPostEvents(userId)
+        val result = eventService.isAbleToPostEvents(userId, lat, long, eventLat, eventLong)
         logger.info { "User with id: $userId is able to post events: $result" }
         return result
     }
+
+    @PatchMapping("/deactivate/{eventId}")
+    @PreAuthorize("hasRole('ROLE_USER')")
+    @Operation(summary = "Deactivate an event reported by the current user")
+    fun deactivateEvent(@PathVariable("eventId") eventId: Long,
+                        @Parameter(hidden = true) @AuthenticationPrincipal userId : Long) {
+        logger.info { "Deactivating event with id: $eventId by user with id: $userId" }
+        eventService.deactivateEvent(eventId, userId)
+        logger.info { "Deactivated event with id: $eventId by user with id: $userId" }
+    }
+
+
+    @PutMapping("/edit/{eventId}")
+    @PreAuthorize("hasRole('ROLE_USER')")
+    @Operation(summary = "Edit an event reported by the current user", description = "newImages List of base64 string like in create event endpoint, imagesToRemove List of auzre urls that will be removed")
+    fun editEvent(@PathVariable("eventId") eventId: Long,
+                  @RequestBody @Valid editEventDTO: EditEventDTO,
+                  @Parameter(hidden = true) @AuthenticationPrincipal userId : Long): EventResponseDTO {
+        logger.info { "Editing event with id: $eventId by user with id: $userId" }
+        val updatedEvent = eventService.editEvent(eventId, editEventDTO, userId)
+        logger.info { "Edited event with id: $eventId by user with id: $userId" }
+        return updatedEvent
+    }
+
+
 }

@@ -6,3 +6,11 @@ data class FavouritePlaceRequestDTO(
     val longitude: Double,
     val settings: EditFavouritePlacePreferenceDTO
 )
+
+
+data class EditFavouritePlaceRequestDTO(
+    val placeName: String,
+    val latitude: Double,
+    val longitude: Double,
+    val settings: EditFavouritePlacePreferenceDTO
+)

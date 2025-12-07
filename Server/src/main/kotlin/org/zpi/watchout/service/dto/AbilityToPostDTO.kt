@@ -2,6 +2,7 @@ package org.zpi.watchout.service.dto
 
 enum class ReasonCannotPost {
     REPUTATION_RESTRICTION,
+    DISTANCE_RESTRICTION
 }
 
 data class AbilityToPostDTO(

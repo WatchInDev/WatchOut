@@ -16,15 +16,15 @@ import org.locationtech.jts.geom.Point
 @Table(name = "events", schema = "watchout")
 class Event(
     @Column(name = "name")
-    val name: String,
+    var name: String,
     @Column(name = "description")
-    val description : String,
+    var description : String,
     @Column(name = "image")
-    val image: String,
+    var image: String,
     @Column(name = "reported_date")
     val reportedDate: LocalDateTime,
     @Column(name = "end_date")
-    val endDate: LocalDateTime,
+    var endDate: LocalDateTime,
     @Column(name = "is_active")
     var isActive: Boolean,
     @ManyToOne
@@ -32,7 +32,7 @@ class Event(
     val author : User,
     @ManyToOne
     @JoinColumn(name = "event_type_id", referencedColumnName = "id")
-    val eventType: EventType,
+    var eventType: EventType,
     @Column(name = "location", columnDefinition = "geometry(Point, 4326)")
     val location: Point,
     @OneToMany(mappedBy = "event", cascade = [CascadeType.ALL], orphanRemoval = true)
