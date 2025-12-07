@@ -1,4 +1,5 @@
 import { Event } from 'utils/types';
+import { Text } from 'components/Base/Text';
 import { StyleSheet, View } from 'react-native';
 import { useEffect, useRef, useState } from 'react';
 import { CommentList } from 'features/events/comments/CommentList';
@@ -50,7 +51,13 @@ export const EventBottomSheet = ({ event, onClose }: EventBottomSheetProps) => {
           <Divider style={{ marginTop: 16 }} />
         </View>
 
-        <EventRating isUpVoted={isUpVoted} onRate={handleRateEvent} />
+        {event.isAuthor ? (
+          <View>
+            <Text>Jako autor zdarzenia nie możesz ocenić własnego zgłoszenia.</Text>
+          </View>
+        ) : (
+          <EventRating isUpVoted={isUpVoted} onRate={handleRateEvent} />
+        )}
 
         <View>
           <CommentList eventId={event.id} />

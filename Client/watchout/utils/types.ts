@@ -30,6 +30,7 @@ export type Event = {
   active: boolean;
   rating: number;
   ratingForCurrentUser: number;
+  isAuthor: boolean;
 };
 
 export type Outage = {
