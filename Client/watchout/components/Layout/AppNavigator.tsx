@@ -55,7 +55,9 @@ export const AppNavigator = () => {
   const { user, loading } = useAuth();
   const { dismissAll } = useBottomSheetModal();
 
-  if (loading) return null;
+  if (loading) {
+    return <LoadingScreen />;
+  }
 
   if (!user) {
     return (
