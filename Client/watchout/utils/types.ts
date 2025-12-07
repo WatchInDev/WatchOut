@@ -24,8 +24,8 @@ export type Event = {
   images: string[];
   latitude: number;
   longitude: number;
-  reportedDate: string;
-  endDate: string;
+  reportedDate: Date;
+  endDate: Date;
   eventType: EventType;
   active: boolean;
   rating: number;
@@ -110,7 +110,7 @@ export type AddLocationRequest = {
       weather: boolean;
       eventTypes?: number[];
     };
-  notificationsEnable: boolean;
+    notificationsEnable: boolean;
   };
 };
 

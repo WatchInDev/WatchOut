@@ -17,7 +17,7 @@ export const EventDetails = ({ event }: EventDetailsProps) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
-  const reportedDateText = formatDate(new Date(event.reportedDate));
+  const reportedDateText = formatDate(event.reportedDate);
 
   const openImage = (uri: string) => {
     setSelectedImage(uri);

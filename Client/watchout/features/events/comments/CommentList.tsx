@@ -6,7 +6,7 @@ import { AddCommentModal } from './AddCommentModal';
 import dayjs from 'dayjs';
 import { theme } from 'utils/theme';
 import { ConfirmationModal } from 'components/Common/ConfirmationModal';
-import { generateAnonName } from 'utils/helpers';
+import { formatDate, generateAnonName } from 'utils/helpers';
 import { useCommentsList } from './useCommentsList';
 import { useActionAvailability } from 'features/events/create/useActionAvailability';
 
@@ -93,8 +93,7 @@ export const CommentList = ({ eventId }: CommentListProps) => {
                   {item.content}
                 </Text>
                 <Text variant="body2" color="tertiary">
-                  {dayjs.utc(item.createdAt).local().format('YYYY-MM-DD HH:mm')} (
-                  {dayjs.utc(item.createdAt).local().fromNow()})
+                  {formatDate(item.createdAt)}
                 </Text>
               </View>
               {item.isAuthor && (
