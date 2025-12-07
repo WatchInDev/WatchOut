@@ -16,7 +16,7 @@ import org.locationtech.jts.geom.Point
 @Table(name = "events", schema = "watchout")
 class Event(
     @Column(name = "name")
-    val name: String,
+    var name: String,
     @Column(name = "description")
     val description : String,
     @Column(name = "image")
