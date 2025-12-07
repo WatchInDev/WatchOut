@@ -1,12 +1,13 @@
-import { ActivityIndicator, Button, Icon } from 'react-native-paper';
+import { Button, Icon } from 'react-native-paper';
 import { useState } from 'react';
 import { View } from 'react-native';
 import { useCreateComment } from 'features/events/comments/useCreateComment';
 import { CustomModal } from 'components/Base/CustomModal';
 import { CustomTextInput } from 'components/Base/CustomTextInput';
-import { useActionAvailability } from 'features/events/create/useActionAvailability';
 import { Text } from 'components/Base/Text';
 import { theme } from 'utils/theme';
+import { ActionAvailabilityResponse } from 'utils/types';
+import { commentReasonDictionary } from 'utils/dictionaries';
 
 type AddCommentModalProps = {
   eventId: number;
@@ -14,6 +15,7 @@ type AddCommentModalProps = {
   onClose: () => void;
   onSubmit: (comment: string) => void;
   onError: (error: unknown) => void;
+  availability: ActionAvailabilityResponse;
 };
 
 export const AddCommentModal = ({
@@ -22,10 +24,10 @@ export const AddCommentModal = ({
   onClose,
   onSubmit,
   onError,
+  availability,
 }: AddCommentModalProps) => {
   const [comment, setComment] = useState('');
   const { mutate, isPending } = useCreateComment();
-  const { data: availability, isPending: isAvailabilityPending } = useActionAvailability();
 
   const handleSubmit = () => {
     mutate(
@@ -45,18 +47,13 @@ export const AddCommentModal = ({
   return (
     <>
       <CustomModal visible={isVisible} onRequestClose={onClose}>
-        {isAvailabilityPending ? (
-          <View style={{ padding: 20 }}>
-            <ActivityIndicator size={'large'} />
-          </View>
-        ) : !availability?.canPost ? (
+        {!availability.canPost ? (
           <View style={{ padding: 20 }}>
             <View style={{ alignItems: 'center' }}>
               <Icon source="alert-circle-outline" size={40} color={theme.palette.text.secondary} />
             </View>
             <Text style={{ marginTop: 16 }}>
-              Z powodu niskiej reputacji nie możesz obecnie dodawać komentarzy. Spróbuj ponownie
-              później.
+              {availability.reason != null && commentReasonDictionary[availability.reason]}
             </Text>
             <Button onPress={onClose} style={{ marginTop: 16 }} mode="contained">
               Zamknij

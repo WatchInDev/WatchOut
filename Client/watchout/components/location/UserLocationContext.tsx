@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react";
-import { PermissionsAndroid, Platform } from "react-native";
+import { useState, useEffect, createContext, ReactNode, useContext } from 'react';
+import { PermissionsAndroid, Platform } from 'react-native';
 import Geolocation from '@react-native-community/geolocation';
+import { Coordinates } from 'utils/types';
 
 const isUserLocationGranted = async () => {
   try {
@@ -12,7 +13,7 @@ const isUserLocationGranted = async () => {
         buttonNeutral: 'Ask Me Later',
         buttonNegative: 'Cancel',
         buttonPositive: 'OK',
-      },
+      }
     );
     return granted === PermissionsAndroid.RESULTS.GRANTED;
   } catch (error) {
@@ -21,17 +22,38 @@ const isUserLocationGranted = async () => {
   }
 };
 
+type UserLocationContextType = {
+  location: Coordinates | null;
+  isLoading: boolean;
+  hasPermission: boolean;
+  error: string | null;
+};
+
+export const UserLocationContext = createContext<UserLocationContextType>({
+  location: null,
+  isLoading: false,
+  hasPermission: false,
+  error: null,
+});
+
 export const useUserLocation = () => {
+  const context = useContext(UserLocationContext);
+  return context;
+}
+
+export const UserLocationProvider = ({ children }: { children: ReactNode }) => {
   const [hasPermission, setHasPermission] = useState(false);
   const [location, setLocation] = useState<{ latitude: number; longitude: number } | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const checkAndRequest = async () => {
       let permissionGranted = false;
       if (Platform.OS === 'android') {
-        const checkResult = await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION);
+        const checkResult = await PermissionsAndroid.check(
+          PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
+        );
         if (checkResult) {
           permissionGranted = true;
         } else {
@@ -52,10 +74,14 @@ export const useUserLocation = () => {
           }
         );
       }
-      setLoading(false);
+      setIsLoading(false);
     };
     checkAndRequest();
   }, []);
 
-  return { hasPermission, location, error, loading };
+  return (
+    <UserLocationContext.Provider value={{ hasPermission, location, error, isLoading }}>
+      {children}
+    </UserLocationContext.Provider>
+  );
 };

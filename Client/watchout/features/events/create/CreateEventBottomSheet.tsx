@@ -13,8 +13,8 @@ import { useActionAvailability } from './useActionAvailability';
 import { Row } from 'components/Base/Row';
 import { theme } from 'utils/theme';
 import { Controller } from 'react-hook-form';
-import { useUserLocation } from 'features/map/useLocation';
-import { unavailabilityDictionary } from 'utils/dictionaries';
+import { eventReasonDictionary } from 'utils/dictionaries';
+import { useUserLocation } from 'components/location/UserLocationContext';
 
 type CreateEventProps = {
   location: Coordinates;
@@ -23,7 +23,7 @@ type CreateEventProps = {
 };
 
 export const CreateEventBottomSheet = ({ location, onSuccess, onClose }: CreateEventProps) => {
-  const { location: userLocation, loading: isUserLocationLoading } = useUserLocation();
+  const { location: userLocation, isLoading: isUserLocationLoading } = useUserLocation();
   const isUserLocationFetched = !isUserLocationLoading && userLocation != null;
 
   const {
@@ -38,17 +38,11 @@ export const CreateEventBottomSheet = ({ location, onSuccess, onClose }: CreateE
     isLoading,
   } = useEventCreateForm(location, userLocation, onSuccess);
 
-
-  const { data: actionAvailability, isLoading: isActionAvailabilityLoading } =
-    useActionAvailability(
-      {
-        lat: userLocation?.latitude ?? 0,
-        long: userLocation?.longitude ?? 0,
-        eventLat: location.latitude,
-        eventLong: location.longitude,
-      },
-      { isEnabled: isUserLocationFetched }
-    );
+  const { availability: actionAvailability, isLoading: isActionAvailabilityLoading } =
+    useActionAvailability({
+      eventLat: location.latitude,
+      eventLong: location.longitude,
+    });
 
   useEffect(() => {
     eventBottomSheetRef.current?.present();
@@ -160,7 +154,7 @@ export const CreateEventBottomSheet = ({ location, onSuccess, onClose }: CreateE
 
 const ActionNotAvailableMessage = ({ reason }: { reason?: PostUnabilityReason }) => {
   const errorDescription = reason
-    ? unavailabilityDictionary[reason]
+    ? eventReasonDictionary[reason]
     : 'Chwilowo nie jest możliwe zgłoszenie zdarzenia. Spróbuj ponownie później.';
 
   return (

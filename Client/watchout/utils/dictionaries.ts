@@ -49,9 +49,16 @@ export const firebaseAuthErrorMessages: { [code: string]: string } = {
   default: 'Wystąpił nieznany błąd autoryzacji. Spróbuj ponownie lub skontaktuj się ze wsparciem.',
 };
 
-export const unavailabilityDictionary: { [reason in PostUnabilityReason]: string } = {
+export const eventReasonDictionary: { [reason in PostUnabilityReason]: string } = {
   DISTANCE_RESTRICTION:
     'Nie możesz zgłosić zdarzenia ze swojej obecnej lokalizacji, ponieważ jest ona zbyt daleko od miejsca zdarzenia.',
   REPUTATION_RESTRICTION:
     'Nie możesz zgłosić nowego zdarzenia, ponieważ twoja reputacja jest zbyt niska. Spróbuj ponownie później.',
+};
+
+export const commentReasonDictionary: { [reason in PostUnabilityReason]: string } = {
+  DISTANCE_RESTRICTION:
+    'Nie możesz dodać komentarza ze swojej obecnej lokalizacji, ponieważ jest ona zbyt daleko od miejsca zdarzenia.',
+  REPUTATION_RESTRICTION:
+    'Nie możesz dodać komentarza, ponieważ twoja reputacja jest zbyt niska. Spróbuj ponownie później.',
 };

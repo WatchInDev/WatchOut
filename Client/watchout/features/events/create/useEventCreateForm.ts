@@ -5,7 +5,6 @@ import { Alert } from 'react-native';
 import { Coordinates, CreateEventRequest } from 'utils/types';
 import { useCreateEvent } from './useEventCreate';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
-import { useUserLocation } from 'features/map/useLocation';
 import { useForm } from 'react-hook-form';
 
 type FormData = {

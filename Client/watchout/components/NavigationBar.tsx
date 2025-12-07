@@ -1,6 +1,6 @@
 import { Appbar } from "react-native-paper";
 import { Text } from "components/Base/Text";
-import { Button, getHeaderTitle } from '@react-navigation/elements';
+import { getHeaderTitle } from '@react-navigation/elements';
 
 export const NavigationBar = ({ route, options }: any) => {
   const title = getHeaderTitle(options, route.name);

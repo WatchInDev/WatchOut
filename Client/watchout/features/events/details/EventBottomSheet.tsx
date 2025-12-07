@@ -60,7 +60,7 @@ export const EventBottomSheet = ({ event, onClose }: EventBottomSheetProps) => {
         )}
 
         <View>
-          <CommentList eventId={event.id} />
+          <CommentList eventId={event.id} eventCoordinates={{ latitude: event.latitude, longitude: event.longitude }} />
         </View>
       </BottomSheetScrollView>
     </BottomSheet>
