@@ -38,7 +38,7 @@ export const CustomSlider = ({
       )}
       <Slider
         value={value}
-        onValueChange={([value]) => onValueChange(value)}
+        onSlidingComplete={([value]) => onValueChange(value)}
         step={step}
         trackStyle={{ height: 16, borderRadius: 7.5 }}
         thumbStyle={{ width: 32, height: 32, borderRadius: 16 }}
@@ -47,6 +47,8 @@ export const CustomSlider = ({
         maximumTrackTintColor={'#E0E0E0'}
         minimumValue={min}
         maximumValue={max}
+        animateTransitions={true}
+        animationType='spring'
       />
     </View>
   );
