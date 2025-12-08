@@ -52,7 +52,7 @@ export const CommentList = ({ eventId, eventCoordinates }: CommentListProps) => 
         mode={availability?.canPost ? 'contained' : 'outlined'}
         style={[!availability?.canPost ? { borderStyle: 'dashed' } : {}, { marginVertical: 12 }]}>
         {isAvailabilityLoading || availability == null ? (
-          <ActivityIndicator>Ładowanie...</ActivityIndicator>
+          'Ładowanie...'
         ) : availability.canPost ? (
           'Dodaj komentarz'
         ) : (
