@@ -1,7 +1,6 @@
 import { PageWrapper } from 'components/Common/PageWrapper';
 import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Text } from 'components/Base/Text';
-import { useNavigation } from '@react-navigation/native';
 import { IconWithTitle } from 'components/Common/IconWithTitle';
 import { Row } from 'components/Base/Row';
 import { useEffect, useState } from 'react';
@@ -43,9 +42,12 @@ const defaultLocation: AddLocationRequest = {
 };
 
 export const LocationForm = ({ initialLocation, submit, isPending }: LocationFormProps) => {
-  const navigation = useNavigation();
   const [location, setLocation] = useState<AddLocationRequest>(initialLocation ?? defaultLocation);
   const [preloadedLocalization, setPreloadedLocalization] = useState<string | null>(null);
+
+  console.log({
+    radius: location.settings.radius,
+  });
 
   useEffect(() => {
     if (initialLocation) {
@@ -75,6 +77,9 @@ export const LocationForm = ({ initialLocation, submit, isPending }: LocationFor
   }, [initialLocation]);
 
   const handleSubmit = async () => {
+    console.log('Before submission', {
+      location,
+    });
     submit({
       ...location,
       settings: {
@@ -83,7 +88,6 @@ export const LocationForm = ({ initialLocation, submit, isPending }: LocationFor
         radius: location.settings.radius * METERS_IN_KM,
       },
     });
-    navigation.goBack();
   };
 
   const toggleService = (service: keyof AddLocationRequest['settings']['services']) => {
@@ -136,7 +140,7 @@ export const LocationForm = ({ initialLocation, submit, isPending }: LocationFor
           keyboardShouldPersistTaps="handled"
           nestedScrollEnabled={true}>
           <CustomSurface style={styles.locationSurface}>
-            <Text variant="h2">Nazwa lokalizacji</Text>
+            <Text variant="h3">Nazwa lokalizacji</Text>
             <Text color="secondary">
               Wprowadź nazwę lokalizacji, aby łatwo ją rozpoznać w aplikacji (np. Dom, Praca)
             </Text>
@@ -149,7 +153,7 @@ export const LocationForm = ({ initialLocation, submit, isPending }: LocationFor
           </CustomSurface>
 
           <CustomSurface style={styles.locationSurface}>
-            <Text variant="h2">Adres</Text>
+            <Text variant="h3">Adres</Text>
             <Text color="secondary">
               Wprowadź adres lokalizacji, aby dokładnie określić jej położenie na mapie
             </Text>
@@ -160,7 +164,7 @@ export const LocationForm = ({ initialLocation, submit, isPending }: LocationFor
           </CustomSurface>
 
           <CustomSurface style={styles.locationSurface}>
-            <Text variant="h2">Usługi</Text>
+            <Text variant="h3">Usługi</Text>
             <Text color="secondary">
               Wybierz usługi dla których będziesz otrzymywać powiadomienia w przypadku ich
               planowanego wyłączenia
@@ -172,7 +176,7 @@ export const LocationForm = ({ initialLocation, submit, isPending }: LocationFor
           </CustomSurface>
 
           <CustomSurface style={styles.locationSurface}>
-            <Text variant="h2">Zasięg</Text>
+            <Text variant="h3">Zasięg</Text>
             <Row>
               <Text>{MIN_LOCATION_RADIUS_KM} km</Text>
               <View style={{ flex: 1 }} />
@@ -193,7 +197,7 @@ export const LocationForm = ({ initialLocation, submit, isPending }: LocationFor
           </CustomSurface>
 
           <CustomSurface style={styles.locationSurface}>
-            <Text variant="h2">Powiadomienia</Text>
+            <Text variant="h3">Powiadomienia</Text>
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>
               <Text variant="body1" align="justify" style={{ flex: 1 }}>
                 Otrzymuj powiadomienia push o przerwach w dostawie usług dla tej lokalizacji
@@ -201,7 +205,10 @@ export const LocationForm = ({ initialLocation, submit, isPending }: LocationFor
               <CustomSwitch
                 value={location.settings.notificationsEnable}
                 onValueChange={(value: boolean) =>
-                  setLocation((prev) => ({ ...prev, settings: { ...prev.settings, notificationsEnable: value } }))
+                  setLocation((prev) => ({
+                    ...prev,
+                    settings: { ...prev.settings, notificationsEnable: value },
+                  }))
                 }
               />
             </View>
