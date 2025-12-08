@@ -26,7 +26,7 @@ export const useGetEvents = (request: GetEventsRequest, isEnabled: boolean) => {
     queryKey,
     queryFn: () =>
       apiClient.get<Event[]>(API_ENDPOINTS.events.get(request)).then((res) => res.data),
-    staleTime: 60 * 1000,
+    staleTime: 10 * 1000,
     enabled: isEnabled,
   });
 };
@@ -61,5 +61,6 @@ export const useGetEventsClustered = (request: GetEventClustersRequest, isEnable
         >(API_ENDPOINTS.events.getClusters(request.baseRequest, request.minPoints, request.eps))
         .then((res) => res.data),
     enabled: isEnabled,
+    staleTime: 20 * 1000,
   });
 };

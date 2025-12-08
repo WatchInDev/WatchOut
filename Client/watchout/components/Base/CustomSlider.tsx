@@ -14,6 +14,7 @@ type CustomSliderProps = {
   min: number;
   max: number;
   step: number;
+  disabled?: boolean;
 };
 
 export const CustomSlider = ({
@@ -23,6 +24,7 @@ export const CustomSlider = ({
   min,
   max,
   step = 1,
+  disabled = false,
 }: CustomSliderProps) => {
   return (
     <View>
@@ -38,6 +40,7 @@ export const CustomSlider = ({
       )}
       <Slider
         value={value}
+        disabled={disabled}
         onSlidingComplete={([value]) => onValueChange(value)}
         step={step}
         trackStyle={{ height: 16, borderRadius: 7.5 }}

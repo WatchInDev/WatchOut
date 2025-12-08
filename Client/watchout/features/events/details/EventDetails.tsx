@@ -2,10 +2,10 @@ import { StyleSheet, View, Image, Modal, Pressable } from 'react-native';
 import { Text } from 'components/Base/Text';
 import { Event } from 'utils/types';
 import { icons } from 'components/Base/icons';
-import { Row } from 'components/Base/Row';
 import { useState } from 'react';
 import { formatDate } from 'utils/helpers';
 import { ReportStatusIcons } from './ReportStatusIcons';
+import { ScrollView } from 'react-native-gesture-handler';
 
 type EventDetailsProps = {
   event: Event;
@@ -47,7 +47,7 @@ export const EventDetails = ({ event }: EventDetailsProps) => {
       <Text>{event.description}</Text>
 
       {event.images.length > 0 && (
-        <Row style={{ gap: 8, marginTop: 8, flexWrap: 'wrap' }}>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: 8, marginTop: 8 }}>
           {event.images.map((imageUri) => (
             <Pressable key={imageUri} onPress={() => openImage(imageUri)}>
               <Image
@@ -56,7 +56,7 @@ export const EventDetails = ({ event }: EventDetailsProps) => {
               />
             </Pressable>
           ))}
-        </Row>
+        </ScrollView>
       )}
 
       <Modal
@@ -88,7 +88,6 @@ export const EventDetails = ({ event }: EventDetailsProps) => {
     </View>
   );
 };
-
 
 const styles = StyleSheet.create({
   header: {

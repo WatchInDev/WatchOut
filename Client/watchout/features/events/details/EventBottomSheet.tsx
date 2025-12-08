@@ -9,6 +9,7 @@ import { EventDetails } from 'features/events/details/EventDetails';
 import { useRateEvent } from './useRate';
 import { EventRating } from './EventRating';
 import { useSnackbar } from 'utils/useSnackbar';
+import { useQueryClient } from '@tanstack/react-query';
 
 type EventBottomSheetProps = {
   event: Event;
@@ -19,6 +20,7 @@ export const EventBottomSheet = ({ event, onClose }: EventBottomSheetProps) => {
   const bottomSheetRef = useRef<BottomSheet>(null);
   const { mutateAsync: rateEventAsync } = useRateEvent(event.id);
   const { showSnackbar } = useSnackbar();
+  const queryClient = useQueryClient();
 
   const [isUpVoted, setIsUpVoted] = useState<boolean | null>(
     event.ratingForCurrentUser === 1 ? true : event.ratingForCurrentUser === -1 ? false : null
@@ -29,6 +31,7 @@ export const EventBottomSheet = ({ event, onClose }: EventBottomSheetProps) => {
       await rateEventAsync(isUpvote);
       showSnackbar({ message: 'Dziękujemy za ocenę zdarzenia!', type: 'success' });
       setIsUpVoted(isUpvote);
+      queryClient.invalidateQueries({ queryKey: ['events'] });
     } catch {
       showSnackbar({ message: 'Nie udało się ocenić zdarzenia.', type: 'error' });
     }
@@ -60,7 +63,11 @@ export const EventBottomSheet = ({ event, onClose }: EventBottomSheetProps) => {
         )}
 
         <View>
-          <CommentList eventId={event.id} eventCoordinates={{ latitude: event.latitude, longitude: event.longitude }} />
+          <CommentList
+            eventId={event.id}
+            eventCoordinates={{ latitude: event.latitude, longitude: event.longitude }}
+            eventAuthorId={event.author.id}
+          />
         </View>
       </BottomSheetScrollView>
     </BottomSheet>

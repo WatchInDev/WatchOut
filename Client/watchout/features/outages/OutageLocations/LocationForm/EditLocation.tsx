@@ -5,6 +5,7 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import { useSnackbar } from 'utils/useSnackbar';
 import { useQueryClient } from '@tanstack/react-query';
 import { useMemo } from 'react';
+import { METERS_IN_KM } from 'utils/constants';
 
 export const EditLocation = () => {
   const route = useRoute();
@@ -34,6 +35,7 @@ export const EditLocation = () => {
   const queryClient = useQueryClient();
   const handleSubmitAsync = async (updatedLocation: AddLocationRequest) => {
     try {
+      console.log({ updatedLocation })
       await updateAsync(updatedLocation);
       showSnackbar({ message: 'Lokalizacja została edytowana pomyślnie', type: 'success' });
 
