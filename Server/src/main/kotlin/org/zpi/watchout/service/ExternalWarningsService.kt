@@ -55,7 +55,7 @@ class ExternalWarningsService(val userFavouritePlaceRepository: UserFavouritePla
 
     @Transactional
     fun saveWeatherWarnings(result :List<WeatherDTO>) {
-        weatherWarningRepository.deleteAll()
+        weatherWarningRepository.deleteAllWeatherWarnings()
         val weatherWarnings : MutableList<WeatherWarning> = mutableListOf<WeatherWarning>()
 
         for(event in result) {
@@ -76,7 +76,7 @@ class ExternalWarningsService(val userFavouritePlaceRepository: UserFavouritePla
 
     @Transactional
     fun saveElectricalOutageWarning(results: List<ElectricalOutageRequestDTO>){
-        electricalOutageRepository.deleteAll()
+        electricalOutageRepository.deleteAllElectricalOutages()
         val outagesToSave : MutableList<ElectricalOutage> = mutableListOf<ElectricalOutage>()
         for(result in results){
             for (key in result.outagesResponse.keys) {

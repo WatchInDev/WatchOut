@@ -24,4 +24,9 @@ interface WeatherWarningRepository : JpaRepository<WeatherWarning, Long> {
         """, nativeQuery = true
     )
     fun findWeatherWarningByUsersFavouritePlace(@Param("locality") locality: String): List<WeatherWarningDTO>
+
+    @Modifying
+    @Transactional
+    @Query("DELETE FROM WeatherWarning")
+    fun deleteAllWeatherWarnings()
 }
