@@ -15,7 +15,7 @@ Rules:
         1. If a city appears without any streets or house numbers, still create an entry for it, but with empty locations list.
         2. If just the street name without house numbers is specified, add an item to the list with just the street name.
         3. DO NOT merge multiple occurrences of the same town into a single key.
-        4. ONE LINE - ONE SEPARATE SUBLIST OF DICTIONARIES - DO NOT DARE TO CHANGE ORDER OF LINES, SKIP ANY OF THEM OR MERGE THEIR PARSED OUTPUT INTO ONE SUBLIST
+        4. ONE LINE - ONE SEPARATE dictionary - DO NOT DARE TO CHANGE ORDER OF LINES, SKIP ANY OF THEM OR MERGE THEIR PARSED OUTPUT INTO ONE dictionary
 
 Handling House Numbers:
 
@@ -30,7 +30,7 @@ Index [i] of the Input List MUST correspond to Index [i] of the Output List.
 If Input has 15 items, Output MUST have 15 items.
 
 CRITICAL: 
-    Treat every item in the input list as a completely separate universe. NEVER merge data from Input[i] with Input[i+1], even if they refer to the exact same town name. If "Lubajny" or any other town name appears in Item 30 and "Lubajny" or any other town name appears in Item 31, you MUST create a separate sublist for Item 30 and a separate sublist for Item 31.
+    Treat every item in the input list as a completely separate universe. NEVER merge data from Input[i] with Input[i+1], even if they refer to the exact same town name. If "Lubajny" or any other town name appears in Item 30 and "Lubajny" or any other town name appears in Item 31, you MUST create a separate dictionary for Item 30 and a separate dictionary for Item 31.
 
 
 
@@ -64,16 +64,16 @@ Example:
     Wrocław ul. Nabycińska 1
     Output:
     [
-      [
-        {{"Warszawa": ["1", "2"]}},
-        {{"Kraków": ["5"]}}
-      ],
-      [
-        {{"Wrocław": ["10", "11", "12"]}}
-      ],
-      [
-        {{"Wrocław": ["ul. Nabycińska 1"]}}
-      ]
+        {{
+            "Warszawa": ["1", "2"],
+            "Kraków": ["5"]
+        }},
+        {{
+            "Wrocław": ["10", "11", "12"]
+        }},
+        {{
+            "Wrocław": ["ul. Nabycińska 1"]
+        }}
     ]
     
     

@@ -2,6 +2,7 @@ import os
 import sys
 from datetime import datetime, timezone, timedelta
 import json
+from itertools import islice
 
 import requests
 
@@ -57,29 +58,29 @@ def transform_shutdown_data(responses_and_voivodeships: list[tuple[dict, str]]) 
     parsed_results = parse_location_lines(messages_to_parse)
 
     # Reassembly
-    for context, towns_list in zip(valid_contexts, parsed_results):
+    for context, towns_dict in zip(valid_contexts, parsed_results):
 
         voivodeship = context["voivodeship"]
 
         # Iterate over EVERY town found in this single message line.
-        for town_dict in towns_list:
-            if isinstance(town_dict, dict):
-                for town_name, location_details in town_dict.items():
-                    city = town_name
+        if isinstance(towns_dict, dict):
+            for town_name, location_details in towns_dict.items():
+                city = town_name
 
-                    shutdown_details = {
-                        "interval": context["interval"],
-                        "locations": location_details
-                    }
+                shutdown_details = {
+                    "interval": context["interval"],
+                    "locations": location_details
+                }
 
-                    # Initialize structure
-                    if voivodeship not in transformed_data:
-                        transformed_data[voivodeship] = {}
+                # Initialize structure
+                if voivodeship not in transformed_data:
+                    transformed_data[voivodeship] = {}
 
-                    if city not in transformed_data[voivodeship]:
-                        transformed_data[voivodeship][city] = []
+                if city not in transformed_data[voivodeship]:
+                    transformed_data[voivodeship][city] = []
 
-                    transformed_data[voivodeship][city].append(shutdown_details)
+                transformed_data[voivodeship][city].append(shutdown_details)
+
 
     print(f"Tauron: Retrieved and parsed {len(messages_to_parse)} messages.")
 
@@ -112,7 +113,7 @@ def get_tauron_planned_shutdowns(from_date: datetime, to_date: datetime):
         voivodeship = list(voivodeship_dict['voivodeship'].keys())[0]
         voivodeship_GAID = list(voivodeship_dict['voivodeship'].values())[0]
 
-        for district, district_GAID in voivodeship_dict['districts'].items():
+        for district, district_GAID in islice(voivodeship_dict['districts'].items(), 10):
             request_url = f"{base_url}&provinceGAID={voivodeship_GAID}&districtGAID={district_GAID}&fromDate={from_date}&toDate={to_date}"
 
             try:

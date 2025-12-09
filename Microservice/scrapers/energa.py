@@ -79,27 +79,27 @@ def transform_shutdown_data(shutdown_list):
     parsed_results = parse_location_lines(messages_to_parse)
 
     # Reassemble
-    for context, towns_list in zip(valid_contexts, parsed_results):
+    for context, towns_dict in zip(valid_contexts, parsed_results):
         voivodeship = context["voivodeship"]
 
-        for town_dict in towns_list:
-            if isinstance(town_dict, dict):
-                for town_name, location_details in town_dict.items():
-                    city = town_name
+        if isinstance(towns_dict, dict):
+            for town_name, location_details in towns_dict.items():
+                city = town_name
 
-                    shutdown_details = {
-                        "interval": context["interval"],
-                        "locations": location_details
-                    }
+                shutdown_details = {
+                    "interval": context["interval"],
+                    "locations": location_details
+                }
 
-                    # Initialize structure if needed
-                    if voivodeship not in transformed_data:
-                        transformed_data[voivodeship] = {}
+                # Initialize structure if needed
+                if voivodeship not in transformed_data:
+                    transformed_data[voivodeship] = {}
 
-                    if city not in transformed_data[voivodeship]:
-                        transformed_data[voivodeship][city] = []
+                if city not in transformed_data[voivodeship]:
+                    transformed_data[voivodeship][city] = []
 
-                    transformed_data[voivodeship][city].append(shutdown_details)
+                transformed_data[voivodeship][city].append(shutdown_details)
+
 
     print(f"Energa: Retrieved and parsed {len(messages_to_parse)} messages.")
 
@@ -120,7 +120,7 @@ def get_energa_planned_shutdowns() -> dict[str, dict[str, dict[str, tuple[dateti
     url = "https://energa-operator.pl/__system/api/document/EXTERNAL_DOCUMENT-305647/1761313426"
 
     try:
-        shutdown_list = requests.get(url).json()['document']['payload']['shutdowns']
+        shutdown_list = requests.get(url).json()['document']['payload']['shutdowns'][:50]
 
         res = transform_shutdown_data(shutdown_list)
         return res
