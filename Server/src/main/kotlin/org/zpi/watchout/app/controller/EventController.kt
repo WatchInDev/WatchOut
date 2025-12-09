@@ -119,5 +119,15 @@ class EventController(val eventService: EventService) {
         return updatedEvent
     }
 
+    @GetMapping("/own")
+    @PreAuthorize("hasRole('ROLE_USER')")
+    @Operation(summary = "Get all events reported by the current user")
+    fun getOwnEvents(@Parameter(hidden = true) @AuthenticationPrincipal userId : Long):List<EventResponseDTO> {
+        logger.info { "Fetching own events for user with id: $userId" }
+        val events = eventService.getEventsByAuthor(userId)
+        logger.info { "Fetched ${events.size} own events for user with id: $userId" }
+        return events
+    }
+
 
 }

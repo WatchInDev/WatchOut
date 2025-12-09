@@ -130,5 +130,11 @@ class EventService(val eventRepository: EventRepository, val eventMapper: EventM
     }
 
 
+    fun getEventsByAuthor(userId: Long): List<EventResponseDTO> {
+        val events = eventRepository.findByAuthor(userId)
+        return events
+    }
+
+
 
 }
