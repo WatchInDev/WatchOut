@@ -12,17 +12,17 @@ class UserFavouritePlace(
     @Column(name = "user_id")
     val userId: Long,
     @Column(name = "region")
-    val region: String,
+    var region: String,
     @Column(name = "voivodeship")
-    val voivodeship: String,
+    var voivodeship: String,
     @Column(name = "location")
-    val location : String,
+    var location : String,
     @Column(name = "locality")
-    val locality: String,
+    var locality: String,
     @Column(name = "point", columnDefinition = "geometry(Point, 4326)")
-    val point: Point,
+    var point: Point,
     @Column(name = "place_name")
-    val placeName: String,
+    var placeName: String,
 ) : AbstractEntity() {
 
 }

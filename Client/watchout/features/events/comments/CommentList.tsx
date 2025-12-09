@@ -1,20 +1,21 @@
-import { TouchableOpacity, View } from 'react-native';
+import { View } from 'react-native';
 import { Text } from 'components/Base/Text';
 import { CustomSurface } from 'components/Layout/CustomSurface';
 import { ActivityIndicator, Button, Icon, IconButton } from 'react-native-paper';
 import { AddCommentModal } from './AddCommentModal';
-import dayjs from 'dayjs';
 import { theme } from 'utils/theme';
 import { ConfirmationModal } from 'components/Common/ConfirmationModal';
-import { generateAnonName } from 'utils/helpers';
+import { formatDate, generateAnonName } from 'utils/helpers';
 import { useCommentsList } from './useCommentsList';
 import { useActionAvailability } from 'features/events/create/useActionAvailability';
+import { Coordinates } from 'utils/types';
 
 type CommentListProps = {
   eventId: number;
+  eventCoordinates: Coordinates;
 };
 
-export const CommentList = ({ eventId }: CommentListProps) => {
+export const CommentList = ({ eventId, eventCoordinates }: CommentListProps) => {
   const {
     comments,
     isDeleting,
@@ -27,48 +28,38 @@ export const CommentList = ({ eventId }: CommentListProps) => {
     handleCommentSubmitError,
   } = useCommentsList(eventId);
 
-  const { data: availability } = useActionAvailability();
+  const { availability, isLoading: isAvailabilityLoading } = useActionAvailability({
+    eventLat: eventCoordinates.latitude,
+    eventLong: eventCoordinates.longitude,
+  });
 
   if (comments.isFetching && !comments.isFetchingNextPage) {
     return <ActivityIndicator color={theme.palette.primary} />;
   }
 
-
-  const currentCommentCount = comments?.content.length || 0;
+  const currentCommentCount = comments?.content.length ?? 0;
 
   return (
     <>
-      <AddCommentModal
-        eventId={eventId}
-        isVisible={isCommentModalOpen}
-        onClose={() => setIsCommentModalOpen(false)}
-        onSubmit={handleCommentSubmit}
-        onError={handleCommentSubmitError}
-      />
-      <ConfirmationModal
-        isVisible={commentToDelete != null}
-        onConfirm={handleCommentDelete}
-        isLoading={isDeleting}
-        onCancel={() => setCommentToDelete(null)}
-        content={
-          <View>
-            <Text>Czy na pewno chcesz usunąć ten komentarz?</Text>
-            <Text
-              variant="body2"
-              color="tertiary"
-              style={{ marginTop: 8, backgroundColor: '#f8f8f8', padding: 8 }}>
-              {comments?.content.find((c) => c.id === commentToDelete)?.content}
-            </Text>
-          </View>
-        }
-      />
-      <Text variant="h3">Komentarze ({comments?.totalElements || 0})</Text>
+      <Text variant="h3">Komentarze ({comments?.totalElements ?? 0})</Text>
+
       <Button
-        onPress={() => setIsCommentModalOpen(true)}
+        onPress={() => {
+          if (availability != null) {
+            setIsCommentModalOpen(true);
+          }
+        }}
         mode={availability?.canPost ? 'contained' : 'outlined'}
-        style={{ marginVertical: 12 }}>
-          {!availability?.canPost ? 'Nie możesz dodać komentarza' : 'Dodaj komentarz'}
+        style={[!availability?.canPost ? { borderStyle: 'dashed' } : {}, { marginVertical: 12 }]}>
+        {isAvailabilityLoading || availability == null ? (
+          <ActivityIndicator>Ładowanie...</ActivityIndicator>
+        ) : availability.canPost ? (
+          'Dodaj komentarz'
+        ) : (
+          'Nie możesz dodać komentarza'
+        )}
       </Button>
+
       {comments?.empty ? (
         <View style={{ alignItems: 'center', marginTop: 32 }}>
           <Icon source={'comment'} size={64} color="#bbb" />
@@ -93,8 +84,7 @@ export const CommentList = ({ eventId }: CommentListProps) => {
                   {item.content}
                 </Text>
                 <Text variant="body2" color="tertiary">
-                  {dayjs.utc(item.createdAt).local().format('YYYY-MM-DD HH:mm')} (
-                  {dayjs.utc(item.createdAt).local().fromNow()})
+                  {formatDate(item.createdAt)}
                 </Text>
               </View>
               {item.isAuthor && (
@@ -106,7 +96,8 @@ export const CommentList = ({ eventId }: CommentListProps) => {
           ))}
 
           {comments.hasNextPage && (
-            <TouchableOpacity
+            <Button
+              mode="outlined"
               onPress={() => comments.fetchNextPage()}
               disabled={comments.isFetchingNextPage}
               style={{ paddingVertical: 16, alignItems: 'center' }}>
@@ -115,7 +106,7 @@ export const CommentList = ({ eventId }: CommentListProps) => {
                   ? 'Ładowanie...'
                   : `Wyświetl więcej komentarzy (${(comments?.totalElements ?? 0) - currentCommentCount})`}
               </Text>
-            </TouchableOpacity>
+            </Button>
           )}
 
           {(!comments.hasNextPage || comments.totalElements === 0) && currentCommentCount > 0 && (
@@ -125,6 +116,34 @@ export const CommentList = ({ eventId }: CommentListProps) => {
           )}
         </>
       )}
+
+      {availability != null && (
+        <AddCommentModal
+          eventId={eventId}
+          isVisible={isCommentModalOpen}
+          onClose={() => setIsCommentModalOpen(false)}
+          onSubmit={handleCommentSubmit}
+          onError={handleCommentSubmitError}
+          availability={availability}
+        />
+      )}
+      <ConfirmationModal
+        isVisible={commentToDelete != null}
+        onConfirm={handleCommentDelete}
+        isLoading={isDeleting}
+        onCancel={() => setCommentToDelete(null)}
+        content={
+          <View>
+            <Text>Czy na pewno chcesz usunąć ten komentarz?</Text>
+            <Text
+              variant="body2"
+              color="tertiary"
+              style={{ marginTop: 8, backgroundColor: '#f8f8f8', padding: 8 }}>
+              {comments?.content.find((c) => c.id === commentToDelete)?.content}
+            </Text>
+          </View>
+        }
+      />
     </>
   );
 };

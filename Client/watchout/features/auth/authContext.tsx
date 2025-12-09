@@ -10,6 +10,7 @@ interface AuthUser {
   uid: string;
   email: string | null;
   displayName: string | null;
+  isEmailVerified: boolean;
 }
 
 interface AuthContextType {
@@ -37,6 +38,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
           uid: firebaseUser.uid,
           email: firebaseUser.email,
           displayName: firebaseUser.displayName,
+          isEmailVerified: firebaseUser.emailVerified,
         });
       } else {
         setUser(null);

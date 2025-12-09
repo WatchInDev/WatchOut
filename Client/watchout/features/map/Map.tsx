@@ -1,6 +1,6 @@
 import { Dimensions, StyleSheet, View } from 'react-native';
 import MapView, { LongPressEvent, Marker, PROVIDER_GOOGLE } from 'react-native-maps';
-import { useUserLocation } from 'features/map/useLocation';
+import { useUserLocation } from 'components/location/UserLocationContext';
 import { Coordinates, Event, EventFilters } from 'utils/types';
 import { Icon } from 'react-native-paper';
 import { useRef, useState, useCallback, useEffect } from 'react';

@@ -13,12 +13,14 @@ import { getFocusedRouteNameFromRoute, RouteProp } from '@react-navigation/nativ
 import { navigationTheme } from 'components/Base/navigationTheme';
 import { AlertsNavigator } from 'features/outages/AlertsNavigator';
 import { useBottomSheetModal } from '@gorhom/bottom-sheet';
+import { LoadingScreen } from 'components/Common/LoadingScreen';
 
 const NavDrawer = createDrawerNavigator();
+const LoginStack = createDrawerNavigator();
 
 const routes = [
   {
-    name: 'WatchOut',
+    name: 'Map',
     component: Map,
     label: 'Mapa',
     icon: 'map',
@@ -55,16 +57,18 @@ export const AppNavigator = () => {
   const { user, loading } = useAuth();
   const { dismissAll } = useBottomSheetModal();
 
-  if (loading) return null;
+  if (loading) {
+    return <LoadingScreen />;
+  }
+  const isUserLoggedIn = user != null && user.isEmailVerified;
 
-  if (!user) {
+  if (!isUserLoggedIn) {
     return (
-      <NavDrawer.Navigator
-        screenOptions={{ headerShown: false }}
-        drawerContent={(props) => <SafeAreaView style={{ flex: 1 }} />}>
-        <NavDrawer.Screen name="Login" component={LoginScreen} />
-        <NavDrawer.Screen name="SignUp" component={SignUpScreen} />
-      </NavDrawer.Navigator>
+      <LoginStack.Navigator
+        screenOptions={{ headerShown: false }}>
+        <LoginStack.Screen name="Login" component={LoginScreen} />
+        <LoginStack.Screen name="SignUp" component={SignUpScreen} />
+      </LoginStack.Navigator>
     );
   }
 

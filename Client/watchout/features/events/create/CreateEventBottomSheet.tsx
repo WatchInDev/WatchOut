@@ -1,7 +1,7 @@
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Text } from 'components/Base/Text';
 import { CustomTextInput } from 'components/Base/CustomTextInput';
-import { Coordinates } from 'utils/types';
+import { Coordinates, PostUnabilityReason } from 'utils/types';
 import { EventTypeSelectionModal } from './EventTypeSelectionModal';
 import { BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet';
 import { ActivityIndicator, Button, Icon } from 'react-native-paper';
@@ -12,6 +12,9 @@ import { useEffect } from 'react';
 import { useActionAvailability } from './useActionAvailability';
 import { Row } from 'components/Base/Row';
 import { theme } from 'utils/theme';
+import { Controller } from 'react-hook-form';
+import { eventReasonDictionary } from 'utils/dictionaries';
+import { useUserLocation } from 'components/location/UserLocationContext';
 
 type CreateEventProps = {
   location: Coordinates;
@@ -20,21 +23,26 @@ type CreateEventProps = {
 };
 
 export const CreateEventBottomSheet = ({ location, onSuccess, onClose }: CreateEventProps) => {
+  const { location: userLocation, isLoading: isUserLocationLoading } = useUserLocation();
+  const isUserLocationFetched = !isUserLocationLoading && userLocation != null;
+
   const {
-    formData,
+    control,
     handleSubmit,
     handleSetSelectedEventType,
     eventTypeModalVisible,
     setEventTypeModalVisible,
     selectedEventType,
-    updateField,
     geocodedAddress,
     eventBottomSheetRef,
     isLoading,
-  } = useEventCreateForm(location, onSuccess);
+  } = useEventCreateForm(location, userLocation, onSuccess);
 
-  const { data: actionAvailability, isLoading: isActionAvailabilityLoading } =
-    useActionAvailability();
+  const { availability: actionAvailability, isLoading: isActionAvailabilityLoading } =
+    useActionAvailability({
+      eventLat: location.latitude,
+      eventLong: location.longitude,
+    });
 
   useEffect(() => {
     eventBottomSheetRef.current?.present();
@@ -44,7 +52,21 @@ export const CreateEventBottomSheet = ({ location, onSuccess, onClose }: CreateE
     <BottomSheetModal ref={eventBottomSheetRef} enablePanDownToClose onDismiss={onClose}>
       <BottomSheetView>
         <PageWrapper>
-          {isActionAvailabilityLoading ? (
+          {!isUserLocationFetched ? (
+            <View style={{ padding: 16, justifyContent: 'center', alignItems: 'center', gap: 8 }}>
+              <View>
+                <Icon source="map-marker-off" size={64} color={theme.palette.text.secondary} />
+              </View>
+              <Text variant="h3" align="center">
+                Lokalizacja niedostępna
+              </Text>
+              <Text color="secondary" align="center">
+                Aby móc zgłosić nowe zdarzenie, potrzebujemy wiedzieć, że znajdujesz się w pobliżu
+                miejsca zdarzenia. Upewnij się, że usługi lokalizacyjne są włączone i spróbuj
+                ponownie.
+              </Text>
+            </View>
+          ) : isActionAvailabilityLoading ? (
             <ActivityIndicator style={{ marginVertical: 20 }} />
           ) : actionAvailability?.canPost ? (
             <View style={styles.container}>
@@ -53,35 +75,55 @@ export const CreateEventBottomSheet = ({ location, onSuccess, onClose }: CreateE
               </Text>
 
               <View style={{ gap: 20 }}>
-                <CustomTextInput
-                  placeholder="Nadaj tytuł zdarzeniu"
-                  label="Tytuł zdarzenia"
-                  value={formData.name}
-                  onChangeText={(value) => updateField('name', value)}
+                <Controller
+                  control={control}
+                  name="name"
+                  render={({ field: { value, onChange } }) => (
+                    <CustomTextInput
+                      placeholder="Nadaj tytuł zdarzeniu"
+                      label="Tytuł zdarzenia"
+                      value={value}
+                      onChangeText={onChange}
+                    />
+                  )}
                 />
-                <CustomTextInput
-                  placeholder="Opisz krótko zdarzenie, podaj najważniejsze informacje"
-                  label="Opis zdarzenia"
-                  value={formData.description}
-                  onChangeText={(value) => updateField('description', value)}
-                  multiline
-                  numberOfLines={3}
+                <Controller
+                  control={control}
+                  name="description"
+                  render={({ field: { value, onChange } }) => (
+                    <CustomTextInput
+                      placeholder="Opisz krótko zdarzenie, podaj najważniejsze informacje"
+                      label="Opis zdarzenia"
+                      value={value}
+                      onChangeText={onChange}
+                      multiline
+                      numberOfLines={3}
+                    />
+                  )}
                 />
-
-                <TouchableOpacity onPress={() => setEventTypeModalVisible(true)}>
-                  <CustomTextInput
-                    value={selectedEventType?.name || 'Wybierz rodzaj zdarzenia'}
-                    label="Rodzaj zdarzenia"
-                    startIcon={selectedEventType?.icon}
-                    endIcon="menu-down"
-                    editable={false}
-                  />
-                </TouchableOpacity>
+                <Controller
+                  control={control}
+                  name="eventTypeId"
+                  render={({ field: { value } }) => (
+                    <TouchableOpacity onPress={() => setEventTypeModalVisible(true)}>
+                      <CustomTextInput
+                        value={selectedEventType?.name || 'Wybierz rodzaj zdarzenia'}
+                        label="Rodzaj zdarzenia"
+                        startIcon={selectedEventType?.icon}
+                        endIcon="menu-down"
+                        editable={false}
+                      />
+                    </TouchableOpacity>
+                  )}
+                />
               </View>
 
-              <ImageUploader
-                images={formData.images}
-                onImagesUpload={(images) => updateField('images', images)}
+              <Controller
+                control={control}
+                name="images"
+                render={({ field: { value, onChange } }) => (
+                  <ImageUploader images={value} onImagesUpload={onChange} />
+                )}
               />
 
               <EventTypeSelectionModal
@@ -102,7 +144,7 @@ export const CreateEventBottomSheet = ({ location, onSuccess, onClose }: CreateE
               </Button>
             </View>
           ) : (
-            <ActionNotAvailableMessage />
+            <ActionNotAvailableMessage reason={actionAvailability?.reason} />
           )}
         </PageWrapper>
       </BottomSheetView>
@@ -110,18 +152,20 @@ export const CreateEventBottomSheet = ({ location, onSuccess, onClose }: CreateE
   );
 };
 
-const ActionNotAvailableMessage = () => {
+const ActionNotAvailableMessage = ({ reason }: { reason?: PostUnabilityReason }) => {
+  const errorDescription = reason
+    ? eventReasonDictionary[reason]
+    : 'Chwilowo nie jest możliwe zgłoszenie zdarzenia. Spróbuj ponownie później.';
+
   return (
     <View style={{ gap: 8, padding: 16 }}>
       <Row style={{ justifyContent: 'center', marginVertical: 8 }}>
-        <Icon source="block-helper" size={64} color={theme.palette.tertiary}/>
+        <Icon source="block-helper" size={64} color={theme.palette.tertiary} />
       </Row>
       <Text variant="h3" align="center">
         Akcja niedostępna
       </Text>
-      <Text align="center">
-        Nie możesz zgłosić nowego zdarzenia, ponieważ twoja reputacja jest zbyt niska. Spróbuj ponownie później.
-      </Text>
+      <Text align="center">{errorDescription}</Text>
     </View>
   );
 };

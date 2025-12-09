@@ -24,12 +24,17 @@ export type Event = {
   images: string[];
   latitude: number;
   longitude: number;
-  reportedDate: string;
-  endDate: string;
+  reportedDate: Date;
+  endDate: Date;
   eventType: EventType;
+  author: {
+    id: number;
+    reputation: number;
+  };
   active: boolean;
   rating: number;
   ratingForCurrentUser: number;
+  isAuthor: boolean;
 };
 
 export type Outage = {
@@ -50,6 +55,8 @@ export type CreateEventRequest = {
   images: string[]; // base64 encoded images
   latitude: number;
   longitude: number;
+  userLatitude: number;
+  userLongitude: number;
   endDate: Date | string;
   eventTypeId: number;
 };
@@ -107,8 +114,8 @@ export type AddLocationRequest = {
       weather: boolean;
       eventTypes?: number[];
     };
+    notificationsEnable: boolean;
   };
-  notificationsEnable: boolean;
 };
 
 export type UpdateLocationRequest = AddLocationRequest;
@@ -192,7 +199,16 @@ export type Alert = {
   placeName: string;
 };
 
-export type ActionAvailability = {
-  canPost: boolean;
-  reason?: string;
+export type ActionAvailabilityRequest = {
+  lat: number;
+  long: number;
+  eventLat: number;
+  eventLong: number;
 };
+
+export type ActionAvailabilityResponse = {
+  canPost: boolean;
+  reason?: PostUnabilityReason;
+};
+
+export type PostUnabilityReason = 'DISTANCE_RESTRICTION' | 'REPUTATION_RESTRICTION';

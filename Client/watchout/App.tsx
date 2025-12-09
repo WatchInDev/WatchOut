@@ -2,8 +2,7 @@ import '@expo/metro-runtime';
 import { StatusBar } from 'expo-status-bar';
 import { GEOCODING_API_KEY } from '@env';
 
-import { ActivityIndicator, Icon, PaperProvider } from 'react-native-paper';
-import { Text } from 'components/Base/Text';
+import { PaperProvider } from 'react-native-paper';
 import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -23,11 +22,11 @@ import { useEffect } from 'react';
 import { useCustomFonts } from 'utils/useCustomFonts';
 import { theme } from 'utils/theme';
 import { AppNavigator } from 'components/Layout/AppNavigator';
-import { DevToolsBubble } from 'react-native-react-query-devtools';
 import { SnackbarProvider } from 'utils/useSnackbar';
-import { View } from 'react-native';
 import Reactotron, { openInEditor } from 'reactotron-react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { DevToolsBubble } from "react-native-react-query-devtools";
+import { LoadingScreen } from 'components/Common/LoadingScreen';
 
 Reactotron.setAsyncStorageHandler(AsyncStorage)
   .configure({ name: 'WatchOut' })
@@ -54,6 +53,7 @@ export default function App() {
   const { loaded } = useCustomFonts();
 
   useEffect(() => {
+    console.info('Initializing Geocoding with API Key:', GEOCODING_API_KEY.substring(0, 5) + '****' + ' (truncated for security)');
     Geocoding.init(GEOCODING_API_KEY);
   }, []);
 
@@ -63,17 +63,7 @@ export default function App() {
   };
 
   if (!loaded) {
-    return (
-      <>
-        <View style={{ justifyContent: 'center', alignItems: 'center', marginBottom: 24 }}>
-          <Icon source={require('assets/watchout.png')} size={250} />
-          <Text variant="h4" style={{ marginTop: 16 }}>
-            Ładowanie...
-          </Text>
-          <ActivityIndicator size="large" style={{ marginTop: 16 }} />
-        </View>
-      </>
-    );
+    return <LoadingScreen />;
   }
 
   return (

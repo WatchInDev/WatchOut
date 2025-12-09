@@ -8,3 +8,6 @@ export const MIN_LOCATION_RADIUS_KM = 0;
 export const MAX_LOCATION_RADIUS_KM = 50;
 export const DEFAULT_LOCATION_RADIUS_KM = 5;
 export const METERS_IN_KM = 1000;
+
+export const LOW_REPUTATION_THRESHOLD = 0.25;
+export const HIGH_REPUTATION_THRESHOLD = 0.75;
