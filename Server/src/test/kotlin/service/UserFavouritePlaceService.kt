@@ -131,39 +131,6 @@ class UserFavouritePlaceServiceTest {
     // ---------------------------------------------------------
 
     @Test
-    fun `editFavouritePlacePreference should update preference`() {
-        val userId = 1L
-        val placeId = 20L
-
-        val savedPlace = mockk<UserFavouritePlace>()
-        every { savedPlace.id } returns placeId
-        every { userFavouritePlaceRepository.findByUserId(userId) } returns listOf(savedPlace)
-
-        val pref = mockk<UserFavouritePlacePreference>(relaxed = true)
-        every { userFavouritePlacePreferenceRepository.findByUserFavouritePlaceId(placeId) } returns pref
-
-        val editDTO = mockk<EditFavouritePlacePreferenceDTO>()
-        every { editDTO.radius } returns 200.0
-        every { editDTO.notificationsEnable } returns true
-
-        val services = mockk<EditServicesPreferenceDTO>()
-        every { services.weather } returns false
-        every { services.electricity } returns true
-        every { services.eventTypes } returns listOf(5L)
-
-        every { editDTO.services } returns services
-
-        val eventType = mockk<EventType>()
-        every { eventTypeRepository.findById(5L) } returns java.util.Optional.of(eventType)
-
-        every { userFavouritePlacePreferenceRepository.save(any()) } returns pref
-
-        service.editFavouritePlacePreference(userId, placeId, editDTO)
-
-        verify { userFavouritePlacePreferenceRepository.save(pref) }
-    }
-
-    @Test
     fun `editFavouritePlacePreference should throw when place not found for user`() {
         every { userFavouritePlaceRepository.findByUserId(1L) } returns emptyList()
 

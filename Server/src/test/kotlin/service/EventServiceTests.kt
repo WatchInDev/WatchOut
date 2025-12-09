@@ -19,7 +19,10 @@ import org.zpi.watchout.service.dto.EventResponseDTO
 import org.zpi.watchout.service.mapper.EventMapper
 import java.time.LocalDateTime
 import org.zpi.watchout.data.entity.*
+import org.zpi.watchout.data.repos.EventTypeRepository
+import org.zpi.watchout.service.EventTypeService
 import org.zpi.watchout.service.NotificationType
+import org.zpi.watchout.service.azure.blob.AzureBlobService
 import org.zpi.watchout.service.dto.AuthorResponseDTO
 import org.zpi.watchout.service.dto.ClusterRequestDTO
 import org.zpi.watchout.service.dto.EventRequestDTO
@@ -36,6 +39,8 @@ class EventServiceTest {
     private lateinit var reputationService: ReputationService
     private lateinit var geoService: GeoService
     private lateinit var eventService: EventService
+    private lateinit var azureBlobService: AzureBlobService
+    private lateinit var eventTypeRepository: EventTypeRepository
 
     @BeforeEach
     fun setUp() {
@@ -46,6 +51,8 @@ class EventServiceTest {
         userGlobalPreferenceRepository = mockk()
         reputationService = mockk()
         geoService = mockk()
+        azureBlobService = mockk()
+        eventTypeRepository = mockk()
 
         eventService = EventService(
             eventRepository,
@@ -54,7 +61,9 @@ class EventServiceTest {
             notificationService,
             userGlobalPreferenceRepository,
             reputationService,
-            geoService
+            geoService,
+            eventTypeRepository = eventTypeRepository,
+            azureBlobService = azureBlobService
         )
     }
 
@@ -206,7 +215,7 @@ class EventServiceTest {
         val userId = 1L
         every { reputationService.isAbleToPostEvents(userId) } returns true
 
-        val result = eventService.isAbleToPostEvents(userId)
+        val result = eventService.isAbleToPostEvents(userId,30.0,30.0,30.0,30.0)
 
         assertTrue(result.canPost)
         assertNull(result.reason)
@@ -218,7 +227,7 @@ class EventServiceTest {
         val userId = 1L
         every { reputationService.isAbleToPostEvents(userId) } returns false
 
-        val result = eventService.isAbleToPostEvents(userId)
+        val result = eventService.isAbleToPostEvents(userId,30.0,30.0,30.0,30.0)
 
 
         assertFalse(result.canPost)
