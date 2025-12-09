@@ -4,13 +4,13 @@ import io.mockk.*
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageImpl
 import org.springframework.data.domain.Pageable
-import org.springframework.security.access.AccessDeniedException
+import org.zpi.watchout.app.infrastructure.exceptions.AccessDeniedException
 import org.zpi.watchout.app.infrastructure.exceptions.EntityNotFoundException
 import org.zpi.watchout.data.entity.Comment
 import org.zpi.watchout.data.entity.Event
+import org.zpi.watchout.data.entity.EventType
 import org.zpi.watchout.data.entity.User
 import org.zpi.watchout.data.entity.UserGlobalPreference
 import org.zpi.watchout.data.repos.CommentRepository
@@ -24,6 +24,10 @@ import org.zpi.watchout.service.ReputationService
 import org.zpi.watchout.service.dto.CommentRequestDTO
 import org.zpi.watchout.service.dto.CommentResponseDTO
 import org.zpi.watchout.service.mapper.CommentMapper
+import org.locationtech.jts.geom.Coordinate
+import org.locationtech.jts.geom.GeometryFactory
+import org.zpi.watchout.service.dto.AuthorResponseDTO
+import java.time.LocalDateTime
 import java.util.*
 
 class CommentServiceTest {
@@ -40,10 +44,8 @@ class CommentServiceTest {
 
     @BeforeEach
     fun setup() {
-        // Clear previous mocks to avoid interference between tests
         unmockkAll()
 
-        // Use relaxed mocks so unstubbed calls don't crash tests
         commentRepository = mockk(relaxed = true)
         commentMapper = mockk(relaxed = true)
         eventRepository = mockk(relaxed = true)
@@ -63,10 +65,6 @@ class CommentServiceTest {
         )
     }
 
-    // -------------------------------------------------------------------------
-    // getCommentsByEventId
-    // -------------------------------------------------------------------------
-
     @Test
     fun `getCommentsByEventId returns page from repository`() {
         val pageable = mockk<Pageable>(relaxed = true)
@@ -78,13 +76,9 @@ class CommentServiceTest {
         assertEquals(expected, result)
     }
 
-    // -------------------------------------------------------------------------
-    // addCommentToEvent
-    // -------------------------------------------------------------------------
-
     @Test
     fun `addCommentToEvent throws when user cannot post comments`() {
-        val dto = CommentRequestDTO(text = "Hello", latitude = 1.0, longitude = 2.0)
+        val dto = CommentRequestDTO(content = "Hello", latitude = 1.0, longitude = 2.0)
 
         every { reputationService.isAbleToPostComments(5L) } returns false
 
@@ -95,7 +89,7 @@ class CommentServiceTest {
 
     @Test
     fun `addCommentToEvent throws when user is not within event distance`() {
-        val dto = CommentRequestDTO(text = "Hi", latitude = 1.0, longitude = 2.0)
+        val dto = CommentRequestDTO(content = "Hi", latitude = 1.0, longitude = 2.0)
 
         every { reputationService.isAbleToPostComments(5L) } returns true
         every { geoService.isUserWithinDistanceByEventId(10L, 1.0, 2.0) } returns false
@@ -107,7 +101,7 @@ class CommentServiceTest {
 
     @Test
     fun `addCommentToEvent throws when event not found`() {
-        val dto = CommentRequestDTO(text = "Test", latitude = 1.0, longitude = 2.0)
+        val dto = CommentRequestDTO(content = "Test", latitude = 1.0, longitude = 2.0)
 
         every { reputationService.isAbleToPostComments(5L) } returns true
         every { geoService.isUserWithinDistanceByEventId(10L, 1.0, 2.0) } returns true
@@ -120,21 +114,21 @@ class CommentServiceTest {
 
     @Test
     fun `addCommentToEvent triggers notification when author preference notifyOnComment is true`() {
-        val dto = CommentRequestDTO("ok", 1.0, 2.0)
+        val dto = CommentRequestDTO(content = "ok", latitude = 1.0, longitude = 2.0)
 
-        val author = User(id = 100L, reputation = 1.0)
-        val event = Event(id = 10L, name = "Storm", author = author)
+        val author = createUser(100L)
+        val event = createEvent(10L, "Storm", author)
 
-        val comment = Comment()
-        val saved = Comment(id = 50L)
-        val mappedDto = CommentResponseDTO(id = 50L, text = "ok", authorId = 5L)
+        val comment = createComment(content = "ok", author = author, eventId = 10L)
+        val saved = createComment(50L, "ok", author, 10L)
+        val mappedDto = createCommentResponseDTO(50L, "ok", 5L)
 
         every { reputationService.isAbleToPostComments(5L) } returns true
         every { geoService.isUserWithinDistanceByEventId(10L, 1.0, 2.0) } returns true
         every { eventRepository.findById(10L) } returns Optional.of(event)
 
         every { globalPrefRepo.findByUserId(100L) } returns
-                UserGlobalPreference(notifyOnComment = true)
+                UserGlobalPreference(userId = 100L, notifyOnComment = true)
 
         every { commentMapper.mapToEntity(dto, authorId = 5L, eventId = 10L) } returns comment
         every { commentRepository.save(comment) } returns saved
@@ -150,21 +144,21 @@ class CommentServiceTest {
 
     @Test
     fun `addCommentToEvent does NOT notify when notifyOnComment is false`() {
-        val dto = CommentRequestDTO("ok", 1.0, 2.0)
+        val dto = CommentRequestDTO(content = "ok", latitude = 1.0, longitude = 2.0)
 
-        val author = User(id = 100L, reputation = 1.0)
-        val event = Event(id = 10L, name = "Storm", author = author)
+        val author = createUser(100L)
+        val event = createEvent(10L, "Storm", author)
 
-        val comment = Comment()
-        val saved = Comment(id = 40L)
-        val mappedDto = CommentResponseDTO(id = 40L, text = "ok", authorId = 5L)
+        val comment = createComment(content = "ok", author = author, eventId = 10L)
+        val saved = createComment(40L, "ok", author, 10L)
+        val mappedDto = createCommentResponseDTO(40L, "ok", 5L)
 
         every { reputationService.isAbleToPostComments(5L) } returns true
         every { geoService.isUserWithinDistanceByEventId(10L, 1.0, 2.0) } returns true
         every { eventRepository.findById(10L) } returns Optional.of(event)
 
         every { globalPrefRepo.findByUserId(100L) } returns
-                UserGlobalPreference(notifyOnComment = false)
+                UserGlobalPreference(userId = 100L, notifyOnComment = false)
 
         every { commentMapper.mapToEntity(dto, 5L, 10L) } returns comment
         every { commentRepository.save(comment) } returns saved
@@ -175,10 +169,6 @@ class CommentServiceTest {
         assertEquals(mappedDto, result)
         verify(exactly = 0) { notificationService.createNotification(any(), any(), any()) }
     }
-
-    // -------------------------------------------------------------------------
-    // deleteComment
-    // -------------------------------------------------------------------------
 
     @Test
     fun `deleteComment throws if comment does not exist`() {
@@ -191,7 +181,8 @@ class CommentServiceTest {
 
     @Test
     fun `deleteComment throws when comment does not belong to user`() {
-        val comment = Comment(id = 10L, author = User(id = 123L))
+        val author = createUser(123L)
+        val comment = createComment(10L, "text", author, 1L)
         every { commentRepository.findById(10L) } returns Optional.of(comment)
 
         assertThrows(AccessDeniedException::class.java) {
@@ -201,7 +192,8 @@ class CommentServiceTest {
 
     @Test
     fun `deleteComment marks comment as deleted and saves it`() {
-        val comment = Comment(id = 10L, author = User(id = 5L), isDeleted = false)
+        val author = createUser(5L)
+        val comment = createComment(10L, "text", author, 1L).apply { isDeleted = false }
 
         every { commentRepository.findById(10L) } returns Optional.of(comment)
         every { commentRepository.save(any()) } returnsArgument 0
@@ -211,4 +203,42 @@ class CommentServiceTest {
         assertTrue(comment.isDeleted)
         verify { commentRepository.save(comment) }
     }
+
+    private fun createUser(id: Long) = User(
+        name = "User$id",
+        email = "user$id@example.com",
+        externalId = "ext$id",
+        reputation = 1.0
+    ).apply { this.id = id }
+
+    private fun createEvent(id: Long, name: String, author: User) = Event(
+        name = name,
+        description = "Description",
+        image = "",
+        reportedDate = LocalDateTime.now(),
+        endDate = LocalDateTime.now().plusDays(1),
+        isActive = true,
+        eventType = mockk<EventType>(relaxed = true),
+        author = author,
+        location = GeometryFactory().createPoint((Coordinate(30.0,30.0))).also{
+            it.srid = 4326
+        }
+    ).apply { this.id = id }
+
+    private fun createComment(id: Long? = null, content: String, author: User, eventId: Long) =
+        Comment(content = content, author = author, eventId = eventId).apply {
+            id?.let { this.id = it }
+        }
+
+    private fun createCommentResponseDTO(id: Long, content: String, authorId: Long) =
+        CommentResponseDTO(
+            id = id,
+            content = content,
+            eventId = 10L,
+            createdAt = LocalDateTime.now(),
+            author = AuthorResponseDTO(id = authorId, reputation = 0.0),
+            rating = 0.0,
+            ratingForCurrentUser = 0.0,
+            isAuthor = true
+        )
 }
