@@ -21,7 +21,7 @@ import org.zpi.watchout.service.dto.WeatherDTO
 
 
 @Service
-class ExternalWarningsService(val userFavouritePlaceRepository: UserFavouritePlaceRepository, val weatherWarningRepository: WeatherWarningRepository, val electricalOutageRepository: ElectricalOutageRepository, val userFavouritePlacePreferenceRepository: UserFavouritePlacePreferenceRepository, val userGlobalPreferenceRepository: UserGlobalPreferenceRepository) {
+class ExternalWarningsService(val userFavouritePlaceRepository: UserFavouritePlaceRepository, val weatherWarningRepository: WeatherWarningRepository, val electricalOutageRepository: ElectricalOutageRepository, val userFavouritePlacePreferenceRepository: UserFavouritePlacePreferenceRepository, val userGlobalPreferenceRepository: UserGlobalPreferenceRepository, val weatherWarningJdbcRepositoryInterface: WeatherWarningJdbcRepositoryInterface, val electricalOutageJdbcRepositoryInterface: ElectricalOutageJdbcRepositoryInterface) {
     fun getExternalWarning(userId: Long) : List<ExternalWarningDTO>{
         val favouritePlaces = userFavouritePlaceRepository.findByUserId(userId)
         val userGlobalPreference = userGlobalPreferenceRepository.findByUserId(userId) ?: return emptyList()
@@ -71,7 +71,7 @@ class ExternalWarningsService(val userFavouritePlaceRepository: UserFavouritePla
             }
         }
 
-        weatherWarningRepository.saveAll(weatherWarnings)
+        weatherWarningJdbcRepositoryInterface.batchSave(weatherWarnings)
     }
 
     @Transactional
@@ -99,7 +99,7 @@ class ExternalWarningsService(val userFavouritePlaceRepository: UserFavouritePla
                 }
             }
         }
-        electricalOutageRepository.saveAll(outagesToSave)
+        electricalOutageJdbcRepositoryInterface.batchSave(outagesToSave)
 
     }
 }
