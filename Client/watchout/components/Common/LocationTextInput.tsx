@@ -74,12 +74,13 @@ const styles: GooglePlacesTextInputStyles = {
     marginVertical: 4,
   },
   input: {
-    height: 48,
+    height: 44,
     borderWidth: 0.5,
     borderRadius: 6,
-    fontSize: 16,
-    paddingVertical: 12,
-    lineHeight: 16,
+    fontSize: 14,
+    paddingTop: 10,
+    paddingBottom: 6,
+    lineHeight: 20,
     fontFamily: 'Poppins_400Regular',
     paddingHorizontal: 12,
   },
@@ -115,6 +116,6 @@ const styles: GooglePlacesTextInputStyles = {
     color: theme.palette.primary,
   },
   placeholder: {
-    color: '#9E9E9E',
+    color: theme.palette.text.tertiary,
   },
 };
