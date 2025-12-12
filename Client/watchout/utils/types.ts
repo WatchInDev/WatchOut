@@ -112,7 +112,7 @@ export type AddLocationRequest = {
     services: {
       electricity: boolean;
       weather: boolean;
-      eventTypes?: number[];
+      eventTypes: number[];
     };
     notificationsEnable: boolean;
   };

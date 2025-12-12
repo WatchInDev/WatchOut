@@ -51,7 +51,13 @@ export const LocationForm = ({ initialLocation, submit, isPending }: LocationFor
     setValue,
     formState: { errors },
   } = useForm<AddLocationRequest>({
-    defaultValues: { ...(initialLocation ?? defaultLocation), settings: { radius: (initialLocation?.settings.radius ?? DEFAULT_LOCATION_RADIUS_KM) / METERS_IN_KM} },
+    defaultValues: {
+      ...(initialLocation ?? defaultLocation),
+      settings: {
+        ...((initialLocation?.settings ?? defaultLocation.settings) as AddLocationRequest['settings']),
+        radius: (initialLocation?.settings.radius ?? DEFAULT_LOCATION_RADIUS_KM) / METERS_IN_KM,
+      },
+    },
   });
 
   useEffect(() => {
