@@ -55,7 +55,7 @@ export const LocationForm = ({ initialLocation, submit, isPending }: LocationFor
       ...(initialLocation ?? defaultLocation),
       settings: {
         ...((initialLocation?.settings ?? defaultLocation.settings) as AddLocationRequest['settings']),
-        radius: (initialLocation?.settings.radius ?? DEFAULT_LOCATION_RADIUS_KM) / METERS_IN_KM,
+        radius: (initialLocation?.settings.radius ?? DEFAULT_LOCATION_RADIUS_KM),
       },
     },
   });
