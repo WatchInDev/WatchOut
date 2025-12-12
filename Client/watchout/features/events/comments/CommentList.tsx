@@ -81,7 +81,7 @@ export const CommentList = ({ eventId, eventAuthorId, eventCoordinates }: Commen
                   {item.isAuthor ? (
                     <Text
                       variant="subtitle2"
-                      style={{ borderBottomWidth: 1, borderBottomColor: theme.palette.text.primary }}>
+                      style={{ textDecorationLine: 'underline' }}>
                       Twój komentarz
                     </Text>
                   ) : (

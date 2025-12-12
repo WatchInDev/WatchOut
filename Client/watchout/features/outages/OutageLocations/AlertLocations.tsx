@@ -42,17 +42,17 @@ export const AlertLocations = () => {
 
   return (
     <PageWrapper>
-      <View
-        style={{
-          justifyContent: 'space-between',
-          flexDirection: 'row',
-          alignItems: 'center',
-          marginBottom: 12,
-        }}>
-        <Text variant="h3">Śledzone lokalizacje</Text>
-        <FabButton onPress={() => navigation.navigate('AddLocation' as never)} iconName="plus" />
-      </View>
       <ScrollView showsVerticalScrollIndicator={false}>
+        <View
+          style={{
+            justifyContent: 'space-between',
+            flexDirection: 'row',
+            alignItems: 'center',
+            marginBottom: 12,
+          }}>
+          <Text variant="h3">Śledzone lokalizacje</Text>
+          <FabButton onPress={() => navigation.navigate('AddLocation' as never)} iconName="plus" />
+        </View>
         {isLoading && <ActivityIndicator size="large" color={theme.palette.primary} />}
         {pinnedLocations?.map((location) => (
           <CustomSurface
@@ -108,9 +108,7 @@ export const AlertLocations = () => {
                 <Icon source="map-marker" size={24} color={theme.palette.text.secondary} />
                 <Text weight="bold" color="secondary" wrap>
                   {location.region}
-                  <Text color="secondary">
-                    , {location.location}
-                  </Text>
+                  <Text color="secondary">, {location.location}</Text>
                 </Text>
               </Row>
               <Row style={{ alignItems: 'center', gap: 8 }}>

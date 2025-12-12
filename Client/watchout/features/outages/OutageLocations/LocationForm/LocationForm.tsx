@@ -54,8 +54,9 @@ export const LocationForm = ({ initialLocation, submit, isPending }: LocationFor
     defaultValues: {
       ...(initialLocation ?? defaultLocation),
       settings: {
-        ...((initialLocation?.settings ?? defaultLocation.settings) as AddLocationRequest['settings']),
-        radius: (initialLocation?.settings.radius ?? DEFAULT_LOCATION_RADIUS_KM),
+        ...((initialLocation?.settings ??
+          defaultLocation.settings) as AddLocationRequest['settings']),
+        radius: initialLocation?.settings.radius == null ? DEFAULT_LOCATION_RADIUS_KM : initialLocation.settings.radius / METERS_IN_KM,
       },
     },
   });
@@ -87,150 +88,148 @@ export const LocationForm = ({ initialLocation, submit, isPending }: LocationFor
 
   return (
     <PageWrapper>
-      <SafeAreaView edges={['left', 'right', 'bottom']}>
-        <ScrollView
-          contentContainerStyle={{ gap: 16 }}
-          keyboardShouldPersistTaps="handled"
-          nestedScrollEnabled={true}>
-          <CustomSurface style={styles.locationSurface}>
-            <Text variant="h3">Nazwa lokalizacji</Text>
-            <Text color="secondary">
-              Wprowadź nazwę lokalizacji, aby łatwo ją rozpoznać w aplikacji (np. Dom, Praca)
-            </Text>
-            <Controller
-              control={control}
-              name="placeName"
-              rules={{ required: 'Nazwa lokalizacji jest wymagana', maxLength: 50 }}
-              render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
-                <CustomTextInput
-                  editable={!isPending}
-                  value={value}
-                  style={{ marginVertical: 4, marginHorizontal: 2 }}
-                  placeholder="Podaj nazwę lokalizacji"
-                  onBlur={onBlur}
-                  onChangeText={onChange}
-                  error={error?.message}
-                />
-              )}
-            />
-          </CustomSurface>
+      <ScrollView
+        contentContainerStyle={{ gap: 16 }}
+        keyboardShouldPersistTaps="handled"
+        nestedScrollEnabled={true}>
+        <CustomSurface style={styles.locationSurface}>
+          <Text variant="h3">Nazwa lokalizacji</Text>
+          <Text color="secondary">
+            Wprowadź nazwę lokalizacji, aby łatwo ją rozpoznać w aplikacji (np. Dom, Praca)
+          </Text>
+          <Controller
+            control={control}
+            name="placeName"
+            rules={{ required: 'Nazwa lokalizacji jest wymagana', maxLength: 50 }}
+            render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
+              <CustomTextInput
+                editable={!isPending}
+                value={value}
+                style={{ marginVertical: 4, marginHorizontal: 2 }}
+                placeholder="Podaj nazwę lokalizacji"
+                onBlur={onBlur}
+                onChangeText={onChange}
+                error={error?.message}
+              />
+            )}
+          />
+        </CustomSurface>
 
-          <CustomSurface style={styles.locationSurface}>
-            <Text variant="h3">Adres</Text>
-            <Text color="secondary">
-              Wprowadź adres lokalizacji, aby dokładnie określić jej położenie na mapie
-            </Text>
-            <Controller
-              control={control}
-              name="latitude"
-              render={({ field: { onChange: onLatitudeChange } }) => (
-                <Controller
-                  control={control}
-                  name="longitude"
-                  rules={{ required: 'Adres lokalizacji jest wymagany' }}
-                  render={({ field: { onChange: onLongitudeChange }, fieldState: { error } }) => (
-                    <LocationTextInput
-                      editable={!isPending}
-                      initialValue={preloadedLocalization || ''}
-                      onPlaceSelect={(coordinates) => {
-                        onLatitudeChange(coordinates.latitude);
-                        onLongitudeChange(coordinates.longitude);
-                      }}
-                      error={error?.message}
-                    />
-                  )}
-                />
-              )}
-            />
-          </CustomSurface>
-
-          <CustomSurface style={styles.locationSurface}>
-            <Text variant="h3">Usługi</Text>
-            <Text color="secondary">
-              Wybierz usługi dla których będziesz otrzymywać powiadomienia w przypadku ich
-              planowanego wyłączenia
-            </Text>
-            <Row style={{ gap: 12, height: 80, marginTop: 24 }}>
+        <CustomSurface style={styles.locationSurface}>
+          <Text variant="h3">Adres</Text>
+          <Text color="secondary">
+            Wprowadź adres lokalizacji, aby dokładnie określić jej położenie na mapie
+          </Text>
+          <Controller
+            control={control}
+            name="latitude"
+            render={({ field: { onChange: onLatitudeChange } }) => (
               <Controller
                 control={control}
-                name="settings.services.electricity"
-                render={({ field: { value, onChange } }) => (
-                  <OutageSelect
-                    onPress={() => onChange(!value)}
-                    isActive={value}
-                    label="Prąd"
-                    iconName="flash"
+                name="longitude"
+                rules={{ required: 'Adres lokalizacji jest wymagany' }}
+                render={({ field: { onChange: onLongitudeChange }, fieldState: { error } }) => (
+                  <LocationTextInput
+                    editable={!isPending}
+                    initialValue={preloadedLocalization || ''}
+                    onPlaceSelect={(coordinates) => {
+                      onLatitudeChange(coordinates.latitude);
+                      onLongitudeChange(coordinates.longitude);
+                    }}
+                    error={error?.message}
                   />
                 )}
               />
-              <Controller
-                control={control}
-                name="settings.services.weather"
-                render={({ field: { value, onChange } }) => (
-                  <OutageSelect
-                    onPress={() => onChange(!value)}
-                    isActive={value}
-                    label="Pogoda"
-                    iconName="weather-partly-cloudy"
-                  />
-                )}
-              />
-            </Row>
-          </CustomSurface>
+            )}
+          />
+        </CustomSurface>
 
-          <CustomSurface style={styles.locationSurface}>
-            <Text variant="h3">Zasięg</Text>
-            <Row>
-              <Text>{MIN_LOCATION_RADIUS_KM} km</Text>
-              <View style={{ flex: 1 }} />
-              <Text>{MAX_LOCATION_RADIUS_KM} km</Text>
-            </Row>
+        <CustomSurface style={styles.locationSurface}>
+          <Text variant="h3">Usługi</Text>
+          <Text color="secondary">
+            Wybierz usługi dla których będziesz otrzymywać powiadomienia w przypadku ich planowanego
+            wyłączenia
+          </Text>
+          <Row style={{ gap: 12, height: 80, marginTop: 24 }}>
             <Controller
               control={control}
-              name="settings.radius"
+              name="settings.services.electricity"
               render={({ field: { value, onChange } }) => (
-                <>
-                  <CustomSlider
-                    value={value}
-                    onValueChange={onChange}
-                    min={MIN_LOCATION_RADIUS_KM}
-                    max={MAX_LOCATION_RADIUS_KM}
-                    step={1}
-                    disabled={isPending}
-                  />
-                  <Text>
-                    <Text weight="bold">Obecny zasięg:</Text> {value} km
-                  </Text>
-                </>
+                <OutageSelect
+                  onPress={() => onChange(!value)}
+                  isActive={value}
+                  label="Prąd"
+                  iconName="flash"
+                />
               )}
             />
-          </CustomSurface>
+            <Controller
+              control={control}
+              name="settings.services.weather"
+              render={({ field: { value, onChange } }) => (
+                <OutageSelect
+                  onPress={() => onChange(!value)}
+                  isActive={value}
+                  label="Pogoda"
+                  iconName="weather-partly-cloudy"
+                />
+              )}
+            />
+          </Row>
+        </CustomSurface>
 
-          <CustomSurface style={styles.locationSurface}>
-            <Text variant="h3">Powiadomienia</Text>
-            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>
-              <Text variant="body1" align="justify" style={{ flex: 1 }}>
-                Otrzymuj powiadomienia push o przerwach w dostawie usług dla tej lokalizacji
-              </Text>
-              <Controller
-                control={control}
-                name="settings.notificationsEnable"
-                render={({ field: { onChange, value } }) => (
-                  <CustomSwitch disabled={isPending} value={value} onValueChange={onChange} />
-                )}
-              />
-            </View>
-          </CustomSurface>
+        <CustomSurface style={styles.locationSurface}>
+          <Text variant="h3">Zasięg</Text>
+          <Row>
+            <Text>{MIN_LOCATION_RADIUS_KM} km</Text>
+            <View style={{ flex: 1 }} />
+            <Text>{MAX_LOCATION_RADIUS_KM} km</Text>
+          </Row>
+          <Controller
+            control={control}
+            name="settings.radius"
+            render={({ field: { value, onChange } }) => (
+              <>
+                <CustomSlider
+                  value={value}
+                  onValueChange={onChange}
+                  min={MIN_LOCATION_RADIUS_KM}
+                  max={MAX_LOCATION_RADIUS_KM}
+                  step={1}
+                  disabled={isPending}
+                />
+                <Text>
+                  <Text weight="bold">Obecny zasięg:</Text> {value} km
+                </Text>
+              </>
+            )}
+          />
+        </CustomSurface>
 
-          <Button
-            mode="contained"
-            onPress={handleSubmit(onSubmit)}
-            loading={isPending}
-            disabled={isPending}>
-            Zatwierdź lokalizację
-          </Button>
-        </ScrollView>
-      </SafeAreaView>
+        <CustomSurface style={styles.locationSurface}>
+          <Text variant="h3">Powiadomienia</Text>
+          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>
+            <Text variant="body1" align="justify" style={{ flex: 1 }}>
+              Otrzymuj powiadomienia push o przerwach w dostawie usług dla tej lokalizacji
+            </Text>
+            <Controller
+              control={control}
+              name="settings.notificationsEnable"
+              render={({ field: { onChange, value } }) => (
+                <CustomSwitch disabled={isPending} value={value} onValueChange={onChange} />
+              )}
+            />
+          </View>
+        </CustomSurface>
+
+        <Button
+          mode="contained"
+          onPress={handleSubmit(onSubmit)}
+          loading={isPending}
+          disabled={isPending}>
+          Zatwierdź lokalizację
+        </Button>
+      </ScrollView>
     </PageWrapper>
   );
 };

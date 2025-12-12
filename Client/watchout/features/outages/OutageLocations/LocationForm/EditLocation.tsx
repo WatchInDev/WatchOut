@@ -26,6 +26,7 @@ export const EditLocation = () => {
       radius: location.radius,
       services: {
         ...location.services,
+        eventTypes: [],
       },
       notificationsEnable: location.notificationsEnable,
     },
