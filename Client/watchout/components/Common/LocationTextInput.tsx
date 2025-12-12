@@ -5,13 +5,21 @@ import { GOOGLE_API_KEY } from '@env';
 import { Coordinates } from 'utils/types';
 import { useEffect, useState } from 'react';
 import { theme } from 'utils/theme';
+import { Text } from 'components/Base/Text';
 
 type LocationTextInputProps = {
   initialValue?: string;
   onPlaceSelect: (coordinates: Coordinates) => void;
+  editable?: boolean;
+  error?: string;
 };
 
-export const LocationTextInput = ({ initialValue, onPlaceSelect }: LocationTextInputProps) => {
+export const LocationTextInput = ({
+  initialValue,
+  onPlaceSelect,
+  editable,
+  error,
+}: LocationTextInputProps) => {
   const [value, setValue] = useState(initialValue ?? '');
 
   useEffect(() => {
@@ -19,25 +27,44 @@ export const LocationTextInput = ({ initialValue, onPlaceSelect }: LocationTextI
   }, [initialValue]);
 
   return (
-    <GooglePlacesTextInput
-      apiKey={GOOGLE_API_KEY}
-      detailsFields={['displayName', 'location']}
-      fetchDetails={true}
-      scrollEnabled={false}
-      nestedScrollEnabled={false}
-      value={value}
-      textContentType="location"
-      style={styles}
-      onPlaceSelect={(place) => {
-        setValue(
-          place.structuredFormat.mainText.text + ', ' + place.structuredFormat.secondaryText?.text
-        );
-        onPlaceSelect({
-          latitude: place.details?.location.latitude || 0,
-          longitude: place.details?.location.longitude || 0,
-        });
-      }}
-    />
+    <>
+      <GooglePlacesTextInput
+        apiKey={GOOGLE_API_KEY}
+        editable={editable ?? true}
+        detailsFields={['displayName', 'location']}
+        fetchDetails={true}
+        placeHolderText='Wpisz adres lokalizacji'
+        scrollEnabled={false}
+        nestedScrollEnabled={false}
+        value={value}
+        textContentType="location"
+        style={
+          !error
+            ? styles
+            : {
+                ...styles,
+                input: {
+                  ...(styles.input as object),
+                  borderColor: theme.palette.error,
+                  borderWidth: 1.5,
+                },
+              }
+        }
+        debounceDelay={750}
+        onPlaceSelect={(place) => {
+          setValue(
+            place.structuredFormat.mainText.text + ', ' + place.structuredFormat.secondaryText?.text
+          );
+          onPlaceSelect({
+            latitude: place.details?.location.latitude || 0,
+            longitude: place.details?.location.longitude || 0,
+          });
+        }}
+      />
+      {error && (
+        <Text style={{ color: theme.palette.error, marginTop: 0, marginLeft: 4 }}>{error}</Text>
+      )}
+    </>
   );
 };
 
@@ -47,10 +74,14 @@ const styles: GooglePlacesTextInputStyles = {
     marginVertical: 4,
   },
   input: {
-    height: 56,
+    height: 44,
     borderWidth: 0.5,
-    borderRadius: 4,
-    fontSize: 16,
+    borderRadius: 6,
+    fontSize: 14,
+    paddingTop: 10,
+    paddingBottom: 6,
+    lineHeight: 20,
+    fontFamily: 'Poppins_400Regular',
     paddingHorizontal: 12,
   },
   suggestionsContainer: {
@@ -69,11 +100,15 @@ const styles: GooglePlacesTextInputStyles = {
   },
   suggestionText: {
     main: {
+      fontFamily: 'Poppins_400Regular',
       fontSize: 16,
+      lineHeight: 16,
       color: '#212121',
     },
     secondary: {
+      fontFamily: 'Poppins_400Regular',
       fontSize: 14,
+      lineHeight: 14,
       color: '#757575',
     },
   },
@@ -81,6 +116,6 @@ const styles: GooglePlacesTextInputStyles = {
     color: theme.palette.primary,
   },
   placeholder: {
-    color: '#9E9E9E',
+    color: theme.palette.text.tertiary,
   },
 };

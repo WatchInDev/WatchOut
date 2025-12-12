@@ -31,6 +31,8 @@ export const IconWithTitle = ({
           padding: 8,
           opacity: isActive ? 1 : 0.4,
           borderRadius: 8,
+          borderWidth: 2,
+          borderColor: isActive ? theme.palette.primary : theme.palette.text.tertiary,
           justifyContent: 'center',
           alignItems: 'center',
         },

@@ -18,26 +18,24 @@ export const EventTypes = () => {
     <PageWrapper>
       {isPending && <ActivityIndicator size="large" style={styles.loader} />}
       {eventTypes && (
-        <SafeAreaView edges={['bottom']}>
-          <ScrollView showsVerticalScrollIndicator={false}>
-            <Text variant="body1" style={{ paddingHorizontal: 12, paddingVertical: 8 }}>
-              Poniżej znajdziesz listę rodzajów zdarzeń, które możesz zgłosić:
-            </Text>
-            {eventTypes.map((event) => (
-              <CustomSurface key={event.id} style={styles.card}>
-                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 16 }}>
-                  <Icon source={event.icon} size={64} />
-                  <Text variant="h3" style={{ flexShrink: 1 }}>
-                    {event.name}
-                  </Text>
-                </View>
-                <Text variant="body1" color="secondary" align="justify">
-                  {event.description}
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <Text variant="body1" style={{ paddingHorizontal: 12, paddingVertical: 8 }}>
+            Poniżej znajdziesz listę rodzajów zdarzeń, które możesz zgłosić:
+          </Text>
+          {eventTypes.map((event) => (
+            <CustomSurface key={event.id} style={styles.card}>
+              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 16 }}>
+                <Icon source={event.icon} size={64} />
+                <Text variant="h3" style={{ flexShrink: 1 }}>
+                  {event.name}
                 </Text>
-              </CustomSurface>
-            ))}
-          </ScrollView>
-        </SafeAreaView>
+              </View>
+              <Text variant="body1" color="secondary" align="justify">
+                {event.description}
+              </Text>
+            </CustomSurface>
+          ))}
+        </ScrollView>
       )}
     </PageWrapper>
   );

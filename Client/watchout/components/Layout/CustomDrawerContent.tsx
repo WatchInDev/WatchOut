@@ -56,15 +56,17 @@ export const CustomDrawerContent = (props: DrawerContentComponentProps) => {
           Wyloguj
         </Button>
         <View style={{ marginVertical: 4 }} />
-        <Button
-          mode="outlined"
-          onPress={async () => {
-            const auth = getAuth();
-            const idToken = await getIdToken(auth.currentUser!);
-            Clipboard.setStringAsync(idToken);
-          }}>
-          Kopiuj token API
-        </Button>
+        {__DEV__ && (
+          <Button
+            mode="outlined"
+            onPress={async () => {
+              const auth = getAuth();
+              const idToken = await getIdToken(auth.currentUser!);
+              Clipboard.setStringAsync(idToken);
+            }}>
+            Kopiuj token API
+          </Button>
+        )}
       </View>
     </SafeAreaView>
   );

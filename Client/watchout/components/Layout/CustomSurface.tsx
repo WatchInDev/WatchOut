@@ -12,7 +12,8 @@ export const CustomSurface = ({ children, ...props }: CustomSurfaceProps) => {
       mode="flat"
       {...props}
       style={{
-        backgroundColor: theme.palette.background.paper,
+        borderWidth: 1,
+        borderColor: theme.palette.primary,
         borderRadius: 8,
       ...StyleSheet.flatten(props.style),
       }}

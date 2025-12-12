@@ -42,17 +42,17 @@ export const AlertLocations = () => {
 
   return (
     <PageWrapper>
-      <View
-        style={{
-          justifyContent: 'space-between',
-          flexDirection: 'row',
-          alignItems: 'center',
-          marginBottom: 12,
-        }}>
-        <Text variant="h3">Śledzone lokalizacje</Text>
-        <FabButton onPress={() => navigation.navigate('AddLocation' as never)} iconName="plus" />
-      </View>
       <ScrollView showsVerticalScrollIndicator={false}>
+        <View
+          style={{
+            justifyContent: 'space-between',
+            flexDirection: 'row',
+            alignItems: 'center',
+            marginBottom: 12,
+          }}>
+          <Text variant="h3">Śledzone lokalizacje</Text>
+          <FabButton onPress={() => navigation.navigate('AddLocation' as never)} iconName="plus" />
+        </View>
         {isLoading && <ActivityIndicator size="large" color={theme.palette.primary} />}
         {pinnedLocations?.map((location) => (
           <CustomSurface
@@ -62,18 +62,17 @@ export const AlertLocations = () => {
               marginBottom: 12,
               gap: 4,
             }}>
-            <View
+            <Row
               style={{
                 justifyContent: 'space-between',
-                flexDirection: 'row',
                 alignItems: 'center',
                 gap: 6,
-                flexShrink: 1,
               }}>
               <Text variant="h3" color="secondary">
-                {location.placeName}
+                {location.placeName.substring(0, 15) +
+                  (location.placeName.length > 15 ? '...' : '')}
               </Text>
-              <Row style={{ alignItems: 'center' }}>
+              <Row style={{ alignItems: 'center', flexShrink: 1 }}>
                 <IconButton
                   icon="pencil-outline"
                   size={26}
@@ -89,24 +88,29 @@ export const AlertLocations = () => {
                   onPress={() => setLocationToDelete(location)}
                 />
               </Row>
-            </View>
-
-            <Row style={{ alignItems: 'center', gap: 4 }}>
-              <Icon source="map-marker" size={32} color={theme.palette.text.secondary} />
-              <Text weight="bold" variant="h6" color="secondary" wrap>
-                {location.region}
-                <Text variant="h6" color="secondary">
-                  , {location.location}
-                </Text>
-              </Text>
             </Row>
 
             <Row style={{ gap: 8 }}>
-              <IconWithTitle iconName={'flash'} label={'Prąd'} isActive={location.services.electricity} />
-              <IconWithTitle iconName={'weather-partly-cloudy'} label={'Pogoda'} isActive={location.services.weather} />
+              <IconWithTitle
+                iconName={'flash'}
+                label={'Prąd'}
+                isActive={location.services.electricity}
+              />
+              <IconWithTitle
+                iconName={'weather-partly-cloudy'}
+                label={'Pogoda'}
+                isActive={location.services.weather}
+              />
             </Row>
 
             <View style={{ gap: 8 }}>
+              <Row style={{ alignItems: 'center', gap: 8 }}>
+                <Icon source="map-marker" size={24} color={theme.palette.text.secondary} />
+                <Text weight="bold" color="secondary" wrap>
+                  {location.region}
+                  <Text color="secondary">, {location.location}</Text>
+                </Text>
+              </Row>
               <Row style={{ alignItems: 'center', gap: 8 }}>
                 <Icon source="radius-outline" size={24} />
                 <Text>

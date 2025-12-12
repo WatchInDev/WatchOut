@@ -9,13 +9,15 @@ import { formatDate, generateAnonName } from 'utils/helpers';
 import { useCommentsList } from './useCommentsList';
 import { useActionAvailability } from 'features/events/create/useActionAvailability';
 import { Coordinates } from 'utils/types';
+import { Row } from 'components/Base/Row';
 
 type CommentListProps = {
   eventId: number;
+  eventAuthorId: number;
   eventCoordinates: Coordinates;
 };
 
-export const CommentList = ({ eventId, eventCoordinates }: CommentListProps) => {
+export const CommentList = ({ eventId, eventAuthorId, eventCoordinates }: CommentListProps) => {
   const {
     comments,
     isDeleting,
@@ -51,13 +53,11 @@ export const CommentList = ({ eventId, eventCoordinates }: CommentListProps) => 
         }}
         mode={availability?.canPost ? 'contained' : 'outlined'}
         style={[!availability?.canPost ? { borderStyle: 'dashed' } : {}, { marginVertical: 12 }]}>
-        {isAvailabilityLoading || availability == null ? (
-          <ActivityIndicator>Ładowanie...</ActivityIndicator>
-        ) : availability.canPost ? (
-          'Dodaj komentarz'
-        ) : (
-          'Nie możesz dodać komentarza'
-        )}
+        {isAvailabilityLoading || availability == null
+          ? 'Ładowanie...'
+          : availability.canPost
+            ? 'Dodaj komentarz'
+            : 'Nie możesz dodać komentarza'}
       </Button>
 
       {comments?.empty ? (
@@ -76,10 +76,19 @@ export const CommentList = ({ eventId, eventCoordinates }: CommentListProps) => 
                 justifyContent: 'space-between',
                 flexDirection: 'row',
               }}>
-              <View style={{ flex: 1 }}>
-                <Text variant="subtitle2">
-                  {item.isAuthor ? 'Twój komentarz' : generateAnonName(item.author.id)}
-                </Text>
+              <View>
+                <Row>
+                  {item.isAuthor ? (
+                    <Text
+                      variant="subtitle2"
+                      style={{ textDecorationLine: 'underline' }}>
+                      Twój komentarz
+                    </Text>
+                  ) : (
+                    <Text variant="subtitle2">{generateAnonName(item.author.id)} {item.author.id === eventAuthorId ? '(autor zdarzenia)' : ''}</Text>
+                  )}
+                </Row>
+
                 <Text variant="body1" wrap>
                   {item.content}
                 </Text>
