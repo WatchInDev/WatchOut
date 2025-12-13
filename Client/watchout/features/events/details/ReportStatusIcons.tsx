@@ -42,7 +42,7 @@ export const ReportStatusIcons = ({ event }: { event: Event }) => {
           key={text}
           icon={icon}
           iconColor={color}
-          style={{ backgroundColor: color + '20' }}>
+          style={{ backgroundColor: color + '20', borderColor: color, borderWidth: 1 }}>
           <Text style={{ color }}>{text}</Text>
         </CustomChip>
       ))}
@@ -51,7 +51,7 @@ export const ReportStatusIcons = ({ event }: { event: Event }) => {
         <CustomChip
           icon="calendar-clock"
           iconColor="#808080"
-          style={{ backgroundColor: '#80808020' }}>
+          style={{ backgroundColor: '#80808020', borderColor: '#808080', borderWidth: 1 }}>
           <Text style={{ color: '#808080' }}>Nowe zgłoszenie</Text>
         </CustomChip>
       )}

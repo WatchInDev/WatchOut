@@ -27,4 +27,9 @@ interface ElectricalOutageRepository: JpaRepository<ElectricalOutage, Long> {
     )
     fun findElectricalOutageByFavouritePlace(@Param("voivodeship")voivodeship: String, @Param("location")location: String, @Param("region") region: String): List<ElectricalOutageDTO>
 
+    @Modifying
+    @Transactional
+    @Query("DELETE FROM ElectricalOutage")
+    fun deleteAllElectricalOutages()
+
 }

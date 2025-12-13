@@ -9,9 +9,16 @@ type CustomTextInputProps = React.ComponentProps<typeof RNTextInput> & {
   label?: string;
   startIcon?: string;
   endIcon?: string;
+  error?: string;
 };
 
-export const CustomTextInput = ({ label, startIcon, endIcon, ...props }: CustomTextInputProps) => {
+export const CustomTextInput = ({
+  label,
+  startIcon,
+  endIcon,
+  error,
+  ...props
+}: CustomTextInputProps) => {
   const inputRef = useRef<RNTextInput>(null);
   const focusProgress = useSharedValue(0);
   const [isFocused, setIsFocused] = useState(false);
@@ -42,6 +49,7 @@ export const CustomTextInput = ({ label, startIcon, endIcon, ...props }: CustomT
   };
 
   return (
+    <>
     <Animated.View
       style={[
         animatedStyle,
@@ -52,6 +60,7 @@ export const CustomTextInput = ({ label, startIcon, endIcon, ...props }: CustomT
           alignItems: 'center',
           backgroundColor: theme.palette.background.default,
         },
+        error && { borderColor: theme.palette.error, borderWidth: 2 },
         props.style,
       ]}>
       {label && (
@@ -92,6 +101,7 @@ export const CustomTextInput = ({ label, startIcon, endIcon, ...props }: CustomT
         onFocus={handleFocus}
         onBlur={handleBlur}
         onChangeText={handleChangeText}
+        accessibilityHint={error}
       />
       {endIcon && (
         <View style={{ marginLeft: 8 }}>
@@ -99,5 +109,13 @@ export const CustomTextInput = ({ label, startIcon, endIcon, ...props }: CustomT
         </View>
       )}
     </Animated.View>
-  );
+    {error && (
+      <Text
+        style={{ color: theme.palette.error, marginTop: 0, marginLeft: 4 }}
+      >
+        {error}
+      </Text>
+    )}
+  </>
+);
 };

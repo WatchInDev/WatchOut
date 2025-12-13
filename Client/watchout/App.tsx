@@ -25,8 +25,9 @@ import { AppNavigator } from 'components/Layout/AppNavigator';
 import { SnackbarProvider } from 'utils/useSnackbar';
 import Reactotron, { openInEditor } from 'reactotron-react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { DevToolsBubble } from "react-native-react-query-devtools";
+import { DevToolsBubble } from 'react-native-react-query-devtools';
 import { LoadingScreen } from 'components/Common/LoadingScreen';
+import { UserLocationProvider } from 'components/location/UserLocationContext';
 
 Reactotron.setAsyncStorageHandler(AsyncStorage)
   .configure({ name: 'WatchOut' })
@@ -53,7 +54,10 @@ export default function App() {
   const { loaded } = useCustomFonts();
 
   useEffect(() => {
-    console.info('Initializing Geocoding with API Key:', GEOCODING_API_KEY.substring(0, 5) + '****' + ' (truncated for security)');
+    console.info(
+      'Initializing Geocoding with API Key:',
+      GEOCODING_API_KEY.substring(0, 5) + '****' + ' (truncated for security)'
+    );
     Geocoding.init(GEOCODING_API_KEY);
   }, []);
 
@@ -76,7 +80,9 @@ export default function App() {
             <PaperProvider theme={paperTheme}>
               <SnackbarProvider>
                 <BottomSheetModalProvider>
+                  <UserLocationProvider>
                   <AuthProvider>
+                      <UserLocationProvider>
                     <NavigationContainer
                       theme={{
                         ...DefaultTheme,
@@ -87,7 +93,9 @@ export default function App() {
                       }}>
                       <AppNavigator />
                     </NavigationContainer>
+                      </UserLocationProvider>
                   </AuthProvider>
+                  </UserLocationProvider>
                 </BottomSheetModalProvider>
               </SnackbarProvider>
             </PaperProvider>

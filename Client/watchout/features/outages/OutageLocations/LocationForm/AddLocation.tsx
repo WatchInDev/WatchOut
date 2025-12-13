@@ -1,12 +1,13 @@
 import { AddLocationRequest } from 'utils/types';
 import { LocationForm } from './LocationForm';
 import { useLocationCreate } from './useLocationCreate';
-import { useRoute } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { useSnackbar } from 'utils/useSnackbar';
 import { useQueryClient } from '@tanstack/react-query';
 
 export const AddLocation = () => {
   const { mutateAsync: createLocationAsync, isPending } = useLocationCreate();
+  const navigation = useNavigation();
 
   const route = useRoute();
   const { location } =
@@ -27,6 +28,7 @@ export const AddLocation = () => {
     }
     queryClient.invalidateQueries({ queryKey: ['alerts'] });
     queryClient.invalidateQueries({ queryKey: ['pinnedLocations'] });
+    navigation.goBack();
   };
 
   return <LocationForm submit={handleSubmit} initialLocation={location} isPending={isPending} />;

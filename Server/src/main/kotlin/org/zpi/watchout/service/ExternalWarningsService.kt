@@ -21,7 +21,7 @@ import org.zpi.watchout.service.dto.WeatherDTO
 
 
 @Service
-class ExternalWarningsService(val userFavouritePlaceRepository: UserFavouritePlaceRepository, val weatherWarningRepository: WeatherWarningRepository, val electricalOutageRepository: ElectricalOutageRepository, val userFavouritePlacePreferenceRepository: UserFavouritePlacePreferenceRepository, val userGlobalPreferenceRepository: UserGlobalPreferenceRepository) {
+class ExternalWarningsService(val userFavouritePlaceRepository: UserFavouritePlaceRepository, val weatherWarningRepository: WeatherWarningRepository, val electricalOutageRepository: ElectricalOutageRepository, val userFavouritePlacePreferenceRepository: UserFavouritePlacePreferenceRepository, val userGlobalPreferenceRepository: UserGlobalPreferenceRepository, val weatherWarningJdbcRepositoryInterface: WeatherWarningJdbcRepositoryInterface, val electricalOutageJdbcRepositoryInterface: ElectricalOutageJdbcRepositoryInterface) {
     fun getExternalWarning(userId: Long) : List<ExternalWarningDTO>{
         val favouritePlaces = userFavouritePlaceRepository.findByUserId(userId)
         val userGlobalPreference = userGlobalPreferenceRepository.findByUserId(userId) ?: return emptyList()
@@ -55,7 +55,7 @@ class ExternalWarningsService(val userFavouritePlaceRepository: UserFavouritePla
 
     @Transactional
     fun saveWeatherWarnings(result :List<WeatherDTO>) {
-        weatherWarningRepository.deleteAll()
+        weatherWarningRepository.deleteAllWeatherWarnings()
         val weatherWarnings : MutableList<WeatherWarning> = mutableListOf<WeatherWarning>()
 
         for(event in result) {
@@ -71,12 +71,12 @@ class ExternalWarningsService(val userFavouritePlaceRepository: UserFavouritePla
             }
         }
 
-        weatherWarningRepository.saveAll(weatherWarnings)
+        weatherWarningJdbcRepositoryInterface.batchSave(weatherWarnings)
     }
 
     @Transactional
     fun saveElectricalOutageWarning(results: List<ElectricalOutageRequestDTO>){
-        electricalOutageRepository.deleteAll()
+        electricalOutageRepository.deleteAllElectricalOutages()
         val outagesToSave : MutableList<ElectricalOutage> = mutableListOf<ElectricalOutage>()
         for(result in results){
             for (key in result.outagesResponse.keys) {
@@ -99,7 +99,7 @@ class ExternalWarningsService(val userFavouritePlaceRepository: UserFavouritePla
                 }
             }
         }
-        electricalOutageRepository.saveAll(outagesToSave)
+        electricalOutageJdbcRepositoryInterface.batchSave(outagesToSave)
 
     }
 }

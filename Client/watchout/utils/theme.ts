@@ -77,7 +77,7 @@ export const theme = {
     secondary: '#006783',
     tertiary: '#909090',
     error: '#BA1A1A',
-    success: '#41b847ff',
+    success: '#41b847',
     text: {
       primary: '#202020',
       secondary: '#444444',

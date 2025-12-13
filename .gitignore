@@ -1,6 +1,6 @@
-Client/watchout/.idea/
 *.env
 
 .github
-.idea
-.vscode
+**/.idea/
+**/.vscode/
+logs

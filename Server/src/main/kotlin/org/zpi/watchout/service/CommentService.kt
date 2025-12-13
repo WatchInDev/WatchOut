@@ -40,7 +40,7 @@ class CommentService(
         val event = eventRepository.findById(eventId)
             .orElseThrow { EntityNotFoundException("Event with id $eventId does not exist") }
 
-        if (userGlobalPreferenceRepository.findByUserId(event.author.id!!)?.notifyOnComment == true) {
+        if ((userGlobalPreferenceRepository.findByUserId(event.author.id!!)?.notifyOnComment == true) && (event.author.id != userId)) {
             notificationService.createNotification(
                 NotificationType.COMMENT,
                 event.author.id!!,

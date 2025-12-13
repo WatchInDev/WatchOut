@@ -28,17 +28,6 @@ export const Filters = ({ isVisible, onClose, filters, setFilters }: FiltersProp
 
   const [localFilters, setLocalFilters] = useState<EventFilters>(filters);
 
-  const handleApplyFilters = async () => {
-    try {
-      await AsyncStorage.setItem(FILTERS_STORAGE_KEY, JSON.stringify(localFilters));
-      setFilters(localFilters);
-      showSnackbar({ message: 'Filtry zostały zastosowane', type: 'success' });
-    } catch (error) {
-      console.error('Failed to save filters to storage:', error);
-    }
-    onClose?.();
-  };
-
   const resetFiltersToDefault = () => {
     if (eventTypes) {
       setLocalFilters({
@@ -48,6 +37,27 @@ export const Filters = ({ isVisible, onClose, filters, setFilters }: FiltersProp
       showSnackbar({ message: 'Filtry zostały zresetowane', type: 'info' });
     }
   };
+
+  useEffect(() => {
+    const filtersChanged =
+      localFilters.hoursSinceReport !== filters.hoursSinceReport ||
+      localFilters.eventTypesIds.length !== filters.eventTypesIds.length ||
+      !localFilters.eventTypesIds.every((id, idx) => id === filters.eventTypesIds[idx]);
+
+    if (!filtersChanged) return;
+
+    const timer = setTimeout(async () => {
+      try {
+        await AsyncStorage.setItem(FILTERS_STORAGE_KEY, JSON.stringify(localFilters));
+        showSnackbar({ message: 'Filtry zostały zapisane', type: 'success' });
+        setFilters(localFilters);
+      } catch (error) {
+        console.error('Failed to save filters to storage', error);
+      }
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, [localFilters, filters, setFilters, showSnackbar]);
 
   useEffect(() => {
     if (isVisible) {
@@ -82,9 +92,9 @@ export const Filters = ({ isVisible, onClose, filters, setFilters }: FiltersProp
               onValueChange={(value) =>
                 setLocalFilters((prev) => ({ ...prev, hoursSinceReport: value }))
               }
-              labels={{ minLabel: '0 godz.', maxLabel: '24 godz.' }}
-              min={0}
-              max={24}
+              labels={{ minLabel: '1 godz.', maxLabel: '72 godz.' }}
+              min={1}
+              max={72}
               step={1}
             />
             <Text>{localFilters.hoursSinceReport} godz.</Text>
@@ -102,23 +112,16 @@ export const Filters = ({ isVisible, onClose, filters, setFilters }: FiltersProp
               }}>
               {isEventTypesLoading && <ActivityIndicator />}
               {eventTypes?.map((type) => (
-                <EventTypeButton
-                  key={type.id}
-                  isActive={localFilters.eventTypesIds.includes(type.id)}
-                  setFilters={setLocalFilters}
-                  type={type}
-                />
+                <View key={type.id} style={{ width: '30%' }}>
+                  <EventTypeButton
+                    isActive={localFilters.eventTypesIds.includes(type.id)}
+                    setFilters={setLocalFilters}
+                    type={type}
+                  />
+                </View>
               ))}
             </View>
           </CustomSurface>
-
-          <Button
-            mode="contained"
-            onPress={async () => await handleApplyFilters()}
-            style={{ marginTop: 24 }}
-            icon={'filter-variant'}>
-            Zastosuj filtry
-          </Button>
         </PageWrapper>
       </BottomSheetScrollView>
     </BottomSheet>

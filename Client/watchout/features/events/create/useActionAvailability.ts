@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useUserLocation } from 'components/location/UserLocationContext';
 import { apiClient } from 'utils/apiClient';
 import { API_ENDPOINTS } from 'utils/apiDefinition';
-import { ActionAvailabilityResponse, Coordinates } from 'utils/types';
+import { ActionAvailabilityResponse } from 'utils/types';
 
 export const useActionAvailability = ({ eventLat, eventLong }: { eventLat: number; eventLong: number }) => {
   const { location: userLocation, isLoading: isUserLocationLoading } = useUserLocation();
