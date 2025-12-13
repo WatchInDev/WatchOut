@@ -82,7 +82,6 @@ export default function App() {
                 <BottomSheetModalProvider>
                   <UserLocationProvider>
                   <AuthProvider>
-                      <UserLocationProvider>
                     <NavigationContainer
                       theme={{
                         ...DefaultTheme,
@@ -93,7 +92,6 @@ export default function App() {
                       }}>
                       <AppNavigator />
                     </NavigationContainer>
-                      </UserLocationProvider>
                   </AuthProvider>
                   </UserLocationProvider>
                 </BottomSheetModalProvider>
