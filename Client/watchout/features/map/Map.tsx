@@ -14,6 +14,7 @@ import { Filters } from './filters/Filters';
 import { DEFAULT_REPORT_HOURS_FILTER, FILTERS_STORAGE_KEY } from 'utils/constants';
 import { useGetEventTypes } from 'features/event-types/useGetEventTypes';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const styles = StyleSheet.create({
   container: {
@@ -145,14 +146,16 @@ export const Map = () => {
           setFilters={setFilters}
         />
       ) : (
-        <FilterButton
-          onClick={() => setFiltersVisible((prev) => !prev)}
-          isDirty={
-            filters.eventTypesIds.length < (eventTypes?.length ?? 0) ||
-            filters.hoursSinceReport !== DEFAULT_REPORT_HOURS_FILTER
-          }
-          label="Filter Events"
-        />
+        <SafeAreaView style={{ position: 'absolute', bottom: 32, left: 16 }}>
+          <FilterButton
+            onClick={() => setFiltersVisible((prev) => !prev)}
+            isDirty={
+              filters.eventTypesIds.length < (eventTypes?.length ?? 0) ||
+              filters.hoursSinceReport !== DEFAULT_REPORT_HOURS_FILTER
+            }
+            label="Filter Events"
+          />
+        </SafeAreaView>
       )}
       {selectedEvent && (
         <EventBottomSheet event={selectedEvent} onClose={() => setSelectedEvent(null)} />
