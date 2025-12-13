@@ -31,9 +31,6 @@ class RatingServiceTest {
         )
     }
 
-    // ---------------------------------------------------------
-    // upsertCommentRating
-    // ---------------------------------------------------------
 
     @Test
     fun `upsertCommentRating should call repository upsertRating`() {
@@ -48,10 +45,6 @@ class RatingServiceTest {
 
         verify { commentRatingRepository.upsertRating(userId, commentId, 5) }
     }
-
-    // ---------------------------------------------------------
-    // upsertEventRating
-    // ---------------------------------------------------------
 
     @Test
     fun `upsertEventRating should call repository upsertRating when user within distance`() {
@@ -84,9 +77,6 @@ class RatingServiceTest {
         }
     }
 
-    // ---------------------------------------------------------
-    // deleteCommentRating
-    // ---------------------------------------------------------
 
     @Test
     fun `deleteCommentRating should call repository delete`() {
@@ -100,9 +90,6 @@ class RatingServiceTest {
         verify { commentRatingRepository.deleteByUserIdAndCommentId(userId, commentId) }
     }
 
-    // ---------------------------------------------------------
-    // deleteEventRating
-    // ---------------------------------------------------------
 
     @Test
     fun `deleteEventRating should call repository delete`() {

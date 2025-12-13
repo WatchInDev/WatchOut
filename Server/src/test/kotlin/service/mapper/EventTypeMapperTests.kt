@@ -21,6 +21,7 @@ class EventTypeMapperTest {
             icon = eventTypeIcon,
             description = eventTypeDescription
         )
+        eventType.id = 1L
 
         val dto = eventTypeMapper.mapToDto(eventType)
 

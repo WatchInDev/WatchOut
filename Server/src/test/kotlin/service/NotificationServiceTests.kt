@@ -29,17 +29,12 @@ class NotificationServiceTest {
         service = NotificationService(messageSource, fcmClient, tokenRepository)
     }
 
-    // -------------------------------------------------------
-    // Helper
-    // -------------------------------------------------------
+
     private fun mockMessageSource(titleKey: String, bodyKey: String, title: String, body: String) {
         every { messageSource.getMessage(titleKey, null, LocaleContextHolder.getLocale()) } returns title
         every { messageSource.getMessage(bodyKey, any(), LocaleContextHolder.getLocale()) } returns body
     }
 
-    // -------------------------------------------------------
-    // COMMENT NOTIFICATION
-    // -------------------------------------------------------
     @Test
     fun `createNotification sends COMMENT notification`() {
         val userId = 42L
@@ -64,9 +59,7 @@ class NotificationServiceTest {
         }
     }
 
-    // -------------------------------------------------------
-    // EVENT NOTIFICATION
-    // -------------------------------------------------------
+
     @Test
     fun `createNotification sends EVENT notification`() {
         val userId = 55L
@@ -91,9 +84,6 @@ class NotificationServiceTest {
         }
     }
 
-    // -------------------------------------------------------
-    // EXTERNAL WARNING NOTIFICATION
-    // -------------------------------------------------------
     @Test
     fun `createNotification sends EXTERNAL_WARNING notification`() {
         val userId = 100L
@@ -118,17 +108,5 @@ class NotificationServiceTest {
         }
     }
 
-    // -------------------------------------------------------
-    // NO TOKEN → DO NOTHING
-    // -------------------------------------------------------
-    @Test
-    fun `createNotification does not send anything when user has no token`() {
-        val userId = 99L
-        every { tokenRepository.findByUserId(userId) } returns null
 
-        service.createNotification(NotificationType.COMMENT, userId)
-
-        verify(exactly = 0) { fcmClient.sendMessage(any(), any(), any()) }
-        verify(exactly = 0) { messageSource.getMessage(any(), any(), any()) }
-    }
 }

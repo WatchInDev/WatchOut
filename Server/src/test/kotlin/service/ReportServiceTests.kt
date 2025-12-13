@@ -45,7 +45,10 @@ class ReportServiceTest {
         )
 
         val author = mockk<User> { every { id } returns 99L }
-        val comment = mockk<Comment> { every { author } returns author }
+
+        // Create the comment mock first, then stub its author property
+        val comment = mockk<Comment>(relaxed = true)
+        every { comment.author } returns author
 
         every { commentRepository.findById(10L) } returns Optional.of(comment)
 
@@ -54,7 +57,6 @@ class ReportServiceTest {
 
         val result = reportService.createReport(dto)
 
-        // Verify correct object saved
         verify {
             reportRepository.save(
                 match {
@@ -99,8 +101,12 @@ class ReportServiceTest {
             reason = "Fake information"
         )
 
-        val author = mockk<User> { every { id } returns 123L }
-        val event = mockk<Event> { every { author } returns author }
+        val author = mockk<User>()
+        every { author.id } returns 123L
+
+        // Create the event mock, then stub its author property
+        val event = mockk<Event>(relaxed = true)
+        every { event.author } returns author
 
         every { eventRepository.findById(20L) } returns Optional.of(event)
 

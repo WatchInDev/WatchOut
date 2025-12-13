@@ -4,11 +4,17 @@ import org.zpi.watchout.service.mapper.UserMapper
 
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.BeforeEach
 import org.zpi.watchout.data.entity.User
 
 class UserMapperTest {
 
-    private val userMapper = UserMapper()
+    private lateinit var userMapper: UserMapper;
+    @BeforeEach
+    fun setup(){
+        userMapper = UserMapper()
+    }
+
 
     @Test
     fun `mapAuthorUserToDto should correctly map all fields`() {
@@ -20,6 +26,7 @@ class UserMapperTest {
             externalId = "dwad",
             isBlocked = false
         )
+        user.id = 1L
 
         val dto = userMapper.mapAuthorUserToDto(user)
 
@@ -38,11 +45,10 @@ class UserMapperTest {
             externalId = "dwad",
             isBlocked = false
         )
-
-        // 2. Act
+        user.id = userId
         val dto = userMapper.mapAuthorUserToDto(user)
 
-        // 3. Assert
+
         assertEquals(userId, dto.id)
         assertEquals(userReputation, dto.reputation)
     }

@@ -215,7 +215,9 @@ class EventServiceTest {
         val userId = 1L
         every { reputationService.isAbleToPostEvents(userId) } returns true
 
+        every { geoService.isUserWithinDistanceByEventCoords(any(), any(), any(), any()) } returns true
         val result = eventService.isAbleToPostEvents(userId,30.0,30.0,30.0,30.0)
+
 
         assertTrue(result.canPost)
         assertNull(result.reason)
