@@ -15,6 +15,8 @@ import { DEFAULT_REPORT_HOURS_FILTER, FILTERS_STORAGE_KEY } from 'utils/constant
 import { useGetEventTypes } from 'features/event-types/useGetEventTypes';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useRoute } from '@react-navigation/native';
+import { map } from 'eslint.config';
 
 const styles = StyleSheet.create({
   container: {
@@ -30,10 +32,17 @@ const styles = StyleSheet.create({
   },
 });
 
+export type MapNavigationParams = {
+  selectedEventId: number;
+  coordinates: Coordinates;
+};
+
 const ZOOM_TO_EVENT_MILLISECONDS = 500;
 
 export const Map = () => {
   const mapRef = useRef<MapView>(null);
+  const route = useRoute();
+  const params = route.params as MapNavigationParams | undefined;
   const { location } = useUserLocation();
   const [filters, setFilters] = useState<EventFilters>({ hoursSinceReport: 2, eventTypesIds: [] });
   const { data: eventTypes } = useGetEventTypes();
@@ -52,6 +61,20 @@ export const Map = () => {
 
     loadFilters();
   }, []);
+
+  useEffect(() => {
+    if (params?.coordinates) {
+      mapRef.current?.animateToRegion(
+        {
+          latitude: params?.coordinates.latitude,
+          longitude: params?.coordinates.longitude,
+          latitudeDelta: 0.01,
+          longitudeDelta: 0.001,
+        },
+        ZOOM_TO_EVENT_MILLISECONDS
+      );
+    }
+  }, [params]);
 
   const { events, clusters, isZoomedEnough, onRegionChangeComplete, refetch } = useMapLogic(
     mapRef as React.RefObject<MapView>,
@@ -130,8 +153,8 @@ export const Map = () => {
         {newEventLocation && (
           <Marker
             coordinate={newEventLocation}
-            title="New Event"
-            description="Create a new event here"
+            title="Nowe zdarzenie"
+            description="Tutaj zostanie utworzone zgłoszone przez ciebie zdarzenie"
             pinColor="blue"
             anchor={{ x: 0.5, y: 0.5 }}>
             <Icon source="plus-circle" size={32} color="red" />

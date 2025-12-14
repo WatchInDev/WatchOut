@@ -12,6 +12,8 @@ export const API_ENDPOINTS = {
       `events/clusters${queryParams(request)}&minPoints=${minPoints}&eps=${eps}`,
     create: 'events',
     availability: (request: ActionAvailabilityRequest) => 'events/ability' + queryParams(request),
+    getForUser: 'events/own',
+    deactivate: (eventId: number) => `events/deactivate/${eventId}`,
   },
   comments: {
     getByEventId: <T>(eventId: number, pagination: PaginationRequest<T>) =>
