@@ -4,7 +4,7 @@ import { Icon } from 'react-native-paper';
 import { useAuth } from 'features/auth/authContext';
 import { CustomDrawerContent } from './CustomDrawerContent';
 import { EventTypes } from 'features/event-types/EventTypes';
-import { Map } from 'features/map/Map';
+import { Map, MapNavigationParams } from 'features/map/Map';
 import { LoginScreen } from 'features/auth/LoginScreen';
 import { SignUpScreen } from 'features/auth/SignUpScreen';
 import { theme } from 'utils/theme';
@@ -14,6 +14,7 @@ import { navigationTheme } from 'components/Base/navigationTheme';
 import { AlertsNavigator } from 'features/outages/AlertsNavigator';
 import { useBottomSheetModal } from '@gorhom/bottom-sheet';
 import { LoadingScreen } from 'components/Common/LoadingScreen';
+import { UserEvents } from 'features/events/user-events/UserEvents';
 
 const NavDrawer = createDrawerNavigator();
 const LoginStack = createDrawerNavigator();
@@ -24,6 +25,12 @@ const routes = [
     component: Map,
     label: 'Mapa',
     icon: 'map',
+  },
+  {
+    name: 'UserEvents',
+    component: UserEvents,
+    label: 'Moje zdarzenia',
+    icon: 'calendar-check',
   },
   {
     name: 'EventTypes',
@@ -96,10 +103,11 @@ export const AppNavigator = () => {
       {routes.map((routeDef) => (
         <NavDrawer.Screen
           key={routeDef.name}
-          name={routeDef.label}
+          name={routeDef.name}
           component={routeDef.component}
           options={({ route }) => {
             return {
+              headerTitle: routeDef.label,
               drawerLabel: routeDef.label,
               drawerIcon: () => {
                 return <Icon source={routeDef.icon} size={24} color={theme.palette.text.primary} />;

@@ -31,7 +31,7 @@ export type Event = {
     id: number;
     reputation: number;
   };
-  active: boolean;
+  isActive: boolean;
   rating: number;
   ratingForCurrentUser: number;
   isAuthor: boolean;

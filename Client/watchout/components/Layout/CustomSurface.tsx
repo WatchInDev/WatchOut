@@ -4,20 +4,25 @@ import { theme } from 'utils/theme';
 
 type CustomSurfaceProps = React.ComponentProps<typeof Surface> & {
   children: React.ReactNode;
+  color?: string;
+  bordered?: boolean;
 };
 
-export const CustomSurface = ({ children, ...props }: CustomSurfaceProps) => {
+export const CustomSurface = ({ children, color, bordered = true, ...props }: CustomSurfaceProps) => {
   return (
     <Surface
       mode="flat"
       {...props}
-      style={{
-        borderWidth: 1,
-        borderColor: theme.palette.primary,
-        borderRadius: 8,
-      ...StyleSheet.flatten(props.style),
-      }}
-    >
+      style={[
+        {
+          borderWidth: bordered ? 1 : 0,
+          backgroundColor: theme.palette.background.paper,
+          borderColor: theme.palette.primary,
+          borderRadius: 8,
+        },
+        color ? { backgroundColor: `${color}60`, borderColor: color } : {},
+        props.style,
+      ]}>
       {children}
     </Surface>
   );

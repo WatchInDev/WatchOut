@@ -5,7 +5,6 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import { useSnackbar } from 'utils/useSnackbar';
 import { useQueryClient } from '@tanstack/react-query';
 import { useMemo } from 'react';
-import { METERS_IN_KM } from 'utils/constants';
 
 export const EditLocation = () => {
   const route = useRoute();
