@@ -6,6 +6,7 @@ import { useGetEventTypes } from 'features/event-types/useGetEventTypes';
 import { CustomSurface } from 'components/Layout/CustomSurface';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { PageWrapper } from 'components/Common/PageWrapper';
+import { icons } from 'components/Base/icons';
 
 export const EventTypes = () => {
   const { data: eventTypes, isPending, isError } = useGetEventTypes();
@@ -25,7 +26,7 @@ export const EventTypes = () => {
           {eventTypes.map((event) => (
             <CustomSurface key={event.id} style={styles.card}>
               <View style={{ flexDirection: 'row', alignItems: 'center', gap: 16 }}>
-                <Icon source={event.icon} size={64} />
+                <Icon source={icons[event.icon as keyof typeof icons]} size={64} />
                 <Text variant="h3" style={{ flexShrink: 1 }}>
                   {event.name}
                 </Text>

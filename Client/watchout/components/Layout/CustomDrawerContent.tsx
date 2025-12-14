@@ -22,7 +22,7 @@ export const CustomDrawerContent = (props: DrawerContentComponentProps) => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.headerText}>Watchout</Text>
       </View>
@@ -68,7 +68,7 @@ export const CustomDrawerContent = (props: DrawerContentComponentProps) => {
           </Button>
         )}
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 
