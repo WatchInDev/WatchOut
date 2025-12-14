@@ -4,14 +4,16 @@ import { theme } from "utils/theme";
 type NavigationTheme = {
   backgroundColor: string;
   headerTitleStyle: StyleProp<TextStyle>;
+  headerStatusBarHeight: number;
 };
 
 export const navigationTheme: NavigationTheme = {
   backgroundColor: theme.palette.background.default,
+  headerStatusBarHeight: 36,
   headerTitleStyle: {
     fontSize: 18,
     fontFamily: 'Poppins_500Medium',
     color: theme.palette.text.primary,
     lineHeight: 24,
-  }
+  },
 };

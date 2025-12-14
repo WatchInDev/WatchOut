@@ -55,8 +55,8 @@ export default function App() {
 
   useEffect(() => {
     console.info(
-      'Initializing Geocoding with API Key:',
-      GEOCODING_API_KEY.substring(0, 5) + '****' + ' (truncated for security)'
+      'Initializing Geocoding with API Key:', GEOCODING_API_KEY != null ?
+      GEOCODING_API_KEY.substring(0, 5) + '****' + ' (truncated for security)' : 'GEOCODING_API_KEY is null'
     );
     Geocoding.init(GEOCODING_API_KEY);
   }, []);
@@ -81,20 +81,18 @@ export default function App() {
               <SnackbarProvider>
                 <BottomSheetModalProvider>
                   <UserLocationProvider>
-                  <AuthProvider>
-                      <UserLocationProvider>
-                    <NavigationContainer
-                      theme={{
-                        ...DefaultTheme,
-                        colors: {
-                          ...DefaultTheme.colors,
-                          background: theme.palette.background.default,
-                        },
-                      }}>
-                      <AppNavigator />
-                    </NavigationContainer>
-                      </UserLocationProvider>
-                  </AuthProvider>
+                    <AuthProvider>
+                      <NavigationContainer
+                        theme={{
+                          ...DefaultTheme,
+                          colors: {
+                            ...DefaultTheme.colors,
+                            background: theme.palette.background.default,
+                          },
+                        }}>
+                        <AppNavigator />
+                      </NavigationContainer>
+                    </AuthProvider>
                   </UserLocationProvider>
                 </BottomSheetModalProvider>
               </SnackbarProvider>

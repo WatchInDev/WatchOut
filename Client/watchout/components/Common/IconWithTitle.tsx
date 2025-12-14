@@ -2,6 +2,7 @@ import { View, ViewStyle } from 'react-native';
 import { Icon } from 'react-native-paper';
 import { Text } from 'components/Base/Text';
 import { theme } from 'utils/theme';
+import { icons } from 'components/Base/icons';
 
 type IconWithTitleProps = {
   iconName: string;
@@ -40,7 +41,7 @@ export const IconWithTitle = ({
       ]}>
       <View style={iconStyle}>
         <Icon
-          source={iconName}
+          source={icons[iconName as keyof typeof icons] ?? iconName}
           size={iconSize}
           color={isActive ? theme.palette.text.primaryInverse : theme.palette.text.secondary}
         />
