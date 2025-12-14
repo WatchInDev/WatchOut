@@ -12,6 +12,15 @@ Incident can be an uncommonly big traffic jam or power outages on certain street
 
 ### Launching
 
+In `.env` file there must be assigned selected environmental variables as a part of setup:
+```ini
+GEOCODING_API_KEY=
+GOOGLE_API_KEY=
+WEB_CLIENT_ID=
+```
+`GEOCODING_API_KEY` and `GOOGLE_API_KEY` can be the same - these two refer to Google Maps API.
+`WEB_CLIENT_ID` - identifier connected to Firebase Authentication service
+
 Setup emulator with guide provided by expo team: [https://docs.expo.dev/workflow/android-studio-emulator/](https://docs.expo.dev/workflow/android-studio-emulator/)
 
 1. Open terminal and ensure current path is `Client/watchout`
